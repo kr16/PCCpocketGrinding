@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <RoboticsAPIData version="3">
-    <world>
+   <world>
         <gravitation x="0.0" y="0.0" z="9.81"/>
-        <frame id="_59381ebe-4282-4c95-96f5-09280d30670b" name="HotDotDispencer">
+        <frame name="HotDotDispencer">
             <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
             <additionalInformation>
                 <info key="LastModificationTime" type="java.lang.Long" value="1478009430607"/>
@@ -11,7 +11,7 @@
             <redundancyData>
                 <redundancy transformationProviderName="legacy" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy"/>
             </redundancyData>
-            <frame id="_df293b11-a0de-4689-bdbc-801c69ed142d" name="AppHotDot">
+            <frame name="AppHotDot">
                 <transformation a="1.2617261628016008" b="1.513704108454437" c="-2.1635416178022715" x="-589.386146447885" y="300.7498252464559" z="21.56148162586976"/>
                 <additionalInformation>
                     <info key="LastModificationTime" type="java.lang.Long" value="1481112557767"/>
@@ -27,7 +27,7 @@
                     </redundancy>
                 </redundancyData>
             </frame>
-            <frame id="_67601c1d-6355-4c6c-8f6a-6c1989b1a185" name="HeatGunCleanUp">
+            <frame name="HeatGunCleanUp">
                 <transformation a="2.5114329848118127" b="1.5314085756839035" c="-2.200573907040481" x="-463.5521153616214" y="56.434062910509226" z="7.606423879663197"/>
                 <additionalInformation>
                     <info key="LastModificationTime" type="java.lang.Long" value="1480718298731"/>
@@ -44,7 +44,7 @@
                 </redundancyData>
             </frame>
         </frame>
-        <frame id="_70c4e6bd-3719-45fb-848a-c4e2826e6ef6" name="HotDotCoupon">
+        <frame name="HotDotCoupon">
             <transformation a="2.2217835764037464" b="1.562512658299535" c="-0.9219161351170835" x="876.7077312358442" y="177.55107208032476" z="731.7822830855921"/>
             <additionalInformation>
                 <info key="LastModificationTime" type="java.lang.Long" value="1481230129237"/>
@@ -54,7 +54,7 @@
             <redundancyData>
                 <redundancy transformationProviderName="legacy" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy"/>
             </redundancyData>
-            <frame id="_77e23392-a41c-4c08-a51a-4287e655975d" name="AppCoupon">
+            <frame name="AppCoupon">
                 <transformation a="1.217909254854368" b="1.552261431947576" c="-1.9505823866932748" x="67.95408855201777" y="144.32372022549814" z="76.91951424488138"/>
                 <additionalInformation>
                     <info key="LastModificationTime" type="java.lang.Long" value="1479832220953"/>
@@ -70,7 +70,7 @@
                     </redundancy>
                 </redundancyData>
             </frame>
-            <frame id="_029d286e-8440-4c96-abe5-67d2d2afc65d" name="RefPosLaserVer01">
+            <frame name="RefPosLaserVer01">
                 <transformation a="-0.17064413579394264" b="-1.3806840038156099" c="-2.9794418531308344" x="321.4823505233181" y="39.910927263617026" z="187.29924216200902"/>
                 <additionalInformation>
                     <info key="LastModificationTime" type="java.lang.Long" value="1480360434856"/>
@@ -86,7 +86,7 @@
                     </redundancy>
                 </redundancyData>
             </frame>
-            <frame id="_dd9e9503-7225-454b-8506-1dcca4ac32ee" name="TCPcalibrationVRSI">
+            <frame name="TCPcalibrationVRSI">
                 <transformation a="0.535000727577133" b="1.5576293600871427" c="-2.6110559742996133" x="56.63342964743481" y="163.3997625719114" z="0.07656325979303347"/>
                 <additionalInformation>
                     <info key="LastModificationTime" type="java.lang.Long" value="1480436963290"/>
@@ -102,7 +102,7 @@
                     </redundancy>
                 </redundancyData>
             </frame>
-            <frame id="_410e55aa-c517-4549-bc98-5ac8418a37dc" name="TCPcalibrationKR">
+            <frame name="TCPcalibrationKR">
                 <transformation a="0.5305024667635981" b="1.5576288427027178" c="-2.6154887353077143" x="83.06970304899232" y="132.85657277537663" z="3.0223527452731105"/>
                 <additionalInformation>
                     <info key="LastModificationTime" type="java.lang.Long" value="1480437702693"/>
@@ -118,7 +118,7 @@
                     </redundancy>
                 </redundancyData>
             </frame>
-            <frame id="_253812e1-fecc-4d02-a01b-3c9147bcf21b" name="ReferencePos01">
+            <frame name="ReferencePos01">
                 <transformation a="0.6362028780178481" b="1.4986813963209809" c="-2.510557968461484" x="26.2827857685229" y="30.922674585375773" z="0.11282367437661378"/>
                 <additionalInformation>
                     <info key="LastModificationTime" type="java.lang.Long" value="1481200958884"/>
@@ -134,7 +134,7 @@
                     </redundancy>
                 </redundancyData>
             </frame>
-            <frame id="_9ac57230-3cca-4a44-92b9-05459662fbfe" name="ReferencePos02">
+            <frame name="ReferencePos02">
                 <transformation a="0.25588110254276825" b="1.5295835816872279" c="-2.9001998760479744" x="132.29011710605482" y="12.270374907336048" z="0.5588384499986887"/>
                 <additionalInformation>
                     <info key="LastModificationTime" type="java.lang.Long" value="1481134343017"/>
@@ -150,7 +150,7 @@
                     </redundancy>
                 </redundancyData>
             </frame>
-            <frame id="_df1f13da-8be8-434f-8cee-36d2e2f7a4ac" name="AppSkiveCleanUp">
+            <frame name="AppSkiveCleanUp">
                 <transformation a="2.990164954633046" b="1.451045466526181" c="-0.176886357276016" x="70.68014564080727" y="-100.81762560932853" z="41.26527150384595"/>
                 <additionalInformation>
                     <info key="LastModificationTime" type="java.lang.Long" value="1480939577613"/>
@@ -166,7 +166,7 @@
                     </redundancy>
                 </redundancyData>
             </frame>
-            <frame id="_832f2d78-e5e4-4319-8183-ec6a7618fa2b" name="ReferencePosSkiveCleanUp">
+            <frame name="ReferencePosSkiveCleanUp">
                 <transformation a="0.05087461490152078" b="1.3299841790913343" c="-3.0941082948325613" x="39.758192642654876" y="-208.65785848221813" z="-39.383030559659915"/>
                 <additionalInformation>
                     <info key="LastModificationTime" type="java.lang.Long" value="1480940286949"/>
@@ -182,7 +182,7 @@
                     </redundancy>
                 </redundancyData>
             </frame>
-            <frame id="_3fd084fd-2509-4bb6-8356-f76a0017121b" name="ReferencePos03">
+            <frame name="ReferencePos03">
                 <transformation a="1.3996400623514944" b="1.5267214770109439" c="-1.7454284024654227" x="192.51836279691247" y="31.438238054801758" z="-4.712552006370856"/>
                 <additionalInformation>
                     <info key="LastModificationTime" type="java.lang.Long" value="1480969858453"/>
@@ -199,7 +199,7 @@
                 </redundancyData>
             </frame>
         </frame>
-        <frame id="_22ef095a-deca-4b59-baa6-543a63f1ab2c" name="nullBase">
+        <frame name="nullBase">
             <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
             <additionalInformation>
                 <info key="LastModificationTime" type="java.lang.Long" value="1480941177468"/>
@@ -213,16 +213,16 @@
     <objectTemplates>
         <toolTemplate class="" name="HotDotEE">
             <frames>
-                <frame id="_d6364cef-87c2-4f9f-8646-9e445206932a" name="IronVer01">
+                <frame name="IronVer01">
                     <transformation a="0.0" b="-0.3490658503988659" c="0.0" x="6.172" y="0.0" z="304.5"/>
                 </frame>
-                <frame id="_d73efeab-ec57-4ad6-b6f7-13542e38c748" name="dynamicTCP">
+                <frame name="dynamicTCP">
                     <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
                 </frame>
-                <frame id="_58f4fa03-d570-45a8-9a1d-d18a85f9ce09" name="NullTool">
+                <frame name="NullTool">
                     <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
                 </frame>
-                <frame id="_a5739320-2899-4118-ad83-3f2e8f7c6480" name="VRSIfocalPoint">
+                <frame name="VRSIfocalPoint">
                     <transformation a="0.0" b="-0.3490658503988659" c="0.0" x="8.0" y="-29.5" z="321.0"/>
                 </frame>
             </frames>

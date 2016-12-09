@@ -171,7 +171,7 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 			}
 			
 		}
-		
+		System.out.println("wtf?");
 		for (int row = 1; row <=currentCoupon.getRowsMax(); row++) {
 			for (int column = 1; column <=currentCoupon.getColumnsMax(); column++) {
 				//check is we are on row 5&6 and change the current Coupon
