@@ -153,9 +153,8 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 		
 		//Reset coupon? if yes we set everything as not processed
 		setResetCouponStatus();
-		System.out.println(globalVarFromPLC.getVarBoolean("startCycle"));
+		
 		while (globalVarFromPLC.getVarBoolean("startCycle")) {
-			System.out.println("am i here?");
 			switch (globalVarFromPLC.getVarInteger("programNumber")) {
 			case 100: 
 				//smudge
@@ -170,7 +169,6 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 			default:
 				break;
 			}
-			System.out.println(globalVarFromPLC.getVarBoolean("startCycle"));
 		}
 		System.out.println("wtf?");
 		for (int row = 1; row <=currentCoupon.getRowsMax(); row++) {
