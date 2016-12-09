@@ -154,6 +154,8 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 		//Reset coupon? if yes we set everything as not processed
 		setResetCouponStatus();
 		
+		coupon.getFirstNotProcessed(EHotDotCouponStates.Smudged);
+		
 		while (globalVarFromPLC.getVarBoolean("startCycle")) {
 			switch (globalVarFromPLC.getVarInteger("programNumber")) {
 			case 100: 
