@@ -162,6 +162,7 @@ public class MainRunVer03 extends RoboticsAPIApplication {
             case 200:
 				//*************** SKIVE ***************
             	skiveCycle();
+            	getApplicationControl().halt();
 				break;	
             case 300:
 				
