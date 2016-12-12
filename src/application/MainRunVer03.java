@@ -132,7 +132,7 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 		heatGunCleanUpPos = getApplicationData().getFrame("/HotDotDispencer/HeatGunCleanUp");
 		
 		hotDotHeatUpTimer = new TimerKCT();
-	//	dispenser2 = new DispenserIOver02(kuka_Sunrise_Cabinet_1);
+		dispenser2 = new DispenserIOver02(kuka_Sunrise_Cabinet_1);
 		ek1100IO = new EK1100IOGroup(kuka_Sunrise_Cabinet_1);
 		
 		globalsFilePath = "d:/Transfer/UserXMLs/";
