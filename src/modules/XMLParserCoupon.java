@@ -285,12 +285,14 @@ public class XMLParserCoupon {
 		case Skived:
 			value = 2;
 			break;
-		case Error:
+		case Scaned:
 			value = 3;
 			break;
 		case Skip:
 			value = 4;
 			break;
+		case Error:
+			value = 5;
 		default:
 			System.err.println("No value for state: " + state);
 			throw new ArithmeticException(); 
