@@ -203,7 +203,7 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 	public void smudgeCycle() {
 		Map<String, Integer> position;
 		while (coupon.getFirstNotProcessed(EHotDotCouponStates.Empty) != null) {
-			position = coupon.getFirstNotProcessed(EHotDotCouponStates.Smudged);
+			position = coupon.getFirstNotProcessed(EHotDotCouponStates.Empty);
 			int row = position.get("row");
 			int column = position.get("column");
 			if(globalVarFromPLC.getVarBoolean("heatGunCleanUp") && heatGunCleanUp) {
