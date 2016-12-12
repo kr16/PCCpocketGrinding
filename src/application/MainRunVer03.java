@@ -192,9 +192,7 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 		for (int row = 1; row <=currentCoupon.getRowsMax(); row++) {
 			for (int column = 1; column <=currentCoupon.getColumnsMax(); column++) {
 				//check is we are on row 5&6 and change the current Coupon
-				if (row == 5 || row == 6) {
-					currentCoupon = new CouponProperties(ECouponSectionName.Coupon56);
-				}
+				
 			}
 		}
 		//bot home
@@ -206,6 +204,9 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 			position = coupon.getFirstNotProcessed(EHotDotCouponStates.Empty);
 			int row = position.get("row");
 			int column = position.get("column");
+			if (row == 5 || row == 6) {
+				currentCoupon = new CouponProperties(ECouponSectionName.Coupon56);
+			}
 			if(globalVarFromPLC.getVarBoolean("heatGunCleanUp") && heatGunCleanUp) {
 				heatGunCleanUp();
 				heatGunCleanUp = false;
