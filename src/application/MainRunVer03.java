@@ -190,7 +190,8 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 		
 		for (int row = 1; row < coupon.getRowCount(); row++) {
 			for (int column = 1; column < coupon.getColumnCount(); column++) {
-				if (coupon.getRowColumnValue(row, column) != EHotDotCouponStates.Skip) {
+				if ((coupon.getRowColumnValue(row, column) != EHotDotCouponStates.Skip) 
+						&& (coupon.getRowColumnValue(row, column) != EHotDotCouponStates.Smudged)) {
 					emptyScanCycle(row, column);
 				}
 			}
