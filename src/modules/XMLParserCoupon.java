@@ -302,6 +302,7 @@ public class XMLParserCoupon {
 	}
 	
 	public int getRowCount() {
+		System.out.println(this.coupon.getChildren(ROW).size());
 		return this.coupon.getChildren(ROW).size();
 	}
 	
