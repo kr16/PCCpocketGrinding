@@ -188,16 +188,26 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 	}
 	public void scanCycle() {
 		Map<String, Integer> position;
-		while ((coupon.getFirstNotProcessed(EHotDotCouponStates.Empty) != null) || (coupon.getFirstNotProcessed(EHotDotCouponStates.Skived) != null)){
-			position = coupon.getFirstNotProcessed(EHotDotCouponStates.Empty);
-			if (position == null) {
-				position = coupon.getFirstNotProcessed(EHotDotCouponStates.Skived);
-			}
+		EHotDotCouponStates state = null;
+		int nUserPressedButton = getApplicationUI().displayModalDialog(
+				ApplicationDialogType.QUESTION, "Pick VRSI Scan Type",
+				"Empty Pin", "Skived Pin");
+		switch (nUserPressedButton) {
+		case 0:
+			state = EHotDotCouponStates.Empty;
+			break;
+		case 1:
+			state = EHotDotCouponStates.Skived;
+			break;
+		default:
+			break;
+		}
+		while ((coupon.getFirstNotProcessed(state) != null)){
+			position = coupon.getFirstNotProcessed(state);
 			int row = position.get("row");
 			int column = position.get("column");
 			emptyScanCycle(row, column);
-		}
-		
+		}	
 	}
 	
 	
