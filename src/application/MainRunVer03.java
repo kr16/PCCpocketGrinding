@@ -207,14 +207,19 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 			int row = position.get("row");
 			int column = position.get("column");
 			emptyScanCycle(row, column);
+			coupon.setRowColumnValue(row, column, EHotDotCouponStates.Scaned);
 		}	
 	}
 	
 	
 	public void smudgeCycle() {
 		Map<String, Integer> position;
-		while (coupon.getFirstNotProcessed(EHotDotCouponStates.Empty) != null) {
-			position = coupon.getFirstNotProcessed(EHotDotCouponStates.Empty);
+		while ((coupon.getFirstNotProcessed(EHotDotCouponStates.Empty) != null) || (coupon.getFirstNotProcessed(EHotDotCouponStates.Scaned) != null)) {
+			if (coupon.getFirstNotProcessed(EHotDotCouponStates.Empty) != null) {
+				position = coupon.getFirstNotProcessed(EHotDotCouponStates.Empty);
+			} else {
+				position = coupon.getFirstNotProcessed(EHotDotCouponStates.Scaned);
+			}
 			int row = position.get("row");
 			int column = position.get("column");
 			if (row == 5 || row == 6) {

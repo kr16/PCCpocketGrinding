@@ -19,7 +19,7 @@ public interface Common {
 	public enum EPointStatus {OPEN, COMPLETE, ERROR};
 	public enum EFileExtension {txt, xml, csv};
 	public enum ECalcDirection {XisRow, YisRow};
-	public enum EHotDotCouponStates {Empty, Smudged, Skived, Skip, Error};
+	public enum EHotDotCouponStates {Empty, Smudged, Skived, Scaned, Skip, Error, EmptyScaned};
 	public enum ECouponSectionName {Coupon14, Coupon56, Coupon79}
 	
     // Function results

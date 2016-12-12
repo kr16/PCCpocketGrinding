@@ -258,10 +258,13 @@ public class XMLParserCoupon {
 			state = EHotDotCouponStates.Skived;
 			break;
 		case 3:
-			state = EHotDotCouponStates.Error;
+			state = EHotDotCouponStates.Scaned;
 			break;
 		case 4:
 			state = EHotDotCouponStates.Skip;
+			break;
+		case 5:
+			state = EHotDotCouponStates.Error;
 			break;
 		default:
 			System.err.println("No state for value: " + value);
