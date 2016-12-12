@@ -103,10 +103,10 @@ public class UserKeys extends RoboticsAPIBackgroundTask {
 	
 		// Initialize correct state at start
 		
-		appStart.setText(UserKeyAlignment.TopMiddle, "EXT");
+		appStart.setText(UserKeyAlignment.TopMiddle, "APP");
 		appStart.setText(UserKeyAlignment.BottomMiddle, "START");
 		appStart.setLED(UserKeyAlignment.Middle, UserKeyLED.Grey, UserKeyLEDSize.Normal);
-		beckhoffIO.setEK1100_DO01(false);
+		beckhoffIO.setEK1100_DO01(true);
 		
 		appRun.setText(UserKeyAlignment.TopMiddle, "APP");
 		appRun.setText(UserKeyAlignment.BottomMiddle, "PAUSE");

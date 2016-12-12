@@ -102,6 +102,7 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 	private boolean heatGunCleanUp;
 	private DataRecorder recData; 
 	private CouponProperties currentCoupon;
+	private EK1100IOGroup ek1100IO;
 	
 	@Override
 	public void initialize() {
@@ -127,7 +128,8 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 		heatGunCleanUpPos = getApplicationData().getFrame("/HotDotDispencer/HeatGunCleanUp");
 		
 		hotDotHeatUpTimer = new TimerKCT();
-		dispenser2 = new DispenserIOver02(kuka_Sunrise_Cabinet_1);
+	//	dispenser2 = new DispenserIOver02(kuka_Sunrise_Cabinet_1);
+		ek1100IO = new EK1100IOGroup(kuka_Sunrise_Cabinet_1);
 		
 		globalsFilePath = "d:/Transfer/UserXMLs/";
 		globalsFileNamePLC = "GlobalVarsHotDotPLC.xml";
@@ -154,24 +156,31 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 		//Reset coupon? if yes we set everything as not processed
 		setResetCouponStatus();
 		
-		coupon.getFirstNotProcessed(EHotDotCouponStates.Smudged);
-		
-		while (globalVarFromPLC.getVarBoolean("startCycle")) {
-			switch (globalVarFromPLC.getVarInteger("programNumber")) {
-			case 100: 
-				//smudge
-				break;
-            case 200:
-				//*************** SKIVE ***************
-            	skiveCycle();
-            	getApplicationControl().halt();
-				break;	
-            case 300:
+		while (ek1100IO.getEK1100_DI01()) {
+			int nUserPressedButton = getApplicationUI().displayModalDialog(
+					ApplicationDialogType.QUESTION, "Pick cycle",
+					"ApplyHotDot", "Skive", "VRSI Scan");
+
+			switch (nUserPressedButton) {
+			case 0:				//*************** SMUDGE 	***************
 				
 				break;
+				
+			case 1:				//*************** SKIVE 	***************
+				skiveCycle();
+				break;
+				
+			case 2:				//*************** SCAN 		***************
+				
+				break;
+
 			default:
 				break;
 			}
+		}
+		
+		while (globalVarFromPLC.getVarBoolean("startCycle")) {
+			
 		}
 		System.out.println("wtf?");
 		for (int row = 1; row <=currentCoupon.getRowsMax(); row++) {
