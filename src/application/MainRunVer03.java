@@ -175,7 +175,7 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 				break;
 				
 			case 2:				//*************** SCAN 		***************
-				
+				scanCycle();
 				break;
 
 			default:
@@ -183,21 +183,24 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 			}
 		}
 		
-		getApplicationControl().halt();
-		
-		while (globalVarFromPLC.getVarBoolean("startCycle")) {
-			
-		}
-		
-		for (int row = 1; row <=currentCoupon.getRowsMax(); row++) {
-			for (int column = 1; column <=currentCoupon.getColumnsMax(); column++) {
-				//check is we are on row 5&6 and change the current Coupon
-				
-			}
-		}
 		//bot home
 		bot.move(ptpHome().setJointVelocityRel(0.1));
 	}
+	public void scanCycle() {
+		Map<String, Integer> position;
+		while ((coupon.getFirstNotProcessed(EHotDotCouponStates.Empty) != null) || (coupon.getFirstNotProcessed(EHotDotCouponStates.Skived) != null)){
+			position = coupon.getFirstNotProcessed(EHotDotCouponStates.Empty);
+			if (position == null) {
+				position = coupon.getFirstNotProcessed(EHotDotCouponStates.Skived);
+			}
+			int row = position.get("row");
+			int column = position.get("column");
+			emptyScanCycle(row, column);
+		}
+		
+	}
+	
+	
 	public void smudgeCycle() {
 		Map<String, Integer> position;
 		while (coupon.getFirstNotProcessed(EHotDotCouponStates.Empty) != null) {
