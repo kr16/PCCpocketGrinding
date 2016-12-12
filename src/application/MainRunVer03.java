@@ -77,6 +77,10 @@ import com.kuka.roboticsAPI.uiModel.ApplicationDialogType;
  * @see #run()
  * @see #dispose()
  */
+/**
+ * @author mpiotrowski
+ *
+ */
 public class MainRunVer03 extends RoboticsAPIApplication {
 	@Inject
 	private Controller kuka_Sunrise_Cabinet_1;
@@ -179,10 +183,12 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 			}
 		}
 		
+		getApplicationControl().halt();
+		
 		while (globalVarFromPLC.getVarBoolean("startCycle")) {
 			
 		}
-		System.out.println("wtf?");
+		
 		for (int row = 1; row <=currentCoupon.getRowsMax(); row++) {
 			for (int column = 1; column <=currentCoupon.getColumnsMax(); column++) {
 				//check is we are on row 5&6 and change the current Coupon
@@ -243,8 +249,25 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 		Map<String, Integer> position;
 		while (coupon.getFirstNotProcessed(EHotDotCouponStates.Smudged) != null) {
 			position = coupon.getFirstNotProcessed(EHotDotCouponStates.Smudged);
-			skiveHotDotMotion(position.get("row"), position.get("column"));
-			coupon.setRowColumnValue(position.get("row"), position.get("column"), EHotDotCouponStates.Skived);
+			int row = position.get("row");
+			int column = position.get("column");
+			skiveHotDotMotion(row, column);
+			coupon.setRowColumnValue(row, column, EHotDotCouponStates.Skived);
+			
+			int nUserPressedButton = getApplicationUI().displayModalDialog(
+					ApplicationDialogType.QUESTION, "Continue or VRSI Scan?",
+					"Continue", "VRSI Scan");
+			switch (nUserPressedButton) {
+			case 0:
+				break;
+				
+			case 1:
+				emptyScanCycle(row, column);
+				break;
+					
+			default:
+				break;
+			}
 		}
 		System.out.println("No slots to skive");
 	}
@@ -715,7 +738,11 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 			return skiveCleanUpStartPos;
 	}
 	
-	private void emptyScanCycle(int row, int column) {
+	/**
+	 * @param row
+	 * @param column
+	 */
+	public void emptyScanCycle(int row, int column) {
 		int holeNumber = ((row-1)*10 + column); 
 		CouponCalc coupon = new CouponCalc();
 		Frame vrsiScanPos, vrsiScanAppPos;
