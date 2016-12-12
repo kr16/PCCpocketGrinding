@@ -102,7 +102,7 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 	private Thread TimerThread;
 	private String globalsFilePath;
 	private String globalsFileNamePLC, globalsFileNameKRC;
-	private boolean smudgeDDfirstPass;
+	private int smudgeCounter;
 	private boolean heatGunCleanUp;
 	private DataRecorder recData; 
 	private CouponProperties currentCoupon;
@@ -140,7 +140,7 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 		globalsFileNameKRC = "GlobalVarsHotDotKRC.xml";
 		globalVarFromPLC = new XmlParserGlobalVarsRD(globalsFilePath, globalsFileNamePLC);
 		globalVarFromKRC = new XmlParserGlobalVarsRD(globalsFilePath, globalsFileNameKRC);
-		smudgeDDfirstPass = true;
+		smudgeCounter = 1;
 		heatGunCleanUp = true;
 		
 		currentCoupon = new CouponProperties(ECouponSectionName.Coupon14);
@@ -167,7 +167,7 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 
 			switch (nUserPressedButton) {
 			case 0:				//*************** SMUDGE 	***************
-				
+				smudgeCycle();
 				break;
 				
 			case 1:				//*************** SKIVE 	***************
@@ -195,55 +195,32 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 				if (row == 5 || row == 6) {
 					currentCoupon = new CouponProperties(ECouponSectionName.Coupon56);
 				}
-				
-				if((globalVarFromPLC.getVarBoolean("heatGunCleanUp") && heatGunCleanUp) 
-									&& !globalVarFromPLC.getVarBoolean("skiveCycle")
-									&& !globalVarFromPLC.getVarBoolean("emptyScanCycle")) {
-					//currentTCP.move(ptp(hotDotMelt).setJointVelocityRel(0.3));
-					//dispenser.getHotDot();
-					heatGunCleanUp();
-					heatGunCleanUp = false;
-				}
-
-				if (!globalVarFromPLC.getVarBoolean("skiveCycle")) {
-					//****** Apply Hot Dot ******
-					if (coupon.getRowColumnValue(row, column) == EHotDotCouponStates.Empty 
-									&& !globalVarFromPLC.getVarBoolean("emptyScanCycle")) {
-						//****** Pick Hot Dot ******
-						//dispenser.getHotDot();
-						pickHotDot();
-						applyHotDot(row,column);
-						if (globalVarFromPLC.getVarBoolean("smudgeDD") && !smudgeDDfirstPass) {
-							column--;
-						}
-						if ((globalVarFromPLC.getVarBoolean("smudgeDD") && smudgeDDfirstPass) || (!globalVarFromPLC.getVarBoolean("smudgeDD"))){
-							coupon.setRowColumnValue(row, column, EHotDotCouponStates.Smudged);
-						}
-						heatGunCleanUp = true;
-					} else if ((coupon.getRowColumnValue(row, column) == EHotDotCouponStates.Empty 
-							|| coupon.getRowColumnValue(row, column) == EHotDotCouponStates.Skived)
-							&& globalVarFromPLC.getVarBoolean("emptyScanCycle")) {
-						emptyScanCycle(row, column);
-					} else {
-						if (row==currentCoupon.getRowsMax() && column==currentCoupon.getColumnsMax()) {
-							System.out.println("No empty slots to apply hot dot");
-						}
-					}
-				} else {
-					//****** Skive Hot Dot ******
-					if (coupon.getRowColumnValue(row, column) == EHotDotCouponStates.Smudged) {
-						skiveHotDotMotion(row,column);
-						coupon.setRowColumnValue(row, column, EHotDotCouponStates.Skived);
-					} else {
-						if (row==currentCoupon.getRowsMax() && column==currentCoupon.getColumnsMax()) {
-							System.out.println("No slots to skive");
-						}						
-					}
-				}
 			}
 		}
 		//bot home
 		bot.move(ptpHome().setJointVelocityRel(0.1));
+	}
+	public void smudgeCycle() {
+		Map<String, Integer> position;
+		while (coupon.getFirstNotProcessed(EHotDotCouponStates.Empty) != null) {
+			position = coupon.getFirstNotProcessed(EHotDotCouponStates.Smudged);
+			int row = position.get("row");
+			int column = position.get("column");
+			if(globalVarFromPLC.getVarBoolean("heatGunCleanUp") && heatGunCleanUp) {
+				heatGunCleanUp();
+				heatGunCleanUp = false;
+			}
+			heatGunCleanUp = true;
+			pickHotDot();
+			applyHotDot(row,column);
+			if (globalVarFromPLC.getVarBoolean("smudgeMulti") && (smudgeCounter < globalVarFromPLC.getVarInteger("smudgeCounter"))) {
+				smudgeCounter++;
+			} else {
+				smudgeCounter=1;
+				coupon.setRowColumnValue(row, column, EHotDotCouponStates.Smudged);
+			}
+		}
+		System.out.println("No empty slots to apply hot dot");
 	}
 	public void skiveCycle() {
 		Map<String, Integer> position;
@@ -310,16 +287,10 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 		//smudgeBeginPos1.setBetaRad(smudgeBeginPos1.getBetaRad() + Math.toRadians(smudgeAngle));
 		smudgeBeginPos1.setX(smudgeBeginPos1.getX() - startOffset);
 		smudgeBeginPos1.setZ(smudgeBeginPos1.getZ() + approachDistance);
-		if (globalVarFromPLC.getVarBoolean("smudgeDD")) {
-			System.out.println("Double Dot offset applied");
-			if (smudgeDDfirstPass) {
-				smudgeBeginPos1.setY(smudgeBeginPos1.getY()); //- smudgeOffsetDD);
-				smudgeDDfirstPass = false;
-			} else {
+		
+			if (smudgeCounter > 1 ) {
 				smudgeBeginPos1.setY(smudgeBeginPos1.getY() + smudgeOffsetDD);	
-				smudgeDDfirstPass = true;
-			}
-		}
+			}		
 		
 		betaTCProtation = currentTCP.getBetaRad();
 		betaTCProtation = betaTCProtation + Math.toRadians(smudgeAngle);
