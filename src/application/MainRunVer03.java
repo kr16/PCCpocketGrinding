@@ -187,39 +187,20 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 		bot.move(ptpHome().setJointVelocityRel(0.1));
 	}
 	public void scanCycle() {
-		Map<String, Integer> position;
-		EHotDotCouponStates state = null;
-		int nUserPressedButton = getApplicationUI().displayModalDialog(
-				ApplicationDialogType.QUESTION, "Pick VRSI Scan Type",
-				"Empty Pin", "Skived Pin");
-		switch (nUserPressedButton) {
-		case 0:
-			state = EHotDotCouponStates.Empty;
-			break;
-		case 1:
-			state = EHotDotCouponStates.Skived;
-			break;
-		default:
-			break;
+		
+		for (int row = 1; row < coupon.getRowCount(); row++) {
+			for (int column = 1; column < coupon.getColumnCount(); column++) {
+				if (coupon.getRowColumnValue(row, column) != EHotDotCouponStates.Skip) {
+					emptyScanCycle(row, column);
+				}
+			}
 		}
-		while ((coupon.getFirstNotProcessed(state) != null)){
-			position = coupon.getFirstNotProcessed(state);
-			int row = position.get("row");
-			int column = position.get("column");
-			emptyScanCycle(row, column);
-			coupon.setRowColumnValue(row, column, EHotDotCouponStates.Scaned);
-		}	
 	}
-	
 	
 	public void smudgeCycle() {
 		Map<String, Integer> position;
-		while ((coupon.getFirstNotProcessed(EHotDotCouponStates.Empty) != null) || (coupon.getFirstNotProcessed(EHotDotCouponStates.Scaned) != null)) {
-			if (coupon.getFirstNotProcessed(EHotDotCouponStates.Empty) != null) {
-				position = coupon.getFirstNotProcessed(EHotDotCouponStates.Empty);
-			} else {
-				position = coupon.getFirstNotProcessed(EHotDotCouponStates.Scaned);
-			}
+		while ((coupon.getFirstNotProcessed(EHotDotCouponStates.Empty) != null)) {
+			position = coupon.getFirstNotProcessed(EHotDotCouponStates.Empty);
 			int row = position.get("row");
 			int column = position.get("column");
 			if (row == 5 || row == 6) {
