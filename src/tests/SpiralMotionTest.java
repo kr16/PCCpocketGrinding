@@ -34,6 +34,7 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 	private Tool HotDotTest;
 	private ObjectFrame nullBase;
 	private ObjectFrame currentTCP;
+	private ObjectFrame startPos;
 
 	@Override
 	public void initialize() {
@@ -41,6 +42,7 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 		HotDotTest = getApplicationData().createFromTemplate("HotDotEE");
 		nullBase = getApplicationData().getFrame("/nullBase");
 		currentTCP = HotDotTest.getFrame("IronVer01");
+		startPos = getApplicationData().getFrame("/SpiralTest/SpiralTestStart");
 	}
 
 	@Override
@@ -51,6 +53,7 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 		//bot home
 		System.out.println("Moving to Home/Start position");
 		bot.move(ptpHome().setJointVelocityRel(0.3));
+		bot.move(lin(startPos).setCartVelocity(30));
 	}
 	
 	private void setNewHomePosition() {
