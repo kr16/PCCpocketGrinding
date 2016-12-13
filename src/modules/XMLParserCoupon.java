@@ -20,6 +20,8 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
+import com.kuka.common.ThreadUtil;
+
 public class XMLParserCoupon {
 
 	private int couponID;
@@ -191,6 +193,7 @@ public class XMLParserCoupon {
 //				} 
 			}
 		}
+		ThreadUtil.milliSleep(1000);
 	}
 	/**
 	 * Return "row, column" position of first not processed state (EHotDotCouponStates)
