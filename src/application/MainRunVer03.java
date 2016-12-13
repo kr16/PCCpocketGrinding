@@ -163,7 +163,7 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 		while (ek1100IO.getEK1100_DI01()) {
 			int nUserPressedButton = getApplicationUI().displayModalDialog(
 					ApplicationDialogType.QUESTION, "Pick cycle",
-					"ApplyHotDot", "Skive", "VRSI Scan");
+					"ApplyHotDot", "Skive", "VRSI Scan", "Quit");
 
 			switch (nUserPressedButton) {
 			case 0:				//*************** SMUDGE 	***************
@@ -852,18 +852,18 @@ public class MainRunVer03 extends RoboticsAPIApplication {
     	}	
     	
 		coupon.displayValues();
-		nUserPressedButton = getApplicationUI().displayModalDialog(
-				ApplicationDialogType.QUESTION, "Reset Coupon Status???",
-				"Yes", "No");
-		
-		switch (nUserPressedButton) {
-		case 0:
-			coupon.resetCoupon();
-			break;
-
-		default:
-			break;
-		}
+//		nUserPressedButton = getApplicationUI().displayModalDialog(
+//				ApplicationDialogType.QUESTION, "Reset Coupon Status???",
+//				"Yes", "No");
+//		
+//		switch (nUserPressedButton) {
+//		case 0:
+//			coupon.resetCoupon();
+//			break;
+//
+//		default:
+//			break;
+//		}
 		
 	}
     

@@ -3,6 +3,7 @@ package modules;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -49,7 +50,7 @@ public class XMLParserCoupon {
 		filename = pathAndfilename;
 		this.setCouponID(couponID);
 		this.CouponXMLparserInit();
-		List<HotDotCouponItem> locations = null;
+		List<HotDotCouponItem> locations = new ArrayList<XMLObjects.HotDotCouponItem>();
 		for (int i = 1; i <= getRowCount(); i++) {
 			for (int j = 1; j <= getColumnCount(); j++) {
 			  HotDotCouponItem location = new XMLObjects().new HotDotCouponItem();
@@ -60,7 +61,7 @@ public class XMLParserCoupon {
 			  HashMap<EHotDotCouponStates, Boolean> state = new HashMap<Common.EHotDotCouponStates, Boolean>();
 			  state.put(getRowColumnValue(i, j), true);
 			  location.setStatus(state);
-			  System.out.println("Position: " + position.toString() + " State: " + state.toString());
+			  locations.add(location);
 			}
 		}
 //		for (HotDotCouponItem hotDotCouponItem : locations) {
