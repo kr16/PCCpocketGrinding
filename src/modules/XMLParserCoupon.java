@@ -60,7 +60,7 @@ public class XMLParserCoupon {
 			  HashMap<EHotDotCouponStates, Boolean> state = new HashMap<Common.EHotDotCouponStates, Boolean>();
 			  state.put(getRowColumnValue(i, j), true);
 			  location.setStatus(state);
-			  System.out.println(state);
+			  System.out.println(location);
 			  locations.add(location);
 			}
 		}
