@@ -4,10 +4,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import modules.Common.EHotDotCouponStates;
+import modules.XMLObjects.HotDotCouponItem;
 
 import org.jdom2.DataConversionException;
 import org.jdom2.Document;
@@ -42,10 +44,28 @@ public class XMLParserCoupon {
 	 * @param pathAndfilename - path and file name where file resides
 	 * @see example: coupon1 = new CouponXMLparser(1, "d:/Transfer/UserXMLs/CouponHotDot01.xml");
 	 */
+	@SuppressWarnings("null")
 	public XMLParserCoupon(int couponID, String pathAndfilename) {
 		filename = pathAndfilename;
 		this.setCouponID(couponID);
 		this.CouponXMLparserInit();
+		List<HotDotCouponItem> locations = null;
+		for (int i = 1; i <= getRowCount(); i++) {
+			for (int j = 1; j <= getColumnCount(); j++) {
+			  HotDotCouponItem location = new XMLObjects().new HotDotCouponItem();
+			  HashMap<String, Integer> position = new HashMap<String, Integer>();
+			  position.put("row", i);
+			  position.put("column", j);
+			  location.setPosition(position);
+			  HashMap<EHotDotCouponStates, Boolean> state = new HashMap<Common.EHotDotCouponStates, Boolean>();
+			  state.put(getRowColumnValue(i, j), true);
+			  location.setStatus(state);
+			  locations.add(location);
+			}
+		}
+		for (HotDotCouponItem hotDotCouponItem : locations) {
+			System.out.println(hotDotCouponItem);
+		}
 	}
 	
 	public void CouponXMLparserInit() {
