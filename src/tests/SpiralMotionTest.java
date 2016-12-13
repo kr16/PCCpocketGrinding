@@ -1,6 +1,8 @@
 package tests;
 
 
+import java.util.concurrent.TimeUnit;
+
 import javax.inject.Inject;
 
 import modules.Common.searchDir;
@@ -11,8 +13,10 @@ import static com.kuka.roboticsAPI.motionModel.BasicMotions.*;
 
 import com.kuka.roboticsAPI.deviceModel.JointPosition;
 import com.kuka.roboticsAPI.deviceModel.LBR;
+import com.kuka.roboticsAPI.geometricModel.CartPlane;
 import com.kuka.roboticsAPI.geometricModel.ObjectFrame;
 import com.kuka.roboticsAPI.geometricModel.Tool;
+import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianSineImpedanceControlMode;
 
 /**
  * Implementation of a robot application.
@@ -53,14 +57,19 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 	public void run() {
 		setNewHomePosition();
 		HotDotTest.attachTo(bot.getFlange());
+		CartesianSineImpedanceControlMode spiralMode;
+		spiralMode = CartesianSineImpedanceControlMode.createSpiralPattern(CartPlane.YZ,1.0, 100, 500, 10);
 		
 		//bot home
 		System.out.println("Moving to Home/Start position");
 		bot.move(ptpHome().setJointVelocityRel(0.3));
-		currentTCP.move(lin(startPos).setCartVelocity(30));
+		currentTCP.move(lin(startPos).setCartVelocity(50));
 		TouchForceRecord hitTable = new TouchForceRecord();
-		hitTable.recordPosition(searchDir.PosX, 5, 30, 10, 0, currentTCP, nullBase, bot);
-		currentTCP.move(lin(startPos).setCartVelocity(30));
+		hitTable.recordPosition(searchDir.PosX, 5, 30, 20, 0, currentTCP, nullBase, bot);
+		
+		currentTCP.move(positionHold(spiralMode, 10, TimeUnit.SECONDS));
+		
+		currentTCP.move(lin(startPos).setCartVelocity(50));
 	}
 	
 	private void setNewHomePosition() {

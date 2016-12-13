@@ -98,6 +98,7 @@ public class TouchForceRecord {
 			//something was found, register position
 			this.position = currentLBR.getCurrentCartesianPosition(currentTcp, currentBase);
 			//System.out.println("Reference position found");
+			System.out.println("TA DA");
 			if (recordDelay > 0) {
 				System.out.println("Delay of: " + recordDelay + " miliseconds");
 				ThreadUtil.milliSleep(recordDelay);
