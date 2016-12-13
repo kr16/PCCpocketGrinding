@@ -231,54 +231,6 @@
                     </redundancy>
                 </redundancyData>
             </frame>
-            <frame id="_d8c9a4be-2671-41dc-800f-5fee2dac5cc3" name="P1">
-                <transformation a="1.577022660614681" b="1.1785278285175442" c="3.141353686641068" x="3.717890033454632" y="-630.5151740895324" z="6.270890277421302"/>
-                <additionalInformation>
-                    <info key="LastModificationTime" type="java.lang.Long" value="1481649950019"/>
-                    <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="HotDotEE" tool="HotDotEE" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
-                        <tcpTransformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
-                    </info>
-                </additionalInformation>
-                <redundancyData>
-                    <redundancy transformationProviderName="KUKA_Sunrise_Cabinet_1/LBR_iiwa_14_R820_1" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy">
-                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="6" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="57" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="1.0971554193733704E-4" valueType="java.lang.Double"/>
-                    </redundancy>
-                </redundancyData>
-                <frame id="_d8da0338-0b13-477b-ab52-c402a8d4a508" name="P1">
-                    <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
-                    <additionalInformation>
-                        <info key="LastModificationTime" type="java.lang.Long" value="1481649959228"/>
-                        <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="HotDotEE" tool="HotDotEE" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
-                            <tcpTransformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
-                        </info>
-                    </additionalInformation>
-                    <redundancyData>
-                        <redundancy transformationProviderName="KUKA_Sunrise_Cabinet_1/LBR_iiwa_14_R820_1" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy">
-                            <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="6" valueType="java.lang.Integer"/>
-                            <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="57" valueType="java.lang.Integer"/>
-                            <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="1.0971554193733704E-4" valueType="java.lang.Double"/>
-                        </redundancy>
-                    </redundancyData>
-                </frame>
-                <frame id="_83a4f1c3-992c-4d2f-b0c3-6d8abf70e9dc" name="P2">
-                    <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
-                    <additionalInformation>
-                        <info key="LastModificationTime" type="java.lang.Long" value="1481649964995"/>
-                        <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="HotDotEE" tool="HotDotEE" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
-                            <tcpTransformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
-                        </info>
-                    </additionalInformation>
-                    <redundancyData>
-                        <redundancy transformationProviderName="KUKA_Sunrise_Cabinet_1/LBR_iiwa_14_R820_1" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy">
-                            <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="6" valueType="java.lang.Integer"/>
-                            <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="57" valueType="java.lang.Integer"/>
-                            <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="1.098354242403334E-4" valueType="java.lang.Double"/>
-                        </redundancy>
-                    </redundancyData>
-                </frame>
-            </frame>
         </frame>
     </world>
     <objectTemplates>

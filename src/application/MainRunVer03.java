@@ -832,7 +832,7 @@ public class MainRunVer03 extends RoboticsAPIApplication {
     
     private void setNewHomePosition() {
 		// Currently needed every run for this program
-		// Otherwise robot goes to candle home , WTF roboter?
+		// Otherwise robot goes to candle home
 		JointPosition newHome = new JointPosition(Math.toRadians(0), Math.toRadians(50),
 				0.0, Math.toRadians(-110), 0.0, Math.toRadians(-116), Math.toRadians(0));
 		bot.setHomePosition(newHome);
