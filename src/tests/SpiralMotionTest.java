@@ -70,8 +70,9 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 		hitTable.recordPosition(searchDir.PosX, 5, 30, 20, 0, currentTCP, nullBase, bot);
 		
 		spiralMode = CartesianSineImpedanceControlMode.createSpiralPattern(CartPlane.YZ,1.0, 100, 500, 10);
-		mode.parametrize(CartDOF.X).setAdditionalControlForce(10);
-		currentTCP.move(positionHold(spiralMode, 10, TimeUnit.SECONDS).setMode(mode));
+		mode.parametrize(CartDOF.X).setStiffness(1000);
+		currentTCP.move(linRel(0, 0, -5, nullBase).setCartVelocity(0.5).setMode(mode));
+		//currentTCP.move(positionHold(spiralMode, 10, TimeUnit.SECONDS));
 		
 		currentTCP.move(lin(startPos).setCartVelocity(50));
 	}
