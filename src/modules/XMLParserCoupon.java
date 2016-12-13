@@ -63,9 +63,9 @@ public class XMLParserCoupon {
 			  location.toString();
 			}
 		}
-		for (HotDotCouponItem hotDotCouponItem : locations) {
-			System.out.println(hotDotCouponItem);
-		}
+//		for (HotDotCouponItem hotDotCouponItem : locations) {
+//			System.out.println(hotDotCouponItem);
+//		}
 	}
 	
 	public void CouponXMLparserInit() {
