@@ -13,9 +13,11 @@ import static com.kuka.roboticsAPI.motionModel.BasicMotions.*;
 
 import com.kuka.roboticsAPI.deviceModel.JointPosition;
 import com.kuka.roboticsAPI.deviceModel.LBR;
+import com.kuka.roboticsAPI.geometricModel.CartDOF;
 import com.kuka.roboticsAPI.geometricModel.CartPlane;
 import com.kuka.roboticsAPI.geometricModel.ObjectFrame;
 import com.kuka.roboticsAPI.geometricModel.Tool;
+import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianImpedanceControlMode;
 import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianSineImpedanceControlMode;
 
 /**
@@ -58,7 +60,7 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 		setNewHomePosition();
 		HotDotTest.attachTo(bot.getFlange());
 		CartesianSineImpedanceControlMode spiralMode;
-		spiralMode = CartesianSineImpedanceControlMode.createSpiralPattern(CartPlane.YZ,1.0, 100, 500, 10);
+		CartesianImpedanceControlMode mode = new CartesianImpedanceControlMode();
 		
 		//bot home
 		System.out.println("Moving to Home/Start position");
@@ -67,7 +69,9 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 		TouchForceRecord hitTable = new TouchForceRecord();
 		hitTable.recordPosition(searchDir.PosX, 5, 30, 20, 0, currentTCP, nullBase, bot);
 		
-		currentTCP.move(positionHold(spiralMode, 10, TimeUnit.SECONDS));
+		spiralMode = CartesianSineImpedanceControlMode.createSpiralPattern(CartPlane.YZ,1.0, 100, 500, 10);
+		mode.parametrize(CartDOF.X).setAdditionalControlForce(10);
+		currentTCP.move(positionHold(spiralMode, 10, TimeUnit.SECONDS).setMode(mode));
 		
 		currentTCP.move(lin(startPos).setCartVelocity(50));
 	}
