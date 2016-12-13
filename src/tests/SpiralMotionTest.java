@@ -2,6 +2,10 @@ package tests;
 
 
 import javax.inject.Inject;
+
+import modules.Common.searchDir;
+import modules.TouchForceRecord;
+
 import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
 import static com.kuka.roboticsAPI.motionModel.BasicMotions.*;
 
@@ -53,6 +57,9 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 		//bot home
 		System.out.println("Moving to Home/Start position");
 		bot.move(ptpHome().setJointVelocityRel(0.3));
+		currentTCP.move(lin(startPos).setCartVelocity(30));
+		TouchForceRecord hitTable = new TouchForceRecord();
+		hitTable.recordPosition(searchDir.PosX, 5, 30, 10, 0, currentTCP, nullBase, bot);
 		currentTCP.move(lin(startPos).setCartVelocity(30));
 	}
 	
