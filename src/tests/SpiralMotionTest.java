@@ -71,8 +71,9 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 		
 		spiralMode = CartesianSineImpedanceControlMode.createSpiralPattern(CartPlane.YZ,2, 25, 3000, 40);
 		mode.parametrize(CartDOF.X).setStiffness(1000);
-		currentTCP.move(linRel(100, 0, -5, nullBase).setCartVelocity(0.5).setMode(spiralMode));
-		//currentTCP.move(positionHold(spiralMode, 10, TimeUnit.SECONDS));
+		//spiralMode.
+		//currentTCP.move(linRel(100, 0, 0, nullBase).setCartVelocity(1).setMode(spiralMode));
+		currentTCP.move(positionHold(spiralMode, 40, TimeUnit.SECONDS));
 		
 		currentTCP.move(lin(startPos).setCartVelocity(50));
 	}
