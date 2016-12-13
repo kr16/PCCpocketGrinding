@@ -69,10 +69,8 @@ public class XMLParserCoupon {
 			  locations.add(location);
 			}
 		}
-		for (HotDotCouponItem hotDotCouponItem : locations) {
-			System.out.println(hotDotCouponItem);
-		}
 	}
+	
 	public void CouponXMLparserInit() {
 		boolean bSuccess = false;
 		file = new File(filename);

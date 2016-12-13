@@ -209,6 +209,19 @@
                 <redundancy transformationProviderName="legacy" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy"/>
             </redundancyData>
         </frame>
+        <frame id="_e5db4bde-4b07-4070-a8ab-7db769758c41" name="SpiralTest">
+            <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
+            <additionalInformation>
+                <info key="LastModificationTime" type="java.lang.Long" value="1481648156201"/>
+                <info key="UseAsBaseForJogging" type="java.lang.Boolean" value="true"/>
+            </additionalInformation>
+            <frame id="_43de695e-0fe0-418f-affd-b83255dda971" name="SpiralTestStart">
+                <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
+                <additionalInformation>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1481648200705"/>
+                </additionalInformation>
+            </frame>
+        </frame>
     </world>
     <objectTemplates>
         <toolTemplate class="" name="HotDotEE">
