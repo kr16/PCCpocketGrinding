@@ -856,7 +856,6 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 			break;
     	}	
     	
-		
 //		nUserPressedButton = getApplicationUI().displayModalDialog(
 //				ApplicationDialogType.QUESTION, "Reset Coupon Status???",
 //				"Yes", "No");

@@ -52,6 +52,9 @@ public class XMLParserCoupon {
 		filename = pathAndfilename;
 		this.setCouponID(couponID);
 		this.CouponXMLparserInit();
+		this.buildList();
+	}
+	public void buildList() {
 		List<HotDotCouponItem> locations = new ArrayList<XMLObjects.HotDotCouponItem>();
 		for (int i = 1; i <= getRowCount(); i++) {
 			for (int j = 1; j <= getColumnCount(); j++) {
@@ -66,11 +69,10 @@ public class XMLParserCoupon {
 			  locations.add(location);
 			}
 		}
-//		for (HotDotCouponItem hotDotCouponItem : locations) {
-//			System.out.println(hotDotCouponItem);
-//		}
+		for (HotDotCouponItem hotDotCouponItem : locations) {
+			System.out.println(hotDotCouponItem);
+		}
 	}
-	
 	public void CouponXMLparserInit() {
 		boolean bSuccess = false;
 		file = new File(filename);
