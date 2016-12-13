@@ -184,10 +184,10 @@ public class XMLParserCoupon {
 		for (int i = 1; i <= getRowCount(); i++) {
 			for (int j = 1; j <= getColumnCount(); j++) {
 				status = getRowColumnValueInt(i, j);
-				System.out.print(status);
-				if(j == getColumnCount()) {
-					System.out.println();
-				} 
+				System.out.print("wtf?:" + status);
+//				if(j == getColumnCount()) {
+//					System.out.println();
+//				} 
 			}
 		}
 	}
