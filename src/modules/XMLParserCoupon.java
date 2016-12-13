@@ -181,6 +181,7 @@ public class XMLParserCoupon {
 	 */
 	public void displayValues() {
 		int status;
+		System.out.println("WHAT???? " + getRowCount() + " " + getColumnCount());
 		for (int i = 1; i <= getRowCount(); i++) {
 			for (int j = 1; j <= getColumnCount(); j++) {
 				status = getRowColumnValueInt(i, j);
