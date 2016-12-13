@@ -53,7 +53,7 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 		//bot home
 		System.out.println("Moving to Home/Start position");
 		bot.move(ptpHome().setJointVelocityRel(0.3));
-		bot.move(lin(startPos).setCartVelocity(30));
+		currentTCP.move(lin(startPos).setCartVelocity(30));
 	}
 	
 	private void setNewHomePosition() {
