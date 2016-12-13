@@ -161,6 +161,7 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 		setResetCouponStatus();
 		
 		while (ek1100IO.getEK1100_DI01()) {
+			
 			int nUserPressedButton = getApplicationUI().displayModalDialog(
 					ApplicationDialogType.QUESTION, "Pick cycle",
 					"ApplyHotDot", "Skive", "VRSI Scan", "Quit");
@@ -177,10 +178,13 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 			case 2:				//*************** SCAN 		***************
 				scanCycle();
 				break;
-
+			
+			case 3:
+				
 			default:
 				break;
 			}
+			break;
 		}
 		
 		//bot home
