@@ -177,24 +177,7 @@ public class XMLParserCoupon {
 			System.out.println("No coupon ID: " + couponID + " in file: " + filename);
 		}
 	}
-	
-	/**
-	 * Display entire coupon in human readable format
-	 */
-	public void displayValues() {
-		int status;
-		System.out.println("WHAT???? " + getRowCount() + " " + getColumnCount());
-		for (int i = 1; i <= getRowCount(); i++) {
-			for (int j = 1; j <= getColumnCount(); j++) {
-				//status = getRowColumnValueInt(i, j);
-				System.out.print("wtf?:");
-//				if(j == getColumnCount()) {
-//					System.out.println();
-//				} 
-			}
-		}
-		ThreadUtil.milliSleep(1000);
-	}
+
 	/**
 	 * Return "row, column" position of first not processed state (EHotDotCouponStates)
 	 * or null if there is none 
