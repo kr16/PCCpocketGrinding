@@ -61,7 +61,7 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 	@Override
 	public void run() {
 		boolean bConditionResult;
-		long totalTimeSec = 60;	//	s
+		long totalTimeSec = 120;	//	s
 		double frequency = 1;		//	Hz
 		
 		IMotionContainer positionHoldContainer;
