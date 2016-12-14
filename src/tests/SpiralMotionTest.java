@@ -61,13 +61,12 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 	@Override
 	public void run() {
 		boolean bConditionResult;
-		double totalTimeSec = 60;	//	s
+		long totalTimeSec = 60;	//	s
 		double frequency = 2;		//	Hz
 		
 		IMotionContainer positionHoldContainer;
 		ForceComponentCondition TCPforce;
 		CartesianSineImpedanceControlMode spiralMode;
-		CartesianImpedanceControlMode mode = new CartesianImpedanceControlMode();
 		
 		//bot home
 		setNewHomePosition();
@@ -84,11 +83,11 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 		spiralMode.setRiseTime(1);
 		
 		//currentTCP.move(linRel(100, 0, 0, nullBase).setCartVelocity(1).setMode(spiralMode));
-		positionHoldContainer = currentTCP.moveAsync(positionHold(spiralMode, (long)totalTimeSec, TimeUnit.SECONDS));
+		positionHoldContainer = currentTCP.moveAsync(positionHold(spiralMode, totalTimeSec, TimeUnit.SECONDS));
 		bConditionResult = false;
 		TCPforce = new ForceComponentCondition(currentTCP,CoordinateAxis.X, -30, 30);
 		// We check the force for 3 seconds , after that we time out
-		bConditionResult = getObserverManager().waitFor(TCPforce, 10,TimeUnit.SECONDS);
+		bConditionResult = getObserverManager().waitFor(TCPforce, totalTimeSec,TimeUnit.SECONDS);
 		if (bConditionResult) { 
 			System.out.println("Range exceeded");
 		} else {
