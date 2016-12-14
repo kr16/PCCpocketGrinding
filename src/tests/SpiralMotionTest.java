@@ -11,12 +11,15 @@ import modules.TouchForceRecord;
 import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
 import static com.kuka.roboticsAPI.motionModel.BasicMotions.*;
 
+import com.kuka.roboticsAPI.conditionModel.ForceComponentCondition;
 import com.kuka.roboticsAPI.deviceModel.JointPosition;
 import com.kuka.roboticsAPI.deviceModel.LBR;
 import com.kuka.roboticsAPI.geometricModel.CartDOF;
 import com.kuka.roboticsAPI.geometricModel.CartPlane;
 import com.kuka.roboticsAPI.geometricModel.ObjectFrame;
 import com.kuka.roboticsAPI.geometricModel.Tool;
+import com.kuka.roboticsAPI.geometricModel.math.CoordinateAxis;
+import com.kuka.roboticsAPI.motionModel.IMotionContainer;
 import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianImpedanceControlMode;
 import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianSineImpedanceControlMode;
 
@@ -57,16 +60,21 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 
 	@Override
 	public void run() {
-		setNewHomePosition();
-		HotDotTest.attachTo(bot.getFlange());
-		CartesianSineImpedanceControlMode spiralMode;
-		CartesianImpedanceControlMode mode = new CartesianImpedanceControlMode();
+		boolean bConditionResult;
 		double totalTimeSec = 60;	//	s
 		double frequency = 2;		//	Hz
 		
+		IMotionContainer positionHoldContainer;
+		ForceComponentCondition TCPforce;
+		CartesianSineImpedanceControlMode spiralMode;
+		CartesianImpedanceControlMode mode = new CartesianImpedanceControlMode();
+		
 		//bot home
+		setNewHomePosition();
+		HotDotTest.attachTo(bot.getFlange());
 		System.out.println("Moving to Home/Start position");
 		bot.move(ptpHome().setJointVelocityRel(0.3));
+		
 		currentTCP.move(lin(startPos).setCartVelocity(50));
 		TouchForceRecord hitTable = new TouchForceRecord();
 		hitTable.recordPosition(searchDir.PosX, 5, 30, 20, 0, currentTCP, nullBase, bot);
@@ -76,8 +84,17 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 		spiralMode.setRiseTime(1);
 		
 		//currentTCP.move(linRel(100, 0, 0, nullBase).setCartVelocity(1).setMode(spiralMode));
-		currentTCP.move(positionHold(spiralMode, (long)totalTimeSec, TimeUnit.SECONDS));
-		 
+		positionHoldContainer = currentTCP.moveAsync(positionHold(spiralMode, (long)totalTimeSec, TimeUnit.SECONDS));
+		bConditionResult = false;
+		TCPforce = new ForceComponentCondition(currentTCP,CoordinateAxis.X, -15, 15);
+		// We check the force for 3 seconds , after that we time out
+		bConditionResult = getObserverManager().waitFor(TCPforce, 10,TimeUnit.SECONDS);
+		if (bConditionResult) { 
+			System.out.println("Range exceeded");
+		} else {
+			System.out.println("time out");
+		}
+		positionHoldContainer.cancel();
 		currentTCP.move(lin(startPos).setCartVelocity(50));
 	}
 	
