@@ -61,7 +61,7 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 		HotDotTest.attachTo(bot.getFlange());
 		CartesianSineImpedanceControlMode spiralMode;
 		CartesianImpedanceControlMode mode = new CartesianImpedanceControlMode();
-		double totalTimeSec = 60;
+		double totalTimeSec = 300;
 		
 		//bot home
 		System.out.println("Moving to Home/Start position");
