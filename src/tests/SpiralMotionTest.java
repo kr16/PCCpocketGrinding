@@ -86,7 +86,7 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 		//currentTCP.move(linRel(100, 0, 0, nullBase).setCartVelocity(1).setMode(spiralMode));
 		positionHoldContainer = currentTCP.moveAsync(positionHold(spiralMode, (long)totalTimeSec, TimeUnit.SECONDS));
 		bConditionResult = false;
-		TCPforce = new ForceComponentCondition(currentTCP,CoordinateAxis.X, -15, 15);
+		TCPforce = new ForceComponentCondition(currentTCP,CoordinateAxis.X, -20, 20);
 		// We check the force for 3 seconds , after that we time out
 		bConditionResult = getObserverManager().waitFor(TCPforce, 10,TimeUnit.SECONDS);
 		if (bConditionResult) { 
