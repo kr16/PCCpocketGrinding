@@ -61,7 +61,7 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 		HotDotTest.attachTo(bot.getFlange());
 		CartesianSineImpedanceControlMode spiralMode;
 		CartesianImpedanceControlMode mode = new CartesianImpedanceControlMode();
-		double totalTimeSec = 300;	//	s
+		double totalTimeSec = 60;	//	s
 		double frequency = 2;		//	Hz
 		
 		//bot home
@@ -72,7 +72,7 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 		hitTable.recordPosition(searchDir.PosX, 5, 30, 20, 0, currentTCP, nullBase, bot);
 		
 		spiralMode = CartesianSineImpedanceControlMode.createSpiralPattern(CartPlane.YZ,frequency, 20, 4500, totalTimeSec);
-		spiralMode.parametrize(CartDOF.X).setBias(10).setStiffness(5000);
+		spiralMode.parametrize(CartDOF.X).setBias(20).setStiffness(5000);
 		spiralMode.setRiseTime(1);
 		
 		//currentTCP.move(linRel(100, 0, 0, nullBase).setCartVelocity(1).setMode(spiralMode));
