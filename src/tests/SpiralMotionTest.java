@@ -62,7 +62,7 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 	public void run() {
 		boolean bConditionResult;
 		long totalTimeSec = 120;	//	s
-		double frequency = 1;		//	Hz
+		double frequency = 0.5;		//	Hz
 		
 		IMotionContainer positionHoldContainer;
 		ForceComponentCondition TCPforce;
