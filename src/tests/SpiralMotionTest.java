@@ -62,7 +62,7 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 	@Override
 	public void run() {
 		boolean bConditionResult;
-		long totalTimeSec = 120;	//	s
+		long totalTimeSec = 60;	//	s
 		double frequency = 2;		//	Hz
 		
 		IMotionContainer positionHoldContainer;
@@ -88,15 +88,17 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 		
 		spiralMode = CartesianSineImpedanceControlMode.createSpiralPattern(CartPlane.YZ,frequency, 40, 5000, totalTimeSec);
 		spiralMode.parametrize(CartDOF.X).setBias(30).setStiffness(5000);
-		spiralMode.setHoldTime(20);
+		spiralMode.setHoldTime(10);
 		System.out.println(spiralMode.getRiseTime());
 		System.out.println(spiralMode.getHoldTime());
 		System.out.println(spiralMode.getFallTime());
 		
 		totalTimeSec = totalTimeSec + (long)spiralMode.getHoldTime();
+		System.out.println(totalTimeSec);
 		
 		//currentTCP.move(linRel(100, 0, 0, nullBase).setCartVelocity(1).setMode(spiralMode));
 		positionHoldContainer = currentTCP.moveAsync(positionHold(spiralMode, -1, TimeUnit.SECONDS));
+		System.out.println("running");
 		bConditionResult = false;
 		TCPforce = new ForceComponentCondition(currentTCP,CoordinateAxis.X, -40, -5);
 		
