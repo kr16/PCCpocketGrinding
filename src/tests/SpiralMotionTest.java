@@ -84,10 +84,10 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 		
 		currentTCP.move(lin(startPos).setCartVelocity(50));
 		TouchForceRecord hitTable = new TouchForceRecord();
-		hitTable.recordPosition(searchDir.PosX, 5, 30, 10, 0, currentTCP, nullBase, bot);
+		hitTable.recordPosition(searchDir.PosX, 20, 30, 10, 0, currentTCP, nullBase, bot);
 		
 		spiralMode = CartesianSineImpedanceControlMode.createSpiralPattern(CartPlane.YZ,frequency, 40, 5000, totalTimeSec);
-		spiralMode.parametrize(CartDOF.X).setBias(20).setStiffness(5000);
+		spiralMode.parametrize(CartDOF.X).setBias(30).setStiffness(5000);
 		spiralMode.setHoldTime(20);
 		System.out.println(spiralMode.getRiseTime());
 		System.out.println(spiralMode.getHoldTime());
@@ -96,7 +96,7 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 		//currentTCP.move(linRel(100, 0, 0, nullBase).setCartVelocity(1).setMode(spiralMode));
 		positionHoldContainer = currentTCP.moveAsync(positionHold(spiralMode, -1, TimeUnit.SECONDS));
 		bConditionResult = false;
-		TCPforce = new ForceComponentCondition(currentTCP,CoordinateAxis.X, -30, -5);
+		TCPforce = new ForceComponentCondition(currentTCP,CoordinateAxis.X, -40, -5);
 		
 		bConditionResult = getObserverManager().waitFor(TCPforce, totalTimeSec,TimeUnit.SECONDS);
 		if (bConditionResult) { 
