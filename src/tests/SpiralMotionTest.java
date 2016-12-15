@@ -49,7 +49,7 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 	private ObjectFrame nullBase;
 	private ObjectFrame currentTCP;
 	private ObjectFrame startPos;
-
+    private TimerKCT timer;
 	@Override
 	public void initialize() {
 		// initialize your application here
@@ -68,7 +68,8 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 		IMotionContainer positionHoldContainer;
 		ForceComponentCondition TCPforce;
 		CartesianSineImpedanceControlMode spiralMode;
-		TimerKCT timer = new TimerKCT();
+		
+		timer = new TimerKCT();
 		Thread TimerThread;
 		TimerThread = new Thread(timer);
 		TimerThread.start();
@@ -104,6 +105,7 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 			}
 		}
 		positionHoldContainer.cancel();
+		timer.timerStopAndKill();
 		currentTCP.move(lin(startPos).setCartVelocity(50));
 	}
 	
@@ -114,4 +116,19 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 				0.0, Math.toRadians(-100), 0.0, Math.toRadians(-43), Math.toRadians(0));
 		bot.setHomePosition(newHome);
 	}
+	
+	@Override
+    public void dispose()
+    {
+        try {
+        	// Add your "clean up" code here e.g.
+            timer.timerStopAndKill(); 
+        } catch (NullPointerException e ) {
+        	System.err.println("One or more threads were not initialized");
+        }
+        finally
+        {
+            super.dispose();
+        }
+    }
 }
