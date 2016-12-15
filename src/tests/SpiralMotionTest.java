@@ -94,7 +94,7 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 		System.out.println(spiralMode.getFallTime());
 		
 		totalTimeSec = totalTimeSec + (long)spiralMode.getHoldTime();
-		spiralMode.setTotalTime(totalTimeSec);
+		//spiralMode.setTotalTime(totalTimeSec);
 		System.out.println(totalTimeSec);
 		
 		
@@ -103,7 +103,7 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 		positionHoldContainer = currentTCP.moveAsync(positionHold(spiralMode, -1, TimeUnit.SECONDS));
 		System.out.println("running");
 		bConditionResult = false;
-		TCPforce = new ForceComponentCondition(currentTCP,CoordinateAxis.X, -40, -5);
+		TCPforce = new ForceComponentCondition(currentTCP,CoordinateAxis.X, -40, 0);
 		
 		bConditionResult = getObserverManager().waitFor(TCPforce, totalTimeSec,TimeUnit.SECONDS);
 		if (bConditionResult) { 
