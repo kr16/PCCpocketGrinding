@@ -90,20 +90,19 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 		spiralMode.parametrize(CartDOF.X).setBias(20).setStiffness(5000);
 		spiralMode.setRiseTime(0);
 		
-		timer.timerStart();
+		
 		//currentTCP.move(linRel(100, 0, 0, nullBase).setCartVelocity(1).setMode(spiralMode));
 		positionHoldContainer = currentTCP.moveAsync(positionHold(spiralMode, -1, TimeUnit.SECONDS));
 		bConditionResult = false;
-		TCPforce = new ForceComponentCondition(currentTCP,CoordinateAxis.X, -30, -15);
-		while (timer.getTimerValue() < totalTimeSec*1000) {
-			bConditionResult = getObserverManager().waitFor(TCPforce, 2,TimeUnit.SECONDS);
-			if (bConditionResult) { 
-				System.out.println("Out of range");
-				spiralMode.parametrize(CartDOF.X).setBias(20);
-			} else {
-				System.out.println("good, goood");
-			}
+		TCPforce = new ForceComponentCondition(currentTCP,CoordinateAxis.X, -30, 30);
+		
+		bConditionResult = getObserverManager().waitFor(TCPforce, totalTimeSec,TimeUnit.SECONDS);
+		if (bConditionResult) { 
+			System.out.println("Out of range");
+		} else {
+			System.out.println("good, goood");
 		}
+		
 		positionHoldContainer.cancel();
 		timer.timerStopAndKill();
 		currentTCP.move(lin(startPos).setCartVelocity(50));
