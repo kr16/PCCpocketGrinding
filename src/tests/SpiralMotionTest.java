@@ -53,9 +53,9 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 	@Override
 	public void initialize() {
 		// initialize your application here
-		HotDotTest = getApplicationData().createFromTemplate("HotDotEE");
+		HotDotTest = getApplicationData().createFromTemplate("HotDotEEnoVRSI");
 		nullBase = getApplicationData().getFrame("/nullBase");
-		currentTCP = HotDotTest.getFrame("IronVer01");
+		currentTCP = HotDotTest.getFrame("Iron");
 		startPos = getApplicationData().getFrame("/SpiralTest/SpiralTestStart");
 	}
 
