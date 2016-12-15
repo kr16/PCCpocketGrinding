@@ -82,8 +82,6 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 		System.out.println("Moving to Home/Start position");
 		bot.move(ptpHome().setJointVelocityRel(0.3));
 		
-		bot.move(ptp(0.785).setJointVelocityRel(1));
-		
 		currentTCP.move(lin(startPos).setCartVelocity(50));
 		TouchForceRecord hitTable = new TouchForceRecord();
 		hitTable.recordPosition(searchDir.PosX, 5, 30, 10, 0, currentTCP, nullBase, bot);
