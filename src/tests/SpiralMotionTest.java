@@ -93,6 +93,8 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 		System.out.println(spiralMode.getHoldTime());
 		System.out.println(spiralMode.getFallTime());
 		
+		totalTimeSec = totalTimeSec + (long)spiralMode.getHoldTime();
+		
 		//currentTCP.move(linRel(100, 0, 0, nullBase).setCartVelocity(1).setMode(spiralMode));
 		positionHoldContainer = currentTCP.moveAsync(positionHold(spiralMode, -1, TimeUnit.SECONDS));
 		bConditionResult = false;
