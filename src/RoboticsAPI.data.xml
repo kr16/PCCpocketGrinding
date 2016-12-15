@@ -251,5 +251,13 @@
             </frames>
             <loadData cogA="0.0" cogB="0.0" cogC="0.0" cogX="-22.06164403369066" cogY="10.610565034529268" cogZ="111.14037990396687" inertiaX="0.0" inertiaY="0.0" inertiaZ="0.0" mass="3.9566813325139805"/>
         </toolTemplate>
+        <toolTemplate class="" name="HotDotEEnoVRSI">
+            <frames>
+                <frame id="_3dcbab47-f7ed-4dca-9618-7d750905639a" name="Iron">
+                    <transformation a="0.0" b="-0.3490658503988659" c="0.0" x="6.172" y="0.0" z="304.5"/>
+                </frame>
+            </frames>
+            <loadData cogA="0.0" cogB="0.0" cogC="0.0" cogX="0.0" cogY="0.0" cogZ="0.0" inertiaX="0.0" inertiaY="0.0" inertiaZ="0.0" mass="0.0"/>
+        </toolTemplate>
     </objectTemplates>
 </RoboticsAPIData>
