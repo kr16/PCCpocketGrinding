@@ -63,7 +63,7 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 	public void run() {
 		boolean bConditionResult;
 		long totalTimeSec = 120;	//	s
-		double frequency = 0.5;		//	Hz
+		double frequency = 2;		//	Hz
 		
 		IMotionContainer positionHoldContainer;
 		ForceComponentCondition TCPforce;
@@ -86,7 +86,7 @@ public class SpiralMotionTest extends RoboticsAPIApplication {
 		TouchForceRecord hitTable = new TouchForceRecord();
 		hitTable.recordPosition(searchDir.PosX, 5, 30, 10, 0, currentTCP, nullBase, bot);
 		
-		spiralMode = CartesianSineImpedanceControlMode.createSpiralPattern(CartPlane.YZ,frequency, 30, 4500, totalTimeSec);
+		spiralMode = CartesianSineImpedanceControlMode.createSpiralPattern(CartPlane.YZ,frequency, 15, 4500, totalTimeSec);
 		spiralMode.parametrize(CartDOF.X).setBias(20).setStiffness(5000);
 		spiralMode.setRiseTime(0);
 		
