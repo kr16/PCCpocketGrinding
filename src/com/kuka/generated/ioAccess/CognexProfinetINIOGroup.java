@@ -29,14 +29,18 @@ public class CognexProfinetINIOGroup extends AbstractIOGroup
 	{
 		super(controller, "CognexProfinetIN");
 
-		addMockedInput("AcquisutionStatusReg0", IOTypes.BOOLEAN, 1, false);
-		addMockedInput("AcquisutionStatusReg1", IOTypes.BOOLEAN, 1, false);
-		addMockedInput("AcquisutionStatusReg2", IOTypes.BOOLEAN, 1, false);
-		addMockedInput("AcquisutionStatusReg3", IOTypes.BOOLEAN, 1, false);
-		addMockedInput("AcquisutionStatusReg4", IOTypes.BOOLEAN, 1, false);
-		addMockedInput("AcquisutionStatusReg5", IOTypes.BOOLEAN, 1, false);
-		addMockedInput("AcquisutionStatusReg6", IOTypes.BOOLEAN, 1, false);
-		addMockedInput("AcquisutionStatusReg7", IOTypes.BOOLEAN, 1, false);
+		addInput("AcquisutionStatusReg0", IOTypes.BOOLEAN, 1);
+		addInput("AcquisutionStatusReg1", IOTypes.BOOLEAN, 1);
+		addInput("AcquisutionStatusReg2", IOTypes.BOOLEAN, 1);
+		addInput("AcquisutionStatusReg3", IOTypes.BOOLEAN, 1);
+		addInput("AcquisutionStatusReg4", IOTypes.BOOLEAN, 1);
+		addInput("AcquisutionStatusReg5", IOTypes.BOOLEAN, 1);
+		addInput("AcquisutionStatusReg6", IOTypes.BOOLEAN, 1);
+		addInput("AcquisutionStatusReg7", IOTypes.BOOLEAN, 1);
+		addDigitalOutput("AcqCtrlReg0", IOTypes.BOOLEAN, 1);
+		addDigitalOutput("AcqCtrlReg1", IOTypes.BOOLEAN, 1);
+		addDigitalOutput("AcqCtrlReg7", IOTypes.BOOLEAN, 1);
+		addInput("AcqCount", IOTypes.UNSIGNED_INTEGER, 16);
 	}
 
 	/**
@@ -53,37 +57,10 @@ public class CognexProfinetINIOGroup extends AbstractIOGroup
 	 * [false; true]
 	 *
 	 * @return current value of the digital input 'AcquisutionStatusReg0'
-	* 
-	 * @deprecated The output 'AcquisutionStatusReg0' has not been assigned to a field bus address - thus this operation will be <b>simulated</b> only.
 	 */
-	@Deprecated
 	public boolean getAcquisutionStatusReg0()
 	{
 		return getBooleanIOValue("AcquisutionStatusReg0", false);
-	}
-
-	/**
-	 * Sets the value of the <b>mocked digital input '<i>AcquisutionStatusReg0</i>'</b>.<br>
-	 * <i>This method is automatically generated. Please, do not modify!</i>
-	 * <p>
-	 * <b>I/O direction and type:</b><br>
-	 * digital input
-	 * <p>
-	 * <b>User description of the I/O:</b><br>
-	 * ./.
-	 * <p>
-	 * <b>Range of the I/O value:</b><br>
-	 * [false; true]
-	 *
-	 * @param value
-	 *            the value, which has to be written to the mocked digital input 'AcquisutionStatusReg0'
-	* 
-	 * @deprecated The output 'AcquisutionStatusReg0' has not been assigned to a field bus address - thus this operation will be <b>simulated</b> only.
-	 */
-	@Deprecated
-	public void setMockedAcquisutionStatusReg0Value(java.lang.Boolean value)
-	{
-		setMockedInput("AcquisutionStatusReg0", value);
 	}
 
 	/**
@@ -100,37 +77,10 @@ public class CognexProfinetINIOGroup extends AbstractIOGroup
 	 * [false; true]
 	 *
 	 * @return current value of the digital input 'AcquisutionStatusReg1'
-	* 
-	 * @deprecated The output 'AcquisutionStatusReg1' has not been assigned to a field bus address - thus this operation will be <b>simulated</b> only.
 	 */
-	@Deprecated
 	public boolean getAcquisutionStatusReg1()
 	{
 		return getBooleanIOValue("AcquisutionStatusReg1", false);
-	}
-
-	/**
-	 * Sets the value of the <b>mocked digital input '<i>AcquisutionStatusReg1</i>'</b>.<br>
-	 * <i>This method is automatically generated. Please, do not modify!</i>
-	 * <p>
-	 * <b>I/O direction and type:</b><br>
-	 * digital input
-	 * <p>
-	 * <b>User description of the I/O:</b><br>
-	 * ./.
-	 * <p>
-	 * <b>Range of the I/O value:</b><br>
-	 * [false; true]
-	 *
-	 * @param value
-	 *            the value, which has to be written to the mocked digital input 'AcquisutionStatusReg1'
-	* 
-	 * @deprecated The output 'AcquisutionStatusReg1' has not been assigned to a field bus address - thus this operation will be <b>simulated</b> only.
-	 */
-	@Deprecated
-	public void setMockedAcquisutionStatusReg1Value(java.lang.Boolean value)
-	{
-		setMockedInput("AcquisutionStatusReg1", value);
 	}
 
 	/**
@@ -147,37 +97,10 @@ public class CognexProfinetINIOGroup extends AbstractIOGroup
 	 * [false; true]
 	 *
 	 * @return current value of the digital input 'AcquisutionStatusReg2'
-	* 
-	 * @deprecated The output 'AcquisutionStatusReg2' has not been assigned to a field bus address - thus this operation will be <b>simulated</b> only.
 	 */
-	@Deprecated
 	public boolean getAcquisutionStatusReg2()
 	{
 		return getBooleanIOValue("AcquisutionStatusReg2", false);
-	}
-
-	/**
-	 * Sets the value of the <b>mocked digital input '<i>AcquisutionStatusReg2</i>'</b>.<br>
-	 * <i>This method is automatically generated. Please, do not modify!</i>
-	 * <p>
-	 * <b>I/O direction and type:</b><br>
-	 * digital input
-	 * <p>
-	 * <b>User description of the I/O:</b><br>
-	 * ./.
-	 * <p>
-	 * <b>Range of the I/O value:</b><br>
-	 * [false; true]
-	 *
-	 * @param value
-	 *            the value, which has to be written to the mocked digital input 'AcquisutionStatusReg2'
-	* 
-	 * @deprecated The output 'AcquisutionStatusReg2' has not been assigned to a field bus address - thus this operation will be <b>simulated</b> only.
-	 */
-	@Deprecated
-	public void setMockedAcquisutionStatusReg2Value(java.lang.Boolean value)
-	{
-		setMockedInput("AcquisutionStatusReg2", value);
 	}
 
 	/**
@@ -194,37 +117,10 @@ public class CognexProfinetINIOGroup extends AbstractIOGroup
 	 * [false; true]
 	 *
 	 * @return current value of the digital input 'AcquisutionStatusReg3'
-	* 
-	 * @deprecated The output 'AcquisutionStatusReg3' has not been assigned to a field bus address - thus this operation will be <b>simulated</b> only.
 	 */
-	@Deprecated
 	public boolean getAcquisutionStatusReg3()
 	{
 		return getBooleanIOValue("AcquisutionStatusReg3", false);
-	}
-
-	/**
-	 * Sets the value of the <b>mocked digital input '<i>AcquisutionStatusReg3</i>'</b>.<br>
-	 * <i>This method is automatically generated. Please, do not modify!</i>
-	 * <p>
-	 * <b>I/O direction and type:</b><br>
-	 * digital input
-	 * <p>
-	 * <b>User description of the I/O:</b><br>
-	 * ./.
-	 * <p>
-	 * <b>Range of the I/O value:</b><br>
-	 * [false; true]
-	 *
-	 * @param value
-	 *            the value, which has to be written to the mocked digital input 'AcquisutionStatusReg3'
-	* 
-	 * @deprecated The output 'AcquisutionStatusReg3' has not been assigned to a field bus address - thus this operation will be <b>simulated</b> only.
-	 */
-	@Deprecated
-	public void setMockedAcquisutionStatusReg3Value(java.lang.Boolean value)
-	{
-		setMockedInput("AcquisutionStatusReg3", value);
 	}
 
 	/**
@@ -241,37 +137,10 @@ public class CognexProfinetINIOGroup extends AbstractIOGroup
 	 * [false; true]
 	 *
 	 * @return current value of the digital input 'AcquisutionStatusReg4'
-	* 
-	 * @deprecated The output 'AcquisutionStatusReg4' has not been assigned to a field bus address - thus this operation will be <b>simulated</b> only.
 	 */
-	@Deprecated
 	public boolean getAcquisutionStatusReg4()
 	{
 		return getBooleanIOValue("AcquisutionStatusReg4", false);
-	}
-
-	/**
-	 * Sets the value of the <b>mocked digital input '<i>AcquisutionStatusReg4</i>'</b>.<br>
-	 * <i>This method is automatically generated. Please, do not modify!</i>
-	 * <p>
-	 * <b>I/O direction and type:</b><br>
-	 * digital input
-	 * <p>
-	 * <b>User description of the I/O:</b><br>
-	 * ./.
-	 * <p>
-	 * <b>Range of the I/O value:</b><br>
-	 * [false; true]
-	 *
-	 * @param value
-	 *            the value, which has to be written to the mocked digital input 'AcquisutionStatusReg4'
-	* 
-	 * @deprecated The output 'AcquisutionStatusReg4' has not been assigned to a field bus address - thus this operation will be <b>simulated</b> only.
-	 */
-	@Deprecated
-	public void setMockedAcquisutionStatusReg4Value(java.lang.Boolean value)
-	{
-		setMockedInput("AcquisutionStatusReg4", value);
 	}
 
 	/**
@@ -288,37 +157,10 @@ public class CognexProfinetINIOGroup extends AbstractIOGroup
 	 * [false; true]
 	 *
 	 * @return current value of the digital input 'AcquisutionStatusReg5'
-	* 
-	 * @deprecated The output 'AcquisutionStatusReg5' has not been assigned to a field bus address - thus this operation will be <b>simulated</b> only.
 	 */
-	@Deprecated
 	public boolean getAcquisutionStatusReg5()
 	{
 		return getBooleanIOValue("AcquisutionStatusReg5", false);
-	}
-
-	/**
-	 * Sets the value of the <b>mocked digital input '<i>AcquisutionStatusReg5</i>'</b>.<br>
-	 * <i>This method is automatically generated. Please, do not modify!</i>
-	 * <p>
-	 * <b>I/O direction and type:</b><br>
-	 * digital input
-	 * <p>
-	 * <b>User description of the I/O:</b><br>
-	 * ./.
-	 * <p>
-	 * <b>Range of the I/O value:</b><br>
-	 * [false; true]
-	 *
-	 * @param value
-	 *            the value, which has to be written to the mocked digital input 'AcquisutionStatusReg5'
-	* 
-	 * @deprecated The output 'AcquisutionStatusReg5' has not been assigned to a field bus address - thus this operation will be <b>simulated</b> only.
-	 */
-	@Deprecated
-	public void setMockedAcquisutionStatusReg5Value(java.lang.Boolean value)
-	{
-		setMockedInput("AcquisutionStatusReg5", value);
 	}
 
 	/**
@@ -335,37 +177,10 @@ public class CognexProfinetINIOGroup extends AbstractIOGroup
 	 * [false; true]
 	 *
 	 * @return current value of the digital input 'AcquisutionStatusReg6'
-	* 
-	 * @deprecated The output 'AcquisutionStatusReg6' has not been assigned to a field bus address - thus this operation will be <b>simulated</b> only.
 	 */
-	@Deprecated
 	public boolean getAcquisutionStatusReg6()
 	{
 		return getBooleanIOValue("AcquisutionStatusReg6", false);
-	}
-
-	/**
-	 * Sets the value of the <b>mocked digital input '<i>AcquisutionStatusReg6</i>'</b>.<br>
-	 * <i>This method is automatically generated. Please, do not modify!</i>
-	 * <p>
-	 * <b>I/O direction and type:</b><br>
-	 * digital input
-	 * <p>
-	 * <b>User description of the I/O:</b><br>
-	 * ./.
-	 * <p>
-	 * <b>Range of the I/O value:</b><br>
-	 * [false; true]
-	 *
-	 * @param value
-	 *            the value, which has to be written to the mocked digital input 'AcquisutionStatusReg6'
-	* 
-	 * @deprecated The output 'AcquisutionStatusReg6' has not been assigned to a field bus address - thus this operation will be <b>simulated</b> only.
-	 */
-	@Deprecated
-	public void setMockedAcquisutionStatusReg6Value(java.lang.Boolean value)
-	{
-		setMockedInput("AcquisutionStatusReg6", value);
 	}
 
 	/**
@@ -382,17 +197,137 @@ public class CognexProfinetINIOGroup extends AbstractIOGroup
 	 * [false; true]
 	 *
 	 * @return current value of the digital input 'AcquisutionStatusReg7'
-	* 
-	 * @deprecated The output 'AcquisutionStatusReg7' has not been assigned to a field bus address - thus this operation will be <b>simulated</b> only.
 	 */
-	@Deprecated
 	public boolean getAcquisutionStatusReg7()
 	{
 		return getBooleanIOValue("AcquisutionStatusReg7", false);
 	}
 
 	/**
-	 * Sets the value of the <b>mocked digital input '<i>AcquisutionStatusReg7</i>'</b>.<br>
+	 * Gets the value of the <b>digital output '<i>AcqCtrlReg0</i>'</b>.<br>
+	 * <i>This method is automatically generated. Please, do not modify!</i>
+	 * <p>
+	 * <b>I/O direction and type:</b><br>
+	 * digital output
+	 * <p>
+	 * <b>User description of the I/O:</b><br>
+	 * ./.
+	 * <p>
+	 * <b>Range of the I/O value:</b><br>
+	 * [false; true]
+	 *
+	 * @return current value of the digital output 'AcqCtrlReg0'
+	 */
+	public boolean getAcqCtrlReg0()
+	{
+		return getBooleanIOValue("AcqCtrlReg0", true);
+	}
+
+	/**
+	 * Sets the value of the <b>digital output '<i>AcqCtrlReg0</i>'</b>.<br>
+	 * <i>This method is automatically generated. Please, do not modify!</i>
+	 * <p>
+	 * <b>I/O direction and type:</b><br>
+	 * digital output
+	 * <p>
+	 * <b>User description of the I/O:</b><br>
+	 * ./.
+	 * <p>
+	 * <b>Range of the I/O value:</b><br>
+	 * [false; true]
+	 *
+	 * @param value
+	 *            the value, which has to be written to the digital output 'AcqCtrlReg0'
+	 */
+	public void setAcqCtrlReg0(java.lang.Boolean value)
+	{
+		setDigitalOutput("AcqCtrlReg0", value);
+	}
+
+	/**
+	 * Gets the value of the <b>digital output '<i>AcqCtrlReg1</i>'</b>.<br>
+	 * <i>This method is automatically generated. Please, do not modify!</i>
+	 * <p>
+	 * <b>I/O direction and type:</b><br>
+	 * digital output
+	 * <p>
+	 * <b>User description of the I/O:</b><br>
+	 * ./.
+	 * <p>
+	 * <b>Range of the I/O value:</b><br>
+	 * [false; true]
+	 *
+	 * @return current value of the digital output 'AcqCtrlReg1'
+	 */
+	public boolean getAcqCtrlReg1()
+	{
+		return getBooleanIOValue("AcqCtrlReg1", true);
+	}
+
+	/**
+	 * Sets the value of the <b>digital output '<i>AcqCtrlReg1</i>'</b>.<br>
+	 * <i>This method is automatically generated. Please, do not modify!</i>
+	 * <p>
+	 * <b>I/O direction and type:</b><br>
+	 * digital output
+	 * <p>
+	 * <b>User description of the I/O:</b><br>
+	 * ./.
+	 * <p>
+	 * <b>Range of the I/O value:</b><br>
+	 * [false; true]
+	 *
+	 * @param value
+	 *            the value, which has to be written to the digital output 'AcqCtrlReg1'
+	 */
+	public void setAcqCtrlReg1(java.lang.Boolean value)
+	{
+		setDigitalOutput("AcqCtrlReg1", value);
+	}
+
+	/**
+	 * Gets the value of the <b>digital output '<i>AcqCtrlReg7</i>'</b>.<br>
+	 * <i>This method is automatically generated. Please, do not modify!</i>
+	 * <p>
+	 * <b>I/O direction and type:</b><br>
+	 * digital output
+	 * <p>
+	 * <b>User description of the I/O:</b><br>
+	 * ./.
+	 * <p>
+	 * <b>Range of the I/O value:</b><br>
+	 * [false; true]
+	 *
+	 * @return current value of the digital output 'AcqCtrlReg7'
+	 */
+	public boolean getAcqCtrlReg7()
+	{
+		return getBooleanIOValue("AcqCtrlReg7", true);
+	}
+
+	/**
+	 * Sets the value of the <b>digital output '<i>AcqCtrlReg7</i>'</b>.<br>
+	 * <i>This method is automatically generated. Please, do not modify!</i>
+	 * <p>
+	 * <b>I/O direction and type:</b><br>
+	 * digital output
+	 * <p>
+	 * <b>User description of the I/O:</b><br>
+	 * ./.
+	 * <p>
+	 * <b>Range of the I/O value:</b><br>
+	 * [false; true]
+	 *
+	 * @param value
+	 *            the value, which has to be written to the digital output 'AcqCtrlReg7'
+	 */
+	public void setAcqCtrlReg7(java.lang.Boolean value)
+	{
+		setDigitalOutput("AcqCtrlReg7", value);
+	}
+
+	/**
+	 * Gets the value of the <b>digital input '<i>AcqCount</i>'</b>.<br>
 	 * <i>This method is automatically generated. Please, do not modify!</i>
 	 * <p>
 	 * <b>I/O direction and type:</b><br>
@@ -402,17 +337,13 @@ public class CognexProfinetINIOGroup extends AbstractIOGroup
 	 * ./.
 	 * <p>
 	 * <b>Range of the I/O value:</b><br>
-	 * [false; true]
+	 * [0; 65535]
 	 *
-	 * @param value
-	 *            the value, which has to be written to the mocked digital input 'AcquisutionStatusReg7'
-	* 
-	 * @deprecated The output 'AcquisutionStatusReg7' has not been assigned to a field bus address - thus this operation will be <b>simulated</b> only.
+	 * @return current value of the digital input 'AcqCount'
 	 */
-	@Deprecated
-	public void setMockedAcquisutionStatusReg7Value(java.lang.Boolean value)
+	public java.lang.Integer getAcqCount()
 	{
-		setMockedInput("AcquisutionStatusReg7", value);
+		return getNumberIOValue("AcqCount", false).intValue();
 	}
 
 }
