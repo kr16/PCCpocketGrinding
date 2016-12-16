@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-Automatically generated IO group description. Please do NOT modify!
--->
 <SunriseIOGroupDescription xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.0.0">
   <IOGroup DisplayName="SMC600_SPN1" IconName="SMC600_SPN1" SignalTypes="InOut" TemplateName="SMC600_SPN1">
     <IOs>

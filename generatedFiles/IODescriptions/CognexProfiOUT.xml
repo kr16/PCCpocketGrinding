@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Automatically generated IO group description. Please do NOT modify!
+-->
+<SunriseIOGroupDescription xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.0.0">
+  <IOGroup DisplayName="CognexProfiOUT" IconName="CognexProfiOUT" SignalTypes="InOut" TemplateName="CognexProfiOUT">
+    <IOs>
+      <DigitalIOItem Name="AcquisutionCtrlReg0" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="true">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="AcquisutionCtrlReg1" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="true">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="AcquisutionCtrlReg7" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="true">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionCtrlReg0" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionCtrlReg1" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="SetCurrentJobID" DataType="BYTE" IOType="Output" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="SoftEventCtrlModule0" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="SoftEventCtrlModule1" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="SoftEventCtrlModule2" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="SoftEventCtrlModule3" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="SoftEventCtrlModule4" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="SoftEventCtrlModule5" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="SoftEventCtrlModule6" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="SoftEventCtrlModule7" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+    </IOs>
+    <Description>Cognex describe how the In-Sight sensors ProfiNET capabilities are configured</Description>
+  </IOGroup>
+</SunriseIOGroupDescription>
