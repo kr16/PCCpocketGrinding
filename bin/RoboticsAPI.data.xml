@@ -38,7 +38,7 @@
     </world>
     <objectTemplates>
         <toolTemplate class="" name="NutRunnerCognex">
-            <loadData cogA="0.0" cogB="0.0" cogC="0.0" cogX="-20.670485867933714" cogY="64.76272641059863" cogZ="76.26322921224954" inertiaX="0.0" inertiaY="0.0" inertiaZ="0.0" mass="7.486650438358918"/>
+            <loadData cogA="0.0" cogB="0.0" cogC="0.0" cogX="-20.670485867933714" cogY="64.76272641059863" cogZ="76.26322921224954" inertiaX="0.0" inertiaY="0.0" inertiaZ="0.0" mass="7.8"/>
         </toolTemplate>
     </objectTemplates>
 </RoboticsAPIData>
