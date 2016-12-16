@@ -3,7 +3,7 @@
 <!--DO NOT EDIT-->
 <IPPNIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:noNamespaceSchemaLocation="/Roboter/Config/System/Common/Schemes/IPPNIO.xsd">
   <Version>
-    <UUID ExCRC="1">305697229311199995652607590518985719372</UUID>
+    <UUID ExCRC="1">2514279363522276865707297906346544406</UUID>
     <CfgBrokerVersion>14.2.3.6</CfgBrokerVersion>
     <CRC ExCRC="1" CRCVal="1324768559" />
   </Version>
@@ -20,17 +20,16 @@
   </CtlrParas>
   <ARs>
     <AR BlVers="256" ARTyp="IO_AR_SINGLE" ARUID="3" MulWrt="false" FSUMdTout="0">
-      <ARUUID d1="4012904179" d2="44503" d3="19853" d4="26" d5="189" d6="36" d7="197" d8="126" d9="108" d10="134" d11="24" />
+      <ARUUID d1="2404188366" d2="34309" d3="63013" d4="65" d5="91" d6="20" d7="11" d8="18" d9="251" d10="121" d11="85" />
       <ARProp State="PRIMARY" SVTO="NOT_ALLOWED" PSrv="CM_INITIATOR" DRate="DR_AT_LEAST_100_MBIT" CRTr="SRT_TRANSPORT" CfgDiff="ALLOWED" LogConStat="YES" IgnFS="NO" />
       <CRs CRCnt="2">
-        <CRPara BlVers="256" CRID="3" RTCls="RT_CLASS1_RTC" MdRedn="false" CRTyp="INPUT_CR" DatLn="6" FrID="49152" SndClc="32" RedRat="1" Phs="1" Seq="0" FrOffst="BEST_EFFORT" WtchD="3" DatHld="3">
+        <CRPara BlVers="256" CRID="3" RTCls="RT_CLASS1_RTC" MdRedn="false" CRTyp="INPUT_CR" DatLn="2" FrID="49152" SndClc="32" RedRat="1" Phs="1" Seq="0" FrOffst="BEST_EFFORT" WtchD="3" DatHld="3">
           <CRHdr VLID="NO_VLANID" CRPrio="IOCR_PRIORITY" />
           <MCAddr d1="0" d2="0" d3="0" d4="0" d5="0" d6="0" />
           <RelAPICRs APICnt="1">
             <APICR API="0">
-              <RelDatas RelDatCnt="2">
+              <RelDatas RelDatCnt="1">
                 <RelDat SlNr="0" SSlNr="1" />
-                <RelDat SlNr="2" SSlNr="1" />
               </RelDatas>
               <RelIOCSs RelIOCSCnt="1">
                 <RelIOCS SlNr="1" SSlNr="1" />
@@ -38,7 +37,7 @@
             </APICR>
           </RelAPICRs>
         </CRPara>
-        <CRPara BlVers="256" CRID="3" RTCls="RT_CLASS1_RTC" MdRedn="false" CRTyp="OUTPUT_CR" DatLn="4" FrID="65535" SndClc="32" RedRat="1" Phs="1" Seq="0" FrOffst="BEST_EFFORT" WtchD="3" DatHld="3">
+        <CRPara BlVers="256" CRID="3" RTCls="RT_CLASS1_RTC" MdRedn="false" CRTyp="OUTPUT_CR" DatLn="3" FrID="65535" SndClc="32" RedRat="1" Phs="1" Seq="0" FrOffst="BEST_EFFORT" WtchD="3" DatHld="3">
           <CRHdr VLID="NO_VLANID" CRPrio="IOCR_PRIORITY" />
           <MCAddr d1="0" d2="0" d3="0" d4="0" d5="0" d6="0" />
           <RelAPICRs APICnt="1">
@@ -46,15 +45,14 @@
               <RelDatas RelDatCnt="1">
                 <RelDat SlNr="1" SSlNr="1" />
               </RelDatas>
-              <RelIOCSs RelIOCSCnt="2">
+              <RelIOCSs RelIOCSCnt="1">
                 <RelIOCS SlNr="0" SSlNr="1" />
-                <RelIOCS SlNr="2" SSlNr="1" />
               </RelIOCSs>
             </APICR>
           </RelAPICRs>
         </CRPara>
       </CRs>
-      <ModParas ModParCnt="3">
+      <ModParas ModParCnt="2">
         <ModPara SlNr="0">
           <ModName ExCRC="1" />
           <ModEquId ExCRC="1" />
@@ -67,14 +65,8 @@
           <FDCMLFile />
           <CEId>ceModule</CEId>
         </ModPara>
-        <ModPara SlNr="2">
-          <ModName ExCRC="1" />
-          <ModEquId ExCRC="1" />
-          <FDCMLFile />
-          <CEId>ceModule</CEId>
-        </ModPara>
       </ModParas>
-      <SMParas SMCnt="3">
+      <SMParas SMCnt="2">
         <SMPara>
           <RelAPISMs BlVers="256" RelAPICnt="1">
             <APISM API="0" SlNr="0" ModID="1" ModProp="0">
@@ -83,7 +75,7 @@
                   <SMProp Shar="INVALID" SMTyp="NO_IO" />
                   <SMElDess ElCnt="2">
                     <SMElDes Intpret="IOCS" Descr="DATA_OUTPUT" Len="1" SubsMod="NULL_VALUE" Offst="0" />
-                    <SMElDes Intpret="IOPS" Descr="DATA_INPUT" Len="1" SubsMod="NULL_VALUE" Offst="5" />
+                    <SMElDes Intpret="IOPS" Descr="DATA_INPUT" Len="1" SubsMod="NULL_VALUE" Offst="1" />
                   </SMElDess>
                   <ModName ExCRC="1" />
                   <ModEquId ExCRC="1" />
@@ -101,29 +93,9 @@
                 <SMDes SSlNr="1" SMID="0">
                   <SMProp Shar="INVALID" SMTyp="OUTPUT" />
                   <SMElDess ElCnt="3">
-                    <SMElDes Intpret="DATA" Descr="DATA_OUTPUT" Len="1" SubsMod="NULL_VALUE" Offst="2" />
+                    <SMElDes Intpret="DATA" Descr="DATA_OUTPUT" Len="1" SubsMod="NULL_VALUE" Offst="1" />
                     <SMElDes Intpret="IOCS" Descr="DATA_INPUT" Len="1" SubsMod="NULL_VALUE" Offst="0" />
-                    <SMElDes Intpret="IOPS" Descr="DATA_OUTPUT" Len="1" SubsMod="NULL_VALUE" Offst="3" />
-                  </SMElDess>
-                  <ModName ExCRC="1" />
-                  <ModEquId ExCRC="1" />
-                  <FDCMLFile />
-                  <CEId>ceModule</CEId>
-                </SMDes>
-              </SMs>
-            </APISM>
-          </RelAPISMs>
-        </SMPara>
-        <SMPara>
-          <RelAPISMs BlVers="256" RelAPICnt="1">
-            <APISM API="0" SlNr="2" ModID="513" ModProp="0">
-              <SMs SMCnt="1">
-                <SMDes SSlNr="1" SMID="0">
-                  <SMProp Shar="NO_SHARED_INPUT" SMTyp="INPUT" />
-                  <SMElDess ElCnt="3">
-                    <SMElDes Intpret="DATA" Descr="DATA_INPUT" Len="3" SubsMod="NULL_VALUE" Offst="1" />
-                    <SMElDes Intpret="IOCS" Descr="DATA_OUTPUT" Len="1" SubsMod="NULL_VALUE" Offst="1" />
-                    <SMElDes Intpret="IOPS" Descr="DATA_INPUT" Len="1" SubsMod="NULL_VALUE" Offst="4" />
+                    <SMElDes Intpret="IOPS" Descr="DATA_OUTPUT" Len="1" SubsMod="NULL_VALUE" Offst="2" />
                   </SMElDess>
                   <ModName ExCRC="1" />
                   <ModEquId ExCRC="1" />
