@@ -29,36 +29,6 @@ Automatically generated IO group description. Please do NOT modify!
       <DigitalIOItem Name="AcquisutionStatusReg7" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="true">
         <Description />
       </DigitalIOItem>
-      <DigitalIOItem Name="InspectionStatusReg1" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
-        <Description />
-      </DigitalIOItem>
-      <DigitalIOItem Name="InspectionStatusReg2" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
-        <Description />
-      </DigitalIOItem>
-      <DigitalIOItem Name="InspectionStatusReg3" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
-        <Description />
-      </DigitalIOItem>
-      <DigitalIOItem Name="InspectionStatusReg4" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
-        <Description />
-      </DigitalIOItem>
-      <DigitalIOItem Name="InspectionStatusReg5" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
-        <Description />
-      </DigitalIOItem>
-      <DigitalIOItem Name="InspectionStatusReg6" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
-        <Description />
-      </DigitalIOItem>
-      <DigitalIOItem Name="InspectionCount" DataType="UINT" IOType="Input" UsedBitWidth="16" IsConnected="false">
-        <Description />
-      </DigitalIOItem>
-      <DigitalIOItem Name="InspectionStatusReg0" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
-        <Description />
-      </DigitalIOItem>
-      <DigitalIOItem Name="CurrentJobID" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
-        <Description />
-      </DigitalIOItem>
-      <DigitalIOItem Name="ResultCode" DataType="INT" IOType="Input" UsedBitWidth="16" IsConnected="false">
-        <Description />
-      </DigitalIOItem>
     </IOs>
     <Description>Cognex describe how the In-Sight sensors ProfiNET capabilities are configured</Description>
   </IOGroup>
