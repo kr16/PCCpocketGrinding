@@ -14,6 +14,33 @@ Automatically generated IO group description. Please do NOT modify!
       <DigitalIOItem Name="AcqCtrlReg7" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="true">
         <Description />
       </DigitalIOItem>
+      <DigitalIOItem Name="AcqStatusReg0" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="true">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="AcqStatusReg1" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="true">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="AcqStatusReg2" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="true">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="AcqStatusReg3" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="true">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="AcqStatusReg4" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="true">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="AcqStatusReg5" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="true">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="AcqStatusReg6" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="true">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="AcqStatusReg7" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="true">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="AcqCount" DataType="UINT" IOType="Input" UsedBitWidth="16" IsConnected="true">
+        <Description />
+      </DigitalIOItem>
     </IOs>
     <Description>Cognex describe how the In-Sight sensors ProfiNET capabilities are configured</Description>
   </IOGroup>
