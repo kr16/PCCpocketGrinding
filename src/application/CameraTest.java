@@ -46,9 +46,9 @@ public class CameraTest extends RoboticsAPIApplication {
 	@Override
 	public void initialize() {
 		// initialize your application here
-		HotDotTest = getApplicationData().createFromTemplate("HotDotEEnoVRSI");
+		HotDotTest = getApplicationData().createFromTemplate("NutRunnerCognex");
+		//currentTCP = HotDotTest.getFrame("Iron");
 		nullBase = getApplicationData().getFrame("/nullBase");
-		currentTCP = HotDotTest.getFrame("Iron");
 		startPos = getApplicationData().getFrame("/SpiralTest/SpiralTestStart");
 		kuka_Sunrise_Cabinet_1 = getController("KUKA_Sunrise_Cabinet_1");
 		CognexIO = new CognexProfinetIOGroup(kuka_Sunrise_Cabinet_1);
