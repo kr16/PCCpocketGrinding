@@ -108,40 +108,40 @@
     </Bus>
     <Bus BusDriverName="PNIODriver" BusInstanceName="PNIO-CTRL">
       <IOList>
-        <DigitalIO Name="CognexProfinet.AcqCtrlReg0" Type="OUTPUT" Scope="USER_IO" StartBit="64" BitSize="1" Signed="false">
+        <DigitalIO Name="CognexProfinet.AcqStatusReg0" Type="INPUT" Scope="USER_IO" StartBit="592" BitSize="1" Signed="false">
           <Description />
         </DigitalIO>
-        <DigitalIO Name="CognexProfinet.AcqCtrlReg1" Type="OUTPUT" Scope="USER_IO" StartBit="65" BitSize="1" Signed="false">
+        <DigitalIO Name="CognexProfinet.AcqStatusReg1" Type="INPUT" Scope="USER_IO" StartBit="593" BitSize="1" Signed="false">
           <Description />
         </DigitalIO>
-        <DigitalIO Name="CognexProfinet.AcqCtrlReg7" Type="OUTPUT" Scope="USER_IO" StartBit="71" BitSize="1" Signed="false">
+        <DigitalIO Name="CognexProfinet.AcqStatusReg2" Type="INPUT" Scope="USER_IO" StartBit="594" BitSize="1" Signed="false">
           <Description />
         </DigitalIO>
-        <DigitalIO Name="CognexProfinet.AcqStatusReg0" Type="INPUT" Scope="USER_IO" StartBit="8" BitSize="1" Signed="false">
+        <DigitalIO Name="CognexProfinet.AcqStatusReg3" Type="INPUT" Scope="USER_IO" StartBit="595" BitSize="1" Signed="false">
           <Description />
         </DigitalIO>
-        <DigitalIO Name="CognexProfinet.AcqStatusReg1" Type="INPUT" Scope="USER_IO" StartBit="9" BitSize="1" Signed="false">
+        <DigitalIO Name="CognexProfinet.AcqStatusReg4" Type="INPUT" Scope="USER_IO" StartBit="596" BitSize="1" Signed="false">
           <Description />
         </DigitalIO>
-        <DigitalIO Name="CognexProfinet.AcqStatusReg2" Type="INPUT" Scope="USER_IO" StartBit="10" BitSize="1" Signed="false">
+        <DigitalIO Name="CognexProfinet.AcqStatusReg5" Type="INPUT" Scope="USER_IO" StartBit="597" BitSize="1" Signed="false">
           <Description />
         </DigitalIO>
-        <DigitalIO Name="CognexProfinet.AcqStatusReg3" Type="INPUT" Scope="USER_IO" StartBit="11" BitSize="1" Signed="false">
+        <DigitalIO Name="CognexProfinet.AcqStatusReg6" Type="INPUT" Scope="USER_IO" StartBit="598" BitSize="1" Signed="false">
           <Description />
         </DigitalIO>
-        <DigitalIO Name="CognexProfinet.AcqStatusReg4" Type="INPUT" Scope="USER_IO" StartBit="12" BitSize="1" Signed="false">
+        <DigitalIO Name="CognexProfinet.AcqStatusReg7" Type="INPUT" Scope="USER_IO" StartBit="599" BitSize="1" Signed="false">
           <Description />
         </DigitalIO>
-        <DigitalIO Name="CognexProfinet.AcqStatusReg5" Type="INPUT" Scope="USER_IO" StartBit="13" BitSize="1" Signed="false">
+        <DigitalIO Name="CognexProfinet.AcqCount" Type="INPUT" Scope="USER_IO" StartBit="600" BitSize="16" Signed="false">
           <Description />
         </DigitalIO>
-        <DigitalIO Name="CognexProfinet.AcqStatusReg6" Type="INPUT" Scope="USER_IO" StartBit="14" BitSize="1" Signed="false">
+        <DigitalIO Name="CognexProfinet.AcqCtrlReg0" Type="OUTPUT" Scope="USER_IO" StartBit="1224" BitSize="1" Signed="false">
           <Description />
         </DigitalIO>
-        <DigitalIO Name="CognexProfinet.AcqStatusReg7" Type="INPUT" Scope="USER_IO" StartBit="15" BitSize="1" Signed="false">
+        <DigitalIO Name="CognexProfinet.AcqCtrlReg1" Type="OUTPUT" Scope="USER_IO" StartBit="1225" BitSize="1" Signed="false">
           <Description />
         </DigitalIO>
-        <DigitalIO Name="CognexProfinet.AcqCount" Type="INPUT" Scope="USER_IO" StartBit="16" BitSize="16" Signed="false">
+        <DigitalIO Name="CognexProfinet.AcqCtrlReg7" Type="OUTPUT" Scope="USER_IO" StartBit="1231" BitSize="1" Signed="false">
           <Description />
         </DigitalIO>
       </IOList>
