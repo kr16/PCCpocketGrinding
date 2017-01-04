@@ -9,6 +9,6 @@
   <PROFINET PNIODeviceName="lbr-iiwa246833" />
   <ControllerInstance Name="PNIO-CTRL" busCycleTime="2" busTimeout="20000">
     <Device Name="ex600-spn" ARUserID="2" InputDataLength="11" OutputDataLength="11" DiagnosticAlarmActive="false" IsActive="true" DeleteARPCache="false" />
-    <Device Name="cognex-iiwa" ARUserID="3" InputDataLength="83" OutputDataLength="78" DiagnosticAlarmActive="false" IsActive="false" DeleteARPCache="false" />
+    <Device Name="cognex-iiwa" ARUserID="3" InputDataLength="83" OutputDataLength="78" DiagnosticAlarmActive="false" IsActive="true" DeleteARPCache="false" />
   </ControllerInstance>
 </Driver>
