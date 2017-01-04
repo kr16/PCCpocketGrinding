@@ -7,7 +7,7 @@
     <Schema Version="500" />
   </Version>
   <PROFINET PNIODeviceName="lbr-iiwa246833" />
-  <ControllerInstance Name="PNIO-CTRL" busCycleTime="16" busTimeout="20000">
-    <Device Name="cognex-iiwa" ARUserID="2" InputDataLength="83" OutputDataLength="78" DiagnosticAlarmActive="false" IsActive="true" DeleteARPCache="false" />
+  <ControllerInstance Name="PNIO-CTRL" busCycleTime="32" busTimeout="20000">
+    <Device Name="cognex-iiwa" ARUserID="2" InputDataLength="83" OutputDataLength="78" DiagnosticAlarmActive="true" IsActive="true" DeleteARPCache="false" />
   </ControllerInstance>
 </Driver>
