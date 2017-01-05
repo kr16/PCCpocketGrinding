@@ -61,14 +61,12 @@ public class CognexLogin {
     	char ch;
     	int asciiValue;
         boolean response = false;
-        System.out.println("Cognex --> ");
     	try {
     		while (response == false) {
     			asciiValue = in.read();
     			if (asciiValue == 10 || asciiValue == 13) continue;
     			if (Character.getNumericValue(asciiValue) == 1) {
-    				System.out.print((char) asciiValue);
-    				System.out.println();
+    				System.out.println("Cognex --> " + ((char) asciiValue));
     				return;
     			}
     			if (asciiValue == -1) {
