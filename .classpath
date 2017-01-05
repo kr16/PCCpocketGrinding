@@ -57,5 +57,6 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/CognexKSAF_Nutrunner/KUKAJavaLib/#Bundle-JavaDoc#!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="libs/commons-net-3.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
