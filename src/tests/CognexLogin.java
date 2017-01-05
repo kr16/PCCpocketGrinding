@@ -61,7 +61,7 @@ public class CognexLogin {
     	char ch;
     	int asciiValue;
         boolean response = false;
-        System.out.print("Cognex --> ");
+        System.out.println("Cognex --> ");
     	try {
     		while (response == false) {
     			asciiValue = in.read();
