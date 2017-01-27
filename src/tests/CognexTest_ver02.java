@@ -44,11 +44,11 @@ public class CognexTest_ver02 extends RoboticsAPIApplication {
 		try {
 			CognexLogin telnet = new CognexLogin("172.31.1.69","admin","");
 			telnet.readUntil("User Logged In");
-			for (int i = 0; i < 10; i++) {
+			
 				telnet.write("SW8");
 				telnet.readResponse(1);
-				ThreadUtil.milliSleep(2000);
-			}
+				
+				
 			System.out.println("Done");
 			telnet.disconnect();
 		}
