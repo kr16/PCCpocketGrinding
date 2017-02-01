@@ -21,6 +21,8 @@ public interface Common {
 	public enum ECalcDirection {XisRow, YisRow};
 	public enum EHotDotCouponStates {Empty, Smudged, Skived, Scaned, Skip, Error, EmptyScaned};
 	public enum ECouponSectionName {Coupon14, Coupon56, Coupon79}
+	public enum ECognexTrigger {SW8, SE8, NULL};
+	public enum ECognexCommand {GV, SF, NULL};
 	
     // Function results
 	public static final int ciFunctionInProgress        = -1; 

@@ -35,6 +35,12 @@
                 </redundancyData>
             </frame>
         </frame>
+        <frame id="_cdbe2e2a-a5c4-46b7-863a-bae51f63b05d" name="referencePos">
+            <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
+            <additionalInformation>
+                <info key="LastModificationTime" type="java.lang.Long" value="1485985188288"/>
+            </additionalInformation>
+        </frame>
     </world>
     <objectTemplates>
         <toolTemplate class="" name="NutRunnerCognex">
