@@ -97,8 +97,7 @@ public class CollectPictures extends RoboticsAPIApplication {
 				//   Move to process position
 				currentTCP.move(lin(TheoreticalPos).setCartVelocity(50).setCartAcceleration(100));
 			}
-		}
-		
+		}	
 	}
 	
 	private void setNewHomePosition() {
@@ -111,8 +110,8 @@ public class CollectPictures extends RoboticsAPIApplication {
 	
 	public Frame gridCalculation(Frame Origin, int rowNumber, int colNumber,
 			double rowOffset, double colOffset, double ZOffset) {
-		return Origin.copy().setX(Origin.getX() + (colNumber - 1) * colOffset)
-				.setY(Origin.copy().getY() - (rowNumber - 1) * rowOffset)
+		return Origin.copy().setX(Origin.getX() - (rowNumber - 1) * rowNumber)
+				.setY(Origin.copy().getY() + (colNumber - 1) * colOffset)
 				.setZ(Origin.copy().getZ() + ZOffset);
 	}
 	
