@@ -60,7 +60,7 @@ public class CollectPictures extends RoboticsAPIApplication {
 		currentTCP = KSAF_EE.getFrame("NutRunner_HL70_06");
 		nullBase = getApplicationData().getFrame("/nullBase");
 		startPos = getApplicationData().getFrame("/SpiralTest/SpiralTestStart");
-		referencePos = getApplicationData().getFrame("/referencePos");
+		referencePos = getApplicationData().getFrame("/nullBase/referencePos");
 	}
 
 	@Override
