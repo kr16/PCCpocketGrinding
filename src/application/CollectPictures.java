@@ -82,8 +82,6 @@ public class CollectPictures extends RoboticsAPIApplication {
 		timer = new TimerKCT();
 		Thread TimerThread;
 		TimerThread = new Thread(timer);
-		TimerThread.start();
-		timer.setTimerValue(0);
 		
 		
 		//bot home

@@ -50,7 +50,8 @@ public class CognexIIWA_FTPlib {
 		//local file output format and path
 		String currDate = mySdf.format(myDate.getTime()) + "_";
 		
-		String localPath = "c:/KUKA/KUKA Projects/RandD_Cell/KSAF IIWA NutRunner/pics/";
+		//String localPath = "c:/KUKA/KUKA Projects/RandD_Cell/KSAF IIWA NutRunner/pics/";
+		String localPath = "d:/TransferCognexPics";
 		String localOutputPath = localPath + currDate + this.getFtpLocalFileName();	
 		
 		ftp.setListHiddenFiles(false);
