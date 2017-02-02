@@ -85,7 +85,7 @@ public class CollectPictures extends RoboticsAPIApplication {
 		//currentTCP.move(lin(startPos).setCartVelocity(50));
 		
 		for (int row = 1; row <= 5; row++) {
-			for (int column = 1; column <= 9; column++) {
+			for (int column = 1; column <= 5; column++) {
 				Frame TheoreticalPos = gridCalculation(referencePos.copy(), row,
 						column, rowOffset, columnOffset,0);
 				getLogger().info(
