@@ -14,6 +14,7 @@ import modules.Common.searchDir;
 import modules.TimerKCT;
 import modules.TouchForceRecord;
 
+import com.kuka.common.ThreadUtil;
 import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
 import static com.kuka.roboticsAPI.motionModel.BasicMotions.*;
 
@@ -108,6 +109,7 @@ public class CollectPictures extends RoboticsAPIApplication {
 				//   Move to process position
 				currentTCP.move(lin(TheoreticalPos).setCartVelocity(50).setCartAcceleration(100));
 				telnet.sendCognexTrigger(ECognexTrigger.SE8);
+				ThreadUtil.milliSleep(500);
 				downloadImage();
 				//getApplicationControl().halt();
 			}
