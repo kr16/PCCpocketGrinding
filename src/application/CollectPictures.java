@@ -82,7 +82,7 @@ public class CollectPictures extends RoboticsAPIApplication {
 		System.out.println("Moving to Home/Start position");
 		bot.move(ptpHome().setJointVelocityRel(0.3));
 		
-		currentTCP.move(lin(startPos).setCartVelocity(50));
+		//currentTCP.move(lin(startPos).setCartVelocity(50));
 		
 		for (int row = 1; row <= 5; row++) {
 			for (int column = 1; column <= 9; column++) {
@@ -103,8 +103,8 @@ public class CollectPictures extends RoboticsAPIApplication {
 	private void setNewHomePosition() {
 		// Currently needed every run for this program
 		// Otherwise robot goes to candle home
-		JointPosition newHome = new JointPosition(Math.toRadians(-90), Math.toRadians(56),
-				0.0, Math.toRadians(-100), 0.0, Math.toRadians(-43), Math.toRadians(0));
+		JointPosition newHome = new JointPosition(Math.toRadians(-127), Math.toRadians(88),
+				Math.toRadians(76), Math.toRadians(-86), Math.toRadians(-8), Math.toRadians(-46), Math.toRadians(-5));
 		bot.setHomePosition(newHome);
 	}
 	
