@@ -5,6 +5,10 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
+import modules.CognexIIWA_FTPlib;
+import modules.CognexIIWA_Telnetlib;
+import modules.Common.ECognexCommand;
+import modules.Common.ECognexTrigger;
 import modules.Common.EHotDotCouponStates;
 import modules.Common.searchDir;
 import modules.TimerKCT;
@@ -53,6 +57,9 @@ public class CollectPictures extends RoboticsAPIApplication {
 	private ObjectFrame startPos;
 	private ObjectFrame referencePos;
     private TimerKCT timer;
+    CognexIIWA_Telnetlib telnet;
+    CognexIIWA_FTPlib ftp;
+    
 	@Override
 	public void initialize() {
 		// initialize your application here
@@ -61,6 +68,8 @@ public class CollectPictures extends RoboticsAPIApplication {
 		nullBase = getApplicationData().getFrame("/nullBase");
 		startPos = getApplicationData().getFrame("/SpiralTest/SpiralTestStart");
 		referencePos = getApplicationData().getFrame("/nullBase/referencePos");
+		telnet = new CognexIIWA_Telnetlib("172.31.1.69","admin","");
+		ftp = new CognexIIWA_FTPlib("172.31.1.69","admin","");
 	}
 
 	@Override
@@ -68,7 +77,8 @@ public class CollectPictures extends RoboticsAPIApplication {
 		
 		double rowOffset = 44;
 		double columnOffset = 57;
-		
+		double currentExposureTime = 5.0;
+		ftp.setFtpLocalFileName("exp: " + currentExposureTime + " HL70_10");
 		timer = new TimerKCT();
 		Thread TimerThread;
 		TimerThread = new Thread(timer);
@@ -83,7 +93,8 @@ public class CollectPictures extends RoboticsAPIApplication {
 		bot.move(ptpHome().setJointVelocityRel(0.3));
 		
 		//currentTCP.move(lin(startPos).setCartVelocity(50));
-		
+		telnet.login();
+		telnet.sendCognexCommand(ECognexCommand.SF, "F", 13, currentExposureTime);
 		for (int row = 1; row <= 5; row++) {
 			for (int column = 1; column <= 5; column++) {
 				Frame TheoreticalPos = gridCalculation(referencePos.copy(), row,
@@ -96,9 +107,13 @@ public class CollectPictures extends RoboticsAPIApplication {
 				
 				//   Move to process position
 				currentTCP.move(lin(TheoreticalPos).setCartVelocity(50).setCartAcceleration(100));
+				telnet.sendCognexTrigger(ECognexTrigger.SE8);
+				downloadImage();
 				getApplicationControl().halt();
 			}
 		}	
+		telnet.disconnect();
+		bot.move(ptpHome().setJointVelocityRel(0.3));
 	}
 	
 	private void setNewHomePosition() {
@@ -114,6 +129,15 @@ public class CollectPictures extends RoboticsAPIApplication {
 		return Origin.copy().setX(Origin.getX() - (rowNumber - 1) * rowOffset)
 				.setY(Origin.copy().getY() + (colNumber - 1) * colOffset)
 				.setZ(Origin.copy().getZ() + ZOffset);
+	}
+	
+	private void downloadImage() {
+		try {
+			ftp.downloadFile();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Override

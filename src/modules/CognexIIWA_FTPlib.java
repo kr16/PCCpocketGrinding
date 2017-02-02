@@ -21,6 +21,7 @@ public class CognexIIWA_FTPlib {
 	private String serverAddress = null;
 	private String username = null;
 	private String password = null;
+	private String ftpLocalFileName = null;
 	
 	public CognexIIWA_FTPlib(String serverAddress, String username, String password) {
 		this.setServerAddress(serverAddress);
@@ -48,10 +49,9 @@ public class CognexIIWA_FTPlib {
 		
 		//local file output format and path
 		String currDate = mySdf.format(myDate.getTime()) + "_";
-		String localFileName = "CognexImage.jpg";
-		String localPath = "c:/KUKA/KUKA Projects/RandD_Cell/KSAF IIWA NutRunner/pics/";
-		String localOutputPath = localPath + currDate + localFileName;
 		
+		String localPath = "c:/KUKA/KUKA Projects/RandD_Cell/KSAF IIWA NutRunner/pics/";
+		String localOutputPath = localPath + currDate + this.getFtpLocalFileName();	
 		
 		ftp.setListHiddenFiles(false);
 		//Line below enables detail server responses, usefull for debug
@@ -137,7 +137,7 @@ public class CognexIIWA_FTPlib {
                 ftp.retrieveFile(remote, output);
 
                 output.close();
-                System.out.println("Sunrise --> File: " + currDate + localFileName + " downloaded succesfully");
+                System.out.println("Sunrise --> File: " + currDate + ftpLocalFileName + " downloaded succesfully");
             }
 
             ftp.noop(); // check that control connection is working OK
@@ -197,6 +197,12 @@ public class CognexIIWA_FTPlib {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public String getFtpLocalFileName() {
+		return ftpLocalFileName;
+	}
+	public void setFtpLocalFileName(String ftpLocalFileName) {
+		this.ftpLocalFileName = ftpLocalFileName;
 	}
 
 }
