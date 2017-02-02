@@ -23,6 +23,7 @@ public class CognexIIWA_FTPlib {
 	private String password = null;
 	private String ftpLocalFileName = null;
 	private String ftpLocalDownloadPath = null;
+	private String ftpRemoteFileName = null;
 	
 	public CognexIIWA_FTPlib(String serverAddress, String username, String password) {
 		this.setServerAddress(serverAddress);
@@ -33,11 +34,23 @@ public class CognexIIWA_FTPlib {
 	public void downloadFile() throws InterruptedException {
 		// TODO Auto-generated method stub
 		
+		if (this.getFtpLocalDownloadPath() == null) {
+			System.err.println("Warning: local download path not set, defaults to \"c:\" <CognexIIWA_FTPlib.java>");
+			this.setFtpLocalDownloadPath("c:/");
+		} 
+		if (this.getFtpLocalFileName() == null){
+			System.err.println("Warning: local filaname not set, defaults to \"date/time/.jpg\"  <CognexIIWA_FTPlib.java>");
+			this.setFtpLocalFileName(".jpg");
+		}
+		if (this.getFtpRemoteFileName() == null) {
+			System.err.println("Warning: remote filaname not set, defaults to \"Image.jpg\"  <CognexIIWA_FTPlib.java>");
+			this.setFtpRemoteFileName("Image.jpg");
+		}
+		
 		String server = this.getServerAddress();
 		int port = 21;
 		String username = this.getUsername();
 		String password = this.getPassword();
-		String remote = "image.jpg";
 		boolean binaryTransfer = true;
 		boolean localActive = false;
 		boolean listFile = false; //this will list the file before downloading, only useful for debug
@@ -50,7 +63,7 @@ public class CognexIIWA_FTPlib {
 		
 		//local file output format and path
 		String currDate = mySdf.format(myDate.getTime()) + "_";
-		String localOutputPath = this.getFtpLocalDownloadPath() + currDate + this.getFtpLocalFileName() + ".jpg";	
+		String localOutputPath = this.getFtpLocalDownloadPath() + currDate + this.getFtpLocalFileName();	
 		
 		ftp.setListHiddenFiles(false);
 		//Line below enables detail server responses, usefull for debug
@@ -123,7 +136,7 @@ public class CognexIIWA_FTPlib {
             }
             
             if (listFile) {
-            	for (FTPFile f : ftp.listFiles(remote)) {
+            	for (FTPFile f : ftp.listFiles(this.getFtpRemoteFileName())) {
             		System.out.println(f.getRawListing());
             		//System.out.println(f.toFormattedString(displayTimeZoneId));
             	}
@@ -133,7 +146,7 @@ public class CognexIIWA_FTPlib {
 
                 output = new FileOutputStream(localOutputPath);
 
-                ftp.retrieveFile(remote, output);
+                ftp.retrieveFile(this.getFtpRemoteFileName(), output);
 
                 output.close();
                 System.out.println("Sunrise --> File: " + currDate + ftpLocalFileName + " downloaded succesfully");
@@ -208,6 +221,12 @@ public class CognexIIWA_FTPlib {
 	}
 	public void setFtpLocalDownloadPath(String ftpLocalDownloadPath) {
 		this.ftpLocalDownloadPath = ftpLocalDownloadPath;
+	}
+	public String getFtpRemoteFileName() {
+		return ftpRemoteFileName;
+	}
+	public void setFtpRemoteFileName(String ftpRemoteFileName) {
+		this.ftpRemoteFileName = ftpRemoteFileName;
 	}
 
 }
