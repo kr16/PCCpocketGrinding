@@ -67,7 +67,7 @@ public class CollectPictures extends RoboticsAPIApplication {
 	public void run() {
 		
 		double rowOffset = 44;
-		double columnOffset = 52;
+		double columnOffset = 57;
 		
 		timer = new TimerKCT();
 		Thread TimerThread;
@@ -96,6 +96,7 @@ public class CollectPictures extends RoboticsAPIApplication {
 				
 				//   Move to process position
 				currentTCP.move(lin(TheoreticalPos).setCartVelocity(50).setCartAcceleration(100));
+				getApplicationControl().halt();
 			}
 		}	
 	}
