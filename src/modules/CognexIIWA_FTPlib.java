@@ -22,6 +22,7 @@ public class CognexIIWA_FTPlib {
 	private String username = null;
 	private String password = null;
 	private String ftpLocalFileName = null;
+	private String ftpLocalDownloadPath = null;
 	
 	public CognexIIWA_FTPlib(String serverAddress, String username, String password) {
 		this.setServerAddress(serverAddress);
@@ -49,10 +50,7 @@ public class CognexIIWA_FTPlib {
 		
 		//local file output format and path
 		String currDate = mySdf.format(myDate.getTime()) + "_";
-		
-		//String localPath = "c:/KUKA/KUKA Projects/RandD_Cell/KSAF IIWA NutRunner/pics/";
-		String localPath = "d:/TransferCognexPics";
-		String localOutputPath = localPath + currDate + this.getFtpLocalFileName();	
+		String localOutputPath = this.getFtpLocalDownloadPath() + currDate + this.getFtpLocalFileName() + ".jpg";	
 		
 		ftp.setListHiddenFiles(false);
 		//Line below enables detail server responses, usefull for debug
@@ -204,6 +202,12 @@ public class CognexIIWA_FTPlib {
 	}
 	public void setFtpLocalFileName(String ftpLocalFileName) {
 		this.ftpLocalFileName = ftpLocalFileName;
+	}
+	public String getFtpLocalDownloadPath() {
+		return ftpLocalDownloadPath;
+	}
+	public void setFtpLocalDownloadPath(String ftpLocalDownloadPath) {
+		this.ftpLocalDownloadPath = ftpLocalDownloadPath;
 	}
 
 }
