@@ -68,7 +68,7 @@ public class CollectPictures extends RoboticsAPIApplication {
 		currentTCP = KSAF_EE.getFrame("NutRunner_HL70_06");
 		nullBase = getApplicationData().getFrame("/nullBase");
 		startPos = getApplicationData().getFrame("/SpiralTest/SpiralTestStart");
-		referencePos = getApplicationData().getFrame("/nullBase/referencePosHL10");
+		referencePos = getApplicationData().getFrame("/nullBase/referencePosHL12");
 		telnet = new CognexIIWA_Telnetlib("172.31.1.69","admin","");
 		ftp = new CognexIIWA_FTPlib("172.31.1.69","admin","");
 	}
@@ -79,7 +79,7 @@ public class CollectPictures extends RoboticsAPIApplication {
 		double rowOffset = 44;
 		double columnOffset = 57;
 		double currentExposureTime = 5.0;
-		ftp.setFtpLocalFileName(" HL70_10" + " Exposure " + currentExposureTime + ".bmp");
+		ftp.setFtpLocalFileName(" HL70_12" + " Exposure " + currentExposureTime + ".bmp");
 		ftp.setFtpLocalDownloadPath("d:/Transfer/CognexPics/");
 		ftp.setFtpRemoteFileName("Image.bmp");
 		timer = new TimerKCT();
@@ -97,7 +97,7 @@ public class CollectPictures extends RoboticsAPIApplication {
 		telnet.login();
 		telnet.sendCognexCommand(ECognexCommand.SF, "F", 13, currentExposureTime);
 		for (int row = 1; row <= 5; row++) {
-			for (int column = 1; column <= 5; column++) {
+			for (int column = 1; column <= 4; column++) {
 				Frame TheoreticalPos = gridCalculation(referencePos.copy(), row,
 						column, rowOffset, columnOffset,0);
 				getLogger().info(
