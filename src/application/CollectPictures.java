@@ -78,7 +78,7 @@ public class CollectPictures extends RoboticsAPIApplication {
 		double rowOffset = 44;
 		double columnOffset = 57;
 		double currentExposureTime = 5.0;
-		ftp.setFtpLocalFileName(" HL70_10" + " Exposure: " + currentExposureTime );
+		ftp.setFtpLocalFileName(" HL70_10" + " Exposure " + currentExposureTime);
 		ftp.setFtpLocalDownloadPath("d:/Transfer/CognexPics/");
 		timer = new TimerKCT();
 		Thread TimerThread;
@@ -108,7 +108,7 @@ public class CollectPictures extends RoboticsAPIApplication {
 				currentTCP.move(lin(TheoreticalPos).setCartVelocity(50).setCartAcceleration(100));
 				telnet.sendCognexTrigger(ECognexTrigger.SE8);
 				downloadImage();
-				getApplicationControl().halt();
+				//getApplicationControl().halt();
 			}
 		}	
 		telnet.disconnect();
