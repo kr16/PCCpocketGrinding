@@ -47,7 +47,7 @@ import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianSineImpedanceC
 public class CollectPictures extends RoboticsAPIApplication {
 	@Inject
 	private LBR bot;
-	private Tool HotDotTest;
+	private Tool KSAF_EE;
 	private ObjectFrame nullBase;
 	private ObjectFrame currentTCP;
 	private ObjectFrame startPos;
@@ -56,9 +56,9 @@ public class CollectPictures extends RoboticsAPIApplication {
 	@Override
 	public void initialize() {
 		// initialize your application here
-		HotDotTest = getApplicationData().createFromTemplate("HotDotEEnoVRSI");
+		KSAF_EE = getApplicationData().createFromTemplate("KSAFNutRunnerEE");
+		currentTCP = KSAF_EE.getFrame("NutRunner_HL70_06");
 		nullBase = getApplicationData().getFrame("/nullBase");
-		currentTCP = HotDotTest.getFrame("Iron");
 		startPos = getApplicationData().getFrame("/SpiralTest/SpiralTestStart");
 		referencePos = getApplicationData().getFrame("/referencePos");
 	}
@@ -78,7 +78,7 @@ public class CollectPictures extends RoboticsAPIApplication {
 		
 		//bot home
 		setNewHomePosition();
-		HotDotTest.attachTo(bot.getFlange());
+		KSAF_EE.attachTo(bot.getFlange());
 		System.out.println("Moving to Home/Start position");
 		bot.move(ptpHome().setJointVelocityRel(0.3));
 		
