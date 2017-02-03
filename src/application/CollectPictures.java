@@ -94,8 +94,10 @@ public class CollectPictures extends RoboticsAPIApplication {
 		bot.move(ptpHome().setJointVelocityRel(0.3));
 		
 		//currentTCP.move(lin(startPos).setCartVelocity(50));
-		telnet.login();
+		telnetLogin();
 		telnet.sendCognexCommand(ECognexCommand.SF, "F", 13, currentExposureTime);
+		telnet.disconnect();
+		
 		for (int row = 1; row <= 5; row++) {
 			for (int column = 1; column <= 4; column++) {
 				Frame TheoreticalPos = gridCalculation(referencePos.copy(), row,
@@ -108,13 +110,13 @@ public class CollectPictures extends RoboticsAPIApplication {
 				
 				//   Move to process position
 				currentTCP.move(lin(TheoreticalPos).setCartVelocity(50).setCartAcceleration(100));
+				telnetLogin();
 				telnet.sendCognexTrigger(ECognexTrigger.SE8);
+				telnet.disconnect();
 				ThreadUtil.milliSleep(500);
 				downloadImage();
-				//getApplicationControl().halt();
 			}
 		}	
-		telnet.disconnect();
 		bot.move(ptpHome().setJointVelocityRel(0.3));
 	}
 	
@@ -141,7 +143,11 @@ public class CollectPictures extends RoboticsAPIApplication {
 			e.printStackTrace();
 		}
 	}
-	
+	private void telnetLogin() {
+		if (!telnet.login()) {
+			getApplicationControl().halt();
+		}
+	}
 	@Override
     public void dispose()
     {

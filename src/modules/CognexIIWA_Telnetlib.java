@@ -45,7 +45,7 @@ public class CognexIIWA_Telnetlib {
 		this.setCognexSpreadSheetValueDouble(0);
 	}
 	
-	public void login() {
+	public boolean login() {
 		try {
 			// Connect to the server
 			telnet.connect(getServerAddress(), 23);
@@ -66,14 +66,14 @@ public class CognexIIWA_Telnetlib {
 			//this.readUntilCRLF();
 			
 			System.out.println("Sunrise --> Telnet connection to: " + getServerAddress() + " port: " + telnet.getRemotePort());
+			return true;
 		}
 		catch (Exception e) {
-			System.out.println("SHAZAM Exception , OMG now what? :)");
 			System.out.println("Sunrise --> FAILED: Telnet connection to: " + getServerAddress() + " port: " + telnet.getRemotePort());
-			System.out.println("KUKA Roboter -> Check ethernet cable connections");
-			System.out.println("Application exit for now <CognexIIWA_TelnetLib>");
-			return;
-			//e.printStackTrace();
+			System.out.println("KUKA Roboter says: Check ethernet cable connections");
+			System.out.println("Application HALT for now <CognexIIWA_TelnetLib>");
+			e.printStackTrace();
+			return false;
 		}
 	}
 	
