@@ -90,36 +90,38 @@ public class CollectPictures extends RoboticsAPIApplication {
 		//bot home
 		setNewHomePosition();
 		KSAF_EE.attachTo(bot.getFlange());
-		System.out.println("Moving to Home/Start position");
-		bot.move(ptpHome().setJointVelocityRel(0.3));
-		
-		//currentTCP.move(lin(startPos).setCartVelocity(50));
-		telnetLogin();
-		telnet.sendCognexCommand(ECognexCommand.SF, "F", 13, currentExposureTime);
-		telnet.disconnect();
-		
-		for (int row = 1; row <= 5; row++) {
-			for (int column = 1; column <= 4; column++) {
-				Frame TheoreticalPos = gridCalculation(referencePos.copy(), row,
-						column, rowOffset, columnOffset,0);
-				getLogger().info(
-						"**********  Position: Row:  " + row + " Column: "
-								+ column + "**********");
-				
-				getLogger().info("XYZ: " + TheoreticalPos);
-				
-				//   Move to process position
-				currentTCP.move(lin(TheoreticalPos).setCartVelocity(50).setCartAcceleration(100));
-				telnetLogin();
-				telnet.sendCognexTrigger(ECognexTrigger.SE8);
-				telnet.disconnect();
-				ThreadUtil.milliSleep(500);
-				downloadImage();
-			}
-		}	
-		bot.move(ptpHome().setJointVelocityRel(0.3));
+		while (true) {
+
+			System.out.println("Moving to Home/Start position");
+			bot.move(ptpHome().setJointVelocityRel(0.3));
+
+			//currentTCP.move(lin(startPos).setCartVelocity(50));
+			telnetLogin();
+			telnet.sendCognexCommand(ECognexCommand.SF, "F", 13, currentExposureTime);
+			telnet.disconnect();
+
+			for (int row = 1; row <= 5; row++) {
+				for (int column = 1; column <= 4; column++) {
+					Frame TheoreticalPos = gridCalculation(referencePos.copy(), row,
+							column, rowOffset, columnOffset,0);
+					getLogger().info(
+							"**********  Position: Row:  " + row + " Column: "
+									+ column + "**********");
+
+					getLogger().info("XYZ: " + TheoreticalPos);
+
+					//   Move to process position
+					currentTCP.move(lin(TheoreticalPos).setCartVelocity(50).setCartAcceleration(100));
+					telnetLogin();
+					telnet.sendCognexTrigger(ECognexTrigger.SE8);
+					telnet.disconnect();
+					ThreadUtil.milliSleep(500);
+					downloadImage();
+				}
+			}	
+			bot.move(ptpHome().setJointVelocityRel(0.3));
+		}
 	}
-	
 	private void setNewHomePosition() {
 		// Currently needed every run for this program
 		// Otherwise robot goes to candle home
