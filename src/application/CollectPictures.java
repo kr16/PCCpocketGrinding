@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import modules.CognexIIWA_FTPlib;
 import modules.CognexIIWA_Telnetlib;
+import modules.XmlParserGlobalVarsRD;
 import modules.Common.ECognexCommand;
 import modules.Common.ECognexTrigger;
 import modules.Common.EHotDotCouponStates;
@@ -58,8 +59,11 @@ public class CollectPictures extends RoboticsAPIApplication {
 	private ObjectFrame startPos;
 	private ObjectFrame referencePos;
     private TimerKCT timer;
-    CognexIIWA_Telnetlib telnet;
-    CognexIIWA_FTPlib ftp;
+    private String globalsFilePath;
+	private String globalsFileNamePLC, globalsFileNameKRC;
+    private XmlParserGlobalVarsRD globalVarFromPLC, globalVarFromKRC;
+    private CognexIIWA_Telnetlib telnet;
+    private CognexIIWA_FTPlib ftp;
     
 	@Override
 	public void initialize() {
@@ -71,6 +75,11 @@ public class CollectPictures extends RoboticsAPIApplication {
 		referencePos = getApplicationData().getFrame("/nullBase/referencePosHL12");
 		telnet = new CognexIIWA_Telnetlib("172.31.1.69","admin","");
 		ftp = new CognexIIWA_FTPlib("172.31.1.69","admin","");
+		globalsFilePath = "d:/Transfer/UserXMLs/";
+		globalsFileNamePLC = "GlobalVarsCognexPLC.xml";
+		globalsFileNameKRC = "GlobalVarsCognexKRC.xml";
+		globalVarFromPLC = new XmlParserGlobalVarsRD(globalsFilePath, globalsFileNamePLC);
+		globalVarFromKRC = new XmlParserGlobalVarsRD(globalsFilePath, globalsFileNameKRC);
 	}
 
 	@Override
@@ -78,7 +87,7 @@ public class CollectPictures extends RoboticsAPIApplication {
 		
 		double rowOffset = 44;
 		double columnOffset = 57;
-		double currentExposureTime = 5.0;
+		double currentExposureTime = globalVarFromPLC.getVarDouble("exposureTime");
 		ftp.setFtpLocalFileName(" HL70_12" + " Exposure " + currentExposureTime + ".jpg");
 		ftp.setFtpLocalDownloadPath("d:/Transfer/CognexPics/");
 		ftp.setFtpRemoteFileName("Image.jpg");
@@ -97,7 +106,7 @@ public class CollectPictures extends RoboticsAPIApplication {
 
 			//currentTCP.move(lin(startPos).setCartVelocity(50));
 			telnetLogin();
-			telnet.sendCognexCommand(ECognexCommand.SF, "F", 13, currentExposureTime);
+			telnet.sendCognexCommand(ECognexCommand.SF, "A", 21, currentExposureTime);
 			telnet.disconnect();
 
 			for (int row = 1; row <= 5; row++) {
