@@ -68,7 +68,12 @@ public class CognexIIWA_Telnetlib {
 			System.out.println("Sunrise --> Telnet connection to: " + getServerAddress() + " port: " + telnet.getRemotePort());
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("SHAZAM Exception , OMG now what? :)");
+			System.out.println("Sunrise --> FAILED: Telnet connection to: " + getServerAddress() + " port: " + telnet.getRemotePort());
+			System.out.println("KUKA Roboter -> Check ethernet cable connections");
+			System.out.println("Application exit for now <CognexIIWA_TelnetLib>");
+			return;
+			//e.printStackTrace();
 		}
 	}
 	
