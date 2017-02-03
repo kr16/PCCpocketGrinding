@@ -107,8 +107,7 @@ public class CollectPictures extends RoboticsAPIApplication {
 
 			//currentTCP.move(lin(startPos).setCartVelocity(50));
 			telnetLogin();
-			currentExposureTime = globalVarFromPLC.getVarDouble("exposureTime");
-			telnet.sendCognexCommand(ECognexCommand.SF, "A", 21, currentExposureTime);
+			
 			telnet.disconnect();
 
 			for (int row = 1; row <= 5; row++) {
@@ -124,6 +123,8 @@ public class CollectPictures extends RoboticsAPIApplication {
 					//   Move to process position
 					currentTCP.move(lin(TheoreticalPos).setCartVelocity(50).setCartAcceleration(100));
 					telnetLogin();
+					currentExposureTime = globalVarFromPLC.getVarDouble("exposureTime");
+					telnet.sendCognexCommand(ECognexCommand.SF, "A", 21, currentExposureTime);
 					telnet.sendCognexTrigger(ECognexTrigger.SE8);
 					telnet.disconnect();
 					ThreadUtil.milliSleep(500);
