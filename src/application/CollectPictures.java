@@ -79,9 +79,9 @@ public class CollectPictures extends RoboticsAPIApplication {
 		double rowOffset = 44;
 		double columnOffset = 57;
 		double currentExposureTime = 5.0;
-		ftp.setFtpLocalFileName(" HL70_12" + " Exposure " + currentExposureTime + ".bmp");
+		ftp.setFtpLocalFileName(" HL70_12" + " Exposure " + currentExposureTime + ".jpg");
 		ftp.setFtpLocalDownloadPath("d:/Transfer/CognexPics/");
-		ftp.setFtpRemoteFileName("Image.bmp");
+		ftp.setFtpRemoteFileName("Image.jpg");
 		timer = new TimerKCT();
 		Thread TimerThread;
 		TimerThread = new Thread(timer);
