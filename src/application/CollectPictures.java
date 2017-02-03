@@ -87,7 +87,8 @@ public class CollectPictures extends RoboticsAPIApplication {
 		
 		double rowOffset = 44;
 		double columnOffset = 57;
-		double currentExposureTime = globalVarFromPLC.getVarDouble("exposureTime");
+		double currentExposureTime; 
+		currentExposureTime = globalVarFromPLC.getVarDouble("exposureTime");
 		ftp.setFtpLocalFileName(" HL70_12" + " Exposure " + currentExposureTime + ".jpg");
 		ftp.setFtpLocalDownloadPath("d:/Transfer/CognexPics/");
 		ftp.setFtpRemoteFileName("Image.jpg");
@@ -106,6 +107,7 @@ public class CollectPictures extends RoboticsAPIApplication {
 
 			//currentTCP.move(lin(startPos).setCartVelocity(50));
 			telnetLogin();
+			currentExposureTime = globalVarFromPLC.getVarDouble("exposureTime");
 			telnet.sendCognexCommand(ECognexCommand.SF, "A", 21, currentExposureTime);
 			telnet.disconnect();
 
