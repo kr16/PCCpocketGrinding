@@ -13,6 +13,7 @@ import com.kuka.roboticsAPI.controllerModel.sunrise.positionMastering.PositionMa
 import com.kuka.roboticsAPI.deviceModel.JointPosition;
 import com.kuka.roboticsAPI.deviceModel.LBR;
 import com.kuka.roboticsAPI.deviceModel.OperationMode;
+import com.kuka.roboticsAPI.geometricModel.Tool;
 import com.kuka.roboticsAPI.motionModel.PTP;
 
 /**
@@ -30,15 +31,19 @@ public class PositionAndGMSReferencing extends RoboticsAPIApplication {
     private final static int GMS_REFERENCING_COMMAND = 2;             // safety command for GMS referencing
     private final static int COMMAND_SUCCESSFUL = 1;
     private int positionCounter = 0;
+    private Tool niEE;
 
     public void initialize()
     {
         kukaController = (Controller) getContext().getControllers().toArray()[0];
         lbr_iiwa = (LBR) kukaController.getDevices().toArray()[0];
+        niEE = getApplicationData().createFromTemplate("KSANutRunnerEE");
     }
 
     public void run()
     {
+    	niEE.attachTo(lbr_iiwa.getFlange());
+    	
         PositionMastering mastering = new PositionMastering(lbr_iiwa);
 
         boolean allAxesMastered = true;
