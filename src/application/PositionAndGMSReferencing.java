@@ -141,7 +141,7 @@ public class PositionAndGMSReferencing extends RoboticsAPIApplication {
         lbr_iiwa.move(mainMotion);
 
         // Wait a little to reduce robot vibration after stop.
-        ThreadUtil.milliSleep(2500);
+        ThreadUtil.milliSleep(5000);
         
         // Send the command to safety to trigger the measurement
         sendSafetyCommand();
