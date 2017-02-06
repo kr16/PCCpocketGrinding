@@ -37,7 +37,7 @@ public class PositionAndGMSReferencing extends RoboticsAPIApplication {
     {
         kukaController = (Controller) getContext().getControllers().toArray()[0];
         lbr_iiwa = (LBR) kukaController.getDevices().toArray()[0];
-        niEE = getApplicationData().createFromTemplate("KSANutRunnerEE");
+        niEE = getApplicationData().createFromTemplate("KSAFNutRunnerEE");
     }
 
     public void run()
