@@ -72,7 +72,7 @@
         <toolTemplate class="" name="KSAFNutRunnerEE">
             <frames>
                 <frame id="_8df1a676-c8c0-4748-8ebb-b5fb2c36687c" name="NutRunner_HL70_06">
-                    <transformation a="0.0" b="1.5707963267948966" c="-0.3839724354387525" x="96.14592382491348" y="-235.32853232224016" z="126.47503541352219"/>
+                    <transformation a="0.3839724354387525" b="1.5707963267948966" c="0.0" x="96.14592382491348" y="-235.32853232224016" z="126.47503541352219"/>
                 </frame>
             </frames>
             <loadData cogA="0.0" cogB="0.0" cogC="0.0" cogX="-25.598722350088153" cogY="65.37487345557702" cogZ="77.5951047717959" inertiaX="0.0" inertiaY="0.0" inertiaZ="0.0" mass="7.593528264148435"/>
