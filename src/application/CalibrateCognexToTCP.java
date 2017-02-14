@@ -86,8 +86,9 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 	@Override
 	public void run() {
 		
-		double rowOffset = 44;
-		double columnOffset = 57;
+		double rowOffset, columnOffset;
+		double row, column;		
+		double xMove, yMove;
 		double currentExposureTime; 
 		currentExposureTime = globalVarFromPLC.getVarDouble("exposureTime");
 		ftp.setFtpLocalFileName(" HL70_12" + " Exposure " + currentExposureTime + ".jpg");
@@ -106,29 +107,26 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 			System.out.println("Moving to Home/Start position");
 			bot.move(ptpHome().setJointVelocityRel(0.3));
 			System.out.println("Moving to Center on pin position");
-			currentTCP.move(lin(centerPos).setCartVelocity(20));
-			
+			currentTCP.move(lin(centerPos).setCartVelocity(10));
+			System.out.println("Moving to Start calibration grid position");
 			currentTCP.move(linRel(13, 14, 0));
 			
 			getApplicationControl().halt();
-			
-			//currentTCP.move(lin(startPos).setCartVelocity(50));
-			telnetLogin();
-			
-			telnet.disconnect();
-
-			for (int row = 1; row <= 5; row++) {
-				for (int column = 1; column <= 4; column++) {
-					Frame TheoreticalPos = gridCalculation(referencePos.copy(), row,
-							column, rowOffset, columnOffset,0);
+			xMove = yMove = 0;
+			row = column = 0;
+			rowOffset = 16; // motions in X direction of a tool which is Y for World
+			columnOffset = 23; // motion in Y direction of a tool which is X for World
+			while (row <= 16) {
+				while (column <= 23) {
 					getLogger().info(
 							"**********  Position: Row:  " + row + " Column: "
 									+ column + "**********");
 
-					getLogger().info("XYZ: " + TheoreticalPos);
+					getLogger().info("XYZ: " + bot.getCurrentCartesianPosition(currentTCP, nullBase));
 
 					//   Move to process position
-					currentTCP.move(lin(TheoreticalPos).setCartVelocity(50).setCartAcceleration(100));
+					
+					currentTCP.move(linRel(xMove, yMove, 0).setCartVelocity(5).setCartAcceleration(500));
 					telnetLogin();
 					currentExposureTime = globalVarFromPLC.getVarDouble("exposureTime");
 					telnet.sendCognexCommand(ECognexCommand.SF, "A", 21, currentExposureTime);
@@ -136,7 +134,14 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 					telnet.disconnect();
 					ThreadUtil.milliSleep(500);
 					downloadImage();
+					xMove = 0;
+					yMove = 1;
+					column++;
 				}
+				xMove = 1;
+				yMove = -columnOffset;
+				column = 0;
+				row++;
 			}	
 			bot.move(ptpHome().setJointVelocityRel(0.3));
 		}
