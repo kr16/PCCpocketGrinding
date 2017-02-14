@@ -44,10 +44,20 @@
                 </redundancyData>
             </frame>
             <frame id="_6138592a-ad50-44f2-8d7c-92f4afe9d5d4" name="CognexCalibration">
-                <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
+                <transformation a="1.570592507055586" b="-0.0012598740042067793" c="-3.134230809487583" x="37.04080136295072" y="-719.943590960757" z="-70.15355893720749"/>
                 <additionalInformation>
-                    <info key="LastModificationTime" type="java.lang.Long" value="1487081778052"/>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1487082137219"/>
+                    <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="KSAFNutRunnerEE/NutRunner_HL70_06" tool="KSAFNutRunnerEE" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
+                        <tcpTransformation a="0.0" b="1.5707963267948966" c="1.1780972450961724" x="96.14592382491348" y="-235.32853232224016" z="126.47503541352219"/>
+                    </info>
                 </additionalInformation>
+                <redundancyData>
+                    <redundancy transformationProviderName="KUKA_Sunrise_Cabinet_1/LBR_iiwa_14_R820_1" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy">
+                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="6" valueType="java.lang.Integer"/>
+                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="45" valueType="java.lang.Integer"/>
+                        <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="-0.03642677063628139" valueType="java.lang.Double"/>
+                    </redundancy>
+                </redundancyData>
             </frame>
         </frame>
         <frame id="_e5db4bde-4b07-4070-a8ab-7db769758c41" name="SpiralTest">
