@@ -106,9 +106,9 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 			System.out.println("Moving to Home/Start position");
 			bot.move(ptpHome().setJointVelocityRel(0.3));
 			System.out.println("Moving to Center on pin position");
-			bot.move(lin(centerPos).setCartVelocity(20));
+			currentTCP.move(lin(centerPos).setCartVelocity(20));
 			
-			bot.move(linRel(13, 14, 0));
+			currentTCP.move(linRel(13, 14, 0));
 			
 			getApplicationControl().halt();
 			
