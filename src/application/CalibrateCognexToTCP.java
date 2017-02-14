@@ -107,7 +107,7 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 			System.out.println("Moving to Home/Start position");
 			bot.move(ptpHome().setJointVelocityRel(0.3));
 			System.out.println("Moving to Center on pin position");
-			currentTCP.move(lin(centerPos).setCartVelocity(10));
+			currentTCP.move(lin(centerPos).setCartVelocity(30));
 			System.out.println("Moving to Start calibration grid position");
 			currentTCP.move(linRel(13, 14, 0));
 			
@@ -126,7 +126,7 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 
 					//   Move to process position
 					
-					currentTCP.move(linRel(xMove, yMove, 0).setCartVelocity(5).setCartAcceleration(500));
+					currentTCP.move(linRel(xMove, yMove, 0).setCartVelocity(30).setCartAcceleration(50));
 					telnetLogin();
 					//currentExposureTime = globalVarFromPLC.getVarDouble("exposureTime");
 					//telnet.sendCognexCommand(ECognexCommand.SF, "A", 21, currentExposureTime);
