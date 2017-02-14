@@ -155,6 +155,7 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 					getLogger().info("XYZ: " + bot.getCurrentCartesianPosition(currentTCP, nullBase));
 					System.out.println("BlobX: " + BlobX + " BlobY: " + BlobY);
 					System.out.println("BestCircX: " + BestCircX + " BestCircY: " + BestCircY);
+					System.out.println("LargestCircX: " + LargestCircX + " LargestCircY: " + LargestCircY);
 					System.out.println("***************************************************");
 					
 					getApplicationControl().halt();
