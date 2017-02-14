@@ -130,13 +130,13 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 					//currentExposureTime = globalVarFromPLC.getVarDouble("exposureTime");
 					//telnet.sendCognexCommand(ECognexCommand.SF, "A", 21, currentExposureTime);
 					telnet.sendCognexTrigger(ECognexTrigger.SE8);
-					telnet.disconnect();
 					ThreadUtil.milliSleep(500);
 					//downloadImage();
 					telnet.sendCognexCommand(ECognexCommand.GV, "N", 7);
 					telnet.readCognexResponse();
 					telnet.sendCognexCommand(ECognexCommand.GV, "O", 7);
 					telnet.readCognexResponse();
+					telnet.disconnect();
 					xMove = 0;
 					yMove = -1;
 					column++;
