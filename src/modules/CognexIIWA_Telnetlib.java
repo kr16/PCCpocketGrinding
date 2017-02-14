@@ -339,7 +339,7 @@ public void sendCognexCommand(ECognexCommand command, String column, int row, do
 			while (!response) {
 				int len = in.read(buffer);
 				if ((buffer[len - 1] == 10) && (buffer[len - 2] == 13)) {
-					System.out.println(displayBufferAscii(buffer));
+					System.out.println(displayBufferAscii(buffer, len));
 					System.out.println("Buffer size: " + len + " Got CRLF: " + displayBuffer(buffer));
 					response = true;
 				} else {
