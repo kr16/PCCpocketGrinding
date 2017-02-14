@@ -112,11 +112,11 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 			currentTCP.move(linRel(13, 14, 0));
 			
 			xMove = yMove = 0;
-			row = column = 1;
+			row = column = 0;
 			rowOffset = 16; // motions in X direction of a tool which is Y for World
 			columnOffset = 23; // motion in Y direction of a tool which is X for World
-			while (row < 16) {
-				while (column < 23) {
+			while (row <= 16) {
+				while (column <= 23) {
 					getLogger().info(
 							"**********  Position: Row:  " + row + " Column: "
 									+ column + "**********");
@@ -139,7 +139,7 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 				}
 				xMove = 1;
 				yMove = columnOffset;
-				column = 1;
+				column = 0;
 				row++;
 			}	
 			bot.move(ptpHome().setJointVelocityRel(0.3));
