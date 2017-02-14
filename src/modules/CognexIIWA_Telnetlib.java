@@ -196,6 +196,7 @@ public class CognexIIWA_Telnetlib {
 			out.print(command+"\r\n");
 			out.flush();
 			System.out.println("Sunrise --> Command executed: " + command);
+			this.readUntilCRLF();
 		}
 		catch (Exception e) {
 			e.printStackTrace();
