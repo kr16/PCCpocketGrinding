@@ -111,6 +111,7 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 			System.out.println("Moving to Start calibration grid position");
 			currentTCP.move(linRel(13, 14, 0));
 			
+			double BlobX, BlobY;
 			xMove = yMove = 0;
 			row = column = 0;
 			rowOffset = 16; // motions in X direction of a tool which is Y for World
@@ -120,8 +121,6 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 					getLogger().info(
 							"**********  Position: Row:  " + row + " Column: "
 									+ column + "**********");
-
-					getLogger().info("XYZ: " + bot.getCurrentCartesianPosition(currentTCP, nullBase));
 
 					//   Move to process position
 					
@@ -134,9 +133,15 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 					//downloadImage();
 					telnet.sendCognexCommand(ECognexCommand.GV, "N", 7);
 					telnet.readCognexResponse();
+					BlobX = telnet.getCognexSpreadSheetValueDouble();
 					telnet.sendCognexCommand(ECognexCommand.GV, "O", 7);
 					telnet.readCognexResponse();
+					BlobY = telnet.getCognexSpreadSheetValueDouble();
 					telnet.disconnect();
+					getLogger().info("XYZ: " + bot.getCurrentCartesianPosition(currentTCP, nullBase));
+					System.out.println("BlobX: " + BlobX + " BlobY: " + BlobY);
+					System.out.println("***************************************************");
+					
 					xMove = 0;
 					yMove = -1;
 					column++;
