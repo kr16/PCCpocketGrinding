@@ -62,8 +62,7 @@ public class CognexIIWA_Telnetlib {
 			readUntil("Password: ");
 			//readResponse();
 			write(getPassword()); 
-			
-			//this.readUntilCRLF();
+			this.readUntilCRLF();
 			
 			System.out.println("Sunrise --> Telnet connection to: " + getServerAddress() + " port: " + telnet.getRemotePort());
 			return true;
