@@ -87,7 +87,7 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 	public void run() {
 		
 		double rowOffset, columnOffset;
-		double row, column;		
+		int row, column;		
 		double xMove, yMove;
 		double currentExposureTime; 
 		currentExposureTime = globalVarFromPLC.getVarDouble("exposureTime");
@@ -115,8 +115,8 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 			row = column = 0;
 			rowOffset = 16; // motions in X direction of a tool which is Y for World
 			columnOffset = 23; // motion in Y direction of a tool which is X for World
-			while (row <= 16) {
-				while (column <= 23) {
+			while (row < 16) {
+				while (column < 23) {
 					getLogger().info(
 							"**********  Position: Row:  " + row + " Column: "
 									+ column + "**********");
@@ -137,7 +137,7 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 					yMove = -1;
 					column++;
 				}
-				xMove = -1;
+				xMove = 1;
 				yMove = columnOffset;
 				column = 0;
 				row++;
