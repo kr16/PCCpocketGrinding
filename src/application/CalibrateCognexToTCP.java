@@ -145,6 +145,12 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 					telnet.sendCognexCommand(ECognexCommand.GV, "O", 8);
 					telnet.readCognexResponse();
 					BestCircY = telnet.getCognexSpreadSheetValueDouble();
+					telnet.sendCognexCommand(ECognexCommand.GV, "N", 9);
+					telnet.readCognexResponse();
+					LargestCircX = telnet.getCognexSpreadSheetValueDouble();
+					telnet.sendCognexCommand(ECognexCommand.GV, "O", 9);
+					telnet.readCognexResponse();
+					LargestCircY = telnet.getCognexSpreadSheetValueDouble();
 					telnet.disconnect();
 					getLogger().info("XYZ: " + bot.getCurrentCartesianPosition(currentTCP, nullBase));
 					System.out.println("BlobX: " + BlobX + " BlobY: " + BlobY);
