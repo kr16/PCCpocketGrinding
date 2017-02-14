@@ -142,7 +142,7 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 					telnet.sendCognexCommand(ECognexCommand.GV, "N", 8);
 					telnet.readCognexResponse();
 					BestCircX = telnet.getCognexSpreadSheetValueDouble();
-					telnet.sendCognexCommand(ECognexCommand.GV, "N", 8);
+					telnet.sendCognexCommand(ECognexCommand.GV, "O", 8);
 					telnet.readCognexResponse();
 					BestCircY = telnet.getCognexSpreadSheetValueDouble();
 					telnet.disconnect();
