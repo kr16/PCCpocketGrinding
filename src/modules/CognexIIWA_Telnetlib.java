@@ -135,7 +135,7 @@ public class CognexIIWA_Telnetlib {
     						this.setCognexSpreadSheetValue(valueReceived);
     					}
     					System.out.println("Cognex --> Command response: " + this.getCognexCommandResponseValue());
-    					System.out.print("Cognex --> Value received: " + this.getCognexSpreadSheetValue());
+    					System.out.println("Cognex --> Value received: " + this.getCognexSpreadSheetValue());
     					if (this.getCurrentCommand() == ECognexCommand.GV && valueReceived.length() > 0) {
     						try {
     							double currentCognexSpreadSheetValueDouble = Double.parseDouble(valueReceived);
@@ -341,7 +341,7 @@ public void sendCognexCommand(ECognexCommand command, String column, int row, do
 				int len = in.read(buffer);
 				if ((buffer[len - 1] == 10) && (buffer[len - 2] == 13)) {
 					System.out.println(displayBufferAscii(buffer, len));
-					System.out.println("Buffer size: " + len + " Got CRLF: " + displayBuffer(buffer));
+					System.out.println("Buffer size: " + len + " Got CRLF: " + displayBuffer(buffer, len));
 					response = true;
 				} else {
 					System.err.println("Buffer size: " + len + " no CRLF !: " + displayBuffer(buffer));
