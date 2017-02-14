@@ -111,7 +111,6 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 			System.out.println("Moving to Start calibration grid position");
 			currentTCP.move(linRel(13, 14, 0));
 			
-			getApplicationControl().halt();
 			xMove = yMove = 0;
 			row = column = 0;
 			rowOffset = 16; // motions in X direction of a tool which is Y for World
@@ -135,11 +134,11 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 					ThreadUtil.milliSleep(500);
 					downloadImage();
 					xMove = 0;
-					yMove = 1;
+					yMove = -1;
 					column++;
 				}
-				xMove = 1;
-				yMove = -columnOffset;
+				xMove = -1;
+				yMove = columnOffset;
 				column = 0;
 				row++;
 			}	
