@@ -176,7 +176,6 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 		if (!telnet.login()) {
 			getApplicationControl().halt();
 		}
-		telnet.readCognexResponse();
 	}
 	@Override
     public void dispose()
