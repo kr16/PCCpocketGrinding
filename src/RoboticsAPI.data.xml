@@ -43,6 +43,12 @@
                     </redundancy>
                 </redundancyData>
             </frame>
+            <frame id="_6138592a-ad50-44f2-8d7c-92f4afe9d5d4" name="CognexCalibration">
+                <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
+                <additionalInformation>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1487081778052"/>
+                </additionalInformation>
+            </frame>
         </frame>
         <frame id="_e5db4bde-4b07-4070-a8ab-7db769758c41" name="SpiralTest">
             <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
