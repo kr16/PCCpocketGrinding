@@ -2,6 +2,13 @@
 <RoboticsAPIData version="3">
     <world>
         <gravitation x="0.0" y="0.0" z="9.81"/>
+        <frame id="_e92c1d70-e5dd-43ed-9565-e7da17fc8e58" name="nullBase">
+            <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
+            <additionalInformation>
+                <info key="LastModificationTime" type="java.lang.Long" value="1487192180852"/>
+                <info key="UseAsBaseForJogging" type="java.lang.Boolean" value="true"/>
+            </additionalInformation>
+        </frame>
     </world>
     <objectTemplates>
         <toolTemplate class="" name="PccGrinderVer01">

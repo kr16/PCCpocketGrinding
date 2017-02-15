@@ -2,9 +2,17 @@ package application;
 
 
 import javax.inject.Inject;
+
+import modules.Common.EToolName;
+import modules.GrindingTool;
+
 import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
 import static com.kuka.roboticsAPI.motionModel.BasicMotions.*;
+
+import com.kuka.roboticsAPI.deviceModel.JointPosition;
 import com.kuka.roboticsAPI.deviceModel.LBR;
+import com.kuka.roboticsAPI.geometricModel.ObjectFrame;
+import com.kuka.roboticsAPI.geometricModel.Tool;
 
 /**
  * Implementation of a robot application.
@@ -26,16 +34,38 @@ import com.kuka.roboticsAPI.deviceModel.LBR;
  */
 public class GrindingVer01 extends RoboticsAPIApplication {
 	@Inject
-	private LBR lBR_iiwa_14_R820_1;
+	private LBR bot;
+	private Tool PCC_EE;
+	private ObjectFrame nullBase;
+	private ObjectFrame currentTCP;
+	private ObjectFrame startPos, centerPos;
+	private ObjectFrame referencePos;
+	
+	private GrindingTool eeTool;
 
 	@Override
 	public void initialize() {
-		// initialize your application here
+		PCC_EE = getApplicationData().createFromTemplate("PccGrinderVer01");
+		nullBase = getApplicationData().getFrame("/nullBase");
+		//set current TCP here
+		currentTCP = eeTool.setToolName(PCC_EE, EToolName.Ball);
 	}
 
 	@Override
 	public void run() {
+		
 		// your application execution starts here
-		lBR_iiwa_14_R820_1.move(ptpHome());
+		setNewHomePosition();
+		PCC_EE.attachTo(bot.getFlange());
+		
+	}
+	
+	
+	private void setNewHomePosition() {
+		// Currently needed every run for this program
+		// Otherwise robot goes to candle home
+		JointPosition newHome = new JointPosition(Math.toRadians(0), Math.toRadians(-20),
+				Math.toRadians(0), Math.toRadians(-105), Math.toRadians(0), Math.toRadians(60), Math.toRadians(0));
+		bot.setHomePosition(newHome);
 	}
 }
