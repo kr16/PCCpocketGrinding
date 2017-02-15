@@ -10,10 +10,12 @@ import com.kuka.common.ThreadUtil;
 import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
 import static com.kuka.roboticsAPI.motionModel.BasicMotions.*;
 
+import com.kuka.roboticsAPI.controllerModel.Controller;
 import com.kuka.roboticsAPI.deviceModel.JointPosition;
 import com.kuka.roboticsAPI.deviceModel.LBR;
 import com.kuka.roboticsAPI.geometricModel.ObjectFrame;
 import com.kuka.roboticsAPI.geometricModel.Tool;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 /**
  * Implementation of a robot application.
@@ -36,6 +38,7 @@ import com.kuka.roboticsAPI.geometricModel.Tool;
 public class GrindingVer01 extends RoboticsAPIApplication {
 	@Inject
 	private LBR bot;
+	private Controller kuka_Sunrise_Cabinet_1;
 	private Tool PCC_EE;
 	private ObjectFrame nullBase;
 	private ObjectFrame currentTCP;
@@ -46,8 +49,11 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 
 	@Override
 	public void initialize() {
+		kuka_Sunrise_Cabinet_1 = getController("KUKA_Sunrise_Cabinet_1");
 		PCC_EE = getApplicationData().createFromTemplate("PccGrinderVer01");
+		eeTool = new GrindingTool(kuka_Sunrise_Cabinet_1);
 		nullBase = getApplicationData().getFrame("/nullBase");
+		
 		//set current TCP here
 		currentTCP = eeTool.setToolName(PCC_EE, EToolName.Ball);
 	}
