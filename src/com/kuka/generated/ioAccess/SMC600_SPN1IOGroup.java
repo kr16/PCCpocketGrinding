@@ -59,9 +59,9 @@ public class SMC600_SPN1IOGroup extends AbstractIOGroup
 		addDigitalOutput("DO07_1", IOTypes.BOOLEAN, 1);
 		addDigitalOutput("DO02_1", IOTypes.BOOLEAN, 1);
 		addDigitalOutput("DO07_2", IOTypes.BOOLEAN, 1);
-		addDigitalOutput("DO08_1", IOTypes.BOOLEAN, 1);
+		addDigitalOutput("DO08_1_GrinderAir1", IOTypes.BOOLEAN, 1);
 		addDigitalOutput("DO08_2", IOTypes.BOOLEAN, 1);
-		addDigitalOutput("DO09_1", IOTypes.BOOLEAN, 1);
+		addDigitalOutput("DO09_1_GrinderAir2", IOTypes.BOOLEAN, 1);
 		addDigitalOutput("DO09_2", IOTypes.BOOLEAN, 1);
 		addDigitalOutput("DO10_1", IOTypes.BOOLEAN, 1);
 		addDigitalOutput("DO10_2", IOTypes.BOOLEAN, 1);
@@ -964,7 +964,7 @@ public class SMC600_SPN1IOGroup extends AbstractIOGroup
 	}
 
 	/**
-	 * Gets the value of the <b>digital output '<i>DO08_1</i>'</b>.<br>
+	 * Gets the value of the <b>digital output '<i>DO08_1_GrinderAir1</i>'</b>.<br>
 	 * <i>This method is automatically generated. Please, do not modify!</i>
 	 * <p>
 	 * <b>I/O direction and type:</b><br>
@@ -976,15 +976,15 @@ public class SMC600_SPN1IOGroup extends AbstractIOGroup
 	 * <b>Range of the I/O value:</b><br>
 	 * [false; true]
 	 *
-	 * @return current value of the digital output 'DO08_1'
+	 * @return current value of the digital output 'DO08_1_GrinderAir1'
 	 */
-	public boolean getDO08_1()
+	public boolean getDO08_1_GrinderAir1()
 	{
-		return getBooleanIOValue("DO08_1", true);
+		return getBooleanIOValue("DO08_1_GrinderAir1", true);
 	}
 
 	/**
-	 * Sets the value of the <b>digital output '<i>DO08_1</i>'</b>.<br>
+	 * Sets the value of the <b>digital output '<i>DO08_1_GrinderAir1</i>'</b>.<br>
 	 * <i>This method is automatically generated. Please, do not modify!</i>
 	 * <p>
 	 * <b>I/O direction and type:</b><br>
@@ -997,11 +997,11 @@ public class SMC600_SPN1IOGroup extends AbstractIOGroup
 	 * [false; true]
 	 *
 	 * @param value
-	 *            the value, which has to be written to the digital output 'DO08_1'
+	 *            the value, which has to be written to the digital output 'DO08_1_GrinderAir1'
 	 */
-	public void setDO08_1(java.lang.Boolean value)
+	public void setDO08_1_GrinderAir1(java.lang.Boolean value)
 	{
-		setDigitalOutput("DO08_1", value);
+		setDigitalOutput("DO08_1_GrinderAir1", value);
 	}
 
 	/**
@@ -1046,7 +1046,7 @@ public class SMC600_SPN1IOGroup extends AbstractIOGroup
 	}
 
 	/**
-	 * Gets the value of the <b>digital output '<i>DO09_1</i>'</b>.<br>
+	 * Gets the value of the <b>digital output '<i>DO09_1_GrinderAir2</i>'</b>.<br>
 	 * <i>This method is automatically generated. Please, do not modify!</i>
 	 * <p>
 	 * <b>I/O direction and type:</b><br>
@@ -1058,15 +1058,15 @@ public class SMC600_SPN1IOGroup extends AbstractIOGroup
 	 * <b>Range of the I/O value:</b><br>
 	 * [false; true]
 	 *
-	 * @return current value of the digital output 'DO09_1'
+	 * @return current value of the digital output 'DO09_1_GrinderAir2'
 	 */
-	public boolean getDO09_1()
+	public boolean getDO09_1_GrinderAir2()
 	{
-		return getBooleanIOValue("DO09_1", true);
+		return getBooleanIOValue("DO09_1_GrinderAir2", true);
 	}
 
 	/**
-	 * Sets the value of the <b>digital output '<i>DO09_1</i>'</b>.<br>
+	 * Sets the value of the <b>digital output '<i>DO09_1_GrinderAir2</i>'</b>.<br>
 	 * <i>This method is automatically generated. Please, do not modify!</i>
 	 * <p>
 	 * <b>I/O direction and type:</b><br>
@@ -1079,11 +1079,11 @@ public class SMC600_SPN1IOGroup extends AbstractIOGroup
 	 * [false; true]
 	 *
 	 * @param value
-	 *            the value, which has to be written to the digital output 'DO09_1'
+	 *            the value, which has to be written to the digital output 'DO09_1_GrinderAir2'
 	 */
-	public void setDO09_1(java.lang.Boolean value)
+	public void setDO09_1_GrinderAir2(java.lang.Boolean value)
 	{
-		setDigitalOutput("DO09_1", value);
+		setDigitalOutput("DO09_1_GrinderAir2", value);
 	}
 
 	/**

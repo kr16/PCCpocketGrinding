@@ -198,15 +198,6 @@
         <DigitalIO Name="SMC600_SPN1.DO07_2" Type="OUTPUT" Scope="USER_IO" StartBit="149" BitSize="1" Signed="false">
           <Description>Air Valve</Description>
         </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DO08_1" Type="OUTPUT" Scope="USER_IO" StartBit="150" BitSize="1" Signed="false">
-          <Description>Air Valve</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DO08_2" Type="OUTPUT" Scope="USER_IO" StartBit="151" BitSize="1" Signed="false">
-          <Description>Air Valve</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DO09_1" Type="OUTPUT" Scope="USER_IO" StartBit="152" BitSize="1" Signed="false">
-          <Description>Air Valve</Description>
-        </DigitalIO>
         <DigitalIO Name="SMC600_SPN1.DO09_2" Type="OUTPUT" Scope="USER_IO" StartBit="153" BitSize="1" Signed="false">
           <Description>Air Valve</Description>
         </DigitalIO>
@@ -220,6 +211,15 @@
           <Description>Air Valve</Description>
         </DigitalIO>
         <DigitalIO Name="SMC600_SPN1.DO11_2" Type="OUTPUT" Scope="USER_IO" StartBit="157" BitSize="1" Signed="false">
+          <Description>Air Valve</Description>
+        </DigitalIO>
+        <DigitalIO Name="SMC600_SPN1.DO08_2" Type="OUTPUT" Scope="USER_IO" StartBit="151" BitSize="1" Signed="false">
+          <Description>Air Valve</Description>
+        </DigitalIO>
+        <DigitalIO Name="SMC600_SPN1.DO08_1_GrinderAir1" Type="OUTPUT" Scope="USER_IO" StartBit="150" BitSize="1" Signed="false">
+          <Description>Air Valve</Description>
+        </DigitalIO>
+        <DigitalIO Name="SMC600_SPN1.DO09_1_GrinderAir2" Type="OUTPUT" Scope="USER_IO" StartBit="152" BitSize="1" Signed="false">
           <Description>Air Valve</Description>
         </DigitalIO>
       </IOList>
