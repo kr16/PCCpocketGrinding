@@ -127,11 +127,11 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 
 			System.out.println("Moving to Home/Start position");
 			bot.move(ptpHome().setJointVelocityRel(0.3));
-			System.out.println("Moving to Center on pin position");
+			System.out.println("Moving to Center on pin position, HALT, press start to continue");
 			currentTCP.move(lin(centerPos).setCartVelocity(30));
 			logFile.println("Fastener center position: " + bot.getCurrentCartesianPosition(currentTCP, nullBase));
 			logFile.println("BlobX\t,BlobY\t,BestCircX\t,BestCircY\t,LargestCircX\t,LargestCircY\t, Position");
-			
+			getApplicationControl().halt();
 			System.out.println("Moving to Start calibration grid position");
 			currentTCP.move(linRel(13, 14, 0));
 			
