@@ -1,9 +1,7 @@
-package tests;
+package application;
 
 
 import javax.inject.Inject;
-
-import com.kuka.common.ThreadUtil;
 import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
 import static com.kuka.roboticsAPI.motionModel.BasicMotions.*;
 import com.kuka.roboticsAPI.deviceModel.LBR;
@@ -26,7 +24,7 @@ import com.kuka.roboticsAPI.deviceModel.LBR;
  * @see #run()
  * @see #dispose()
  */
-public class CognexTest_ver02 extends RoboticsAPIApplication {
+public class GrindingVer01 extends RoboticsAPIApplication {
 	@Inject
 	private LBR lBR_iiwa_14_R820_1;
 
@@ -38,24 +36,6 @@ public class CognexTest_ver02 extends RoboticsAPIApplication {
 	@Override
 	public void run() {
 		// your application execution starts here
-		//lBR_iiwa_14_R820_1.move(ptpHome());
-		
-
-		try {
-			CognexLogin telnet = new CognexLogin("172.31.1.69","admin","");
-			telnet.readUntil("User Logged In");
-			
-				telnet.write("SW8");
-				telnet.readResponse(1);
-				
-				
-			System.out.println("Done");
-			telnet.disconnect();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		
+		lBR_iiwa_14_R820_1.move(ptpHome());
 	}
 }
