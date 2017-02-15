@@ -1,6 +1,11 @@
 package application;
 
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -86,6 +91,22 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 	@Override
 	public void run() {
 		
+		PrintWriter logFile = null;
+		// Log to file section
+		SimpleDateFormat prefixDateFormat;
+		prefixDateFormat = new SimpleDateFormat("yyyy.MM.dd_HH.mm.ss");
+		String filePathRoot="d:/Transfer/UserXMLs/";
+		try {
+			logFile = new PrintWriter(filePathRoot + prefixDateFormat.format(Calendar.getInstance().getTime()) + "_" + "LogDump.xml", "UTF-8");
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		//////////////////////
+		
 		double rowOffset, columnOffset;
 		int row, column;		
 		double xMove, yMove;
@@ -108,6 +129,9 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 			bot.move(ptpHome().setJointVelocityRel(0.3));
 			System.out.println("Moving to Center on pin position");
 			currentTCP.move(lin(centerPos).setCartVelocity(30));
+			logFile.println("Fastener center position: " + bot.getCurrentCartesianPosition(currentTCP, nullBase));
+			logFile.println("BlobX\t,BlobY\t,BestCircX\t,BestCircY\t,LargestCircX\t,LargestCircY\t, Position");
+			
 			System.out.println("Moving to Start calibration grid position");
 			currentTCP.move(linRel(13, 14, 0));
 			
@@ -157,6 +181,9 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 					System.out.println("BestCircX: " + BestCircX + " BestCircY: " + BestCircY);
 					System.out.println("LargestCircX: " + LargestCircX + " LargestCircY: " + LargestCircY);
 					System.out.println("***********************************************");
+					logFile.println(BlobX + "," + BlobY + "," + BestCircX + "," + BestCircY + ","
+									+ LargestCircX + "," + LargestCircY + "," 
+									+ "XYZ: " + bot.getCurrentCartesianPosition(currentTCP, nullBase));
 					
 					//getApplicationControl().halt();
 					

@@ -5,9 +5,14 @@ import org.apache.commons.net.telnet.TelnetClient;
 import modules.Common.ECognexCommand;
 import modules.Common.ECognexTrigger;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.activation.MimeTypeParameterList;
 import javax.swing.plaf.SliderUI;
@@ -105,7 +110,7 @@ public class CognexIIWA_Telnetlib {
     public boolean readCognexResponse() {
 		this.setCognexCommandResponseValue(0);
 		this.setCognexSpreadSheetValue(null);
-		this.setCognexSpreadSheetValueDouble((Double) null);
+		this.setCognexSpreadSheetValueDouble(0);
 		final String CRLF = "1310";
 		
     	byte[] buffer = new byte[bufferSize];
