@@ -45,7 +45,7 @@ public class BackgroundTaskToolSafety extends RoboticsAPICyclicBackgroundTask {
 	@Override
 	public void runCyclic() {
 		if (currentState.getEnablingDeviceState() == EnablingDeviceState.NONE) {
-			btTool.grindingStop();
+			//btTool.grindingStop();
 		}
 	}
 }
