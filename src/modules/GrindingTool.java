@@ -16,11 +16,26 @@ public class GrindingTool {
 	    this.setToolName(EToolName.None);
 	}
 	
+	/**
+	 * Enables grinding tool valves - both of them - full speed
+	 * WATCH YOUR HANDS/EYES !!!
+	 */
 	public void grindingStart() {
 		toolIO.setDO08_1_GrinderAir1(true);
 		toolIO.setDO09_1_GrinderAir2(true);
 	}
 	
+	/**
+	 * Enables grinding tool valve - one valve - half speed TEST ONLY
+	 * WATCH YOUR HANDS/EYES !!!
+	 */
+	public void grindingStartHalfSpeed() {
+		toolIO.setDO08_1_GrinderAir1(true);
+	}
+	
+	/**
+	 * Disable grinding tool
+	 */
 	public void grindingStop() {
 		toolIO.setDO08_1_GrinderAir1(false);
 		toolIO.setDO09_1_GrinderAir2(false);
