@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import modules.Common.EToolName;
 import modules.GrindingTool;
 
+import com.kuka.common.ThreadUtil;
 import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
 import static com.kuka.roboticsAPI.motionModel.BasicMotions.*;
 
@@ -54,10 +55,18 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 	@Override
 	public void run() {
 		
-		// your application execution starts here
+		// set home position, attach tool , move home
 		setNewHomePosition();
 		PCC_EE.attachTo(bot.getFlange());
+		System.out.println("Moving to Home/Start position");
+		bot.move(ptpHome().setJointVelocityRel(0.3));
 		
+		while (true) {
+			eeTool.grindingStart();
+			ThreadUtil.milliSleep(5000);
+			eeTool.grindingStop();
+			ThreadUtil.milliSleep(2000);
+		}
 	}
 	
 	
