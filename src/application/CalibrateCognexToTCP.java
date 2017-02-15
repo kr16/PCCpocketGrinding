@@ -123,7 +123,7 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 		//bot home
 		setNewHomePosition();
 		KSAF_EE.attachTo(bot.getFlange());
-		while (true) {
+		
 
 			System.out.println("Moving to Home/Start position");
 			bot.move(ptpHome().setJointVelocityRel(0.3));
@@ -198,8 +198,8 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 				column = 0;
 				row++;
 			}	
+			
 			bot.move(ptpHome().setJointVelocityRel(0.3));
-		}
 	}
 	private void setNewHomePosition() {
 		// Currently needed every run for this program
