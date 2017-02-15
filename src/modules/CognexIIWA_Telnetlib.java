@@ -105,7 +105,7 @@ public class CognexIIWA_Telnetlib {
     public boolean readCognexResponse() {
 		this.setCognexCommandResponseValue(0);
 		this.setCognexSpreadSheetValue(null);
-		this.setCognexSpreadSheetValueDouble(0);
+		this.setCognexSpreadSheetValueDouble((Double) null);
 		final String CRLF = "1310";
 		
     	byte[] buffer = new byte[bufferSize];
