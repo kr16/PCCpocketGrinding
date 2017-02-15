@@ -97,7 +97,7 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 		prefixDateFormat = new SimpleDateFormat("yyyy.MM.dd_HH.mm.ss");
 		String filePathRoot="d:/Transfer/UserXMLs/";
 		try {
-			logFile = new PrintWriter(filePathRoot + prefixDateFormat.format(Calendar.getInstance().getTime()) + "_" + "LogDump.xml", "UTF-8");
+			logFile = new PrintWriter(filePathRoot + prefixDateFormat.format(Calendar.getInstance().getTime()) + "_" + "CognexCalibration.csv", "UTF-8");
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
