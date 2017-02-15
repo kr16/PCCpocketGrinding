@@ -27,14 +27,16 @@ import com.kuka.roboticsAPI.deviceModel.LBR;
  */
 public class BackgroundTaskToolSafety extends RoboticsAPICyclicBackgroundTask {
 	@Inject
-	Controller kUKA_Sunrise_Cabinet_1;
+	Controller KUKA_Sunrise_Cabinet_1;
 	LBR botState;
 	ISafetyState currentState; 
 	GrindingTool btTool;
 
 	@Override
 	public void initialize() {
-		currentState = botState.getSafetyState();
+		botState = (LBR) getDevice(KUKA_Sunrise_Cabinet_1,
+				"LBR_iiwa_14_R820_1");
+		//currentState = botState.getSafetyState();
 		//btTool = new GrindingTool(kUKA_Sunrise_Cabinet_1);
 		initializeCyclic(0, 500, TimeUnit.MILLISECONDS,
 				CycleBehavior.BestEffort);
