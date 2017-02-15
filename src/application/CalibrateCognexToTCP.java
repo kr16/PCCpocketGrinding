@@ -181,9 +181,11 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 					System.out.println("BestCircX: " + BestCircX + " BestCircY: " + BestCircY);
 					System.out.println("LargestCircX: " + LargestCircX + " LargestCircY: " + LargestCircY);
 					System.out.println("***********************************************");
+					
 					logFile.println(BlobX + "," + BlobY + "," + BestCircX + "," + BestCircY + ","
 									+ LargestCircX + "," + LargestCircY + "," 
 									+ "XYZ: " + bot.getCurrentCartesianPosition(currentTCP, nullBase));
+					logFile.flush();
 					
 					//getApplicationControl().halt();
 					
