@@ -2,6 +2,7 @@ package modules;
 
 import modules.Common.EToolName;
 
+import com.kuka.generated.ioAccess.EK1100IOGroup;
 import com.kuka.generated.ioAccess.SMC600_SPN1IOGroup;
 import com.kuka.roboticsAPI.controllerModel.Controller;
 import com.kuka.roboticsAPI.geometricModel.ObjectFrame;
@@ -9,10 +10,12 @@ import com.kuka.roboticsAPI.geometricModel.Tool;
 
 public class GrindingTool {
 	private SMC600_SPN1IOGroup toolIO;
+	private EK1100IOGroup beckhoffEcatIO;
 	private EToolName toolName;
 	
 	public GrindingTool(Controller controller) {
 		toolIO = new SMC600_SPN1IOGroup(controller);
+		beckhoffEcatIO = new EK1100IOGroup(controller);
 	    this.setToolName(EToolName.None);
 	}
 	
@@ -23,6 +26,7 @@ public class GrindingTool {
 	public void grindingStart() {
 		toolIO.setDO08_1_GrinderAir1(true);
 		toolIO.setDO09_1_GrinderAir2(true);
+		beckhoffEcatIO.setEK1100_DO01_GrindingToolReq(true);
 	}
 	
 	/**
@@ -31,6 +35,7 @@ public class GrindingTool {
 	 */
 	public void grindingStartHalfSpeed() {
 		toolIO.setDO08_1_GrinderAir1(true);
+		beckhoffEcatIO.setEK1100_DO01_GrindingToolReq(true);
 	}
 	
 	/**
@@ -39,6 +44,7 @@ public class GrindingTool {
 	public void grindingStop() {
 		toolIO.setDO08_1_GrinderAir1(false);
 		toolIO.setDO09_1_GrinderAir2(false);
+		beckhoffEcatIO.setEK1100_DO01_GrindingToolReq(false);
 	}
 	
 	public ObjectFrame setToolName(Tool sunriseTool, EToolName toolName) {

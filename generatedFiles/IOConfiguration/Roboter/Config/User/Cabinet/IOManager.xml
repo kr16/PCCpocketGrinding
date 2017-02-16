@@ -56,9 +56,6 @@
         <DigitalIO Name="EK1100.EK1100_DI16" Type="INPUT" Scope="USER_IO" StartBit="335" BitSize="1" Signed="false">
           <Description />
         </DigitalIO>
-        <DigitalIO Name="EK1100.EK1100_DO01" Type="OUTPUT" Scope="USER_IO" StartBit="12576" BitSize="1" Signed="false">
-          <Description />
-        </DigitalIO>
         <DigitalIO Name="EK1100.EK1100_DO02" Type="OUTPUT" Scope="USER_IO" StartBit="12577" BitSize="1" Signed="false">
           <Description />
         </DigitalIO>
@@ -102,6 +99,9 @@
           <Description />
         </DigitalIO>
         <DigitalIO Name="EK1100.EK1100_DO16" Type="OUTPUT" Scope="USER_IO" StartBit="12591" BitSize="1" Signed="false">
+          <Description />
+        </DigitalIO>
+        <DigitalIO Name="EK1100.EK1100_DO01_GrindingToolReq" Type="OUTPUT" Scope="USER_IO" StartBit="12576" BitSize="1" Signed="false">
           <Description />
         </DigitalIO>
       </IOList>

@@ -69,7 +69,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		
 		while (true) {
 			eeTool.grindingStart();
-			ThreadUtil.milliSleep(5000);
+			ThreadUtil.milliSleep(10000);
 			eeTool.grindingStop();
 			ThreadUtil.milliSleep(2000);
 		}

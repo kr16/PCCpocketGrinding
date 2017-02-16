@@ -3,6 +3,8 @@ package modules;
 
 import javax.inject.Inject;
 import java.util.concurrent.TimeUnit;
+
+import com.kuka.generated.ioAccess.EK1100IOGroup;
 import com.kuka.roboticsAPI.applicationModel.tasks.CycleBehavior;
 import com.kuka.roboticsAPI.applicationModel.tasks.RoboticsAPICyclicBackgroundTask;
 import com.kuka.roboticsAPI.controllerModel.Controller;
@@ -31,12 +33,13 @@ public class BackgroundTaskToolSafety extends RoboticsAPICyclicBackgroundTask {
 	LBR botState;
 	ISafetyState currentState; 
 	GrindingTool btTool;
+	EK1100IOGroup beckhoffIO;
 
 	@Override
 	public void initialize() {
 		botState = (LBR) getDevice(KUKA_Sunrise_Cabinet_1,
 				"LBR_iiwa_14_R820_1");
-		currentState = botState.getSafetyState();
+		beckhoffIO = new EK1100IOGroup(KUKA_Sunrise_Cabinet_1);
 		btTool = new GrindingTool(KUKA_Sunrise_Cabinet_1);
 		initializeCyclic(0, 10, TimeUnit.MILLISECONDS,
 				CycleBehavior.BestEffort);
@@ -44,9 +47,12 @@ public class BackgroundTaskToolSafety extends RoboticsAPICyclicBackgroundTask {
 
 	@Override
 	public void runCyclic() {
-		//currentState = botState.getSafetyState();
 		if (botState.getSafetyState().getEnablingDeviceState() == EnablingDeviceState.NONE) {
 			btTool.grindingStop();
+		} else {
+			if(beckhoffIO.getEK1100_DO01_GrindingToolReq()) {
+				btTool.grindingStart();
+			}
 		}
 	}
 }
