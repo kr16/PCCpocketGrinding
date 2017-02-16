@@ -48,10 +48,10 @@ public class BackgroundTaskToolSafety extends RoboticsAPICyclicBackgroundTask {
 	@Override
 	public void runCyclic() {
 		if (botState.getSafetyState().getEnablingDeviceState() == EnablingDeviceState.NONE) {
-			btTool.grindingStop();
+			btTool.grindingStopNoRequest();
 		} else {
 			if(beckhoffIO.getEK1100_DO01_GrindingToolReq()) {
-				btTool.grindingStart();
+				btTool.grindingStartNoRequest();
 			}
 		}
 	}
