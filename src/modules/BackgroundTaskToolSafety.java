@@ -11,6 +11,7 @@ import com.kuka.roboticsAPI.controllerModel.Controller;
 import com.kuka.roboticsAPI.controllerModel.sunrise.ISafetyState;
 import com.kuka.roboticsAPI.controllerModel.sunrise.SunriseSafetyState.EnablingDeviceState;
 import com.kuka.roboticsAPI.deviceModel.LBR;
+import com.kuka.roboticsAPI.deviceModel.OperationMode;
 
 /**
  * Implementation of a cyclic background task.
@@ -47,11 +48,14 @@ public class BackgroundTaskToolSafety extends RoboticsAPICyclicBackgroundTask {
 
 	@Override
 	public void runCyclic() {
-		if (botState.getSafetyState().getEnablingDeviceState() == EnablingDeviceState.NONE) {
-			btTool.grindingStopNoRequest();
-		} else {
-			if(beckhoffIO.getEK1100_DO01_GrindingToolReq()) {
-				btTool.grindingStartNoRequest();
+		if (botState.getSafetyState().getOperationMode() == OperationMode.T1
+				|| botState.getSafetyState().getOperationMode() == OperationMode.T2) {
+			if (botState.getSafetyState().getEnablingDeviceState() == EnablingDeviceState.NONE) {
+				btTool.grindingStopNoRequest();
+			} else {
+				if(beckhoffIO.getEK1100_DO01_GrindingToolReq()) {
+					btTool.grindingStartNoRequest();
+				}
 			}
 		}
 	}
