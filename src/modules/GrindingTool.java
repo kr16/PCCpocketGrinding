@@ -39,12 +39,32 @@ public class GrindingTool {
 	}
 	
 	/**
+	 * This is specific to Background Task only for tool safety control. 
+	 * Does not enable/disable tool request output. 
+	 * DO NOT USE IT outside Background Task
+	 */
+	public void grindingStartNoRequest() {
+		toolIO.setDO08_1_GrinderAir1(true);
+		toolIO.setDO09_1_GrinderAir2(true);
+	}
+	
+	/**
 	 * Disable grinding tool
 	 */
 	public void grindingStop() {
 		toolIO.setDO08_1_GrinderAir1(false);
 		toolIO.setDO09_1_GrinderAir2(false);
 		beckhoffEcatIO.setEK1100_DO01_GrindingToolReq(false);
+	}
+	
+	/**
+	 * This is specific to Background Task only for tool safety control. 
+	 * Does not enable/disable tool request output. 
+	 * DO NOT USE IT outside Background Task
+	 */
+	public void grindingStopNoRequest() {
+		toolIO.setDO08_1_GrinderAir1(false);
+		toolIO.setDO09_1_GrinderAir2(false);
 	}
 	
 	public ObjectFrame setToolName(Tool sunriseTool, EToolName toolName) {
