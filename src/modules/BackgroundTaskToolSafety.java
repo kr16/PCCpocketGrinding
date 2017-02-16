@@ -38,13 +38,13 @@ public class BackgroundTaskToolSafety extends RoboticsAPICyclicBackgroundTask {
 				"LBR_iiwa_14_R820_1");
 		currentState = botState.getSafetyState();
 		btTool = new GrindingTool(KUKA_Sunrise_Cabinet_1);
-		initializeCyclic(0, 500, TimeUnit.MILLISECONDS,
+		initializeCyclic(0, 100, TimeUnit.MILLISECONDS,
 				CycleBehavior.BestEffort);
 	}
 
 	@Override
 	public void runCyclic() {
-		currentState = botState.getSafetyState();
+		//currentState = botState.getSafetyState();
 		if (currentState.getEnablingDeviceState() == EnablingDeviceState.NONE) {
 			btTool.grindingStop();
 		}

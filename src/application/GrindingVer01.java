@@ -79,8 +79,8 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 	private void setNewHomePosition() {
 		// Currently needed every run for this program
 		// Otherwise robot goes to candle home
-		JointPosition newHome = new JointPosition(Math.toRadians(0), Math.toRadians(-20),
-				Math.toRadians(0), Math.toRadians(-105), Math.toRadians(0), Math.toRadians(60), Math.toRadians(0));
+		JointPosition newHome = new JointPosition(Math.toRadians(0), Math.toRadians(10),
+				Math.toRadians(0), Math.toRadians(-115), Math.toRadians(0), Math.toRadians(-25), Math.toRadians(0));
 		bot.setHomePosition(newHome);
 	}
 }
