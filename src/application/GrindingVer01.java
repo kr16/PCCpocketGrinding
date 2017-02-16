@@ -75,7 +75,6 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		}
 	}
 	
-	
 	private void setNewHomePosition() {
 		// Currently needed every run for this program
 		// Otherwise robot goes to candle home
@@ -83,4 +82,18 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 				Math.toRadians(0), Math.toRadians(-115), Math.toRadians(0), Math.toRadians(-25), Math.toRadians(0));
 		bot.setHomePosition(newHome);
 	}
+	@Override
+    public void dispose()
+    {
+        try {
+        	eeTool.grindingStop();
+        } catch (NullPointerException e ) {
+        	System.err.println("Sacrebleu");
+        }
+        finally
+        {
+            super.dispose();
+        }
+    }
+	
 }
