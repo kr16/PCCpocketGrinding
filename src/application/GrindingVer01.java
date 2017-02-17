@@ -101,7 +101,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		double amplitude = 5;
 		double stiffness = 1000;
 		double handForce = 50;
-		double travelDistance = 3;		//mm
+		double travelDistance = 2;		//mm
 		double velocity = 10;
 		
 		CartesianImpedanceControlMode mode = new CartesianImpedanceControlMode();
@@ -111,8 +111,8 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 
 		for (int i = 0; i < 20; i++) {
 			
-			currentTCP.move(linRel(0, 0, travelDistance, currentTCP).setMode(mode).setCartVelocity(velocity));
-			currentTCP.move(linRel(0, 0, -travelDistance, currentTCP).setMode(mode));
+			currentTCP.move(linRel(travelDistance, 0, 0, currentTCP).setMode(mode).setCartVelocity(velocity));
+			currentTCP.move(linRel(-travelDistance, 0, 0, currentTCP).setMode(mode));
 		
 		}
 	}
