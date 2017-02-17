@@ -1,6 +1,8 @@
 package application;
 
 
+import java.util.concurrent.TimeUnit;
+
 import javax.inject.Inject;
 
 import modules.Common.ESearchDirection;
@@ -19,6 +21,7 @@ import com.kuka.roboticsAPI.geometricModel.CartDOF;
 import com.kuka.roboticsAPI.geometricModel.Frame;
 import com.kuka.roboticsAPI.geometricModel.ObjectFrame;
 import com.kuka.roboticsAPI.geometricModel.Tool;
+import com.kuka.roboticsAPI.motionModel.PositionHold;
 import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianImpedanceControlMode;
 import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianSineImpedanceControlMode;
 import com.sun.org.apache.bcel.internal.generic.NEW;
@@ -85,7 +88,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		setCurrentTCP(EToolName.BallWorking);
 		
 		currentTCP.move(ptp(startProcess).setJointVelocityRel(0.3));
-		eeTool.grindingStartHalfSpeed();
+		//eeTool.grindingStartHalfSpeed();
 		searchPart.recordPosition(ESearchDirection.PosX, 5, 10, 10, 0, currentTCP, nullBase, bot);
 		
 		grindingProcess();
@@ -107,15 +110,17 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		
 		CartesianImpedanceControlMode mode = new CartesianImpedanceControlMode();
 		mode.parametrize(CartDOF.TRANSL).setStiffness(5000);
-		mode.parametrize(CartDOF.TRANSL).setStiffness(300);
-		mode.parametrize(CartDOF.X).setStiffness(4000).setAdditionalControlForce(handForce);
+		mode.parametrize(CartDOF.ROT).setStiffness(300);
+		//mode.parametrize(CartDOF.X).setStiffness(4000).setAdditionalControlForce(handForce);
 
-		for (int i = 0; i < 20; i++) {
-			
-			currentTCP.move(linRel(travelDistance, 0, 0, currentTCP).setMode(mode).setCartVelocity(velocity));
-			currentTCP.move(linRel(-travelDistance, 0, 0, currentTCP).setMode(mode));
+		currentTCP.move(new PositionHold(mode, -30, TimeUnit.SECONDS));
 		
-		}
+//		for (int i = 0; i < 20; i++) {
+//			
+//			currentTCP.move(linRel(travelDistance, 0, 0, currentTCP).setMode(mode).setCartVelocity(velocity));
+//			currentTCP.move(linRel(-travelDistance, 0, 0, currentTCP).setMode(mode));
+//		
+//		}
 	}
 	
 	private void setNewHomePosition() {
