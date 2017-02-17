@@ -3,8 +3,10 @@ package application;
 
 import javax.inject.Inject;
 
+import modules.Common.ESearchDirection;
 import modules.Common.EToolName;
 import modules.GrindingTool;
+import modules.TouchForceRecord;
 
 import com.kuka.common.ThreadUtil;
 import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
@@ -42,20 +44,23 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 	private Tool PCC_EE;
 	private ObjectFrame nullBase;
 	private ObjectFrame currentTCP;
-	private ObjectFrame startPos, centerPos;
+	private ObjectFrame startProcess, centerPos;
 	private ObjectFrame referencePos;
 	
 	private GrindingTool eeTool;
-
+	private TouchForceRecord searchPart;
+	
 	@Override
 	public void initialize() {
 		kuka_Sunrise_Cabinet_1 = getController("KUKA_Sunrise_Cabinet_1");
 		PCC_EE = getApplicationData().createFromTemplate("PccGrinderVer01");
 		eeTool = new GrindingTool(kuka_Sunrise_Cabinet_1);
 		nullBase = getApplicationData().getFrame("/nullBase");
+		startProcess = getApplicationData().getFrame("/nullBase/StartProcess");
 		
 		//set current TCP here
-		currentTCP = eeTool.setToolName(PCC_EE, EToolName.Ball);
+		currentTCP = eeTool.setToolName(PCC_EE, EToolName.BallWorking);
+		searchPart = new TouchForceRecord();
 	}
 
 	@Override
@@ -76,12 +81,13 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		System.out.println("Moving to Home/Start position");
 		bot.move(ptpHome().setJointVelocityRel(0.3));
 		
-		while (true) {
-			eeTool.grindingStart();
-			ThreadUtil.milliSleep(10000);
-			eeTool.grindingStop();
-			ThreadUtil.milliSleep(2000);
-		}
+		currentTCP.move(ptp(startProcess).setJointVelocityRel(0.3));
+		searchPart.recordPosition(ESearchDirection.PosX, 5, 10, 10, 0, currentTCP, nullBase, bot);
+		currentTCP.move(lin(startProcess).setCartVelocity(10));
+		
+		System.out.println("Moving to Home/Start position");
+		bot.move(ptpHome().setJointVelocityRel(0.3));
+		
 	}
 	
 	private void setNewHomePosition() {

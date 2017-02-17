@@ -74,6 +74,9 @@ public class GrindingTool {
 		case Ball:
 			currentTCP = sunriseTool.getFrame("Ball");
 			break;
+		case BallWorking:
+			currentTCP = sunriseTool.getFrame("BallWorking");
+			break;
 		case Cone:
 			currentTCP = sunriseTool.getFrame("Cone");
 			break;
