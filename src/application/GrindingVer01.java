@@ -104,14 +104,14 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		double frequency = 1;
 		double amplitude = 5;
 		double stiffness = 1000;
-		double handForce = 5;
+		double handForce = 10;
 		double travelDistance = 2;		//mm
 		double velocity = 10;
 		
 		CartesianImpedanceControlMode mode = new CartesianImpedanceControlMode();
-		mode.parametrize(CartDOF.TRANSL).setStiffness(5000);
+		mode.parametrize(CartDOF.TRANSL).setStiffness(5000).setDamping(1);
 		mode.parametrize(CartDOF.ROT).setStiffness(300);
-		//mode.parametrize(CartDOF.X).setStiffness(4000).setAdditionalControlForce(handForce);
+		mode.parametrize(CartDOF.X).setStiffness(4000).setAdditionalControlForce(handForce);
 
 		currentTCP.move(new PositionHold(mode, -30, TimeUnit.SECONDS));
 		
