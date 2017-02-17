@@ -19,6 +19,7 @@ import com.kuka.roboticsAPI.geometricModel.CartDOF;
 import com.kuka.roboticsAPI.geometricModel.Frame;
 import com.kuka.roboticsAPI.geometricModel.ObjectFrame;
 import com.kuka.roboticsAPI.geometricModel.Tool;
+import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianImpedanceControlMode;
 import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianSineImpedanceControlMode;
 import com.sun.org.apache.bcel.internal.generic.NEW;
 
@@ -100,15 +101,18 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		double amplitude = 5;
 		double stiffness = 1000;
 		double handForce = 50;
-		CartesianSineImpedanceControlMode mode;
-		mode = CartesianSineImpedanceControlMode.createSinePattern(CartDOF.Y, frequency, amplitude, stiffness);
-		mode.parametrize(CartDOF.X,CartDOF.Z).setStiffness(5000);
-		mode.parametrize(CartDOF.X).setBias(handForce);
+		double travelDistance = 2;		//mm
+		double velocity = 2;
+		
+		CartesianImpedanceControlMode mode = new CartesianSineImpedanceControlMode();
+		mode.parametrize(CartDOF.TRANSL).setStiffness(5000);
+		mode.parametrize(CartDOF.TRANSL).setStiffness(300);
+		mode.parametrize(CartDOF.X).setAdditionalControlForce(handForce);
 
 		for (int i = 0; i < 20; i++) {
 			
-			currentTCP.move(linRel(0, 0, 1, currentTCP).setMode(mode));
-			currentTCP.move(linRel(0, 0, -1, currentTCP).setMode(mode));
+			currentTCP.move(linRel(0, 0, travelDistance, currentTCP).setMode(mode).setCartVelocity(velocity));
+			currentTCP.move(linRel(0, 0, -travelDistance, currentTCP).setMode(mode));
 		
 		}
 	}
