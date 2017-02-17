@@ -15,8 +15,11 @@ import static com.kuka.roboticsAPI.motionModel.BasicMotions.*;
 import com.kuka.roboticsAPI.controllerModel.Controller;
 import com.kuka.roboticsAPI.deviceModel.JointPosition;
 import com.kuka.roboticsAPI.deviceModel.LBR;
+import com.kuka.roboticsAPI.geometricModel.CartDOF;
+import com.kuka.roboticsAPI.geometricModel.Frame;
 import com.kuka.roboticsAPI.geometricModel.ObjectFrame;
 import com.kuka.roboticsAPI.geometricModel.Tool;
+import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianSineImpedanceControlMode;
 import com.sun.org.apache.bcel.internal.generic.NEW;
 
 /**
@@ -57,9 +60,6 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		eeTool = new GrindingTool(kuka_Sunrise_Cabinet_1);
 		nullBase = getApplicationData().getFrame("/nullBase");
 		startProcess = getApplicationData().getFrame("/nullBase/StartProcess");
-		
-		//set current TCP here
-		currentTCP = eeTool.setToolName(PCC_EE, EToolName.BallWorking);
 		searchPart = new TouchForceRecord();
 	}
 
@@ -81,13 +81,31 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		System.out.println("Moving to Home/Start position");
 		bot.move(ptpHome().setJointVelocityRel(0.3));
 		
+		setCurrentTCP(EToolName.BallWorking);
+		
 		currentTCP.move(ptp(startProcess).setJointVelocityRel(0.3));
 		searchPart.recordPosition(ESearchDirection.PosX, 5, 10, 10, 0, currentTCP, nullBase, bot);
+		
+		grindingProcess();
+		
 		currentTCP.move(lin(startProcess).setCartVelocity(10));
 		
 		System.out.println("Moving to Home/Start position");
 		bot.move(ptpHome().setJointVelocityRel(0.3));
 		
+	}
+	
+	public void grindingProcess() {
+		CartesianSineImpedanceControlMode mode;
+		mode = CartesianSineImpedanceControlMode.createSinePattern(CartDOF.Y, 5, 15, 100);
+		mode.parametrize(CartDOF.X,CartDOF.Z).setStiffness(5000);
+
+		for (int i = 0; i < 20; i++) {
+			
+			currentTCP.move(linRel(0, 0, 1, currentTCP));
+			currentTCP.move(linRel(0, 0, -1, currentTCP));
+		
+		}
 	}
 	
 	private void setNewHomePosition() {
@@ -121,9 +139,12 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		} else {
 			return true;
 		}
-		
-		
 	}
+	
+	public void setCurrentTCP(EToolName toolName) {
+		currentTCP = eeTool.setToolName(PCC_EE, toolName);
+	}
+	
 	@Override
     public void dispose()
     {
