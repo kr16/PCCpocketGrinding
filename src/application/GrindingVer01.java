@@ -96,13 +96,14 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 	}
 	
 	public void grindingProcess() {
-		double frequency = 2;
-		double amplitude = 10;
+		double frequency = 1;
+		double amplitude = 5;
 		double stiffness = 100;
+		double handForce = 30;
 		CartesianSineImpedanceControlMode mode;
 		mode = CartesianSineImpedanceControlMode.createSinePattern(CartDOF.Y, frequency, amplitude, stiffness);
 		mode.parametrize(CartDOF.X,CartDOF.Z).setStiffness(5000);
-		mode.parametrize(CartDOF.X).setBias(5.0);
+		mode.parametrize(CartDOF.X).setBias(handForce);
 
 		for (int i = 0; i < 20; i++) {
 			
