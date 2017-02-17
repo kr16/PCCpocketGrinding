@@ -14,7 +14,9 @@
         <toolTemplate class="" name="PccGrinderVer01">
             <frames>
                 <frame id="_1d8d6ae5-594d-414d-9b9e-1bbb409ec222" name="Ball">
-                    <transformation a="0.0" b="-0.7853981633974483" c="0.0" x="0.0" y="0.0" z="0.0"/>
+                    <transformation a="2.778344567496242" b="-0.8967126175034005" c="-2.8623970143029718" x="-124.59594320019991" y="0.6794688580790565" z="147.08987618057188"/>
+                    <measurementTranslation calculationError="1.1073619694299006" method="XYZ4Point" timestamp="1487344557619"/>
+                    <measurementRotation method="ABC2Point" timestamp="1487344942126"/>
                 </frame>
                 <frame id="_207f9d50-25f2-4710-a8de-472f3cba5d78" name="Cone">
                     <transformation a="0.0" b="-0.7853981633974483" c="0.0" x="0.0" y="0.0" z="0.0"/>
