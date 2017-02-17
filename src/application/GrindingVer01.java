@@ -88,7 +88,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		setCurrentTCP(EToolName.BallWorking);
 		
 		currentTCP.move(ptp(startProcess).setJointVelocityRel(0.3));
-		//eeTool.grindingStartHalfSpeed();
+		eeTool.grindingStartHalfSpeed();
 		searchPart.recordPosition(ESearchDirection.PosX, 5, 10, 10, 0, currentTCP, nullBase, bot);
 		
 		grindingProcess();
@@ -104,20 +104,16 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		double frequency = 1;
 		double amplitude = 5;
 		double stiffness = 1000;
-		double handForce = 10;
-		double travelDistance = 2;		//mm
-		double velocity = 10;
+		double handForce = 20;
+		double travelDistance = 4.5;		//mm
+		double velocity = 0.2;
 		
 		CartesianImpedanceControlMode mode = new CartesianImpedanceControlMode();
 		mode.parametrize(CartDOF.TRANSL).setStiffness(5000).setDamping(1);
 		mode.parametrize(CartDOF.ROT).setStiffness(300);
 		mode.parametrize(CartDOF.X).setStiffness(4000).setAdditionalControlForce(handForce);
 
-		currentTCP.move(new PositionHold(mode, -30, TimeUnit.SECONDS));
-		
-//		for (int i = 0; i < 20; i++) {
-//			
-//			currentTCP.move(linRel(travelDistance, 0, 0, currentTCP).setMode(mode).setCartVelocity(velocity));
+		currentTCP.move(linRel(travelDistance, 0, 0, currentTCP).setMode(mode).setCartVelocity(velocity));
 //			currentTCP.move(linRel(-travelDistance, 0, 0, currentTCP).setMode(mode));
 //		
 //		}
