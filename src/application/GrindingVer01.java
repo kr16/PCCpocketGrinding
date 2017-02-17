@@ -101,8 +101,8 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		double amplitude = 5;
 		double stiffness = 1000;
 		double handForce = 50;
-		double travelDistance = 2;		//mm
-		double velocity = 2;
+		double travelDistance = 3;		//mm
+		double velocity = 10;
 		
 		CartesianImpedanceControlMode mode = new CartesianImpedanceControlMode();
 		mode.parametrize(CartDOF.TRANSL).setStiffness(5000);
