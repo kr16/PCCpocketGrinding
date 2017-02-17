@@ -101,7 +101,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		double frequency = 1;
 		double amplitude = 5;
 		double stiffness = 1000;
-		double handForce = 50;
+		double handForce = 5;
 		double travelDistance = 2;		//mm
 		double velocity = 10;
 		
