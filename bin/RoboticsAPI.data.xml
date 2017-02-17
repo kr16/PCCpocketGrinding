@@ -19,6 +19,9 @@
                 <frame id="_207f9d50-25f2-4710-a8de-472f3cba5d78" name="Cone">
                     <transformation a="0.0" b="-0.7853981633974483" c="0.0" x="0.0" y="0.0" z="0.0"/>
                 </frame>
+                <frame id="_86f5c515-9a0b-4eb2-8a03-5554919b278f" name="BallWorking">
+                    <transformation a="0.0" b="-1.5707963267948966" c="0.0" x="-124.6" y="0.7" z="147.1"/>
+                </frame>
             </frames>
             <loadData cogA="0.0" cogB="0.0" cogC="0.0" cogX="-16.975807462608174" cogY="-2.801261302159469" cogZ="55.940650416325525" inertiaX="0.0" inertiaY="0.0" inertiaZ="0.0" mass="1.47"/>
         </toolTemplate>
