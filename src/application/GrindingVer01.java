@@ -102,8 +102,8 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 
 		for (int i = 0; i < 20; i++) {
 			
-			currentTCP.move(linRel(0, 0, 1, currentTCP));
-			currentTCP.move(linRel(0, 0, -1, currentTCP));
+			currentTCP.move(linRel(0, 0, 1, currentTCP).setMode(mode));
+			currentTCP.move(linRel(0, 0, -1, currentTCP).setMode(mode));
 		
 		}
 	}
