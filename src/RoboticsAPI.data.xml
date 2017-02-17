@@ -8,6 +8,12 @@
                 <info key="LastModificationTime" type="java.lang.Long" value="1487192180852"/>
                 <info key="UseAsBaseForJogging" type="java.lang.Boolean" value="true"/>
             </additionalInformation>
+            <frame id="_2ae9bff0-f0da-4d43-b43b-1770d5bae086" name="StartProcess">
+                <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
+                <additionalInformation>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1487346458608"/>
+                </additionalInformation>
+            </frame>
         </frame>
     </world>
     <objectTemplates>
