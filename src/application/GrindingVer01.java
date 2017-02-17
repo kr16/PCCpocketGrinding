@@ -61,6 +61,14 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 	@Override
 	public void run() {
 		
+		//check for robot referencing and run referncing program if needed
+		if (!referencingStateCheck(bot)) {
+			System.out.println("Running position and GSM reference program");
+			//how do I execute a different java program??? 
+			PositionAndGMSReferencing app = new PositionAndGMSReferencing();
+			app.runApplication();
+		}
+		
 		// set home position, attach tool , move home
 		setNewHomePosition();
 		PCC_EE.attachTo(bot.getFlange());
@@ -81,6 +89,33 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		JointPosition newHome = new JointPosition(Math.toRadians(0), Math.toRadians(10),
 				Math.toRadians(0), Math.toRadians(-115), Math.toRadians(0), Math.toRadians(-25), Math.toRadians(0));
 		bot.setHomePosition(newHome);
+	}
+	
+	private boolean referencingStateCheck(LBR bot) {
+		String torqueReferencing = null;
+		String positionReferencing = null;
+		boolean bTorqueReferencing = true;
+		boolean bPositionReferencing = true;
+		
+		if (!bot.getSafetyState().areAllAxesGMSReferenced()) {
+			//check if all joints are torque referenced
+			torqueReferencing = "Not all joint are torque referenced";
+			bTorqueReferencing = false;
+			System.err.println(torqueReferencing);
+		}
+		if (!bot.getSafetyState().areAllAxesPositionReferenced()) {
+			//check if all joints are position referenced
+			positionReferencing = "Not all joints are position referenced";
+			bPositionReferencing = false;
+			System.err.println(positionReferencing);
+		}
+		if (!bTorqueReferencing || !bPositionReferencing) {
+			return false;
+		} else {
+			return true;
+		}
+		
+		
 	}
 	@Override
     public void dispose()
