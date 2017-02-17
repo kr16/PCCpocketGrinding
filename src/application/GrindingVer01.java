@@ -88,7 +88,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		setCurrentTCP(EToolName.BallWorking);
 		
 		currentTCP.move(ptp(startProcess).setJointVelocityRel(0.3));
-		eeTool.grindingStartHalfSpeed();
+		eeTool.grindingStart();
 		searchPart.recordPosition(ESearchDirection.PosX, 5, 10, 10, 0, currentTCP, nullBase, bot);
 		
 		grindingProcess();
@@ -104,7 +104,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		double frequency = 1;
 		double amplitude = 5;
 		double stiffness = 1000;
-		double handForce = 20;
+		double handForce = 10;
 		double travelDistance = 4.5;		//mm
 		double velocity = 0.2;
 		
