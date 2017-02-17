@@ -65,8 +65,9 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		if (!referencingStateCheck(bot)) {
 			System.out.println("Running position and GSM reference program");
 			//how do I execute a different java program??? 
-			PositionAndGMSReferencing app = new PositionAndGMSReferencing();
-			app.run();
+			PositionAndGMSReferencing posAndGSMapp = new PositionAndGMSReferencing();
+			posAndGSMapp.initialize();
+			posAndGSMapp.run();
 		}
 		
 		// set home position, attach tool , move home
