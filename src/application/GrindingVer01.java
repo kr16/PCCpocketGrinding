@@ -100,13 +100,16 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 			currentTCP.move(lin(startOffsetted).setCartVelocity(10));
 			eeTool.grindingStart();
 			grindingProcess(atPart);
+			currentTCP.move(lin(atPart).setCartVelocity(1));
+			eeTool.grindingStop();
+			depthMeasure(atPart);
 			
 		} else {
 			throw new ArithmeticException("No part detected, adjust start position , restart program");
 		}
 		
 		currentTCP.move(lin(startOffsetted).setCartVelocity(10));
-		eeTool.grindingStop();
+		
 		
 		System.out.println("Moving to Home/Start position");
 		bot.move(ptpHome().setJointVelocityRel(0.3));
@@ -117,7 +120,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		double frequency = 1;
 		double amplitude = 5;
 		double stiffness = 4500;
-		double handForce = 20;
+		double handForce = 15;
 		double travelDistance = 4.5;		//mm
 		double velocity = 0.2;
 		
@@ -131,7 +134,12 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		
 	}
 	
-	
+	public void depthMeasure(Frame atPart) {
+		double startX = atPart.getX();
+		searchPart.recordPosition(ESearchDirection.PosX, 5, 10, 1, 0, currentTCP, nullBase, bot);
+		double stopX = searchPart.getPosition().getX();
+		System.out.println("Grinding depth = " + (stopX - startX));
+	}
 	private void setNewHomePosition() {
 		// Currently needed every run for this program
 		// Otherwise robot goes to candle home

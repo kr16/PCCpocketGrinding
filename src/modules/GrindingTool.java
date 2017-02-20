@@ -2,6 +2,7 @@ package modules;
 
 import modules.Common.EToolName;
 
+import com.kuka.common.ThreadUtil;
 import com.kuka.generated.ioAccess.EK1100IOGroup;
 import com.kuka.generated.ioAccess.SMC600_SPN1IOGroup;
 import com.kuka.roboticsAPI.controllerModel.Controller;
@@ -56,6 +57,7 @@ public class GrindingTool {
 		toolIO.setDO08_1_GrinderAir1(false);
 		toolIO.setDO09_1_GrinderAir2(false);
 		beckhoffEcatIO.setEK1100_DO01_GrindingToolReq(false);
+		ThreadUtil.milliSleep(500);	//stop delay
 	}
 	
 	/**
