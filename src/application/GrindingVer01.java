@@ -96,12 +96,13 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 			currentTCP.move(lin(startProcess).setCartVelocity(10));
 			eeTool.grindingStart();
 			grindingProcess(atPart);
-			eeTool.grindingStop();
+			
 		} else {
 			throw new ArithmeticException("No part detected, adjust start position , restart program");
 		}
 		
 		currentTCP.move(lin(startProcess).setCartVelocity(10));
+		eeTool.grindingStop();
 		
 		System.out.println("Moving to Home/Start position");
 		bot.move(ptpHome().setJointVelocityRel(0.3));
@@ -111,8 +112,8 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 	public void grindingProcess(Frame atPart) {
 		double frequency = 1;
 		double amplitude = 5;
-		double stiffness = 4000;
-		double handForce = 10;
+		double stiffness = 4500;
+		double handForce = 15;
 		double travelDistance = 4.5;		//mm
 		double velocity = 0.2;
 		
