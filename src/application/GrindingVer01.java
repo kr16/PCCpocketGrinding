@@ -102,7 +102,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 			grindingProcess(atPart);
 			currentTCP.move(lin(atPart).setCartVelocity(1));
 			eeTool.grindingStop();
-			depthMeasure(atPart);
+			//depthMeasure(atPart);
 			
 		} else {
 			throw new ArithmeticException("No part detected, adjust start position , restart program");
