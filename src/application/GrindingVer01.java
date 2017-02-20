@@ -98,7 +98,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		if (searchPart.getResult()) {
 			Frame atPart = searchPart.getPosition();
 			currentTCP.move(lin(startOffsetted).setCartVelocity(10));
-			eeTool.grindingStart();
+			//eeTool.grindingStart();
 			grindingProcess(atPart);
 			currentTCP.move(lin(atPart).setCartVelocity(1));
 			eeTool.grindingStop();
@@ -125,12 +125,17 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		double velocity = 0.2;
 		
 		CartesianImpedanceControlMode mode = new CartesianImpedanceControlMode();
+		CartesianSineImpedanceControlMode modeWave = new CartesianSineImpedanceControlMode();
+		modeWave.createSinePattern(CartDOF.Z, frequency, amplitude, 1000);
+		modeWave.parametrize(CartDOF.Y).setStiffness(5000);
+		modeWave.parametrize(CartDOF.X).setStiffness(stiffness);
+		
 		mode.parametrize(CartDOF.TRANSL).setStiffness(5000).setDamping(1);
 		mode.parametrize(CartDOF.ROT).setStiffness(300);
 		mode.parametrize(CartDOF.X).setStiffness(stiffness);
 		currentTCP.move(lin(atPart).setCartVelocity(velocity*5).setMode(mode));
 		mode.parametrize(CartDOF.X).setStiffness(4500).setAdditionalControlForce(handForce);
-		currentTCP.move(linRel(travelDistance, 0, 0, currentTCP).setMode(mode).setCartVelocity(velocity));
+		currentTCP.move(linRel(travelDistance, 0, 0, currentTCP).setMode(modeWave).setCartVelocity(velocity));
 		
 	}
 	
