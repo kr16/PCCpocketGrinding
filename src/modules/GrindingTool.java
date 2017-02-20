@@ -12,6 +12,7 @@ public class GrindingTool {
 	private SMC600_SPN1IOGroup toolIO;
 	private EK1100IOGroup beckhoffEcatIO;
 	private EToolName toolName;
+	private Tool sunriseTool;
 	
 	public GrindingTool(Controller controller) {
 		toolIO = new SMC600_SPN1IOGroup(controller);
@@ -67,7 +68,11 @@ public class GrindingTool {
 		toolIO.setDO09_1_GrinderAir2(false);
 	}
 	
-	public ObjectFrame setToolName(Tool sunriseTool, EToolName toolName) {
+	public void setTool(Tool sunriseTool) {
+		setSunriseTool(sunriseTool);
+	}
+	
+	public ObjectFrame setCurrentTCP(EToolName toolName) {
 		ObjectFrame currentTCP;
 		
 		switch (toolName) {
@@ -94,6 +99,14 @@ public class GrindingTool {
 
 	private void setToolName(EToolName toolName) {
 		this.toolName = toolName;
+	}
+
+	public Tool getSunriseTool() {
+		return sunriseTool;
+	}
+
+	public void setSunriseTool(Tool sunriseTool) {
+		this.sunriseTool = sunriseTool;
 	}
 	
 }

@@ -51,7 +51,7 @@ public class BackgroundTaskToolSafety extends RoboticsAPICyclicBackgroundTask {
 		if (botState.getSafetyState().getOperationMode() == OperationMode.T1
 				|| botState.getSafetyState().getOperationMode() == OperationMode.T2) {
 			if (botState.getSafetyState().getEnablingDeviceState() == EnablingDeviceState.NONE) {
-				btTool.grindingStopNoRequest();
+				btTool.grindingStop();
 			} else {
 				if(beckhoffIO.getEK1100_DO01_GrindingToolReq()) {
 					btTool.grindingStartNoRequest();

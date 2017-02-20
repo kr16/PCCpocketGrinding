@@ -85,7 +85,8 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		System.out.println("Moving to Home/Start position");
 		bot.move(ptpHome().setJointVelocityRel(0.3));
 		
-		setCurrentTCP(EToolName.BallWorking);
+		eeTool.setTool(PCC_EE);
+		eeTool.setCurrentTCP(EToolName.BallWorking);
 		
 		currentTCP.move(ptp(startProcess).setJointVelocityRel(0.3));
 		eeTool.grindingStart();
@@ -152,9 +153,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		}
 	}
 	
-	public void setCurrentTCP(EToolName toolName) {
-		currentTCP = eeTool.setToolName(PCC_EE, toolName);
-	}
+	
 	
 	@Override
     public void dispose()
