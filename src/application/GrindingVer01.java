@@ -94,7 +94,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		if (searchPart.getResult()) {
 			Frame atPart = searchPart.getPosition();
 			currentTCP.move(lin(startProcess).setCartVelocity(10));
-			//eeTool.grindingStart();
+			eeTool.grindingStart();
 			grindingProcess(atPart);
 			eeTool.grindingStop();
 		} else {
