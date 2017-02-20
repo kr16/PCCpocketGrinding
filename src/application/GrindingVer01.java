@@ -122,8 +122,9 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		CartesianImpedanceControlMode mode = new CartesianImpedanceControlMode();
 		mode.parametrize(CartDOF.TRANSL).setStiffness(5000).setDamping(1);
 		mode.parametrize(CartDOF.ROT).setStiffness(300);
+		mode.parametrize(CartDOF.X).setStiffness(stiffness);
+		currentTCP.move(lin(atPart).setCartVelocity(velocity*5).setMode(mode));
 		mode.parametrize(CartDOF.X).setStiffness(stiffness).setAdditionalControlForce(handForce);
-		currentTCP.move(lin(atPart).setCartVelocity(velocity).setMode(mode));
 		currentTCP.move(linRel(travelDistance, 0, 0, currentTCP).setMode(mode).setCartVelocity(velocity));
 		
 	}
