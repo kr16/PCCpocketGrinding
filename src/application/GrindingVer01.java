@@ -4,6 +4,7 @@ package application;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
+import javax.naming.LimitExceededException;
 
 import modules.Common.ESearchDirection;
 import modules.Common.EToolName;
@@ -89,11 +90,17 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		eeTool.setCurrentTCP(EToolName.BallWorking);
 		
 		currentTCP.move(ptp(startProcess).setJointVelocityRel(0.3));
-		eeTool.grindingStart();
 		searchPart.recordPosition(ESearchDirection.PosX, 5, 10, 10, 0, currentTCP, nullBase, bot);
+		if (searchPart.getResult()) {
+			Frame atPart = searchPart.getPosition();
+			currentTCP.move(lin(startProcess).setCartVelocity(10));
+			//eeTool.grindingStart();
+			grindingProcess(atPart);
+			eeTool.grindingStop();
+		} else {
+			throw new ArithmeticException("No part detected, adjust start position , restart program");
+		}
 		
-		grindingProcess();
-		eeTool.grindingStop();
 		currentTCP.move(lin(startProcess).setCartVelocity(10));
 		
 		System.out.println("Moving to Home/Start position");
@@ -101,10 +108,10 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		
 	}
 	
-	public void grindingProcess() {
+	public void grindingProcess(Frame atPart) {
 		double frequency = 1;
 		double amplitude = 5;
-		double stiffness = 1000;
+		double stiffness = 4000;
 		double handForce = 10;
 		double travelDistance = 4.5;		//mm
 		double velocity = 0.2;
@@ -112,13 +119,12 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		CartesianImpedanceControlMode mode = new CartesianImpedanceControlMode();
 		mode.parametrize(CartDOF.TRANSL).setStiffness(5000).setDamping(1);
 		mode.parametrize(CartDOF.ROT).setStiffness(300);
-		mode.parametrize(CartDOF.X).setStiffness(4000).setAdditionalControlForce(handForce);
-
+		mode.parametrize(CartDOF.X).setStiffness(stiffness).setAdditionalControlForce(handForce);
+		currentTCP.move(lin(atPart).setCartVelocity(velocity).setMode(mode));
 		currentTCP.move(linRel(travelDistance, 0, 0, currentTCP).setMode(mode).setCartVelocity(velocity));
-//			currentTCP.move(linRel(-travelDistance, 0, 0, currentTCP).setMode(mode));
-//		
-//		}
+		
 	}
+	
 	
 	private void setNewHomePosition() {
 		// Currently needed every run for this program
