@@ -67,7 +67,7 @@ public class UserKeys extends RoboticsAPIBackgroundTask {
 				
 				if((arg1==UserKeyEvent.KeyUp)) {
 					beckhoffIO.setEK1100_DO01_GrindingToolReq(false);
-					arg0.setLED(UserKeyAlignment.Middle, UserKeyLED.Grey, UserKeyLEDSize.Normal);
+					arg0.setLED(UserKeyAlignment.Middle, UserKeyLED.Red, UserKeyLEDSize.Normal);
 				}
 			}
 		};
@@ -105,7 +105,7 @@ public class UserKeys extends RoboticsAPIBackgroundTask {
 		
 		appStart.setText(UserKeyAlignment.TopMiddle, "GRIND");
 		appStart.setText(UserKeyAlignment.BottomMiddle, "START");
-		appStart.setLED(UserKeyAlignment.Middle, UserKeyLED.Grey, UserKeyLEDSize.Normal);
+		appStart.setLED(UserKeyAlignment.Middle, UserKeyLED.Red, UserKeyLEDSize.Normal);
 		beckhoffIO.setEK1100_DO01_GrindingToolReq(false);
 		
 		//appRun.setText(UserKeyAlignment.TopMiddle, "APP");
