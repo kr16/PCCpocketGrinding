@@ -90,7 +90,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		currentTCP = eeTool.setCurrentTCP(EToolName.BallWorking);
 		
 		double	drillOffset = 15;	//mm
-		int		drillRow = 8;
+		int		drillRow = 9;
 		Frame startOffsetted = startProcess.copy().setY(startProcess.copy().getY() - drillRow*drillOffset);
 		
 		currentTCP.move(ptp(startOffsetted).setJointVelocityRel(0.3));
@@ -142,7 +142,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 	
 	public void depthMeasure(Frame atPart) {
 		double startX = atPart.getX();
-		searchPart.recordPosition(ESearchDirection.PosX, 10, 10, 1, 0, currentTCP, nullBase, bot);
+		searchPart.recordPosition(ESearchDirection.PosX, 10, 10, 2, 0, currentTCP, nullBase, bot);
 		double stopX = searchPart.getPosition().getX();
 		System.out.println("Grinding depth = " + (stopX - startX));
 	}
