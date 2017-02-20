@@ -90,7 +90,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		currentTCP = eeTool.setCurrentTCP(EToolName.BallWorking);
 		
 		double	drillOffset = 15;	//mm
-		int		drillRow = 5;
+		int		drillRow = 6;
 		Frame startOffsetted = startProcess.copy().setY(startProcess.copy().getY() - drillRow*drillOffset);
 		
 		currentTCP.move(ptp(startOffsetted).setJointVelocityRel(0.3));
@@ -127,13 +127,10 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		CartesianImpedanceControlMode mode = new CartesianImpedanceControlMode();
 		CartesianSineImpedanceControlMode modeWave;
 		modeWave = CartesianSineImpedanceControlMode.createSinePattern(CartDOF.Z, 2, 50, 500);
-		modeWave.parametrize(CartDOF.Y).setStiffness(5000);
-		modeWave.parametrize(CartDOF.X).setStiffness(stiffness);
+		//modeWave.parametrize(CartDOF.Y).setStiffness(5000);
+		//modeWave.parametrize(CartDOF.X).setStiffness(stiffness);
 	    
-		CartesianSineImpedanceControlMode sineMode;
-		sineMode =
-		CartesianSineImpedanceControlMode.createSinePattern(CartDOF.X, 2.0,
-		50.0, 500.0);
+		
 		
 		mode.parametrize(CartDOF.TRANSL).setStiffness(5000).setDamping(1);
 		mode.parametrize(CartDOF.ROT).setStiffness(300);
