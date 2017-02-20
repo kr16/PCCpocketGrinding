@@ -89,11 +89,13 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		eeTool.setTool(PCC_EE);
 		currentTCP = eeTool.setCurrentTCP(EToolName.BallWorking);
 		
-		currentTCP.move(ptp(startProcess).setJointVelocityRel(0.3));
+		Frame startOffsetted = startProcess.copy().setY(startProcess.copy().getY() + 15);
+		
+		currentTCP.move(ptp(startOffsetted).setJointVelocityRel(0.3));
 		searchPart.recordPosition(ESearchDirection.PosX, 5, 10, 10, 0, currentTCP, nullBase, bot);
 		if (searchPart.getResult()) {
 			Frame atPart = searchPart.getPosition();
-			currentTCP.move(lin(startProcess).setCartVelocity(10));
+			currentTCP.move(lin(startOffsetted).setCartVelocity(10));
 			eeTool.grindingStart();
 			grindingProcess(atPart);
 			
@@ -101,7 +103,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 			throw new ArithmeticException("No part detected, adjust start position , restart program");
 		}
 		
-		currentTCP.move(lin(startProcess).setCartVelocity(10));
+		currentTCP.move(lin(startOffsetted).setCartVelocity(10));
 		eeTool.grindingStop();
 		
 		System.out.println("Moving to Home/Start position");
