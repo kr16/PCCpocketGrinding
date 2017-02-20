@@ -79,8 +79,8 @@ public class UserKeys extends RoboticsAPIBackgroundTask {
 				if((arg1==UserKeyEvent.KeyDown)) {
 					if(beckhoffIO.getEK1100_DO02() && appRunkeyLock){
 						arg0.setLED(UserKeyAlignment.Middle, UserKeyLED.Red,UserKeyLEDSize.Normal);
-						arg0.setText(UserKeyAlignment.TopMiddle, "APP");
-						arg0.setText(UserKeyAlignment.BottomMiddle, "PAUSE");
+						arg0.setText(UserKeyAlignment.TopMiddle, "GRIND");
+						arg0.setText(UserKeyAlignment.BottomMiddle, "RUN");
 						beckhoffIO.setEK1100_DO02(false);
 					}
 					if(!beckhoffIO.getEK1100_DO02() && !appRunkeyLock){
@@ -99,18 +99,18 @@ public class UserKeys extends RoboticsAPIBackgroundTask {
 		// Create user keys 
 		
 		IUserKey appStart = keybarNutRunner02.addUserKey(0, listenerAppStart, true);
-		IUserKey appRun = keybarNutRunner02.addUserKey(1, listenerAppRun, true);
+		//IUserKey appRun = keybarNutRunner02.addUserKey(1, listenerAppRun, true);
 	
 		// Initialize correct state at start
 		
-		appStart.setText(UserKeyAlignment.TopMiddle, "APP");
+		appStart.setText(UserKeyAlignment.TopMiddle, "GRIND");
 		appStart.setText(UserKeyAlignment.BottomMiddle, "START");
 		appStart.setLED(UserKeyAlignment.Middle, UserKeyLED.Grey, UserKeyLEDSize.Normal);
 		beckhoffIO.setEK1100_DO01_GrindingToolReq(false);
 		
-		appRun.setText(UserKeyAlignment.TopMiddle, "APP");
-		appRun.setText(UserKeyAlignment.BottomMiddle, "PAUSE");
-		appRun.setLED(UserKeyAlignment.Middle, UserKeyLED.Red, UserKeyLEDSize.Normal);
+		//appRun.setText(UserKeyAlignment.TopMiddle, "APP");
+		//appRun.setText(UserKeyAlignment.BottomMiddle, "PAUSE");
+		//appRun.setLED(UserKeyAlignment.Middle, UserKeyLED.Red, UserKeyLEDSize.Normal);
 		beckhoffIO.setEK1100_DO02(false);
 		
 		
