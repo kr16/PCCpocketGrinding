@@ -89,7 +89,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		eeTool.setTool(PCC_EE);
 		currentTCP = eeTool.setCurrentTCP(EToolName.BallWorking);
 		
-		Frame startOffsetted = startProcess.copy().setY(startProcess.copy().getY() + 15);
+		Frame startOffsetted = startProcess.copy().setY(startProcess.copy().getY() - 15);
 		
 		currentTCP.move(ptp(startOffsetted).setJointVelocityRel(0.3));
 		searchPart.recordPosition(ESearchDirection.PosX, 5, 10, 10, 0, currentTCP, nullBase, bot);
