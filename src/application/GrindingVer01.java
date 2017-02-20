@@ -127,8 +127,8 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		CartesianImpedanceControlMode mode = new CartesianImpedanceControlMode();
 		CartesianSineImpedanceControlMode modeWave;
 		modeWave = CartesianSineImpedanceControlMode.createSinePattern(CartDOF.Z, 1, 5, 4000);
-		//modeWave.parametrize(CartDOF.Y).setStiffness(5000);
-		//modeWave.parametrize(CartDOF.X).setStiffness(stiffness);
+		modeWave.parametrize(CartDOF.Y).setStiffness(5000);
+		modeWave.parametrize(CartDOF.X).setStiffness(stiffness).setBias(handForce);
 	    
 		
 		
