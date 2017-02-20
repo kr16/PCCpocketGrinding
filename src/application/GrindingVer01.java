@@ -89,7 +89,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		eeTool.setTool(PCC_EE);
 		currentTCP = eeTool.setCurrentTCP(EToolName.BallWorking);
 		
-		Frame startOffsetted = startProcess.copy().setY(startProcess.copy().getY() - 15);
+		Frame startOffsetted = startProcess.copy().setY(startProcess.copy().getY() - 30);
 		
 		currentTCP.move(ptp(startOffsetted).setJointVelocityRel(0.3));
 		searchPart.recordPosition(ESearchDirection.PosX, 5, 10, 10, 0, currentTCP, nullBase, bot);
@@ -115,7 +115,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		double frequency = 1;
 		double amplitude = 5;
 		double stiffness = 4500;
-		double handForce = 15;
+		double handForce = 10;
 		double travelDistance = 4.5;		//mm
 		double velocity = 0.2;
 		
@@ -124,7 +124,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		mode.parametrize(CartDOF.ROT).setStiffness(300);
 		mode.parametrize(CartDOF.X).setStiffness(stiffness);
 		currentTCP.move(lin(atPart).setCartVelocity(velocity*5).setMode(mode));
-		mode.parametrize(CartDOF.X).setStiffness(stiffness).setAdditionalControlForce(handForce);
+		mode.parametrize(CartDOF.X).setStiffness(5000);
 		currentTCP.move(linRel(travelDistance, 0, 0, currentTCP).setMode(mode).setCartVelocity(velocity));
 		
 	}
