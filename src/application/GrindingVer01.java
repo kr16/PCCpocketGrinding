@@ -9,6 +9,7 @@ import javax.naming.LimitExceededException;
 import modules.Common.ESearchDirection;
 import modules.Common.EToolName;
 import modules.GrindingTool;
+import modules.TimerKCT;
 import modules.TouchForceRecord;
 
 import com.kuka.common.ThreadUtil;
@@ -55,8 +56,11 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 	private ObjectFrame startProcess;
 	private ObjectFrame appRightCoupon;
 	
+	//custom
 	private GrindingTool eeTool;
 	private TouchForceRecord searchPart;
+	private Thread TimerThread;
+	private TimerKCT grindingProcessTimer;
 	
 	@Override
 	public void initialize() {
@@ -67,6 +71,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		startProcess = getApplicationData().getFrame("/nullBase/StartProcess");
 		appRightCoupon = getApplicationData().getFrame("/nullBase/appRightCoupon");
 		searchPart = new TouchForceRecord();
+		TimerThread = new Thread(grindingProcessTimer);
 	}
 
 	@Override
@@ -100,10 +105,15 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		currentTCP.move(ptp(startOffsetted).setJointVelocityRel(0.3));
 		searchPart.recordPosition(ESearchDirection.PosX, 5, 10, 1, 0, currentTCP, nullBase, bot);
 		if (searchPart.getResult()) {
+			TimerThread.start();
 			Frame atPart = searchPart.getPosition();
 			currentTCP.move(lin(startOffsetted).setCartVelocity(10));
 			eeTool.grindingStart();
+			grindingProcessTimer.setTimerValue(0);
+			grindingProcessTimer.timerStart();
 			grindingProcess(atPart);
+			grindingProcessTimer.timerStop();
+			System.out.println("Process timer: " + grindingProcessTimer.getTimerValue());
 			currentTCP.move(lin(atPart).setCartVelocity(1));
 			eeTool.grindingStop();
 			depthMeasure(atPart);
@@ -146,10 +156,10 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		CartesianSineImpedanceControlMode modeSine;
 		modeSine = CartesianSineImpedanceControlMode.createSinePattern(CartDOF.Z, sineFrequency, sineAmplitude, sineStiffness);
 		
-		double handForce = 15;
-		double stiffness = 4500;
+		double handForce = 20;
+		double stiffness = 5000;
 		double travelDistance = 8;		//mm
-		double velocity = 0.1;
+		double velocity = 0.5;
 		
 		modeSine.parametrize(CartDOF.Y).setStiffness(5000);
 		modeSine.parametrize(CartDOF.X).setStiffness(stiffness).setBias(handForce);
@@ -211,6 +221,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
     {
         try {
         	eeTool.grindingStop();
+        	grindingProcessTimer.timerStopAndKill();
         } catch (NullPointerException e ) {
         	System.err.println("Sacrebleu");
         }
