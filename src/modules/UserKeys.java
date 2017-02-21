@@ -49,26 +49,24 @@ public class UserKeys extends RoboticsAPIBackgroundTask {
 
 		///////////////////////////////////////////////////////////////////////////////////////////////////
 		
-		
 		IUserKeyBar keybarNutRunner02 = getApplicationUI().createUserKeyBar("BeckhofIO");
-		
-		
-		
+			
 		IUserKeyListener listenerGrindManualReq = new IUserKeyListener() {
 			@Override
 			public void onKeyEvent(IUserKey arg0, UserKeyEvent arg1) {
-				// Logic for key 0 - HOLDER
-				if((arg1==UserKeyEvent.KeyDown)) {
-					if (!beckhoffIO.getEK1100_DO01_GrindingToolReq()) {
-						arg0.setLED(UserKeyAlignment.Middle, UserKeyLED.Green,UserKeyLEDSize.Normal);
-						beckhoffIO.setEK1100_DO01_GrindingToolReq(true);
-					}else {
-						beckhoffIO.setEK1100_DO01_GrindingToolReq(false);
-						arg0.setLED(UserKeyAlignment.Middle, UserKeyLED.Red, UserKeyLEDSize.Normal);
+				if(!StaticGlobals.disableTool) {
+					if((arg1==UserKeyEvent.KeyDown)) {
+						if (!beckhoffIO.getEK1100_DO01_GrindingToolReq()) {
+							arg0.setLED(UserKeyAlignment.Middle, UserKeyLED.Green,UserKeyLEDSize.Normal);
+							beckhoffIO.setEK1100_DO01_GrindingToolReq(true);
+						}else {
+							beckhoffIO.setEK1100_DO01_GrindingToolReq(false);
+							arg0.setLED(UserKeyAlignment.Middle, UserKeyLED.Red, UserKeyLEDSize.Normal);
+						}
 					}
-				}
-				if((arg1==UserKeyEvent.KeyUp)) {
-					//nothing to do here
+					if((arg1==UserKeyEvent.KeyUp)) {
+						//nothing to do here
+					}
 				}
 			}
 		};
