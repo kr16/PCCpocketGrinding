@@ -24,6 +24,13 @@
                     </redundancy>
                 </redundancyData>
             </frame>
+            <frame id="_b7e88d4d-d51a-4ce8-8ae0-7ed884ad4c86" name="appRightCoupon">
+                <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
+                <additionalInformation>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1487687868885"/>
+                    <info key="Comment" type="java.lang.String" value="Orange stand right coupon approach position"/>
+                </additionalInformation>
+            </frame>
         </frame>
     </world>
     <objectTemplates>
