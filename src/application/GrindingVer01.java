@@ -71,6 +71,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		startProcess = getApplicationData().getFrame("/nullBase/StartProcess");
 		appRightCoupon = getApplicationData().getFrame("/nullBase/appRightCoupon");
 		searchPart = new TouchForceRecord();
+		grindingProcessTimer = new TimerKCT();
 		TimerThread = new Thread(grindingProcessTimer);
 	}
 
