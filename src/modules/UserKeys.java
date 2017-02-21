@@ -54,66 +54,63 @@ public class UserKeys extends RoboticsAPIBackgroundTask {
 		
 		
 		
-		IUserKeyListener listenerAppStart = new IUserKeyListener() {
+		IUserKeyListener listenerGrindManualReq = new IUserKeyListener() {
 			@Override
 			public void onKeyEvent(IUserKey arg0, UserKeyEvent arg1) {
 				// Logic for key 0 - HOLDER
 				if((arg1==UserKeyEvent.KeyDown)) {
-
-					arg0.setLED(UserKeyAlignment.Middle, UserKeyLED.Green,UserKeyLEDSize.Normal);
-					beckhoffIO.setEK1100_DO01_GrindingToolReq(true);
-					
+					if (!beckhoffIO.getEK1100_DO01_GrindingToolReq()) {
+						arg0.setLED(UserKeyAlignment.Middle, UserKeyLED.Green,UserKeyLEDSize.Normal);
+						beckhoffIO.setEK1100_DO01_GrindingToolReq(true);
+					}else {
+						beckhoffIO.setEK1100_DO01_GrindingToolReq(false);
+						arg0.setLED(UserKeyAlignment.Middle, UserKeyLED.Red, UserKeyLEDSize.Normal);
+					}
 				}
-				
 				if((arg1==UserKeyEvent.KeyUp)) {
-					beckhoffIO.setEK1100_DO01_GrindingToolReq(false);
-					arg0.setLED(UserKeyAlignment.Middle, UserKeyLED.Red, UserKeyLEDSize.Normal);
+					//nothing to do here
 				}
 			}
 		};
 		
-		IUserKeyListener listenerAppRun = new IUserKeyListener() {
+		IUserKeyListener listenerDisableTool = new IUserKeyListener() {
 			@Override
 			public void onKeyEvent(IUserKey arg0, UserKeyEvent arg1) {
-				// Logic for key 0 - HOLDER
 				if((arg1==UserKeyEvent.KeyDown)) {
-					if(beckhoffIO.getEK1100_DO02() && appRunkeyLock){
+					if(!StaticGlobals.disableTool) {
 						arg0.setLED(UserKeyAlignment.Middle, UserKeyLED.Red,UserKeyLEDSize.Normal);
-						arg0.setText(UserKeyAlignment.TopMiddle, "GRIND");
-						arg0.setText(UserKeyAlignment.BottomMiddle, "RUN");
-						beckhoffIO.setEK1100_DO02(false);
-					}
-					if(!beckhoffIO.getEK1100_DO02() && !appRunkeyLock){
+						arg0.setText(UserKeyAlignment.TopMiddle, "TOOL");
+						arg0.setText(UserKeyAlignment.BottomMiddle, "OFF");
+						StaticGlobals.disableTool = true;
+					} else {						
 						arg0.setLED(UserKeyAlignment.Middle, UserKeyLED.Green,UserKeyLEDSize.Normal);
-						arg0.setText(UserKeyAlignment.TopMiddle, "APP");
-						arg0.setText(UserKeyAlignment.BottomMiddle, "RUN");
-						beckhoffIO.setEK1100_DO02(true);
+						arg0.setText(UserKeyAlignment.TopMiddle, "TOOL");
+						arg0.setText(UserKeyAlignment.BottomMiddle, "ON");
+						StaticGlobals.disableTool = false;
 					}
 				}
 				if(arg1==UserKeyEvent.KeyUp){
-					appRunkeyLock = !appRunkeyLock;
+					//nothing here;
 				}
 			}
 		};
 		
 		// Create user keys 
 		
-		IUserKey appStart = keybarNutRunner02.addUserKey(0, listenerAppStart, true);
-		//IUserKey appRun = keybarNutRunner02.addUserKey(1, listenerAppRun, true);
+		IUserKey grindManualReq = keybarNutRunner02.addUserKey(0, listenerGrindManualReq, true);
+		IUserKey disableTool = keybarNutRunner02.addUserKey(1, listenerDisableTool, true);
 	
 		// Initialize correct state at start
 		
-		appStart.setText(UserKeyAlignment.TopMiddle, "GRIND");
-		appStart.setText(UserKeyAlignment.BottomMiddle, "START");
-		appStart.setLED(UserKeyAlignment.Middle, UserKeyLED.Red, UserKeyLEDSize.Normal);
+		grindManualReq.setText(UserKeyAlignment.TopMiddle, "GRIND");
+		grindManualReq.setText(UserKeyAlignment.BottomMiddle, "START");
+		grindManualReq.setLED(UserKeyAlignment.Middle, UserKeyLED.Red, UserKeyLEDSize.Normal);
 		beckhoffIO.setEK1100_DO01_GrindingToolReq(false);
 		
-		//appRun.setText(UserKeyAlignment.TopMiddle, "APP");
-		//appRun.setText(UserKeyAlignment.BottomMiddle, "PAUSE");
-		//appRun.setLED(UserKeyAlignment.Middle, UserKeyLED.Red, UserKeyLEDSize.Normal);
-		beckhoffIO.setEK1100_DO02(false);
-		
-		
+		disableTool.setText(UserKeyAlignment.TopMiddle, "TOOL");
+		disableTool.setText(UserKeyAlignment.BottomMiddle, "ON");
+		disableTool.setLED(UserKeyAlignment.Middle, UserKeyLED.Green, UserKeyLEDSize.Normal);
+		StaticGlobals.disableTool = false;
 		
 		// Deysplay keybar
 		
