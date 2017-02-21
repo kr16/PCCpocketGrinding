@@ -94,11 +94,11 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		Frame startOffsetted = startProcess.copy().setY(startProcess.copy().getY() - drillRow*drillOffset);
 		
 		currentTCP.move(ptp(startOffsetted).setJointVelocityRel(0.3));
-		searchPart.recordPosition(ESearchDirection.PosX, 5, 10, 10, 0, currentTCP, nullBase, bot);
+		searchPart.recordPosition(ESearchDirection.PosX, 5, 10, 1, 0, currentTCP, nullBase, bot);
 		if (searchPart.getResult()) {
 			Frame atPart = searchPart.getPosition();
 			currentTCP.move(lin(startOffsetted).setCartVelocity(10));
-			//eeTool.grindingStart();
+			eeTool.grindingStart();
 			grindingProcess(atPart);
 			currentTCP.move(lin(atPart).setCartVelocity(1));
 			eeTool.grindingStop();
