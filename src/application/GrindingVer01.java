@@ -117,32 +117,51 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 	}
 	
 	public void grindingProcess(Frame atPart) {
-		double frequency = 1;
-		double amplitude = 5;
-		double stiffness = 4500;
+//		The maximum deflection DeltaX is the deviation from the original path in the positive
+//		and negative X directions. The maximum deflection is determined by the
+//		stiffness and amplitude which are defined for the impedance controller in the
+//		Cartesian X direction, e.g.:
+//		 - Cartesian stiffness: C = 500 N/m
+//		 - Amplitude: F = 5 N
+//		The maximum deflection results from Hooke’s law:
+//		DeltaX = F / C = 5 N / (500 N/m) = 1 / (100 1/m) = 1 cm
+//		The wavelength can be used to determine how many oscillations the robot is
+//		to execute between the start point and end point of the motion. The wavelength
+//		is determined by the frequency which is defined for the impedance controller
+//		with overlaid force oscillation, as well as by the programmed robot
+//		velocity.
+//		Wavelength "Lambda" is calculated as follows:
+//		Lambda = c / f = robot velocity / frequency
+		
+		double sineFrequency = 2;
+		double sineAmplitude = 40;
+		double sineStiffness = 5000;
+		
+		CartesianSineImpedanceControlMode modeSine;
+		modeSine = CartesianSineImpedanceControlMode.createSinePattern(CartDOF.Z, sineFrequency, sineAmplitude, sineStiffness);
+		
 		double handForce = 15;
-		double travelDistance = 10;		//mm
-		double velocity = 0.2;
+		double stiffness = 4500;
+		double travelDistance = 8;		//mm
+		double velocity = 0.1;
+		
+		modeSine.parametrize(CartDOF.Y).setStiffness(5000);
+		modeSine.parametrize(CartDOF.X).setStiffness(stiffness).setBias(handForce);
 		
 		CartesianImpedanceControlMode mode = new CartesianImpedanceControlMode();
-		CartesianSineImpedanceControlMode modeWave;
-		modeWave = CartesianSineImpedanceControlMode.createSinePattern(CartDOF.Z, 2, 20, 5000);
-		modeWave.parametrize(CartDOF.Y).setStiffness(5000);
-		modeWave.parametrize(CartDOF.X).setStiffness(stiffness).setBias(handForce);
-	    	
 		mode.parametrize(CartDOF.TRANSL).setStiffness(5000).setDamping(1);
 		mode.parametrize(CartDOF.ROT).setStiffness(300);
 		mode.parametrize(CartDOF.X).setStiffness(stiffness);
 		currentTCP.move(lin(atPart).setCartVelocity(velocity*5).setMode(mode));
 		
 		//mode.parametrize(CartDOF.X).setStiffness(4500).setAdditionalControlForce(handForce);
-		currentTCP.move(linRel(travelDistance, 0, 0, currentTCP).setMode(modeWave).setCartVelocity(velocity));
+		currentTCP.move(linRel(travelDistance, 0, 0, currentTCP).setMode(modeSine).setCartVelocity(velocity));
 		
 	}
 	
 	public void depthMeasure(Frame atPart) {
 		double startX = atPart.getX();
-		searchPart.recordPosition(ESearchDirection.PosX, 10, 10, 2, 0, currentTCP, nullBase, bot);
+		searchPart.recordPosition(ESearchDirection.PosX, 20, 10, 2, 0, currentTCP, nullBase, bot);
 		double stopX = searchPart.getPosition().getX();
 		System.out.println("Grinding depth = " + (stopX - startX));
 	}
