@@ -1,10 +1,17 @@
 package application;
 
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 import javax.naming.LimitExceededException;
+
+import sun.rmi.log.ReliableLog.LogFile;
 
 import modules.Common.ESearchDirection;
 import modules.Common.EToolName;
@@ -57,6 +64,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 	private ObjectFrame appRightCoupon;
 	
 	//custom
+	private PrintWriter logFile;
 	private GrindingTool eeTool;
 	private TouchForceRecord searchPart;
 	private Thread TimerThread;
@@ -73,6 +81,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		searchPart = new TouchForceRecord();
 		grindingProcessTimer = new TimerKCT();
 		TimerThread = new Thread(grindingProcessTimer);
+		logFile = null;
 	}
 
 	@Override
@@ -86,6 +95,21 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 //			posAndGSMapp.initialize();
 //			posAndGSMapp.run();
 //		}
+		//File logging setup //////////////////////////////
+		SimpleDateFormat prefixDateFormat;
+		prefixDateFormat = new SimpleDateFormat("yyyy.MM.dd_HH.mm.ss");
+		String filePathRoot="d:/Transfer/UserXMLs/";
+		try {
+			logFile = new PrintWriter(filePathRoot + prefixDateFormat.format(Calendar.getInstance().getTime()) 
+										+ "_" + "PCCgrinding.csv", "UTF-8");
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		////////////////////////////////////////////////////
 		
 		// set home position, attach tool , move home
 		setNewHomePosition();
@@ -99,9 +123,10 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		System.out.println("Moving to approach coupon position");
 		currentTCP.moveAsync(ptp(appRightCoupon).setJointVelocityRel(0.3));
 		
-		double	drillOffset = 16;	//mm
-		int		drillRow = 11;
-		Frame startOffsetted = startProcess.copy().setY(startProcess.copy().getY() - drillRow*drillOffset);
+		double	drillOffset = 15;	//mm
+		int		drillColumn = 12;
+		int     drillRow = 1;
+		Frame startOffsetted = startProcess.copy().setY(startProcess.copy().getY() - drillColumn*drillOffset);
 		
 		currentTCP.move(ptp(startOffsetted).setJointVelocityRel(0.3));
 		searchPart.recordPosition(ESearchDirection.PosX, 5, 10, 1, 0, currentTCP, nullBase, bot);
@@ -114,7 +139,8 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 			grindingProcessTimer.timerStart();
 			grindingProcess(atPart);
 			grindingProcessTimer.timerStop();
-			System.out.println("Process timer: " + grindingProcessTimer.getTimerValue());
+			String processTimer = "Process timer: " + (grindingProcessTimer.getTimerValue()/1000) + "s";
+			System.out.println(processTimer);
 			currentTCP.move(lin(atPart).setCartVelocity(1));
 			eeTool.grindingStop();
 			depthMeasure(atPart);
@@ -162,6 +188,15 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		double travelDistance = 8;		//mm
 		double velocity = 0.07;
 		
+		logFile.println("SineFrequency: " 	+ sineFrequency 
+						+ " SineAmplitude: "  + sineAmplitude 
+						+ " SineStiffness: " + sineStiffness);
+		
+		logFile.println("X(working direction)Stiffness: " + stiffness 
+						+ " Additional Force: " + handForce
+						+ " Travel distance: " + travelDistance
+						+ " Velocity: " + velocity); 
+		
 		modeSine.parametrize(CartDOF.Y).setStiffness(5000);
 		modeSine.parametrize(CartDOF.X).setStiffness(stiffness).setBias(handForce);
 		
@@ -180,7 +215,9 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		double startX = atPart.getX();
 		searchPart.recordPosition(ESearchDirection.PosX, 20, 10, 2, 0, currentTCP, nullBase, bot);
 		double stopX = searchPart.getPosition().getX();
-		System.out.println("Grinding depth = " + (stopX - startX));
+		String grindingDepth = "Grinding depth = " + (stopX - startX) + "mm";
+		System.out.println(grindingDepth);
+		logFile.println(grindingDepth);
 	}
 	private void setNewHomePosition() {
 		// Currently needed every run for this program
