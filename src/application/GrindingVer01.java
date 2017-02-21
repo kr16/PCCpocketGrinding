@@ -86,12 +86,12 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		PCC_EE.attachTo(bot.getFlange());
 		System.out.println("Moving to Home/Start position");
 		bot.move(ptpHome().setJointVelocityRel(0.3));
-		System.out.println("Moving to approach coupon position");
-		bot.moveAsync(ptp(appRightCoupon).setJointVelocityRel(0.3));
-		
 		
 		eeTool.setTool(PCC_EE);
 		currentTCP = eeTool.setCurrentTCP(EToolName.BallWorking);
+		
+		System.out.println("Moving to approach coupon position");
+		currentTCP.moveAsync(ptp(appRightCoupon).setJointVelocityRel(0.3));
 		
 		double	drillOffset = 15;	//mm
 		int		drillRow = 10;
@@ -114,6 +114,8 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		
 		currentTCP.move(lin(startOffsetted).setCartVelocity(10));
 		
+		System.out.println("Moving to approach coupon position");
+		currentTCP.moveAsync(ptp(appRightCoupon).setJointVelocityRel(0.3));
 		
 		System.out.println("Moving to Home/Start position");
 		bot.move(ptpHome().setJointVelocityRel(0.3));
