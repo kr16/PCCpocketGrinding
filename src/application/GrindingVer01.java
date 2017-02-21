@@ -98,7 +98,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		System.out.println("Moving to approach coupon position");
 		currentTCP.moveAsync(ptp(appRightCoupon).setJointVelocityRel(0.3));
 		
-		double	drillOffset = 15;	//mm
+		double	drillOffset = 16;	//mm
 		int		drillRow = 10;
 		Frame startOffsetted = startProcess.copy().setY(startProcess.copy().getY() - drillRow*drillOffset);
 		
