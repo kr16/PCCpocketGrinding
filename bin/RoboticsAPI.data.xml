@@ -25,11 +25,21 @@
                 </redundancyData>
             </frame>
             <frame id="_b7e88d4d-d51a-4ce8-8ae0-7ed884ad4c86" name="appRightCoupon">
-                <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
+                <transformation a="-3.513663159101789E-4" b="0.0011365837205540882" c="0.0011196086314085366" x="762.0995521750883" y="-430.5832295559651" z="653.1722889857806"/>
                 <additionalInformation>
-                    <info key="LastModificationTime" type="java.lang.Long" value="1487687868885"/>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1487688019465"/>
                     <info key="Comment" type="java.lang.String" value="Orange stand right coupon approach position"/>
+                    <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="PccGrinderVer01/BallWorking" tool="PccGrinderVer01" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
+                        <tcpTransformation a="0.0" b="-1.5707963267948966" c="-0.0" x="-124.6" y="0.7" z="147.1"/>
+                    </info>
                 </additionalInformation>
+                <redundancyData>
+                    <redundancy transformationProviderName="KUKA_Sunrise_Cabinet_1/LBR_iiwa_14_R820_1" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy">
+                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="6" valueType="java.lang.Integer"/>
+                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="57" valueType="java.lang.Integer"/>
+                        <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="0.003938136162341243" valueType="java.lang.Double"/>
+                    </redundancy>
+                </redundancyData>
             </frame>
         </frame>
     </world>
