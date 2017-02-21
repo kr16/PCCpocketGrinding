@@ -26,9 +26,13 @@ public class GrindingTool {
 	 * WATCH YOUR HANDS/EYES !!!
 	 */
 	public void grindingStart() {
-		toolIO.setDO08_1_GrinderAir1(true);
-		toolIO.setDO09_1_GrinderAir2(true);
-		beckhoffEcatIO.setEK1100_DO01_GrindingToolReq(true);
+		if(!StaticGlobals.disableTool) {
+			toolIO.setDO08_1_GrinderAir1(true);
+			toolIO.setDO09_1_GrinderAir2(true);
+			beckhoffEcatIO.setEK1100_DO01_GrindingToolReq(true);
+		} else {
+			System.err.println("Tool is disabled !!!");
+		}
 	}
 	
 	/**
@@ -36,20 +40,28 @@ public class GrindingTool {
 	 * WATCH YOUR HANDS/EYES !!!
 	 */
 	public void grindingStartHalfSpeed() {
-		toolIO.setDO08_1_GrinderAir1(true);
-		beckhoffEcatIO.setEK1100_DO01_GrindingToolReq(true);
+		if(!StaticGlobals.disableTool) {
+			toolIO.setDO08_1_GrinderAir1(true);
+			beckhoffEcatIO.setEK1100_DO01_GrindingToolReq(true);
+		} else {
+			System.err.println("Tool is disabled !!!");
+		}
 	}
-	
+
 	/**
 	 * This is specific to Background Task only for tool safety control. 
 	 * Does not enable/disable tool request output. 
 	 * DO NOT USE IT outside Background Task
 	 */
 	public void grindingStartNoRequest() {
-		toolIO.setDO08_1_GrinderAir1(true);
-		toolIO.setDO09_1_GrinderAir2(true);
+		if(!StaticGlobals.disableTool) {
+			toolIO.setDO08_1_GrinderAir1(true);
+			toolIO.setDO09_1_GrinderAir2(true);
+		} else {
+			System.err.println("Tool is disabled !!!");
+		}
 	}
-	
+
 	/**
 	 * Disable grinding tool
 	 */
