@@ -90,7 +90,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		currentTCP = eeTool.setCurrentTCP(EToolName.BallWorking);
 		
 		double	drillOffset = 15;	//mm
-		int		drillRow = 9;
+		int		drillRow = 10;
 		Frame startOffsetted = startProcess.copy().setY(startProcess.copy().getY() - drillRow*drillOffset);
 		
 		currentTCP.move(ptp(startOffsetted).setJointVelocityRel(0.3));
