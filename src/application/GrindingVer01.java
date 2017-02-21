@@ -124,7 +124,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		currentTCP.moveAsync(ptp(appRightCoupon).setJointVelocityRel(0.3));
 		
 		double	drillOffset = 15;	//mm
-		int		drillColumn = 12;
+		int		drillColumn = 13;
 		int     drillRow = 1;
 		Frame startOffsetted = startProcess.copy().setY(startProcess.copy().getY() - drillColumn*drillOffset);
 		
