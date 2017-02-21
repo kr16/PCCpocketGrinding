@@ -52,8 +52,8 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 	private Tool PCC_EE;
 	private ObjectFrame nullBase;
 	private ObjectFrame currentTCP;
-	private ObjectFrame startProcess, centerPos;
-	private ObjectFrame referencePos;
+	private ObjectFrame startProcess;
+	private ObjectFrame appRightCoupon;
 	
 	private GrindingTool eeTool;
 	private TouchForceRecord searchPart;
@@ -65,6 +65,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		eeTool = new GrindingTool(kuka_Sunrise_Cabinet_1);
 		nullBase = getApplicationData().getFrame("/nullBase");
 		startProcess = getApplicationData().getFrame("/nullBase/StartProcess");
+		appRightCoupon = getApplicationData().getFrame("/nullBase/appRightCoupon");
 		searchPart = new TouchForceRecord();
 	}
 
@@ -85,6 +86,9 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		PCC_EE.attachTo(bot.getFlange());
 		System.out.println("Moving to Home/Start position");
 		bot.move(ptpHome().setJointVelocityRel(0.3));
+		System.out.println("Moving to approach coupon position");
+		bot.moveAsync(ptp(appRightCoupon).setJointVelocityRel(0.3));
+		
 		
 		eeTool.setTool(PCC_EE);
 		currentTCP = eeTool.setCurrentTCP(EToolName.BallWorking);
