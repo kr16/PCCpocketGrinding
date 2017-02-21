@@ -159,7 +159,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		double handForce = 20;
 		double stiffness = 5000;
 		double travelDistance = 8;		//mm
-		double velocity = 0.5;
+		double velocity = 0.07;
 		
 		modeSine.parametrize(CartDOF.Y).setStiffness(5000);
 		modeSine.parametrize(CartDOF.X).setStiffness(stiffness).setBias(handForce);
