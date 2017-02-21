@@ -48,19 +48,25 @@ public class BackgroundTaskToolSafety extends RoboticsAPICyclicBackgroundTask {
 
 	@Override
 	public void runCyclic() {
-		//if T1 or T2
-		if (botState.getSafetyState().getOperationMode() == OperationMode.T1
-				|| botState.getSafetyState().getOperationMode() == OperationMode.T2) {
-			//if dead man NOT enabled
-			if (botState.getSafetyState().getEnablingDeviceState() == EnablingDeviceState.NONE) {
-				//stop tool drop app request 
-				btTool.grindingStop();
-			} else {
-				//if app request present start tool 
-				if(beckhoffIO.getEK1100_DO01_GrindingToolReq()) {
-					btTool.grindingStartNoRequest();
+		//if tool is not disabled
+		if (!StaticGlobals.disableTool) {
+			//if T1 or T2
+			if (botState.getSafetyState().getOperationMode() == OperationMode.T1
+					|| botState.getSafetyState().getOperationMode() == OperationMode.T2) {
+				//if dead man NOT enabled
+				if (botState.getSafetyState().getEnablingDeviceState() == EnablingDeviceState.NONE) {
+					//stop tool drop app request 
+					btTool.grindingStop();
+				} else {
+					//if app request present start tool 
+					if(beckhoffIO.getEK1100_DO01_GrindingToolReq()) {
+						btTool.grindingStartNoRequest();
+					}
 				}
 			}
+		} else {
+			btTool.grindingStop();
 		}
 	}
 }
+	
