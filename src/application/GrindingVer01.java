@@ -27,6 +27,7 @@ import com.kuka.roboticsAPI.controllerModel.Controller;
 import com.kuka.roboticsAPI.deviceModel.JointPosition;
 import com.kuka.roboticsAPI.deviceModel.LBR;
 import com.kuka.roboticsAPI.geometricModel.CartDOF;
+import com.kuka.roboticsAPI.geometricModel.CartPlane;
 import com.kuka.roboticsAPI.geometricModel.Frame;
 import com.kuka.roboticsAPI.geometricModel.ObjectFrame;
 import com.kuka.roboticsAPI.geometricModel.Tool;
@@ -159,22 +160,24 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		
 	}
 	
-	public void grindingProcess(Frame atPart) {
-//		The maximum deflection DeltaX is the deviation from the original path in the positive
-//		and negative X directions. The maximum deflection is determined by the
-//		stiffness and amplitude which are defined for the impedance controller in the
-//		Cartesian X direction, e.g.:
-//		 - Cartesian stiffness: C = 500 N/m
-//		 - Amplitude: F = 5 N
-//		The maximum deflection results from Hooke’s law:
-//		DeltaX = F / C = 5 N / (500 N/m) = 1 / (100 1/m) = 1 cm
-//		The wavelength can be used to determine how many oscillations the robot is
-//		to execute between the start point and end point of the motion. The wavelength
-//		is determined by the frequency which is defined for the impedance controller
-//		with overlaid force oscillation, as well as by the programmed robot
-//		velocity.
-//		Wavelength "Lambda" is calculated as follows:
-//		Lambda = c / f = robot velocity / frequency
+	public void grindingProcess(Frame atPart) {		
+/*
+ The maximum deflection DeltaX is the deviation from the original path in the positive
+		and negative X directions. The maximum deflection is determined by the
+		stiffness and amplitude which are defined for the impedance controller in the
+		Cartesian X direction, e.g.:
+		 - Cartesian stiffness: C = 500 N/m
+		 - Amplitude: F = 5 N
+		The maximum deflection results from Hooke’s law:
+		DeltaX = F / C = 5 N / (500 N/m) = 1 / (100 1/m) = 1 cm
+		The wavelength can be used to determine how many oscillations the robot is
+		to execute between the start point and end point of the motion. The wavelength
+		is determined by the frequency which is defined for the impedance controller
+		with overlaid force oscillation, as well as by the programmed robot
+		velocity.
+		Wavelength "Lambda" is calculated as follows:
+		Lambda = c / f = robot velocity / frequency
+*/
 		
 		double sineFrequency = 2;
 		double sineAmplitude = 40;
@@ -183,8 +186,8 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		CartesianSineImpedanceControlMode modeSine;
 		modeSine = CartesianSineImpedanceControlMode.createSinePattern(CartDOF.Z, sineFrequency, sineAmplitude, sineStiffness);
 		
-		double handForce = 20;
-		double stiffness = 5000;
+		double handForce = 10;
+		double stiffness = 4000;
 		double travelDistance = 8;		//mm
 		double velocity = 0.07;
 		
@@ -200,14 +203,18 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		modeSine.parametrize(CartDOF.Y).setStiffness(5000);
 		modeSine.parametrize(CartDOF.X).setStiffness(stiffness).setBias(handForce);
 		
+		CartesianSineImpedanceControlMode lissajousMode;
+		lissajousMode = CartesianSineImpedanceControlMode.createLissajousPattern(CartPlane.YZ, 10.0, 50.0, 500.0);
+		lissajousMode.parametrize(CartDOF.X).setStiffness(stiffness).setBias(handForce);
+		
 		CartesianImpedanceControlMode mode = new CartesianImpedanceControlMode();
-		mode.parametrize(CartDOF.TRANSL).setStiffness(5000).setDamping(1);
+		mode.parametrize(CartDOF.TRANSL).setStiffness(4500).setDamping(1);
 		mode.parametrize(CartDOF.ROT).setStiffness(300);
 		mode.parametrize(CartDOF.X).setStiffness(stiffness);
 		currentTCP.move(lin(atPart).setCartVelocity(velocity*5).setMode(mode));
 		
 		//mode.parametrize(CartDOF.X).setStiffness(4500).setAdditionalControlForce(handForce);
-		currentTCP.move(linRel(travelDistance, 0, 0, currentTCP).setMode(modeSine).setCartVelocity(velocity));
+		currentTCP.move(linRel(travelDistance, 0, 0, currentTCP).setMode(lissajousMode).setCartVelocity(velocity));
 		
 	}
 	
