@@ -127,8 +127,15 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		double	drillOffset = 15.5;	//mm
 		int		drillColumn = 15;
 		int     drillRow = 1;
-		Frame startOffsetted = startProcess.copy().setY(startProcess.copy().getY() - drillColumn*drillOffset);
+		String noteString = "Air run";
 		
+		logFile.println("Note: " + noteString);
+		logFile.println("drillRow: " + drillRow + " drillColumn: " + drillColumn);
+		
+		double approachOffset = 20;
+		Frame startOffsetted;
+		startOffsetted = startProcess.copy().setY(startProcess.copy().getY() - drillColumn*drillOffset);
+		startOffsetted = startProcess.copy().setX(startProcess.copy().getX() - approachOffset);
 		currentTCP.move(ptp(startOffsetted).setJointVelocityRel(0.3));
 		searchPart.recordPosition(ESearchDirection.PosX, 5, 10, 1, 0, currentTCP, nullBase, bot);
 		if (searchPart.getResult()) {
@@ -269,6 +276,9 @@ public class GrindingVer01 extends RoboticsAPIApplication {
         try {
         	eeTool.grindingStop();
         	grindingProcessTimer.timerStopAndKill();
+        	logFile.println("Processed did not finish!");
+        	logFile.flush();
+            logFile.close();
         } catch (NullPointerException e ) {
         	System.err.println("Sacrebleu");
         }
