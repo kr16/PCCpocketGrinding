@@ -206,10 +206,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		double sineFrequency = 1;
 		double sineAmplitude = 80;
 		double sineStiffness = 4000;
-		
-		
-		
-		
+			
 		double handForce = 20;
 		double stiffness = 5000;
 		double travelDistance = 8;		//mm
