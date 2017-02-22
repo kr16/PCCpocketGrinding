@@ -214,11 +214,12 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		
 		logFile.println("SineFrequency: " 	+ sineFrequency 
 						+ " SineAmplitude: "  + sineAmplitude 
-						+ " SineStiffness: " + sineStiffness);
+						+ " SineStiffness: " + sineStiffness
+						+ " Max deflection: " + (sineAmplitude/sineStiffness*1000) + "mm");
 		
 		logFile.println("X(working direction)Stiffness: " + stiffness 
-						+ " Additional Force: " + handForce
-						+ " Travel distance: " + travelDistance
+						+ " Additional X Force: " + handForce);
+		logFile.println("Travel distance X: " + travelDistance
 						+ " Velocity: " + velocity); 
 		
 		CartesianSineImpedanceControlMode modeSine;
