@@ -70,6 +70,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 	private TouchForceRecord searchPart;
 	private Thread TimerThread;
 	private TimerKCT grindingProcessTimer;
+	private boolean airTest;
 	
 	@Override
 	public void initialize() {
@@ -83,6 +84,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		grindingProcessTimer = new TimerKCT();
 		TimerThread = new Thread(grindingProcessTimer);
 		logFile = null;
+		airTest = true;
 	}
 
 	@Override
@@ -129,34 +131,46 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		int     drillRow = 1;
 		String noteString = "Air run";
 		
-		logFile.println("Note: " + noteString);
+		if(airTest) {
+			logFile.println("Note: " + noteString);
+		}
+		
 		logFile.println("drillRow: " + drillRow + " drillColumn: " + drillColumn);
 		
 		double approachOffset = 20;
-		Frame startOffsetted;
-		startOffsetted = startProcess.copy().setY(startProcess.copy().getY() - drillColumn*drillOffset);
-		startOffsetted = startProcess.copy().setX(startProcess.copy().getX() - approachOffset);
+		Frame atPart;
+		Frame startOffsetted = startProcess.copy();
+		startOffsetted = startOffsetted.setY(startOffsetted.getY() - drillColumn*drillOffset);
+		startOffsetted = startOffsetted.setX(startOffsetted.getX() - approachOffset);
 		currentTCP.move(ptp(startOffsetted).setJointVelocityRel(0.3));
-		searchPart.recordPosition(ESearchDirection.PosX, 5, 10, 1, 0, currentTCP, nullBase, bot);
-		if (searchPart.getResult()) {
-			TimerThread.start();
-			Frame atPart = searchPart.getPosition();
-			currentTCP.move(lin(startOffsetted).setCartVelocity(10));
-			eeTool.grindingStart();
-			grindingProcessTimer.setTimerValue(0);
-			grindingProcessTimer.timerStart();
-			grindingProcess(atPart);
-			grindingProcessTimer.timerStop();
-			String processTimer = "Process timer: " + (grindingProcessTimer.getTimerValue()/1000) + "s";
-			System.out.println(processTimer);
-			currentTCP.move(lin(atPart).setCartVelocity(1));
-			eeTool.grindingStop();
-			depthMeasure(atPart);
-			
+		if (!airTest) {
+			searchPart.recordPosition(ESearchDirection.PosX, 5, 10, 1, 0, currentTCP, nullBase, bot);
+			if (searchPart.getResult()) {
+				atPart = searchPart.getPosition();
+			} else {
+				throw new ArithmeticException("No part detected, adjust start position , restart program");
+			}
+
 		} else {
-			throw new ArithmeticException("No part detected, adjust start position , restart program");
+			atPart = startOffsetted;
+		}	
+		TimerThread.start();	
+		currentTCP.move(lin(startOffsetted).setCartVelocity(10));
+		if(!airTest) {
+			eeTool.grindingStart();
 		}
-		
+		grindingProcessTimer.setTimerValue(0);
+		grindingProcessTimer.timerStart();
+		grindingProcess(atPart);
+		grindingProcessTimer.timerStop();
+		String processTimer = "Process timer: " + (grindingProcessTimer.getTimerValue()/1000) + "s";
+		System.out.println(processTimer);
+		logFile.println(processTimer);
+		currentTCP.move(lin(atPart).setCartVelocity(1));
+		eeTool.grindingStop();
+		if(!airTest) {
+			depthMeasure(atPart);
+		}
 		currentTCP.move(lin(startOffsetted).setCartVelocity(10));
 		
 		System.out.println("Moving to approach coupon position");
