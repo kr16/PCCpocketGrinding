@@ -159,25 +159,27 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		bot.move(ptpHome().setJointVelocityRel(0.3));
 		
 	}
-	
+	/**
+	 * 		Grinding process
+	 * 		Following description is for Sine mode
+	 		The maximum deflection DeltaX is the deviation from the original path in the positive
+			and negative X directions. The maximum deflection is determined by the
+			stiffness and amplitude which are defined for the impedance controller in the
+			Cartesian X direction, e.g.:
+			 - Cartesian stiffness: C = 500 N/m
+			 - Amplitude: F = 5 N
+			The maximum deflection results from Hooke’s law:
+			DeltaX = F / C = 5 N / (500 N/m) = 1 / (100 1/m) = 1 cm
+			The wavelength can be used to determine how many oscillations the robot is
+			to execute between the start point and end point of the motion. The wavelength
+			is determined by the frequency which is defined for the impedance controller
+			with overlaid force oscillation, as well as by the programmed robot
+			velocity.
+			Wavelength "Lambda" is calculated as follows:
+			Lambda = c / f = robot velocity / frequency
+	*/	
 	public void grindingProcess(Frame atPart) {		
-/*
- The maximum deflection DeltaX is the deviation from the original path in the positive
-		and negative X directions. The maximum deflection is determined by the
-		stiffness and amplitude which are defined for the impedance controller in the
-		Cartesian X direction, e.g.:
-		 - Cartesian stiffness: C = 500 N/m
-		 - Amplitude: F = 5 N
-		The maximum deflection results from Hooke’s law:
-		DeltaX = F / C = 5 N / (500 N/m) = 1 / (100 1/m) = 1 cm
-		The wavelength can be used to determine how many oscillations the robot is
-		to execute between the start point and end point of the motion. The wavelength
-		is determined by the frequency which is defined for the impedance controller
-		with overlaid force oscillation, as well as by the programmed robot
-		velocity.
-		Wavelength "Lambda" is calculated as follows:
-		Lambda = c / f = robot velocity / frequency
-*/
+
 		
 		double sineFrequency = 2;
 		double sineAmplitude = 40;
