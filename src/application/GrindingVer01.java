@@ -202,9 +202,9 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 	public void grindingProcess(Frame atPart) {		
 
 		
-		double sineFrequency = 1;
-		double sineAmplitude = 4;
-		double sineStiffness = 400;
+		double sineFrequency = 2;
+		double sineAmplitude = 80;
+		double sineStiffness = 4000;
 		
 		CartesianSineImpedanceControlMode modeSine;
 		modeSine = CartesianSineImpedanceControlMode.createSinePattern(CartDOF.Z, sineFrequency, sineAmplitude, sineStiffness);
