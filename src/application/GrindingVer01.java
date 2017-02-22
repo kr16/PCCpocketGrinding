@@ -181,7 +181,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 	public void grindingProcess(Frame atPart) {		
 
 		
-		double sineFrequency = 2;
+		double sineFrequency = 1;
 		double sineAmplitude = 40;
 		double sineStiffness = 4000;
 		
