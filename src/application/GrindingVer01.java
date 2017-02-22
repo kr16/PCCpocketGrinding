@@ -34,6 +34,7 @@ import com.kuka.roboticsAPI.geometricModel.Tool;
 import com.kuka.roboticsAPI.motionModel.PositionHold;
 import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianImpedanceControlMode;
 import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianSineImpedanceControlMode;
+import com.kuka.roboticsAPI.persistenceModel.templateModel.GeometricObjectTemplate;
 import com.sun.org.apache.bcel.internal.generic.NEW;
 
 /**
@@ -202,12 +203,12 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 	public void grindingProcess(Frame atPart) {		
 
 		
-		double sineFrequency = 2;
+		double sineFrequency = 1;
 		double sineAmplitude = 80;
 		double sineStiffness = 4000;
 		
-		CartesianSineImpedanceControlMode modeSine;
-		modeSine = CartesianSineImpedanceControlMode.createSinePattern(CartDOF.Z, sineFrequency, sineAmplitude, sineStiffness);
+		
+		
 		
 		double handForce = 20;
 		double stiffness = 5000;
@@ -223,6 +224,8 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 						+ " Travel distance: " + travelDistance
 						+ " Velocity: " + velocity); 
 		
+		CartesianSineImpedanceControlMode modeSine;
+		modeSine = CartesianSineImpedanceControlMode.createSinePattern(CartDOF.Y, sineFrequency, sineAmplitude, sineStiffness);
 		modeSine.parametrize(CartDOF.Y).setStiffness(5000);
 		modeSine.parametrize(CartDOF.X).setStiffness(stiffness).setBias(handForce);
 		
@@ -290,7 +293,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
         try {
         	eeTool.grindingStop();
         	grindingProcessTimer.timerStopAndKill();
-        	logFile.println("Processed did not finish!");
+        	logFile.println("*******************************************");
         	logFile.flush();
             logFile.close();
         } catch (NullPointerException e ) {
