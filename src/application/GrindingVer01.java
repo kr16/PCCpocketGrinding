@@ -142,7 +142,9 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		Frame atPart;
 		Frame startOffsetted = startProcess.copy();
 		startOffsetted = startOffsetted.setY(startOffsetted.getY() - drillColumn*drillOffset);
+		startOffsetted = startOffsetted.setZ(startOffsetted.getZ() - drillRow*drillOffset);
 		startOffsetted = startOffsetted.setX(startOffsetted.getX() - approachOffset);
+		
 		currentTCP.move(ptp(startOffsetted).setJointVelocityRel(0.3));
 		if (!airTest) {
 			searchPart.recordPosition(ESearchDirection.PosX, 5, 10, 1, 0, currentTCP, nullBase, bot);
