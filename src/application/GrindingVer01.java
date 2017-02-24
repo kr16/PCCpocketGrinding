@@ -221,15 +221,23 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 						+ " Additional X Force: " + handForce);
 		logFile.println("Travel distance X: " + travelDistance
 						+ " Velocity: " + velocity); 
-		
+		///SINE
 		CartesianSineImpedanceControlMode modeSine;
 		modeSine = CartesianSineImpedanceControlMode.createSinePattern(CartDOF.Y, sineFrequency, sineAmplitude, sineStiffness);
 		modeSine.parametrize(CartDOF.Y).setStiffness(5000);
 		modeSine.parametrize(CartDOF.X).setStiffness(stiffness).setBias(handForce);
 		
+		///LISSAJOUS
 		CartesianSineImpedanceControlMode lissajousMode;
 		lissajousMode = CartesianSineImpedanceControlMode.createLissajousPattern(CartPlane.YZ, 2.0, 5.0, 500.0);
 		lissajousMode.parametrize(CartDOF.X).setStiffness(stiffness).setBias(handForce);
+		
+		///SPIRAL
+		CartesianSineImpedanceControlMode spiralMode;
+		spiralMode = CartesianSineImpedanceControlMode.createSpiralPattern(CartPlane.YZ,2, 40, 5000, 60);
+		spiralMode.parametrize(CartDOF.X).setBias(10).setStiffness(4500);
+		spiralMode.setHoldTime(10);
+		
 		
 		CartesianImpedanceControlMode mode = new CartesianImpedanceControlMode();
 		mode.parametrize(CartDOF.TRANSL).setStiffness(4500).setDamping(1);
@@ -238,7 +246,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		currentTCP.move(lin(atPart).setCartVelocity(velocity*5).setMode(mode));
 		
 		//mode.parametrize(CartDOF.X).setStiffness(4500).setAdditionalControlForce(handForce);
-		currentTCP.move(linRel(travelDistance, 0, 0, currentTCP).setMode(modeSine).setCartVelocity(velocity));
+		currentTCP.move(linRel(travelDistance, 0, 0, currentTCP).setMode(spiralMode).setCartVelocity(velocity));
 		
 	}
 	
