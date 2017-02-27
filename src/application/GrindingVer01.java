@@ -225,8 +225,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 						+ " Velocity: " + velocity); 
 		///SINE
 		CartesianSineImpedanceControlMode modeSineY;
-		modeSineY = CartesianSineImpedanceControlMode.createSinePattern(CartDOF.Y, sineFrequency, sineAmplitude, sineStiffness).
-				createSinePattern(CartDOF.Z, sineFrequency, sineAmplitude, sineStiffness);
+		modeSineY = CartesianSineImpedanceControlMode.createSinePattern(CartDOF.B, sineFrequency, sineAmplitude, sineStiffness);
 		//modeSineY.parametrize(CartDOF.Y).setStiffness(5000);
 		modeSineY.parametrize(CartDOF.X).setStiffness(stiffness).setBias(handForce);
 		
