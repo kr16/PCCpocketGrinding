@@ -23,6 +23,7 @@ import com.kuka.common.ThreadUtil;
 import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
 import static com.kuka.roboticsAPI.motionModel.BasicMotions.*;
 
+import com.kuka.roboticsAPI.conditionModel.ForceComponentCondition;
 import com.kuka.roboticsAPI.controllerModel.Controller;
 import com.kuka.roboticsAPI.deviceModel.JointPosition;
 import com.kuka.roboticsAPI.deviceModel.LBR;
@@ -31,6 +32,8 @@ import com.kuka.roboticsAPI.geometricModel.CartPlane;
 import com.kuka.roboticsAPI.geometricModel.Frame;
 import com.kuka.roboticsAPI.geometricModel.ObjectFrame;
 import com.kuka.roboticsAPI.geometricModel.Tool;
+import com.kuka.roboticsAPI.geometricModel.math.CoordinateAxis;
+import com.kuka.roboticsAPI.motionModel.IMotionContainer;
 import com.kuka.roboticsAPI.motionModel.PositionHold;
 import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianImpedanceControlMode;
 import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianSineImpedanceControlMode;
@@ -123,12 +126,6 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		
 		eeTool.setTool(PCC_EE);
 		currentTCP = eeTool.setCurrentTCP(EToolName.BallWorking);
-		
-		System.out.println("START");
-		currentTCP.move(linRel(20, 0, 0, currentTCP).setCartVelocity(1).setCartAcceleration(200));
-		System.out.println("STOP");
-		
-		getApplicationControl().halt();
 		
 		System.out.println("Moving to approach coupon position");
 		currentTCP.moveAsync(ptp(appRightCoupon).setJointVelocityRel(0.3));
@@ -253,7 +250,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		modeSpiral.parametrize(CartDOF.X).setBias(10).setStiffness(4500);
 		modeSpiral.setHoldTime(10);
 		
-		
+		/////////////////////////////////////////////////////////////////////////////////////////
 		CartesianImpedanceControlMode mode = new CartesianImpedanceControlMode();
 		mode.parametrize(CartDOF.TRANSL).setStiffness(4500).setDamping(1);
 		mode.parametrize(CartDOF.ROT).setStiffness(300);
@@ -262,9 +259,24 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		
 		//mode.parametrize(CartDOF.X).setStiffness(4500).setAdditionalControlForce(handForce);
 		grindingProcessTimer.timerStart();
-		System.out.println("START");
-		currentTCP.move(linRel(travelDistance, 0, 0, currentTCP).setCartVelocity(velocity));
-		System.out.println("STOP");
+		
+		//currentTCP.move(linRel(travelDistance, 0, 0, currentTCP).setCartVelocity(velocity));
+		IMotionContainer positionHoldContainer;
+		positionHoldContainer = currentTCP.moveAsync(positionHold(modeSpiral, -1, TimeUnit.SECONDS));
+		System.out.println("running");
+		boolean bConditionResult = false;
+		ForceComponentCondition TCPforce;
+		TCPforce = new ForceComponentCondition(currentTCP,CoordinateAxis.X, -40, 0);
+		
+		bConditionResult = getObserverManager().waitFor(TCPforce, 30,TimeUnit.SECONDS);
+		if (bConditionResult) { 
+			System.out.println("Out of range");
+		} else {
+			System.out.println("good, goood");
+		}
+		positionHoldContainer.cancel();
+		
+		
 	}
 	
 	public void depthMeasure(Frame atPart) {
