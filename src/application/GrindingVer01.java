@@ -255,7 +255,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		currentTCP.move(lin(atPart).setCartVelocity(velocity*5).setMode(mode));
 		
 		//mode.parametrize(CartDOF.X).setStiffness(4500).setAdditionalControlForce(handForce);
-		currentTCP.move(linRel(travelDistance, 0, 0, currentTCP).setMode(modelissajous).setCartVelocity(velocity));
+		currentTCP.move(linRel(travelDistance, 0, 0, currentTCP).setCartVelocity(velocity));
 		
 	}
 	
