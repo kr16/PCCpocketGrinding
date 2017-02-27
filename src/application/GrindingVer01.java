@@ -236,9 +236,9 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		
 		///LISSAJOUS
 		CartesianSineImpedanceControlMode modelissajous;
-		modelissajous = CartesianSineImpedanceControlMode.createLissajousPattern(CartPlane.YZ, 1.0, 80, 500);
+		modelissajous = CartesianSineImpedanceControlMode.createLissajousPattern(CartPlane.YZ, 1.0, 80, 5000);
 	    //modelissajous.set
-		//modelissajous.parametrize(CartDOF.X).setStiffness(stiffness).setBias(handForce);
+		modelissajous.parametrize(CartDOF.X).setStiffness(stiffness).setBias(handForce);
 		
 		///SPIRAL
 		CartesianSineImpedanceControlMode modeSpiral;
@@ -254,7 +254,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		currentTCP.move(lin(atPart).setCartVelocity(velocity*5).setMode(mode));
 		
 		//mode.parametrize(CartDOF.X).setStiffness(4500).setAdditionalControlForce(handForce);
-		currentTCP.move(linRel(travelDistance, 0, 0, currentTCP).setMode(modeSineY).setCartVelocity(velocity));
+		currentTCP.move(linRel(travelDistance, 0, 0, currentTCP).setMode(modelissajous).setCartVelocity(velocity));
 		
 	}
 	
