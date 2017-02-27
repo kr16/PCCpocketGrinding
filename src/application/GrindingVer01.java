@@ -206,7 +206,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 
 		
 		double sineFrequency = 1;
-		double sineAmplitude = 4;
+		double sineAmplitude = 8;
 		double sineStiffness = 300;
 			
 		double handForce = 20;
@@ -225,7 +225,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 						+ " Velocity: " + velocity); 
 		///SINE
 		CartesianSineImpedanceControlMode modeSineY;
-		modeSineY = CartesianSineImpedanceControlMode.createSinePattern(CartDOF.B, sineFrequency, sineAmplitude, sineStiffness);
+		modeSineY = CartesianSineImpedanceControlMode.createSinePattern(CartDOF.C, sineFrequency, sineAmplitude, sineStiffness);
 		//modeSineY.parametrize(CartDOF.Y).setStiffness(5000);
 		modeSineY.parametrize(CartDOF.X).setStiffness(stiffness).setBias(handForce);
 		
