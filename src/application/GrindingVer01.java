@@ -238,6 +238,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		CartesianSineImpedanceControlMode modelissajous;
 		modelissajous = CartesianSineImpedanceControlMode.createLissajousPattern(CartPlane.YZ, 1.0, 40, 5000);
 	    modelissajous.parametrize(CartDOF.Y).setPhaseDeg(30);
+	    modelissajous.parametrize(CartDOF.Z).setPhaseDeg(90);
 		modelissajous.parametrize(CartDOF.X).setStiffness(stiffness).setBias(handForce);
 		
 		///SPIRAL
