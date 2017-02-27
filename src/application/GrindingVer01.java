@@ -206,8 +206,8 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 
 		
 		double sineFrequency = 1;
-		double sineAmplitude = 80;
-		double sineStiffness = 4000;
+		double sineAmplitude = 4;
+		double sineStiffness = 300;
 			
 		double handForce = 20;
 		double stiffness = 5000;
@@ -253,7 +253,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		currentTCP.move(lin(atPart).setCartVelocity(velocity*5).setMode(mode));
 		
 		//mode.parametrize(CartDOF.X).setStiffness(4500).setAdditionalControlForce(handForce);
-		currentTCP.move(linRel(travelDistance, 0, 0, currentTCP).setMode(modeSineY).setCartVelocity(velocity));
+		currentTCP.move(linRel(travelDistance, 0, 0, currentTCP).setMode(modeSineZ).setMode(modeSineY).setCartVelocity(velocity));
 		
 	}
 	
