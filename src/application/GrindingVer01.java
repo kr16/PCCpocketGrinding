@@ -256,7 +256,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		
 		//mode.parametrize(CartDOF.X).setStiffness(4500).setAdditionalControlForce(handForce);
 		grindingProcessTimer.timerStart();
-		currentTCP.move(linRel(travelDistance, 0, 0, currentTCP).setCartVelocity(velocity));
+		currentTCP.move(linRel(travelDistance, 0, 0, currentTCP).setMode(modeSineY).setCartVelocity(velocity));
 		
 	}
 	
