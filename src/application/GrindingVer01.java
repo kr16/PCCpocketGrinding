@@ -266,7 +266,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		System.out.println("running");
 		boolean bConditionResult = false;
 		ForceComponentCondition TCPforce;
-		TCPforce = new ForceComponentCondition(currentTCP,CoordinateAxis.X, -40, 0);
+		TCPforce = new ForceComponentCondition(currentTCP,CoordinateAxis.X, -50, 0);
 		
 		bConditionResult = getObserverManager().waitFor(TCPforce, 45,TimeUnit.SECONDS);
 		if (bConditionResult) { 
