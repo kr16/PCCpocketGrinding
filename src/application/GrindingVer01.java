@@ -211,8 +211,8 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 			
 		double handForce = 20;
 		double stiffness = 5000;
-		double travelDistance = 8;		//mm
-		double velocity = 0.25;
+		double travelDistance = 10;		//mm
+		double velocity = 1;
 		
 		logFile.println("SineFrequency: " 	+ sineFrequency 
 						+ " SineAmplitude: "  + sineAmplitude 
