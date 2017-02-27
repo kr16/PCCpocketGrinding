@@ -268,7 +268,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		ForceComponentCondition TCPforce;
 		TCPforce = new ForceComponentCondition(currentTCP,CoordinateAxis.X, -50, 50);
 		
-		bConditionResult = getObserverManager().waitFor(TCPforce, 45,TimeUnit.SECONDS);
+		bConditionResult = getObserverManager().waitFor(TCPforce, 60,TimeUnit.SECONDS);
 		if (bConditionResult) { 
 			System.out.println("Out of range");
 		} else {
