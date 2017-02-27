@@ -206,8 +206,8 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 
 		
 		double sineFrequency = 1;
-		double sineAmplitude = 4;
-		double sineStiffness = 30;
+		double sineAmplitude = 80;
+		double sineStiffness = 5000;
 			
 		double handForce = 20;
 		double stiffness = 5000;
@@ -225,9 +225,9 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 						+ " Velocity: " + velocity); 
 		///SINE
 		CartesianSineImpedanceControlMode modeSineY;
-		modeSineY = CartesianSineImpedanceControlMode.createSinePattern(CartDOF.C, sineFrequency, sineAmplitude, sineStiffness);
-		//modeSineY.parametrize(CartDOF.Y).setStiffness(5000);
+		modeSineY = CartesianSineImpedanceControlMode.createSinePattern(CartDOF.Y, sineFrequency, sineAmplitude, sineStiffness);
 		modeSineY.parametrize(CartDOF.X).setStiffness(stiffness).setBias(handForce);
+		modeSineY.parametrize(CartDOF.Y).setPhaseDeg(30);
 		
 		CartesianSineImpedanceControlMode modeSineZ;
 		modeSineZ = CartesianSineImpedanceControlMode.createSinePattern(CartDOF.Z, sineFrequency, sineAmplitude, sineStiffness);
@@ -236,8 +236,9 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		
 		///LISSAJOUS
 		CartesianSineImpedanceControlMode modelissajous;
-		modelissajous = CartesianSineImpedanceControlMode.createLissajousPattern(CartPlane.YZ, 2.0, 5.0, 500.0);
-		modelissajous.parametrize(CartDOF.X).setStiffness(stiffness).setBias(handForce);
+		modelissajous = CartesianSineImpedanceControlMode.createLissajousPattern(CartPlane.YZ, 1.0, 80, 500);
+	    //modelissajous.set
+		//modelissajous.parametrize(CartDOF.X).setStiffness(stiffness).setBias(handForce);
 		
 		///SPIRAL
 		CartesianSineImpedanceControlMode modeSpiral;
@@ -253,7 +254,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		currentTCP.move(lin(atPart).setCartVelocity(velocity*5).setMode(mode));
 		
 		//mode.parametrize(CartDOF.X).setStiffness(4500).setAdditionalControlForce(handForce);
-		currentTCP.move(linRel(travelDistance, 0, 0, currentTCP).setMode(modeSineZ).setMode(modeSineY).setCartVelocity(velocity));
+		currentTCP.move(linRel(travelDistance, 0, 0, currentTCP).setMode(modeSineY).setCartVelocity(velocity));
 		
 	}
 	
