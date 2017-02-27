@@ -163,7 +163,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 			eeTool.grindingStart();
 		}
 		grindingProcessTimer.setTimerValue(0);
-		grindingProcessTimer.timerStart();
+		
 		grindingProcess(atPart);
 		grindingProcessTimer.timerStop();
 		String processTimer = "Process timer: " + (grindingProcessTimer.getTimerValue()/1000) + "s";
@@ -255,6 +255,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		currentTCP.move(lin(atPart).setCartVelocity(velocity*5).setMode(mode));
 		
 		//mode.parametrize(CartDOF.X).setStiffness(4500).setAdditionalControlForce(handForce);
+		grindingProcessTimer.timerStart();
 		currentTCP.move(linRel(travelDistance, 0, 0, currentTCP).setCartVelocity(velocity));
 		
 	}
