@@ -247,8 +247,8 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		///SPIRAL
 		CartesianSineImpedanceControlMode modeSpiral;
 		modeSpiral = CartesianSineImpedanceControlMode.createSpiralPattern(CartPlane.YZ,2, 40, 5000, 60);
-		modeSpiral.parametrize(CartDOF.X).setBias(10).setStiffness(4500);
-		modeSpiral.setHoldTime(10);
+		modeSpiral.parametrize(CartDOF.X).setStiffness(4500);
+		//modeSpiral.setHoldTime(10);
 		
 		/////////////////////////////////////////////////////////////////////////////////////////
 		CartesianImpedanceControlMode mode = new CartesianImpedanceControlMode();
