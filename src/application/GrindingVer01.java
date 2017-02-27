@@ -125,7 +125,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		currentTCP = eeTool.setCurrentTCP(EToolName.BallWorking);
 		
 		System.out.println("START");
-		currentTCP.move(linRel(20, 0, 0, currentTCP).setCartVelocity(1).setCartAcceleration(100));
+		currentTCP.move(linRel(20, 0, 0, currentTCP).setCartVelocity(1).setCartAcceleration(200));
 		System.out.println("STOP");
 		
 		getApplicationControl().halt();
