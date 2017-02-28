@@ -59,6 +59,7 @@ public class SpiralMotion extends RoboticsAPIApplication{
 						
 	{
 		//initialize
+		this.initialize();
 		this.setHoldTime(holdTime);
 		totalTimeSecs = totalTimeSecs + getHoldTime();
 		CartesianSineImpedanceControlMode spiralMode;
@@ -152,7 +153,11 @@ public class SpiralMotion extends RoboticsAPIApplication{
 	public void setMaxSpiralForce(double maxSpiralForce) {
 		this.maxSpiralForce = maxSpiralForce;
 	}
-
+	
+	@Override
+	public void initialize() {
+		// initialize your application here
+	}
 	@Override
 	public void run() throws Exception {
 		// TODO Auto-generated method stub
