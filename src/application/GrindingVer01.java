@@ -261,6 +261,8 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		
 		//currentTCP.move(linRel(travelDistance, 0, 0, currentTCP).setCartVelocity(velocity));
 		SpiralMotion spiral = new SpiralMotion(CartPlane.YZ, 1, 40, 4000, 60, currentTCP, 10);
+		spiral.setBiasForce(20);
+		spiral.setBiasForcedirection(CartDOF.X);
 		
 	}
 	

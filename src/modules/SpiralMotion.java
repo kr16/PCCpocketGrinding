@@ -58,6 +58,7 @@ public class SpiralMotion extends RoboticsAPIApplication{
 		CartesianSineImpedanceControlMode spiralMode;
 		spiralMode = CartesianSineImpedanceControlMode.createSpiralPattern(cartPlane,frequency, amplitude, stifness, totalTimeSecs);
 		spiralMode.setHoldTime(getHoldTime());
+		spiralMode.parametrize(getBiasForcedirection()).setBias(getBiasForce());
 		
 		//stop spiral force
 		ForceComponentCondition TCPforce;
