@@ -46,6 +46,11 @@ public class SpiralMotion extends RoboticsAPIApplication{
 	private CartDOF biasForcedirection;
 	private double maxSpiralForce = 0.0;
 	
+	@Override
+	public void initialize() {
+		// initialize your application here
+	}
+	
 	public SpiralMotion(CartPlane cartPlane, 
 						double frequency, 
 						double amplitude, 
