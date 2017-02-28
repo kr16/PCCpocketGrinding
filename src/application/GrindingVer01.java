@@ -258,7 +258,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		currentTCP.move(lin(atPart).setCartVelocity(5).setMode(mode));
 		
 		grindingProcessTimer.timerStart();
-		SpiralMotion(CartPlane.YZ, 1, 40, 4000, 60, currentTCP, 10);
+		SpiralMotion(CartPlane.YZ, 0.5, 40, 4000, 60, currentTCP, 10);
 		
 	}
 	public void SpiralMotion(CartPlane cartPlane, 
