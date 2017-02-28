@@ -4,6 +4,8 @@ import static com.kuka.roboticsAPI.motionModel.BasicMotions.positionHold;
 
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Inject;
+
 import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
 import com.kuka.roboticsAPI.conditionModel.ForceComponentCondition;
 import com.kuka.roboticsAPI.geometricModel.CartDOF;
@@ -34,6 +36,7 @@ Hold time = 0
 Fall time = Total time / 2
  */
 public class SpiralMotion extends RoboticsAPIApplication{
+	@Inject
 	private long riseTime;
 	private long holdTime;
 	private long fallTime;
