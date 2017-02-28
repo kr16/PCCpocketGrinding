@@ -26,7 +26,7 @@ import com.kuka.roboticsAPI.deviceModel.LBR;
  */
 public class RobotApplication extends RoboticsAPIApplication {
 	@Inject
-	private LBR lBR_iiwa_14_R820_1;
+	//private LBR lBR_iiwa_14_R820_1;
 
 	@Override
 	public void initialize() {
@@ -36,6 +36,6 @@ public class RobotApplication extends RoboticsAPIApplication {
 	@Override
 	public void run() {
 		// your application execution starts here
-		lBR_iiwa_14_R820_1.move(ptpHome());
+	//	lBR_iiwa_14_R820_1.move(ptpHome());
 	}
 }
