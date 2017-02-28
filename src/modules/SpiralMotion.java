@@ -60,6 +60,12 @@ public class SpiralMotion extends RoboticsAPIApplication{
 	{
 		//initialize
 		this.initialize();
+		try {
+			this.run();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.setHoldTime(holdTime);
 		totalTimeSecs = totalTimeSecs + getHoldTime();
 		CartesianSineImpedanceControlMode spiralMode;
