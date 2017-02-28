@@ -273,11 +273,11 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		totalTimeSecs = totalTimeSecs + holdTime;
 		CartesianSineImpedanceControlMode spiralMode;
 		spiralMode = CartesianSineImpedanceControlMode.createSpiralPattern(cartPlane,frequency, amplitude, stifness, totalTimeSecs);
-		spiralMode.parametrize(CartDOF.X).setBias(20).setStiffness(4500);
+		spiralMode.parametrize(CartDOF.X).setBias(40).setStiffness(4500);
 
 		ForceComponentCondition TCPforce;
 		TCPforce = new ForceComponentCondition(currentTCP,CoordinateAxis.X, -30, 30);
-
+ 
 		IMotionContainer positionHoldContainer;
 		positionHoldContainer = currentTCP.moveAsync(positionHold(spiralMode, -1, TimeUnit.SECONDS));
 		System.out.println("Spiral running");
