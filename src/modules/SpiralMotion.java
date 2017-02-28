@@ -63,6 +63,7 @@ public class SpiralMotion extends RoboticsAPIApplication{
 		
 		//stop spiral force
 		ForceComponentCondition TCPforce;
+		System.out.println("Spiral force: " + maxSpiralForce);
 		TCPforce = new ForceComponentCondition(currentTCP,CoordinateAxis.X, -maxSpiralForce, maxSpiralForce);
 		
 		IMotionContainer positionHoldContainer;
