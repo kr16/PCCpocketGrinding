@@ -142,7 +142,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		
 		logFile.println("drillRow: " + drillRow + " drillColumn: " + drillColumn);
 		
-		double approachOffset = 20;
+		double approachOffset = 0;
 		Frame atPart;
 		Frame startOffsetted = startProcess.copy();
 		startOffsetted = startOffsetted.setY(startOffsetted.getY() - drillColumn*drillOffset);
@@ -270,11 +270,10 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 			long holdTime)
 
 	{
-		//totalTimeSecs = totalTimeSecs + holdTime;
+		totalTimeSecs = totalTimeSecs + holdTime;
 		CartesianSineImpedanceControlMode spiralMode;
 		spiralMode = CartesianSineImpedanceControlMode.createSpiralPattern(cartPlane,frequency, amplitude, stifness, totalTimeSecs);
 		spiralMode.parametrize(CartDOF.X).setBias(20).setStiffness(4500);
-		//spiralMode.setHoldTime(holdTime);
 
 		ForceComponentCondition TCPforce;
 		TCPforce = new ForceComponentCondition(currentTCP,CoordinateAxis.X, -30, 30);
@@ -283,8 +282,6 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		positionHoldContainer = currentTCP.moveAsync(positionHold(spiralMode, -1, TimeUnit.SECONDS));
 		System.out.println("Spiral running");
 		boolean bConditionResult = false;
-
-		getObserverManager().waitFor(TCPforce, totalTimeSecs,TimeUnit.SECONDS);
 
 		bConditionResult = getObserverManager().waitFor(TCPforce, totalTimeSecs,TimeUnit.SECONDS);
 		if (bConditionResult) { 
