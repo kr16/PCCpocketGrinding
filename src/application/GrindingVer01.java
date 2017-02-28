@@ -131,8 +131,8 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		System.out.println("Moving to approach coupon position");
 		currentTCP.moveAsync(ptp(appRightCoupon).setJointVelocityRel(0.3));
 		
-		double	drillOffset = 15.5;	//mm
-		int		drillColumn = 15;
+		double	drillOffset = 0;	//mm
+		int		drillColumn = 0;
 		int     drillRow = 1;
 		String noteString = "Air run";
 		
@@ -270,11 +270,11 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 			long holdTime)
 
 	{
-		totalTimeSecs = totalTimeSecs + holdTime;
+		//totalTimeSecs = totalTimeSecs + holdTime;
 		CartesianSineImpedanceControlMode spiralMode;
 		spiralMode = CartesianSineImpedanceControlMode.createSpiralPattern(cartPlane,frequency, amplitude, stifness, totalTimeSecs);
 		spiralMode.parametrize(CartDOF.X).setBias(20).setStiffness(4500);
-		spiralMode.setHoldTime(holdTime);
+		//spiralMode.setHoldTime(holdTime);
 
 		ForceComponentCondition TCPforce;
 		TCPforce = new ForceComponentCondition(currentTCP,CoordinateAxis.X, -30, 30);
