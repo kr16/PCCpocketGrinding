@@ -89,7 +89,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		grindingProcessTimer = new TimerKCT();
 		TimerThread = new Thread(grindingProcessTimer);
 		logFile = null;
-		airTest = true;
+		airTest = false;
 	}
 
 	@Override
