@@ -28,14 +28,15 @@ public class RobotApplication extends RoboticsAPIApplication {
 	@Inject
 	//private LBR lBR_iiwa_14_R820_1;
 
-	@Override
-	public void initialize() {
-		// initialize your application here
-	}
+//	@Override
+//	public void initialize() {
+//		// initialize your application here
+//	}
 
 	@Override
 	public void run() {
 		// your application execution starts here
 	//	lBR_iiwa_14_R820_1.move(ptpHome());
+		getLogger().info("tada");
 	}
 }
