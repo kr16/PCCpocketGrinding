@@ -41,7 +41,7 @@ public class SpiralMotion extends RoboticsAPIApplication{
 	private double travelVelocity;
 	private double biasForce;
 	private CartDOF biasForcedirection;
-	private double maxSpiralForce;
+	private double maxSpiralForce = 0.0;
 	
 	public SpiralMotion(CartPlane cartPlane, 
 						double frequency, 
@@ -63,7 +63,10 @@ public class SpiralMotion extends RoboticsAPIApplication{
 		
 		//stop spiral force
 		ForceComponentCondition TCPforce;
-		System.out.println("Spiral force: " + maxSpiralForce);
+		if (maxSpiralForce == 0) {
+			maxSpiralForce = 30;
+			System.err.println("Max spiral force not set! uding default value of " + maxSpiralForce);
+		}
 		TCPforce = new ForceComponentCondition(currentTCP,CoordinateAxis.X, -maxSpiralForce, maxSpiralForce);
 		
 		IMotionContainer positionHoldContainer;
