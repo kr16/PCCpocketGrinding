@@ -255,7 +255,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		mode.parametrize(CartDOF.TRANSL).setStiffness(4500).setDamping(1);
 		mode.parametrize(CartDOF.ROT).setStiffness(300);
 		mode.parametrize(CartDOF.X).setStiffness(stiffness);
-		currentTCP.move(lin(atPart).setCartVelocity(velocity*5).setMode(mode));
+		currentTCP.move(lin(atPart).setCartVelocity(5).setMode(mode));
 		
 		grindingProcessTimer.timerStart();
 		SpiralMotion(CartPlane.YZ, 1, 40, 4000, 60, currentTCP, 10);
@@ -276,7 +276,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		spiralMode.parametrize(CartDOF.X).setBias(40).setStiffness(4500);
 
 		ForceComponentCondition TCPforce;
-		TCPforce = new ForceComponentCondition(currentTCP,CoordinateAxis.X, -50, 50);
+		TCPforce = new ForceComponentCondition(currentTCP,CoordinateAxis.X, -70, 70);
  
 		IMotionContainer positionHoldContainer;
 		positionHoldContainer = currentTCP.moveAsync(positionHold(spiralMode, -1, TimeUnit.SECONDS));
