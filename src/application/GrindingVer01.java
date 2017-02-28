@@ -276,7 +276,7 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		spiralMode.parametrize(CartDOF.X).setBias(40).setStiffness(4500);
 
 		ForceComponentCondition TCPforce;
-		TCPforce = new ForceComponentCondition(currentTCP,CoordinateAxis.X, -30, 30);
+		TCPforce = new ForceComponentCondition(currentTCP,CoordinateAxis.X, -50, 50);
  
 		IMotionContainer positionHoldContainer;
 		positionHoldContainer = currentTCP.moveAsync(positionHold(spiralMode, -1, TimeUnit.SECONDS));
