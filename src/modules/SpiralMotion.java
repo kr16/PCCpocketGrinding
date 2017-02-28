@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
 import com.kuka.roboticsAPI.conditionModel.ForceComponentCondition;
+import com.kuka.roboticsAPI.deviceModel.LBR;
 import com.kuka.roboticsAPI.geometricModel.CartDOF;
 import com.kuka.roboticsAPI.geometricModel.CartPlane;
 import com.kuka.roboticsAPI.geometricModel.ObjectFrame;
@@ -45,11 +46,8 @@ public class SpiralMotion extends RoboticsAPIApplication{
 	private double biasForce;
 	private CartDOF biasForcedirection;
 	private double maxSpiralForce = 0.0;
+	private LBR bot;
 	
-	@Override
-	public void initialize() {
-		// initialize your application here
-	}
 	
 	public SpiralMotion(CartPlane cartPlane, 
 						double frequency, 
