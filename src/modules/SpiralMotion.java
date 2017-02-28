@@ -54,14 +54,14 @@ public class SpiralMotion extends RoboticsAPIApplication{
 	{
 		//initialize
 		this.setHoldTime(holdTime);
-		
+		totalTimeSecs = totalTimeSecs + getHoldTime();
 		CartesianSineImpedanceControlMode spiralMode;
 		spiralMode = CartesianSineImpedanceControlMode.createSpiralPattern(cartPlane,frequency, amplitude, stifness, totalTimeSecs);
 		spiralMode.setHoldTime(getHoldTime());
 		
 		//stop spiral force
 		ForceComponentCondition TCPforce;
-		TCPforce = new ForceComponentCondition(currentTCP,CoordinateAxis.X, -50, 50);
+		TCPforce = new ForceComponentCondition(currentTCP,CoordinateAxis.X, -maxSpiralForce, maxSpiralForce);
 		
 		IMotionContainer positionHoldContainer;
 		positionHoldContainer = currentTCP.moveAsync(positionHold(spiralMode, -1, TimeUnit.SECONDS));
@@ -72,7 +72,7 @@ public class SpiralMotion extends RoboticsAPIApplication{
 		if (bConditionResult) { 
 			System.out.println("Max Force exceeded");
 		} else {
-			System.out.println("good, goood");
+			System.out.println("Spiral finished");
 		}
 		positionHoldContainer.cancel();
 	}

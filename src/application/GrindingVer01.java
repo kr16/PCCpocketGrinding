@@ -16,6 +16,7 @@ import sun.rmi.log.ReliableLog.LogFile;
 import modules.Common.ESearchDirection;
 import modules.Common.EToolName;
 import modules.GrindingTool;
+import modules.SpiralMotion;
 import modules.TimerKCT;
 import modules.TouchForceRecord;
 
@@ -166,13 +167,12 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 			eeTool.grindingStart();
 		}
 		grindingProcessTimer.setTimerValue(0);
-		
 		grindingProcess(atPart);
 		grindingProcessTimer.timerStop();
 		String processTimer = "Process timer: " + (grindingProcessTimer.getTimerValue()/1000) + "s";
 		System.out.println(processTimer);
 		logFile.println(processTimer);
-		currentTCP.move(lin(atPart).setCartVelocity(1));
+		currentTCP.move(lin(atPart).setCartVelocity(30));
 		eeTool.grindingStop();
 		if(!airTest) {
 			depthMeasure(atPart);
@@ -255,27 +255,12 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		mode.parametrize(CartDOF.TRANSL).setStiffness(4500).setDamping(1);
 		mode.parametrize(CartDOF.ROT).setStiffness(300);
 		mode.parametrize(CartDOF.X).setStiffness(stiffness);
-		//currentTCP.move(lin(atPart).setCartVelocity(velocity*5).setMode(mode));
+		currentTCP.move(lin(atPart).setCartVelocity(velocity*5).setMode(mode));
 		
-		//mode.parametrize(CartDOF.X).setStiffness(4500).setAdditionalControlForce(handForce);
 		grindingProcessTimer.timerStart();
 		
 		//currentTCP.move(linRel(travelDistance, 0, 0, currentTCP).setCartVelocity(velocity));
-		IMotionContainer positionHoldContainer;
-		positionHoldContainer = currentTCP.moveAsync(positionHold(modeSpiral, -1, TimeUnit.SECONDS));
-		System.out.println("running");
-		boolean bConditionResult = false;
-		ForceComponentCondition TCPforce;
-		TCPforce = new ForceComponentCondition(currentTCP,CoordinateAxis.X, -50, 50);
-		
-		bConditionResult = getObserverManager().waitFor(TCPforce, 60,TimeUnit.SECONDS);
-		if (bConditionResult) { 
-			System.out.println("Out of range");
-		} else {
-			System.out.println("good, goood");
-		}
-		positionHoldContainer.cancel();
-		
+		SpiralMotion spiral = new SpiralMotion(CartPlane.YZ, 1, 40, 4000, 60, currentTCP, 10);
 		
 	}
 	
