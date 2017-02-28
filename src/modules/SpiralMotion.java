@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
 import com.kuka.roboticsAPI.conditionModel.ForceComponentCondition;
+import com.kuka.roboticsAPI.conditionModel.ObserverManager;
 import com.kuka.roboticsAPI.deviceModel.LBR;
 import com.kuka.roboticsAPI.geometricModel.CartDOF;
 import com.kuka.roboticsAPI.geometricModel.CartPlane;
@@ -58,14 +59,7 @@ public class SpiralMotion extends RoboticsAPIApplication{
 						long holdTime)
 						
 	{
-		//initialize
-		this.initialize();
-		try {
-			this.run();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		this.setHoldTime(holdTime);
 		totalTimeSecs = totalTimeSecs + getHoldTime();
 		CartesianSineImpedanceControlMode spiralMode;
@@ -86,6 +80,8 @@ public class SpiralMotion extends RoboticsAPIApplication{
 		positionHoldContainer = currentTCP.moveAsync(positionHold(spiralMode, -1, TimeUnit.SECONDS));
 		System.out.println("Spiral running");
 		boolean bConditionResult = false;
+		
+		getObserverManager().waitFor(TCPforce, totalTimeSecs,TimeUnit.SECONDS);
 		
 		bConditionResult = getObserverManager().waitFor(TCPforce, totalTimeSecs,TimeUnit.SECONDS);
 		if (bConditionResult) { 

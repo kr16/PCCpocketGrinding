@@ -258,14 +258,43 @@ public class GrindingVer01 extends RoboticsAPIApplication {
 		currentTCP.move(lin(atPart).setCartVelocity(velocity*5).setMode(mode));
 		
 		grindingProcessTimer.timerStart();
-		
-		//currentTCP.move(linRel(travelDistance, 0, 0, currentTCP).setCartVelocity(velocity));
-		SpiralMotion spiral = new SpiralMotion(CartPlane.YZ, 1, 40, 4000, 60, currentTCP, 10);
-		spiral.setBiasForce(20);
-		spiral.setBiasForcedirection(CartDOF.X);
+		SpiralMotion(CartPlane.YZ, 1, 40, 4000, 60, currentTCP, 10);
 		
 	}
-	
+	public void SpiralMotion(CartPlane cartPlane, 
+			double frequency, 
+			double amplitude, 
+			double stifness,
+			long totalTimeSecs, 
+			ObjectFrame currentTCP,
+			long holdTime)
+
+	{
+		totalTimeSecs = totalTimeSecs + holdTime;
+		CartesianSineImpedanceControlMode spiralMode;
+		spiralMode = CartesianSineImpedanceControlMode.createSpiralPattern(cartPlane,frequency, amplitude, stifness, totalTimeSecs);
+		spiralMode.parametrize(CartDOF.X).setBias(20).setStiffness(4500);
+		spiralMode.setHoldTime(holdTime);
+
+		ForceComponentCondition TCPforce;
+		TCPforce = new ForceComponentCondition(currentTCP,CoordinateAxis.X, -30, 30);
+
+		IMotionContainer positionHoldContainer;
+		positionHoldContainer = currentTCP.moveAsync(positionHold(spiralMode, -1, TimeUnit.SECONDS));
+		System.out.println("Spiral running");
+		boolean bConditionResult = false;
+
+		getObserverManager().waitFor(TCPforce, totalTimeSecs,TimeUnit.SECONDS);
+
+		bConditionResult = getObserverManager().waitFor(TCPforce, totalTimeSecs,TimeUnit.SECONDS);
+		if (bConditionResult) { 
+			System.out.println("Max Force exceeded");
+		} else {
+			System.out.println("Spiral finished");
+		}
+		positionHoldContainer.cancel();
+	}
+
 	public void depthMeasure(Frame atPart) {
 		double startX = atPart.getX();
 		searchPart.recordPosition(ESearchDirection.PosX, 20, 10, 2, 0, currentTCP, nullBase, bot);
