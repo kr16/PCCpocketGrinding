@@ -95,13 +95,13 @@ Automatically generated IO group description. Please do NOT modify!
       <DigitalIOItem Name="DO07_2" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="true">
         <Description>Air Valve</Description>
       </DigitalIOItem>
-      <DigitalIOItem Name="DO08_1_GrinderAir1" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="true">
+      <DigitalIOItem Name="DO08_1" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="true">
         <Description>Air Valve</Description>
       </DigitalIOItem>
       <DigitalIOItem Name="DO08_2" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="true">
         <Description>Air Valve</Description>
       </DigitalIOItem>
-      <DigitalIOItem Name="DO09_1_GrinderAir2" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="true">
+      <DigitalIOItem Name="DO09_1" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="true">
         <Description>Air Valve</Description>
       </DigitalIOItem>
       <DigitalIOItem Name="DO09_2" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="true">

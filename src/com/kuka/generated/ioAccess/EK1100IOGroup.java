@@ -45,7 +45,7 @@ public class EK1100IOGroup extends AbstractIOGroup
 		addInput("EK1100_DI14", IOTypes.BOOLEAN, 1);
 		addInput("EK1100_DI15", IOTypes.BOOLEAN, 1);
 		addInput("EK1100_DI16", IOTypes.BOOLEAN, 1);
-		addDigitalOutput("EK1100_DO01_GrindingToolReq", IOTypes.BOOLEAN, 1);
+		addDigitalOutput("EK1100_DO01", IOTypes.BOOLEAN, 1);
 		addDigitalOutput("EK1100_DO02", IOTypes.BOOLEAN, 1);
 		addDigitalOutput("EK1100_DO03", IOTypes.BOOLEAN, 1);
 		addDigitalOutput("EK1100_DO04", IOTypes.BOOLEAN, 1);
@@ -384,7 +384,7 @@ public class EK1100IOGroup extends AbstractIOGroup
 	}
 
 	/**
-	 * Gets the value of the <b>digital output '<i>EK1100_DO01_GrindingToolReq</i>'</b>.<br>
+	 * Gets the value of the <b>digital output '<i>EK1100_DO01</i>'</b>.<br>
 	 * <i>This method is automatically generated. Please, do not modify!</i>
 	 * <p>
 	 * <b>I/O direction and type:</b><br>
@@ -396,15 +396,15 @@ public class EK1100IOGroup extends AbstractIOGroup
 	 * <b>Range of the I/O value:</b><br>
 	 * [false; true]
 	 *
-	 * @return current value of the digital output 'EK1100_DO01_GrindingToolReq'
+	 * @return current value of the digital output 'EK1100_DO01'
 	 */
-	public boolean getEK1100_DO01_GrindingToolReq()
+	public boolean getEK1100_DO01()
 	{
-		return getBooleanIOValue("EK1100_DO01_GrindingToolReq", true);
+		return getBooleanIOValue("EK1100_DO01", true);
 	}
 
 	/**
-	 * Sets the value of the <b>digital output '<i>EK1100_DO01_GrindingToolReq</i>'</b>.<br>
+	 * Sets the value of the <b>digital output '<i>EK1100_DO01</i>'</b>.<br>
 	 * <i>This method is automatically generated. Please, do not modify!</i>
 	 * <p>
 	 * <b>I/O direction and type:</b><br>
@@ -417,11 +417,11 @@ public class EK1100IOGroup extends AbstractIOGroup
 	 * [false; true]
 	 *
 	 * @param value
-	 *            the value, which has to be written to the digital output 'EK1100_DO01_GrindingToolReq'
+	 *            the value, which has to be written to the digital output 'EK1100_DO01'
 	 */
-	public void setEK1100_DO01_GrindingToolReq(java.lang.Boolean value)
+	public void setEK1100_DO01(java.lang.Boolean value)
 	{
-		setDigitalOutput("EK1100_DO01_GrindingToolReq", value);
+		setDigitalOutput("EK1100_DO01", value);
 	}
 
 	/**

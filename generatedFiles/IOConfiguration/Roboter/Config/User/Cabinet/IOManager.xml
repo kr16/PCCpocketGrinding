@@ -56,6 +56,9 @@
         <DigitalIO Name="EK1100.EK1100_DI16" Type="INPUT" Scope="USER_IO" StartBit="335" BitSize="1" Signed="false">
           <Description />
         </DigitalIO>
+        <DigitalIO Name="EK1100.EK1100_DO01" Type="OUTPUT" Scope="USER_IO" StartBit="12576" BitSize="1" Signed="false">
+          <Description />
+        </DigitalIO>
         <DigitalIO Name="EK1100.EK1100_DO02" Type="OUTPUT" Scope="USER_IO" StartBit="12577" BitSize="1" Signed="false">
           <Description />
         </DigitalIO>
@@ -100,127 +103,6 @@
         </DigitalIO>
         <DigitalIO Name="EK1100.EK1100_DO16" Type="OUTPUT" Scope="USER_IO" StartBit="12591" BitSize="1" Signed="false">
           <Description />
-        </DigitalIO>
-        <DigitalIO Name="EK1100.EK1100_DO01_GrindingToolReq" Type="OUTPUT" Scope="USER_IO" StartBit="12576" BitSize="1" Signed="false">
-          <Description />
-        </DigitalIO>
-      </IOList>
-    </Bus>
-    <Bus BusDriverName="PNIODriver" BusInstanceName="PNIO-CTRL">
-      <IOList>
-        <DigitalIO Name="SMC600_SPN1.DI01_HotDotPresent_X101" Type="INPUT" Scope="USER_IO" StartBit="8" BitSize="1" Signed="false">
-          <Description>Banner sensor</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DI02_HotDotDispencerLow_X102" Type="INPUT" Scope="USER_IO" StartBit="9" BitSize="1" Signed="false">
-          <Description>Digital Input</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DI03_DispencerAtPlace" Type="INPUT" Scope="USER_IO" StartBit="10" BitSize="1" Signed="false">
-          <Description>Digital Input</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DI04_DispancerAtHome" Type="INPUT" Scope="USER_IO" StartBit="11" BitSize="1" Signed="false">
-          <Description>Digital Input</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DI05" Type="INPUT" Scope="USER_IO" StartBit="12" BitSize="1" Signed="false">
-          <Description>Digital Input</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DI06" Type="INPUT" Scope="USER_IO" StartBit="13" BitSize="1" Signed="false">
-          <Description>Digital Input</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DI07" Type="INPUT" Scope="USER_IO" StartBit="14" BitSize="1" Signed="false">
-          <Description>Digital Input</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DI08" Type="INPUT" Scope="USER_IO" StartBit="15" BitSize="1" Signed="false">
-          <Description>Digital Input</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DI09" Type="INPUT" Scope="USER_IO" StartBit="16" BitSize="1" Signed="false">
-          <Description>Digital Input</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DI10" Type="INPUT" Scope="USER_IO" StartBit="17" BitSize="1" Signed="false">
-          <Description>Digital Input</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DI11" Type="INPUT" Scope="USER_IO" StartBit="18" BitSize="1" Signed="false">
-          <Description>Digital Input</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DI12" Type="INPUT" Scope="USER_IO" StartBit="19" BitSize="1" Signed="false">
-          <Description>Digital Input</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DI13" Type="INPUT" Scope="USER_IO" StartBit="20" BitSize="1" Signed="false">
-          <Description>Digital Input</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DI14" Type="INPUT" Scope="USER_IO" StartBit="21" BitSize="1" Signed="false">
-          <Description>Digital Input</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DI15" Type="INPUT" Scope="USER_IO" StartBit="22" BitSize="1" Signed="false">
-          <Description>Digital Input</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DI16" Type="INPUT" Scope="USER_IO" StartBit="23" BitSize="1" Signed="false">
-          <Description>Digital Input</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DO01_1" Type="OUTPUT" Scope="USER_IO" StartBit="136" BitSize="1" Signed="false">
-          <Description>Air Valve</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DO01_2" Type="OUTPUT" Scope="USER_IO" StartBit="137" BitSize="1" Signed="false">
-          <Description>Air Valve</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DO02_1" Type="OUTPUT" Scope="USER_IO" StartBit="138" BitSize="1" Signed="false">
-          <Description>Air Valve</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DO02_2" Type="OUTPUT" Scope="USER_IO" StartBit="139" BitSize="1" Signed="false">
-          <Description>Air Valve</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DO03_1" Type="OUTPUT" Scope="USER_IO" StartBit="140" BitSize="1" Signed="false">
-          <Description>Air Valve</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DO03_2" Type="OUTPUT" Scope="USER_IO" StartBit="141" BitSize="1" Signed="false">
-          <Description>Air Valve</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DO04_1" Type="OUTPUT" Scope="USER_IO" StartBit="142" BitSize="1" Signed="false">
-          <Description>Air Valve</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DO04_2" Type="OUTPUT" Scope="USER_IO" StartBit="143" BitSize="1" Signed="false">
-          <Description>Air Valve</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DO05_1" Type="OUTPUT" Scope="USER_IO" StartBit="144" BitSize="1" Signed="false">
-          <Description>Air Valve</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DO05_2" Type="OUTPUT" Scope="USER_IO" StartBit="145" BitSize="1" Signed="false">
-          <Description>Air Valve</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DO06_1" Type="OUTPUT" Scope="USER_IO" StartBit="146" BitSize="1" Signed="false">
-          <Description>Air Valve</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DO06_2" Type="OUTPUT" Scope="USER_IO" StartBit="147" BitSize="1" Signed="false">
-          <Description>Air Valve</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DO07_1" Type="OUTPUT" Scope="USER_IO" StartBit="148" BitSize="1" Signed="false">
-          <Description>Air Valve</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DO07_2" Type="OUTPUT" Scope="USER_IO" StartBit="149" BitSize="1" Signed="false">
-          <Description>Air Valve</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DO09_2" Type="OUTPUT" Scope="USER_IO" StartBit="153" BitSize="1" Signed="false">
-          <Description>Air Valve</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DO10_1" Type="OUTPUT" Scope="USER_IO" StartBit="154" BitSize="1" Signed="false">
-          <Description>Air Valve</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DO10_2" Type="OUTPUT" Scope="USER_IO" StartBit="155" BitSize="1" Signed="false">
-          <Description>Air Valve</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DO11_1_PneumaticCylinder" Type="OUTPUT" Scope="USER_IO" StartBit="156" BitSize="1" Signed="false">
-          <Description>Air Valve</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DO11_2" Type="OUTPUT" Scope="USER_IO" StartBit="157" BitSize="1" Signed="false">
-          <Description>Air Valve</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DO08_2" Type="OUTPUT" Scope="USER_IO" StartBit="151" BitSize="1" Signed="false">
-          <Description>Air Valve</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DO08_1_GrinderAir1" Type="OUTPUT" Scope="USER_IO" StartBit="150" BitSize="1" Signed="false">
-          <Description>Air Valve</Description>
-        </DigitalIO>
-        <DigitalIO Name="SMC600_SPN1.DO09_1_GrinderAir2" Type="OUTPUT" Scope="USER_IO" StartBit="152" BitSize="1" Signed="false">
-          <Description>Air Valve</Description>
         </DigitalIO>
       </IOList>
     </Bus>
