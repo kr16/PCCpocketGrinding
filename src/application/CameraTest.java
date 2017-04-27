@@ -1,6 +1,8 @@
 package application;
 
 
+import java.awt.GraphicsEnvironment;
+
 import javax.inject.Inject;
 
 import modules.TimerKCT;
@@ -59,7 +61,7 @@ public class CameraTest extends RoboticsAPIApplication {
 	public void run() {
 		// your application execution starts here
 		//bot.move(ptpHome());
-		
+		System.out.println(GraphicsEnvironment.isHeadless());
 		JOptionPane.showMessageDialog(null, "i pozamiatane...", "Hole misiek!", JOptionPane.WARNING_MESSAGE);
 		getApplicationControl().halt();
 		CognexIO.setAcqCtrlReg0(false);
