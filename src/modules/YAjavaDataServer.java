@@ -32,7 +32,7 @@ public class YAjavaDataServer {
         System.out.println(e);
         }   
 
-    System.out.println( "Waiting for connections. Only one connection is allowed." );
+    System.out.println( "Waiting for connections on port: " + this.port + ". Only one connection is allowed." );
 
     // Create a socket object from the ServerSocket to listen and accept connections.
     // Use Server1Connection to process the connection.
