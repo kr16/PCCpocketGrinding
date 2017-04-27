@@ -47,7 +47,7 @@ public class CameraTest extends RoboticsAPIApplication {
 	@Override
 	public void initialize() {
 		// initialize your application here
-		HotDotTest = getApplicationData().createFromTemplate("NutRunnerCognex");
+		HotDotTest = getApplicationData().createFromTemplate("KSAFNutRunnerEE");
 		//currentTCP = HotDotTest.getFrame("Iron");
 		nullBase = getApplicationData().getFrame("/nullBase");
 		startPos = getApplicationData().getFrame("/SpiralTest/SpiralTestStart");
