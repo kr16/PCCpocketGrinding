@@ -61,6 +61,7 @@ public class CameraTest extends RoboticsAPIApplication {
 	public void run() {
 		// your application execution starts here
 		//bot.move(ptpHome());
+		System.setProperty("java.awt.headless", "false");
 		System.out.println(GraphicsEnvironment.isHeadless());
 		JOptionPane.showMessageDialog(null, "i pozamiatane...", "Hole misiek!", JOptionPane.WARNING_MESSAGE);
 		getApplicationControl().halt();
