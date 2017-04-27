@@ -66,7 +66,7 @@ public class YAjavaDataClientRobotApp extends RoboticsAPIApplication {
 		} catch (UnknownHostException e) {
 			System.err.println("Don't know about host: " + hostname);
 		} catch (IOException e) {
-			System.err.println("Couldn't get I/O for the connection to: " + hostname);
+			System.err.println("Couldn't get I/O for the connection to: " + hostname + " on port: " + port);
 		}
 
 		// If everything has been initialized then we want to write some data
