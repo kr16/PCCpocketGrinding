@@ -13,6 +13,7 @@ import com.kuka.roboticsAPI.controllerModel.Controller;
 import com.kuka.roboticsAPI.deviceModel.LBR;
 import com.kuka.roboticsAPI.geometricModel.ObjectFrame;
 import com.kuka.roboticsAPI.geometricModel.Tool;
+import javax.swing.JOptionPane;
 
 /**
  * Implementation of a robot application.
@@ -59,6 +60,8 @@ public class CameraTest extends RoboticsAPIApplication {
 		// your application execution starts here
 		//bot.move(ptpHome());
 		
+		JOptionPane.showMessageDialog(null, "i pozamiatane...", "Hole misiek!", JOptionPane.WARNING_MESSAGE);
+		getApplicationControl().halt();
 		CognexIO.setAcqCtrlReg0(false);
 		CognexIO.setAcqCtrlReg1(false);
 		CognexIO.setAcqCtrlReg7(false);
