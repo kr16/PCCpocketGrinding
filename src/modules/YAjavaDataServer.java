@@ -17,7 +17,6 @@ public class YAjavaDataServer {
 
     public void stopServer() {
     System.out.println( "Server cleaning up." );
-    System.exit(0);
     }
 
     public void startServer() {
