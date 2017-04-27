@@ -1,14 +1,9 @@
-package application;
+package modules;
 
 import java.io.*;
 import java.net.*;
 
 public class YAjavaDataServer {
-//    public static void main(String args[]) {
-//    int port = 6789;
-//    YAjavaDataServer server = new YAjavaDataServer( port );
-//    server.startServer();
-//    }
 
     // declare a server socket and a client socket for the server
 
