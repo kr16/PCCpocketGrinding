@@ -30,6 +30,7 @@ import com.kuka.roboticsAPI.deviceModel.LBR;
 public class YAdataServerRobotApp extends RoboticsAPIApplication {
 	@Inject
 	private LBR lBR_iiwa_14_R820_1;
+	private YAjavaDataServer server1;
 
 	@Override
 	public void initialize() {
@@ -45,8 +46,22 @@ public class YAdataServerRobotApp extends RoboticsAPIApplication {
 		30,000 to 30,010
 		*/
 		int port  = 30000;
-		YAjavaDataServer server1 = new YAjavaDataServer(port);
+		server1 = new YAjavaDataServer(port);
 		server1.startServer();
 		
 	}
+	
+	@Override
+    public void dispose()
+    {
+        try {
+        	server1.stopServer();
+        } catch (NullPointerException e ) {
+        	
+        }
+        finally
+        {
+            super.dispose();
+        }
+    }
 }
