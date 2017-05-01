@@ -175,7 +175,8 @@ public class CollectPictures extends RoboticsAPIApplication {
 
 	public Frame gridCalculation(Frame Origin, int rowNumber, int colNumber,
 			double rowOffset, double colOffset, double ZOffset) {
-		return Origin.copy().setX(Origin.getX() - (colNumber - 1) * colOffset)
+		return Origin.copy()
+				.setX(Origin.copy().getX() + (colNumber - 1) * colOffset)
 				.setY(Origin.copy().getY() + (rowNumber - 1) * rowOffset)
 				.setZ(Origin.copy().getZ() + ZOffset);
 	}
