@@ -146,10 +146,11 @@ public class CollectPictures extends RoboticsAPIApplication {
 				telnetLogin();
 				currentExposureTime = globalVarFromPLC.getVarDouble("exposureTime");
 				telnet.sendCognexCommand(ECognexCommand.SF, "A", 21, currentExposureTime);
+				telnet.readCognexResponse();
 				telnet.sendCognexTrigger(ECognexTrigger.SE8);
 				telnet.disconnect();
 				ThreadUtil.milliSleep(500);
-				downloadImage();
+				//downloadImage();	//download image to PC
 				coupon1.setRowColumnValue(row, column, EHotDotCouponStates.Scaned);
 			}
 				
