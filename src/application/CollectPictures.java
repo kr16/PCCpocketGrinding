@@ -98,7 +98,7 @@ public class CollectPictures extends RoboticsAPIApplication {
 		double columnOffset = 25.1;
 		double currentExposureTime; 
 		currentExposureTime = globalVarFromPLC.getVarDouble("exposureTime");
-		ftp.setFtpLocalFileName(" HL70_12" + " Exposure " + currentExposureTime + ".jpg");
+		ftp.setFtpLocalFileName(" HL70_08" + " Exposure " + currentExposureTime + ".jpg");
 		ftp.setFtpLocalDownloadPath("d:/Transfer/CognexPics/");
 		ftp.setFtpRemoteFileName("Image.jpg");
 		timer = new TimerKCT();
@@ -143,6 +143,7 @@ public class CollectPictures extends RoboticsAPIApplication {
 				telnet.disconnect();
 				ThreadUtil.milliSleep(500);
 				downloadImage();
+				coupon1.setRowColumnValue(row, column, EHotDotCouponStates.Scaned);
 			}
 				
 				
