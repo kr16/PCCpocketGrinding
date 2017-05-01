@@ -138,8 +138,8 @@ public class CollectPictures extends RoboticsAPIApplication {
 
 				getLogger().info("XYZ: " + TheoreticalPos);
 				
-				//Transformation tcpToVisionShift = Transformation.ofTranslation(18.0, -30, 0.0);
-				//TheoreticalPos.transform(tcpToVisionShift);
+				Transformation tcpToVisionShift = Transformation.ofTranslation(18.0, 0.0, -30.0);
+				TheoreticalPos.transform(tcpToVisionShift);
 				
 				//   Move to process position
 				currentTCP.move(lin(TheoreticalPos).setCartVelocity(50).setCartAcceleration(100));
