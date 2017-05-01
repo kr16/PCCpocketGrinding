@@ -61,24 +61,25 @@
             </frame>
         </frame>
         <frame id="_e5db4bde-4b07-4070-a8ab-7db769758c41" name="CouponBase">
-            <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
+            <transformation a="-1.5861290036497837" b="0.01182766378415555" c="1.580589945696403" x="836.1843523812813" y="494.2490841079985" z="557.9312875529203"/>
             <additionalInformation>
-                <info key="LastModificationTime" type="java.lang.Long" value="1493651220935"/>
+                <info key="LastModificationTime" type="java.lang.Long" value="1493652483077"/>
                 <info key="UseAsBaseForJogging" type="java.lang.Boolean" value="true"/>
+                <info measurementMethod="Base3Point" timestamp="1493652483077" type="com.kuka.roboticsAPI.deviceModel.MeasurementInformation"/>
             </additionalInformation>
             <frame id="_43de695e-0fe0-418f-affd-b83255dda971" name="couponBaseApp">
-                <transformation a="2.230920027384449" b="1.5621962432990921" c="-2.484096160005356" x="5.588155657838356" y="-909.4019742681844" z="-88.09975265028089"/>
+                <transformation a="-0.051568348874862426" b="-0.03763990463588399" c="3.121901639004286" x="174.9372501222074" y="85.3746612529444" z="56.27659486314087"/>
                 <additionalInformation>
-                    <info key="LastModificationTime" type="java.lang.Long" value="1493651250247"/>
-                    <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="HotDotEE/IronVer01" tool="HotDotEE" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
-                        <tcpTransformation a="0.0" b="-0.3490658503988659" c="0.0" x="6.172" y="0.0" z="304.5"/>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1493652548611"/>
+                    <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="KSAFNutRunnerEE/NutRunner_HL70_06" tool="KSAFNutRunnerEE" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
+                        <tcpTransformation a="0.0" b="1.5707963267948966" c="1.1780972450961724" x="96.14592382491348" y="-235.32853232224016" z="126.47503541352219"/>
                     </info>
                 </additionalInformation>
                 <redundancyData>
                     <redundancy transformationProviderName="KUKA_Sunrise_Cabinet_1/LBR_iiwa_14_R820_1" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy">
                         <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="6" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="105" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="5.5786613379964256E-5" valueType="java.lang.Double"/>
+                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="56" valueType="java.lang.Integer"/>
+                        <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="6.831000526149306E-6" valueType="java.lang.Double"/>
                     </redundancy>
                 </redundancyData>
             </frame>
