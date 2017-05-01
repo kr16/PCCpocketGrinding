@@ -107,9 +107,7 @@ public class CollectPictures extends RoboticsAPIApplication {
 		//bot home
 		setNewHomePosition();
 		KSAF_EE.attachTo(bot.getFlange());
-		coupon1.getFirstNotProcessed(EHotDotCouponStates.Empty);
-		
-		
+		System.out.println(coupon1.getFirstNotProcessed(EHotDotCouponStates.Empty));
 		
 		while (true) {
 
