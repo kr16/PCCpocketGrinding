@@ -153,6 +153,7 @@ public class CollectPictures extends RoboticsAPIApplication {
 				coupon1.setRowColumnValue(row, column, EHotDotCouponStates.Scaned);
 			}
 				
+			currentTCP.moveAsync(lin(startPos).setCartVelocity(30).setBlendingCart(10));
 				
 			bot.move(ptpHome().setJointVelocityRel(0.3));
 		}
