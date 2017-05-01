@@ -122,6 +122,7 @@ public class CollectPictures extends RoboticsAPIApplication {
 			telnetLogin();
 			telnet.disconnect();
 			
+			System.err.println("Coupon RESET");
 			coupon1.resetCoupon();
 			
 			Map processPosition = new HashMap();
