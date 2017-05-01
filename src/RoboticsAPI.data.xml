@@ -60,16 +60,16 @@
                 </redundancyData>
             </frame>
         </frame>
-        <frame id="_e5db4bde-4b07-4070-a8ab-7db769758c41" name="SpiralTest">
+        <frame id="_e5db4bde-4b07-4070-a8ab-7db769758c41" name="CouponBase">
             <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
             <additionalInformation>
-                <info key="LastModificationTime" type="java.lang.Long" value="1481648156201"/>
+                <info key="LastModificationTime" type="java.lang.Long" value="1493651220935"/>
                 <info key="UseAsBaseForJogging" type="java.lang.Boolean" value="true"/>
             </additionalInformation>
-            <frame id="_43de695e-0fe0-418f-affd-b83255dda971" name="SpiralTestStart">
+            <frame id="_43de695e-0fe0-418f-affd-b83255dda971" name="couponBaseApp">
                 <transformation a="2.230920027384449" b="1.5621962432990921" c="-2.484096160005356" x="5.588155657838356" y="-909.4019742681844" z="-88.09975265028089"/>
                 <additionalInformation>
-                    <info key="LastModificationTime" type="java.lang.Long" value="1481731274100"/>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1493651250247"/>
                     <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="HotDotEE/IronVer01" tool="HotDotEE" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
                         <tcpTransformation a="0.0" b="-0.3490658503988659" c="0.0" x="6.172" y="0.0" z="304.5"/>
                     </info>
