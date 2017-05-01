@@ -7,6 +7,8 @@ import javax.inject.Inject;
 
 import modules.CognexIIWA_FTPlib;
 import modules.CognexIIWA_Telnetlib;
+import modules.CouponXMLparser;
+import modules.XMLParserCoupon;
 import modules.XmlParserGlobalVarsRD;
 import modules.Common.ECognexCommand;
 import modules.Common.ECognexTrigger;
@@ -31,6 +33,7 @@ import com.kuka.roboticsAPI.geometricModel.math.CoordinateAxis;
 import com.kuka.roboticsAPI.motionModel.IMotionContainer;
 import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianImpedanceControlMode;
 import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianSineImpedanceControlMode;
+import com.sun.org.apache.xerces.internal.xni.parser.XMLParserConfiguration;
 
 /**
  * Implementation of a robot application.
@@ -64,6 +67,7 @@ public class CollectPictures extends RoboticsAPIApplication {
     private XmlParserGlobalVarsRD globalVarFromPLC, globalVarFromKRC;
     private CognexIIWA_Telnetlib telnet;
     private CognexIIWA_FTPlib ftp;
+    private XMLParserCoupon coupon1;
     
 	@Override
 	public void initialize() {
@@ -80,10 +84,13 @@ public class CollectPictures extends RoboticsAPIApplication {
 		globalsFileNameKRC = "GlobalVarsCognexKRC.xml";
 		globalVarFromPLC = new XmlParserGlobalVarsRD(globalsFilePath, globalsFileNamePLC);
 		globalVarFromKRC = new XmlParserGlobalVarsRD(globalsFilePath, globalsFileNameKRC);
+		coupon1 = new XMLParserCoupon(1, "d:/Transfer/UserXMLs/CognexIIWACouponHL08.xml");
 	}
 
 	@Override
 	public void run() {
+		
+		
 		
 		double rowOffset = 44;
 		double columnOffset = 57;
@@ -100,6 +107,10 @@ public class CollectPictures extends RoboticsAPIApplication {
 		//bot home
 		setNewHomePosition();
 		KSAF_EE.attachTo(bot.getFlange());
+		coupon1.getFirstNotProcessed(EHotDotCouponStates.Empty);
+		
+		
+		
 		while (true) {
 
 			System.out.println("Moving to Home/Start position");
@@ -134,14 +145,22 @@ public class CollectPictures extends RoboticsAPIApplication {
 			bot.move(ptpHome().setJointVelocityRel(0.3));
 		}
 	}
+
 	private void setNewHomePosition() {
 		// Currently needed every run for this program
 		// Otherwise robot goes to candle home
-		JointPosition newHome = new JointPosition(Math.toRadians(-127), Math.toRadians(88),
-				Math.toRadians(76), Math.toRadians(-86), Math.toRadians(-8), Math.toRadians(-46), Math.toRadians(-5));
+		JointPosition newHome = new JointPosition(
+				Math.toRadians(15),		//A1
+				Math.toRadians(-5), 	//A2
+				Math.toRadians(0), 		//A3
+				Math.toRadians(-117),	//A4
+				Math.toRadians(-80), 	//A5
+				Math.toRadians(-75), 	//A6
+				Math.toRadians(45));	//A7
 		bot.setHomePosition(newHome);
 	}
-	
+
+
 	public Frame gridCalculation(Frame Origin, int rowNumber, int colNumber,
 			double rowOffset, double colOffset, double ZOffset) {
 		return Origin.copy().setX(Origin.getX() - (rowNumber - 1) * rowOffset)
