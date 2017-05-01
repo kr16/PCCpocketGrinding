@@ -94,8 +94,8 @@ public class CollectPictures extends RoboticsAPIApplication {
 		
 		
 		
-		double rowOffset = 44;
-		double columnOffset = 57;
+		double rowOffset = 25.1;
+		double columnOffset = 25.1;
 		double currentExposureTime; 
 		currentExposureTime = globalVarFromPLC.getVarDouble("exposureTime");
 		ftp.setFtpLocalFileName(" HL70_12" + " Exposure " + currentExposureTime + ".jpg");
