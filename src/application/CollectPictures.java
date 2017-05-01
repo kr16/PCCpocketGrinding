@@ -117,7 +117,7 @@ public class CollectPictures extends RoboticsAPIApplication {
 			System.out.println("Moving to Home/Start position");
 			bot.move(ptpHome().setJointVelocityRel(0.3));
 
-			currentTCP.move(ptp(startPos).setJointVelocityRel(0.3));
+			currentTCP.moveAsync(ptp(startPos).setJointVelocityRel(0.3).setBlendingCart(10));
 			
 			telnetLogin();
 			telnet.disconnect();
