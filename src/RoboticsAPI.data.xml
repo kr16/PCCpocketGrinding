@@ -83,6 +83,12 @@
                     </redundancy>
                 </redundancyData>
             </frame>
+            <frame id="_3fb6ce3d-7cff-4b08-9096-62bf7a71d308" name="referencePosHL08">
+                <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
+                <additionalInformation>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1493660759327"/>
+                </additionalInformation>
+            </frame>
         </frame>
     </world>
     <objectTemplates>
