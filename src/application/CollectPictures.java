@@ -32,6 +32,7 @@ import com.kuka.roboticsAPI.geometricModel.Frame;
 import com.kuka.roboticsAPI.geometricModel.ObjectFrame;
 import com.kuka.roboticsAPI.geometricModel.Tool;
 import com.kuka.roboticsAPI.geometricModel.math.CoordinateAxis;
+import com.kuka.roboticsAPI.geometricModel.math.Transformation;
 import com.kuka.roboticsAPI.motionModel.IMotionContainer;
 import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianImpedanceControlMode;
 import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianSineImpedanceControlMode;
@@ -134,6 +135,9 @@ public class CollectPictures extends RoboticsAPIApplication {
 
 				getLogger().info("XYZ: " + TheoreticalPos);
 				
+				Transformation tcpToVisionShift = Transformation.ofTranslation(18.0, -30, 0.0);
+				TheoreticalPos.transform(tcpToVisionShift);
+				
 				//   Move to process position
 				currentTCP.move(lin(TheoreticalPos).setCartVelocity(50).setCartAcceleration(100));
 				telnetLogin();
@@ -168,8 +172,8 @@ public class CollectPictures extends RoboticsAPIApplication {
 
 	public Frame gridCalculation(Frame Origin, int rowNumber, int colNumber,
 			double rowOffset, double colOffset, double ZOffset) {
-		return Origin.copy().setX(Origin.getX() - (rowNumber - 1) * rowOffset)
-				.setY(Origin.copy().getY() + (colNumber - 1) * colOffset)
+		return Origin.copy().setX(Origin.getX() - (colNumber - 1) * colOffset)
+				.setY(Origin.copy().getY() + (rowNumber - 1) * rowOffset)
 				.setZ(Origin.copy().getZ() + ZOffset);
 	}
 	
