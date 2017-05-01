@@ -1,6 +1,8 @@
 package application;
 
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -114,32 +116,36 @@ public class CollectPictures extends RoboticsAPIApplication {
 			System.out.println("Moving to Home/Start position");
 			bot.move(ptpHome().setJointVelocityRel(0.3));
 
-			//currentTCP.move(lin(startPos).setCartVelocity(50));
-			telnetLogin();
+			currentTCP.move(ptp(startPos).setJointVelocityRel(0.3));
 			
+			telnetLogin();
 			telnet.disconnect();
 
-			for (int row = 1; row <= 5; row++) {
-				for (int column = 1; column <= 4; column++) {
-					Frame TheoreticalPos = gridCalculation(referencePos.copy(), row,
-							column, rowOffset, columnOffset,0);
-					getLogger().info(
-							"**********  Position: Row:  " + row + " Column: "
-									+ column + "**********");
+			Map processPosition = new HashMap();
+			while (coupon1.getFirstNotProcessed(EHotDotCouponStates.Empty) != null) {
+				processPosition = coupon1.getFirstNotProcessed(EHotDotCouponStates.Empty);
+				int row = (Integer) processPosition.get("row");
+				int column = (Integer) processPosition.get("column");
+				Frame TheoreticalPos = gridCalculation(referencePos.copy(), row,
+						column, rowOffset, columnOffset,0);
+				getLogger().info(
+						"**********  Position: Row:  " + row + " Column: "
+								+ column + "**********");
 
-					getLogger().info("XYZ: " + TheoreticalPos);
-
-					//   Move to process position
-					currentTCP.move(lin(TheoreticalPos).setCartVelocity(50).setCartAcceleration(100));
-					telnetLogin();
-					currentExposureTime = globalVarFromPLC.getVarDouble("exposureTime");
-					telnet.sendCognexCommand(ECognexCommand.SF, "A", 21, currentExposureTime);
-					telnet.sendCognexTrigger(ECognexTrigger.SE8);
-					telnet.disconnect();
-					ThreadUtil.milliSleep(500);
-					downloadImage();
-				}
-			}	
+				getLogger().info("XYZ: " + TheoreticalPos);
+				
+				//   Move to process position
+				currentTCP.move(lin(TheoreticalPos).setCartVelocity(50).setCartAcceleration(100));
+				telnetLogin();
+				currentExposureTime = globalVarFromPLC.getVarDouble("exposureTime");
+				telnet.sendCognexCommand(ECognexCommand.SF, "A", 21, currentExposureTime);
+				telnet.sendCognexTrigger(ECognexTrigger.SE8);
+				telnet.disconnect();
+				ThreadUtil.milliSleep(500);
+				downloadImage();
+			}
+				
+				
 			bot.move(ptpHome().setJointVelocityRel(0.3));
 		}
 	}
