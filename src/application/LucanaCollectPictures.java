@@ -102,7 +102,7 @@ public class LucanaCollectPictures extends RoboticsAPIApplication {
 		Thread TimerThread;
 		TimerThread = new Thread(timer);
 		
-		telnet.loginLucana();
+		telnet.login();
 		
 		getApplicationControl().halt();
 		
