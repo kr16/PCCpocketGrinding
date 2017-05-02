@@ -125,7 +125,7 @@ public class LucanaIIWA_Telnetlib {
 				System.out.println(">>>Response buffer length:" + bufferSize);
 				if (displayRawBytesValues)
 					System.out.println(">>>Buffer values: " + displayBuffer(buffer, bufferSize));
-				System.out.println(">>>Ascii values response:/n " + displayBufferAscii(buffer, bufferSize));
+				System.out.println(">>>Ascii values response:\n " + displayBufferAscii(buffer, bufferSize));
 				if (!telnetInputString.contains(CRLF)) {
 					System.out.println("No CLRF !!!");
 				}
