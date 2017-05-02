@@ -80,8 +80,8 @@ public class LucanaCollectPictures extends RoboticsAPIApplication {
 		nullBase = getApplicationData().getFrame("/nullBase");
 		startPos = getApplicationData().getFrame("/CouponBase/couponBaseApp");
 		referencePos = getApplicationData().getFrame("/CouponBase/referencePosHL08");
-		telnet = new CognexIIWA_Telnetlib("172.31.1.69","","");
-		ftp = new CognexIIWA_FTPlib("172.31.1.69","admin","");
+		telnet = new CognexIIWA_Telnetlib("172.31.1.69",9000,"","");
+		
 		globalsFilePath = "d:/Transfer/UserXMLs/";
 		globalsFileNamePLC = "GlobalVarsCognexPLC.xml";
 		globalsFileNameKRC = "GlobalVarsCognexKRC.xml";
@@ -93,22 +93,17 @@ public class LucanaCollectPictures extends RoboticsAPIApplication {
 	@Override
 	public void run() {
 		
-		
-		
 		double rowOffset = 25.1;
 		double columnOffset = 25.1;
 		double currentExposureTime; 
 		currentExposureTime = globalVarFromPLC.getVarDouble("exposureTime");
-		ftp.setFtpLocalFileName(" HL70_08" + " Exposure " + currentExposureTime + ".jpg");
-		ftp.setFtpLocalDownloadPath("d:/Transfer/CognexPics/");
-		ftp.setFtpRemoteFileName("Image.jpg");
 		timer = new TimerKCT();
 		Thread TimerThread;
 		TimerThread = new Thread(timer);
 		
 		telnet.login();
 		
-		
+		getApplicationControl().halt();
 		
 		//bot home
 		setNewHomePosition();
