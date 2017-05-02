@@ -61,7 +61,7 @@ public class LucanaIIWA_Telnetlib {
 	}
 
 	public boolean login() {
-		System.out.println("Sunrise --> Opening connection to: " + getServerAddress() + " port: " + getServerPort() + "...");
+		System.out.print("Sunrise --> Opening connection to: " + getServerAddress() + " port: " + getServerPort() + "...");
 		try {
 			// Connect to the server
 			telnet.connect(getServerAddress(), getServerPort());
@@ -71,20 +71,13 @@ public class LucanaIIWA_Telnetlib {
 			in = telnet.getInputStream();
 			out = new PrintStream(telnet.getOutputStream());
 
-			// Log the user 
-			//readUntil("User: ");
-			//readResponse();
-			//write(getUsername());
-			//readUntil("Password: ");
-			//readResponse();
-			//write(getPassword()); 
-			//this.readUntilCRLF();
-
-			System.out.println("Sunrise --> Connection established");
+			//LUCANA does not respond with anything 
+			
+			System.out.println("Sunrise --> ...established");
 			return true;
 		}
 		catch (Exception e) {
-			System.out.println("Sunrise --> FAILED: Telnet connection to: " + getServerAddress() + " port: " + telnet.getRemotePort());
+			System.out.println("/nSunrise --> FAILED: Telnet connection to: " + getServerAddress() + " port: " + telnet.getRemotePort());
 			System.out.println("KUKA Roboter says: Check ethernet cable connections");
 			System.out.println("Application HALT for now <CognexIIWA_TelnetLib>");
 			e.printStackTrace();
@@ -392,6 +385,7 @@ public class LucanaIIWA_Telnetlib {
 			e.printStackTrace();
 		}
 	}
+	
 	private String displayBuffer (byte[] buffer) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < buffer.length; i++) {

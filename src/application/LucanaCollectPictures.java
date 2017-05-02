@@ -105,7 +105,7 @@ public class LucanaCollectPictures extends RoboticsAPIApplication {
 		telnet.login();
 		
 		telnet.write("hAuto"+"\n");
-		telnet.readRawResponse();
+		telnet.readResponse();
 		telnet.disconnect();
 		
 		getApplicationControl().halt();
