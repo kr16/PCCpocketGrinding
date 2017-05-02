@@ -34,12 +34,22 @@ public class CognexIIWA_Telnetlib {
 	private String username;
 	private String password;
     private String serverAddress;
+    private int serverPort;
     
 	public CognexIIWA_Telnetlib(String serverAddress, String user, String password) {
 		this.initialize();
 		this.setUsername(user);
 		this.setPassword(password);
 		this.setServerAddress(serverAddress);
+		this.setServerPort(23);		//default , use other constructor to pass your port number
+	}
+	
+	public CognexIIWA_Telnetlib(String serverAddress, int serverPort, String user, String password) {
+		this.initialize();
+		this.setUsername(user);
+		this.setPassword(password);
+		this.setServerAddress(serverAddress);
+		this.setServerPort(serverPort);
 		
 	}
 	private void initialize() {
@@ -53,7 +63,7 @@ public class CognexIIWA_Telnetlib {
 	public boolean login() {
 		try {
 			// Connect to the server
-			telnet.connect(getServerAddress(), 23);
+			telnet.connect(getServerAddress(), getServerPort());
 			//telnet.connect(server, 10023);
 		
 			// Get input and output stream 
@@ -79,6 +89,29 @@ public class CognexIIWA_Telnetlib {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	public boolean loginLucana() {
+		try {
+			// Connect to the server
+			telnet.connect(getServerAddress(), getServerPort());
+			//telnet.connect(server, 10023);
+		
+			// Get input and output stream 
+			in = telnet.getInputStream();
+			out = new PrintStream(telnet.getOutputStream());
+			this.readUntilCRLF();
+			System.out.println("Sunrise --> Telnet connection to: " + getServerAddress() + " port: " + telnet.getRemotePort());
+			return true;
+		}
+		catch (Exception e) {
+			System.out.println("Sunrise --> FAILED: Telnet connection to: " + getServerAddress() + " port: " + telnet.getRemotePort());
+			System.out.println("KUKA Roboter says: Check ethernet cable connections");
+			System.out.println("Application HALT for now <CognexIIWA_TelnetLib>");
+			e.printStackTrace();
+			return false;
+		}
+		
 	}
 	
 	public void disconnect() {
@@ -526,6 +559,14 @@ public void sendCognexCommand(ECognexCommand command, String column, int row, do
 	}
 	public void setServerAddress(String serverAddress) {
 		this.serverAddress = serverAddress;
+	}
+
+	public int getServerPort() {
+		return serverPort;
+	}
+
+	public void setServerPort(int serverPort) {
+		this.serverPort = serverPort;
 	}
 
 }
