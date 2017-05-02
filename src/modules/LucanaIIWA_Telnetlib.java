@@ -106,7 +106,7 @@ public class LucanaIIWA_Telnetlib {
 	 * 
 	 * @return boolean 
 	 */
-	public boolean readLucanaResponse() {
+	public boolean readLucanaResponse(boolean displayRawBytesValues) {
 		this.setCognexCommandResponseValue(0);
 		this.setCognexSpreadSheetValue(null);
 		this.setCognexSpreadSheetValueDouble(0);
@@ -123,8 +123,9 @@ public class LucanaIIWA_Telnetlib {
 				String commandResponse;
 				String valueReceived;
 				System.out.println(">>>Response buffer length:" + bufferSize);
-				System.out.println(">>>Buffer values: " + displayBuffer(buffer, bufferSize));
-				System.out.println(">>>Ascii values: " + displayBufferAscii(buffer, bufferSize));
+				if (displayRawBytesValues)
+					System.out.println(">>>Buffer values: " + displayBuffer(buffer, bufferSize));
+				System.out.println(">>>Ascii values response:/n " + displayBufferAscii(buffer, bufferSize));
 				if (!telnetInputString.contains(CRLF)) {
 					System.out.println("No CLRF !!!");
 				}
