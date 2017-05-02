@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import modules.CognexIIWA_FTPlib;
 import modules.CognexIIWA_Telnetlib;
 import modules.CouponXMLparser;
+import modules.LucanaIIWA_Telnetlib;
 import modules.XMLParserCoupon;
 import modules.XmlParserGlobalVarsRD;
 import modules.Common.ECognexCommand;
@@ -68,7 +69,7 @@ public class LucanaCollectPictures extends RoboticsAPIApplication {
     private String globalsFilePath;
 	private String globalsFileNamePLC, globalsFileNameKRC;
     private XmlParserGlobalVarsRD globalVarFromPLC, globalVarFromKRC;
-    private CognexIIWA_Telnetlib telnet;
+    private LucanaIIWA_Telnetlib telnet;
     private CognexIIWA_FTPlib ftp;
     private XMLParserCoupon coupon1;
     
@@ -80,7 +81,7 @@ public class LucanaCollectPictures extends RoboticsAPIApplication {
 		nullBase = getApplicationData().getFrame("/nullBase");
 		startPos = getApplicationData().getFrame("/CouponBase/couponBaseApp");
 		referencePos = getApplicationData().getFrame("/CouponBase/referencePosHL08");
-		telnet = new CognexIIWA_Telnetlib("172.31.1.69",9000,"","");
+		telnet = new LucanaIIWA_Telnetlib("172.31.1.148",9000,"","");
 		
 		globalsFilePath = "d:/Transfer/UserXMLs/";
 		globalsFileNamePLC = "GlobalVarsCognexPLC.xml";
@@ -101,7 +102,7 @@ public class LucanaCollectPictures extends RoboticsAPIApplication {
 		Thread TimerThread;
 		TimerThread = new Thread(timer);
 		
-		telnet.login();
+		telnet.loginLucana();
 		
 		getApplicationControl().halt();
 		

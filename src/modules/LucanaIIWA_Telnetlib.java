@@ -17,7 +17,7 @@ import java.util.Calendar;
 import javax.activation.MimeTypeParameterList;
 import javax.swing.plaf.SliderUI;
 
-public class CognexIIWA_Telnetlib {
+public class LucanaIIWA_Telnetlib {
 	private TelnetClient telnet = new TelnetClient();
 	private InputStream in;
 	private PrintStream out;
@@ -36,7 +36,7 @@ public class CognexIIWA_Telnetlib {
     private String serverAddress;
     private int serverPort;
     
-	public CognexIIWA_Telnetlib(String serverAddress, String user, String password) {
+	public LucanaIIWA_Telnetlib(String serverAddress, String user, String password) {
 		this.initialize();
 		this.setUsername(user);
 		this.setPassword(password);
@@ -44,7 +44,7 @@ public class CognexIIWA_Telnetlib {
 		this.setServerPort(23);		//default , use other constructor to pass your port number
 	}
 	
-	public CognexIIWA_Telnetlib(String serverAddress, int serverPort, String user, String password) {
+	public LucanaIIWA_Telnetlib(String serverAddress, int serverPort, String user, String password) {
 		this.initialize();
 		this.setUsername(user);
 		this.setPassword(password);
@@ -90,6 +90,29 @@ public class CognexIIWA_Telnetlib {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	public boolean loginLucana() {
+		try {
+			// Connect to the server
+			telnet.connect(getServerAddress(), getServerPort());
+			//telnet.connect(server, 10023);
+		
+			// Get input and output stream 
+			in = telnet.getInputStream();
+			out = new PrintStream(telnet.getOutputStream());
+			this.readUntilCRLF();
+			System.out.println("Sunrise --> Telnet connection to: " + getServerAddress() + " port: " + telnet.getRemotePort());
+			return true;
+		}
+		catch (Exception e) {
+			System.out.println("Sunrise --> FAILED: Telnet connection to: " + getServerAddress() + " port: " + telnet.getRemotePort());
+			System.out.println("KUKA Roboter says: Check ethernet cable connections");
+			System.out.println("Application HALT for now <CognexIIWA_TelnetLib>");
+			e.printStackTrace();
+			return false;
+		}
+		
 	}
 	
 	public void disconnect() {
