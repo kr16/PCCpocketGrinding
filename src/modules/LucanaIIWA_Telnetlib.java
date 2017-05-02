@@ -6,8 +6,10 @@ import modules.Common.ECognexCommand;
 import modules.Common.ECognexTrigger;
 
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -22,7 +24,8 @@ public class LucanaIIWA_Telnetlib {
 	private InputStream in;
 	private PrintStream out;
 	private int bufferSize = 50; //how many bytes max we read
-
+	private int bufferSizeActual;
+	
 	//Object properties
 	private String username;
 	private String password;
@@ -106,8 +109,8 @@ public class LucanaIIWA_Telnetlib {
 			while (!finish) {
 				int bufferSize = in.read(buffer);
 				String telnetInputString = displayBuffer(buffer, bufferSize);
-				String commandResponse;
-				String valueReceived;
+				this.setBufferSizeActual(bufferSize);
+				
 				System.out.println(">>>Response buffer length:" + bufferSize);
 				if (displayRawBytesValues)
 					System.out.println(">>>Buffer values: " + displayBuffer(buffer, bufferSize));
@@ -135,9 +138,21 @@ public class LucanaIIWA_Telnetlib {
 		boolean finish = false;
 		boolean success = false;
 
+		OutputStream out = null;
+		try {
+			out = new FileOutputStream("D:/LucanaDump.xml");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
 		try {
 			while (!finish) {
-				int bufferSize = in.read(buffer);
+				int bufferSize;
+				while ((bufferSize = in.read(buffer)) > 0) {
+					out.write(buffer, 0, bufferSize);
+				}
+				out.close();
+				in.close();
 				String telnetInputString = displayBuffer(buffer, bufferSize);
 				System.out.println(">>>Response buffer length:" + bufferSize);
 				if (displayRawBytesValues)
@@ -347,6 +362,14 @@ public class LucanaIIWA_Telnetlib {
 
 	public void setServerPort(int serverPort) {
 		this.serverPort = serverPort;
+	}
+
+	public int getBufferSizeActual() {
+		return bufferSizeActual;
+	}
+
+	public void setBufferSizeActual(int bufferSizeActual) {
+		this.bufferSizeActual = bufferSizeActual;
 	}
 
 }

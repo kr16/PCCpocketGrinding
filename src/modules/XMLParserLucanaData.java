@@ -89,12 +89,7 @@ public class XMLParserLucanaData {
 			e.printStackTrace();
 		}
 		int count;
-		try {
-			out.write(bytes, 0, 50);
-		} catch (IOException e) {
-			
-			e.printStackTrace();
-		}
+		
 	}
 	
 	@SuppressWarnings("null")
