@@ -105,7 +105,7 @@ public class LucanaCollectPictures extends RoboticsAPIApplication {
 		telnet.login();
 		
 		telnet.write("hAuto"+"\n");
-		telnet.readCognexResponse();
+		telnet.readRawResponse();
 		telnet.disconnect();
 		
 		getApplicationControl().halt();
@@ -149,7 +149,7 @@ public class LucanaCollectPictures extends RoboticsAPIApplication {
 				telnetLogin();
 				currentExposureTime = globalVarFromPLC.getVarDouble("exposureTime");
 				telnet.sendCognexCommand(ECognexCommand.SF, "A", 21, currentExposureTime);
-				telnet.readCognexResponse();
+				telnet.readLucanaResponse();
 				telnet.sendCognexTrigger(ECognexTrigger.SE8);
 				telnet.disconnect();
 				ThreadUtil.milliSleep(500);

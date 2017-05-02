@@ -22,7 +22,7 @@ public class LucanaIIWA_Telnetlib {
 	private InputStream in;
 	private PrintStream out;
 	private int bufferSize = 50; //how many bytes max we read
-	
+
 	//Object properties
 	private ECognexTrigger currentTrigger;
 	private ECognexCommand currentCommand;
@@ -33,9 +33,9 @@ public class LucanaIIWA_Telnetlib {
 	private double cognexSpreadSheetValueDouble;
 	private String username;
 	private String password;
-    private String serverAddress;
-    private int serverPort;
-    
+	private String serverAddress;
+	private int serverPort;
+
 	public LucanaIIWA_Telnetlib(String serverAddress, String user, String password) {
 		this.initialize();
 		this.setUsername(user);
@@ -43,14 +43,14 @@ public class LucanaIIWA_Telnetlib {
 		this.setServerAddress(serverAddress);
 		this.setServerPort(23);		//default , use other constructor to pass your port number
 	}
-	
+
 	public LucanaIIWA_Telnetlib(String serverAddress, int serverPort, String user, String password) {
 		this.initialize();
 		this.setUsername(user);
 		this.setPassword(password);
 		this.setServerAddress(serverAddress);
 		this.setServerPort(serverPort);
-		
+
 	}
 	private void initialize() {
 		this.setCurrentTrigger(ECognexTrigger.NULL);
@@ -59,18 +59,18 @@ public class LucanaIIWA_Telnetlib {
 		this.setCognexSpreadSheetValue(null);
 		this.setCognexSpreadSheetValueDouble(0);
 	}
-	
+
 	public boolean login() {
 		System.out.println("Sunrise --> Opening connection to: " + getServerAddress() + " port: " + getServerPort() + "...");
 		try {
 			// Connect to the server
 			telnet.connect(getServerAddress(), getServerPort());
 			//telnet.connect(server, 10023);
-		
+
 			// Get input and output stream 
 			in = telnet.getInputStream();
 			out = new PrintStream(telnet.getOutputStream());
-			
+
 			// Log the user 
 			//readUntil("User: ");
 			//readResponse();
@@ -79,7 +79,7 @@ public class LucanaIIWA_Telnetlib {
 			//readResponse();
 			//write(getPassword()); 
 			//this.readUntilCRLF();
-			
+
 			System.out.println("Sunrise --> Connection established");
 			return true;
 		}
@@ -91,8 +91,8 @@ public class LucanaIIWA_Telnetlib {
 			return false;
 		}
 	}
-	
-	
+
+
 	public void disconnect() {
 		if (telnet.isConnected()) {
 			try {
@@ -106,80 +106,49 @@ public class LucanaIIWA_Telnetlib {
 			System.out.println("Sunrise --> No Telnet connection");
 		}
 	}
-	
-	
-    /**
-     * Universal attempt to read Cognex telnet responses.
-     * Currently supports feedback from: SE8, SW8, GV commands.
-     * Method return true only if there was CRLF in a buffer.
-     * At that point user may use additional methods to read values from buffer.
-     * @see
-     * getCognexCommandResponseValue()
-     * getCognexSpreadSheetValue()
-     * 
-     * @return boolean 
-     */
-    public boolean readCognexResponse() {
+
+
+	/**
+	 * Attempt to read Lucana responses.
+	 * 
+	 * @return boolean 
+	 */
+	public boolean readLucanaResponse() {
 		this.setCognexCommandResponseValue(0);
 		this.setCognexSpreadSheetValue(null);
 		this.setCognexSpreadSheetValueDouble(0);
 		final String CRLF = "1310";
-		
-    	byte[] buffer = new byte[1000];
-    	boolean finish = false;
-    	boolean success = false;
-    	
-    	try {
-    		while (!finish) {
-    			int bufferSize = in.read(buffer);
-    			String telnetInputString = displayBuffer(buffer, bufferSize);
-    			String commandResponse;
-    			String valueReceived;
-    			System.out.println(">>>Response buffer length:" + bufferSize);
-    			System.out.println(">>>Buffer values: " + displayBuffer(buffer, bufferSize));
-    			System.out.println(">>>Ascii values: " + displayBufferAscii(buffer, bufferSize));
-    			if (telnetInputString.contains(CRLF)) {
-    				int locateCRLF = telnetInputString.indexOf(CRLF);
-    				if (locateCRLF > 0) {
-    					commandResponse = displayBufferAscii(buffer,locateCRLF-1);
-    					this.setCognexCommandResponseValue(Integer.parseInt(commandResponse));
-    					if (telnetInputString.substring(locateCRLF + CRLF.length(), telnetInputString.length()).endsWith(CRLF)) {
-    						System.out.println("Bingo");
-    					}
-    					valueReceived = displayBufferAscii(buffer, locateCRLF, bufferSize);
-    					
-    					if (valueReceived.length() > 0) {
-    						this.setCognexSpreadSheetValue(valueReceived);
-    					}
-    					System.out.println("Cognex --> Command response: " + this.getCognexCommandResponseValue());
-    					System.out.println("Cognex --> Value received: " + this.getCognexSpreadSheetValue());
-    					if (this.getCurrentCommand() == ECognexCommand.GV && valueReceived.length() > 0) {
-    						try {
-    							double currentCognexSpreadSheetValueDouble = Double.parseDouble(valueReceived);
-    							this.setCognexSpreadSheetValueDouble(currentCognexSpreadSheetValueDouble);
-    						}
-    						catch (NumberFormatException e) {
-    							System.err.println(" - value is not of double type ! <CognexIIWAlib>");
-    						}
-    					}
-    				}
-    				
-    				System.out.println();
-    				finish = true;
-    				success = true;
-    			} else {
-    				System.err.println("Ausgebombt !!!");
-    				finish = true;
-    			}
-	
-			clearBuffer(buffer);
-    		}
+
+		byte[] buffer = new byte[1000];
+		boolean finish = false;
+		boolean success = false;
+
+		try {
+			while (!finish) {
+				int bufferSize = in.read(buffer);
+				String telnetInputString = displayBuffer(buffer, bufferSize);
+				String commandResponse;
+				String valueReceived;
+				System.out.println(">>>Response buffer length:" + bufferSize);
+				System.out.println(">>>Buffer values: " + displayBuffer(buffer, bufferSize));
+				System.out.println(">>>Ascii values: " + displayBufferAscii(buffer, bufferSize));
+				if (!telnetInputString.contains(CRLF)) {
+					System.out.println("No CLRF !!!");
+				}
+
+				System.out.println();
+				finish = true;
+				success = true;
+
+
+				clearBuffer(buffer);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    	return success;
-    }
-    
+		return success;
+	}
+
 	public void write(String value) {
 		try {
 			//System.out.println("Sunrise --> " + value);
@@ -190,7 +159,7 @@ public class LucanaIIWA_Telnetlib {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Method sends trigger command to Cognex camera to take a snapshot
 	 * @param command
@@ -208,7 +177,7 @@ public class LucanaIIWA_Telnetlib {
 		default:
 			throw new ArithmeticException("Unknown trigger: " + command + " <CognexIIWAlib>");
 		}
-		
+
 		try {
 			out.print(command+"\r\n");
 			out.flush();
@@ -219,7 +188,7 @@ public class LucanaIIWA_Telnetlib {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Send command to Cognex 
 	 * Currently supports GV command
@@ -251,7 +220,7 @@ public class LucanaIIWA_Telnetlib {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Send command to Cognex 
 	 * Currently supports GV command
@@ -261,7 +230,7 @@ public class LucanaIIWA_Telnetlib {
 	 * @param column (String)
 	 * @param row (int)
 	 */
-public void sendCognexCommand(ECognexCommand command, String column, int row) {
+	public void sendCognexCommand(ECognexCommand command, String column, int row) {
 		this.setCurrentCommand(ECognexCommand.NULL);
 		StringBuilder sb = new StringBuilder();
 		//Get command
@@ -288,42 +257,42 @@ public void sendCognexCommand(ECognexCommand command, String column, int row) {
 		}
 	}
 
-public void sendCognexCommand(ECognexCommand command, String column, int row, double value) {
-	this.setCurrentCommand(ECognexCommand.NULL);
-	StringBuilder sb = new StringBuilder();
-	String stringRepOfInt;
-	//Get command
-	switch (command) {
-	case SF:
-		this.setCurrentCommand(command);
-		stringRepOfInt = String.format("%03d", row);
-		sb.append(command.toString());
-		sb.append(column);
-		sb.append(stringRepOfInt);
-		sb.append(value);
-		
-		break;
-	case GV:
-		this.setCurrentCommand(command);
-		stringRepOfInt = String.format("%03d", row);
-		sb.append(command.toString());
-		sb.append(column);
-		sb.append(stringRepOfInt);
-		break;
+	public void sendCognexCommand(ECognexCommand command, String column, int row, double value) {
+		this.setCurrentCommand(ECognexCommand.NULL);
+		StringBuilder sb = new StringBuilder();
+		String stringRepOfInt;
+		//Get command
+		switch (command) {
+		case SF:
+			this.setCurrentCommand(command);
+			stringRepOfInt = String.format("%03d", row);
+			sb.append(command.toString());
+			sb.append(column);
+			sb.append(stringRepOfInt);
+			sb.append(value);
 
-	default:
-		throw new ArithmeticException("Unknown command: " + command + " <CognexIIWAlib>");
+			break;
+		case GV:
+			this.setCurrentCommand(command);
+			stringRepOfInt = String.format("%03d", row);
+			sb.append(command.toString());
+			sb.append(column);
+			sb.append(stringRepOfInt);
+			break;
+
+		default:
+			throw new ArithmeticException("Unknown command: " + command + " <CognexIIWAlib>");
+		}
+		//Send command
+		try {
+			System.out.println("Sunrise --> Commnad executed: " + sb);
+			out.print(sb+"\r\n");
+			out.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-	//Send command
-	try {
-		System.out.println("Sunrise --> Commnad executed: " + sb);
-		out.print(sb+"\r\n");
-		out.flush();
-	}
-	catch (Exception e) {
-		e.printStackTrace();
-	}
-}
 
 	public String readUntil(String pattern) {
 		int asciiValue; 
@@ -349,7 +318,7 @@ public void sendCognexCommand(ECognexCommand command, String column, int row, do
 		}
 		return null;
 	}
-	
+
 	public void readUntilCRLF() {
 		boolean response = false;
 		byte[] buffer = new byte[bufferSize];
@@ -369,60 +338,60 @@ public void sendCognexCommand(ECognexCommand command, String column, int row, do
 			e.printStackTrace();
 		}
 	}
-	
-    public void readResponse(int value) { 
-    	int intByteValue;
-    	int asciiValue;
-    	boolean response = false;
-    	try {
-    		while (response == false) {
-    			intByteValue = in.read();
-    			asciiValue = Character.getNumericValue(intByteValue);
-    			if (asciiValue == -1) {
-    				continue;
-    			} else {
-    				response = true;
-    				if (asciiValue == value) {
-    					System.out.println("Cognex --> " + asciiValue);
-    				} else {
-    					System.err.println("Cognex --> " + asciiValue + " Byte integer: " + intByteValue);
-    				}
-    			}
-    		}
-    	} catch (IOException e) {
-    		e.printStackTrace();
-		}
-    	
-    }
-    
-    public void readRawResponse() {
-    	int asciiValue;
-    	boolean finishLoop = false;
-    	try {
-    		while (!finishLoop) {
-    			asciiValue = in.read();
-    			System.out.print("<byte: " + asciiValue + " " + " ascii: " + Character.getNumericValue(asciiValue) + ">");
-    		}
+
+	public void readResponse(int value) { 
+		int intByteValue;
+		int asciiValue;
+		boolean response = false;
+		try {
+			while (response == false) {
+				intByteValue = in.read();
+				asciiValue = Character.getNumericValue(intByteValue);
+				if (asciiValue == -1) {
+					continue;
+				} else {
+					response = true;
+					if (asciiValue == value) {
+						System.out.println("Cognex --> " + asciiValue);
+					} else {
+						System.err.println("Cognex --> " + asciiValue + " Byte integer: " + intByteValue);
+					}
+				}
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    	
-    }
-    
-    public void readResponse() {
-    	byte[] buffer = new byte[bufferSize];
-    	try {
-    		while (true) {
-			int asciiValue = in.read(buffer);
-			System.out.println("Response buffer length:" + asciiValue);
-			System.out.println("Buffer values: " + displayBuffer(buffer));
-			System.out.println("Ascii values: " + displayBufferAscii(buffer));
-			clearBuffer(buffer);
-    		}
+
+	}
+
+	public void readRawResponse() {
+		int asciiValue;
+		boolean finishLoop = false;
+		try {
+			while (!finishLoop) {
+				asciiValue = in.read();
+				System.out.print("<byte: " + asciiValue + " " + " ascii: " + Character.getNumericValue(asciiValue) + ">");
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    }
+
+	}
+
+	public void readResponse() {
+		byte[] buffer = new byte[bufferSize];
+		try {
+			while (true) {
+				int asciiValue = in.read(buffer);
+				System.out.println("Response buffer length:" + asciiValue);
+				System.out.println("Buffer values: " + displayBuffer(buffer));
+				System.out.println("Ascii values: " + displayBufferAscii(buffer));
+				clearBuffer(buffer);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	private String displayBuffer (byte[] buffer) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < buffer.length; i++) {
@@ -430,7 +399,7 @@ public void sendCognexCommand(ECognexCommand command, String column, int row, do
 		}
 		return sb.toString();
 	}
-	
+
 	private String displayBuffer (byte[] buffer, int len) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < len; i++) {
@@ -438,7 +407,7 @@ public void sendCognexCommand(ECognexCommand command, String column, int row, do
 		}
 		return sb.toString();
 	}
-	
+
 	private String displayBufferAscii (byte[] buffer) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < buffer.length; i++) {
@@ -447,7 +416,7 @@ public void sendCognexCommand(ECognexCommand command, String column, int row, do
 		}
 		return sb.toString();
 	}
-	
+
 	private String displayBufferAscii (byte[] buffer, int len) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < len; i++) {
@@ -456,7 +425,7 @@ public void sendCognexCommand(ECognexCommand command, String column, int row, do
 		}
 		return sb.toString();
 	}
-	
+
 	private String displayBufferAscii (byte[] buffer, int start, int len) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = start; i < len; i++) {
@@ -465,7 +434,7 @@ public void sendCognexCommand(ECognexCommand command, String column, int row, do
 		}
 		return sb.toString();
 	}
-	
+
 	private void clearBuffer (byte[] buffer) {
 		for (int i = 0; i < bufferSize; i++) {
 			buffer[i] = 0;
