@@ -24,13 +24,6 @@ public class LucanaIIWA_Telnetlib {
 	private int bufferSize = 50; //how many bytes max we read
 
 	//Object properties
-	private ECognexTrigger currentTrigger;
-	private ECognexCommand currentCommand;
-	private int cognexCommandResponseValue;
-	private String cognexSpreadSheetValue;
-	private char spreadSheetColumn;
-	private int spreadSheetRow;
-	private double cognexSpreadSheetValueDouble;
 	private String username;
 	private String password;
 	private String serverAddress;
@@ -53,11 +46,7 @@ public class LucanaIIWA_Telnetlib {
 
 	}
 	private void initialize() {
-		this.setCurrentTrigger(ECognexTrigger.NULL);
-		this.setCurrentCommand(ECognexCommand.NULL);
-		this.setCognexCommandResponseValue(0);
-		this.setCognexSpreadSheetValue(null);
-		this.setCognexSpreadSheetValueDouble(0);
+		
 	}
 
 	public boolean login() {
@@ -107,9 +96,6 @@ public class LucanaIIWA_Telnetlib {
 	 * @return boolean 
 	 */
 	public boolean readLucanaResponse(boolean displayRawBytesValues) {
-		this.setCognexCommandResponseValue(0);
-		this.setCognexSpreadSheetValue(null);
-		this.setCognexSpreadSheetValueDouble(0);
 		final String CRLF = "1310";
 
 		byte[] buffer = new byte[1000];
@@ -134,7 +120,6 @@ public class LucanaIIWA_Telnetlib {
 				finish = true;
 				success = true;
 
-
 				clearBuffer(buffer);
 			}
 		} catch (IOException e) {
@@ -143,6 +128,39 @@ public class LucanaIIWA_Telnetlib {
 		return success;
 	}
 
+	public byte[] readLucanaResponseDumpBytes(boolean displayRawBytesValues) {
+		final String CRLF = "1310";
+
+		byte[] buffer = new byte[1000];
+		boolean finish = false;
+		boolean success = false;
+
+		try {
+			while (!finish) {
+				int bufferSize = in.read(buffer);
+				String telnetInputString = displayBuffer(buffer, bufferSize);
+				System.out.println(">>>Response buffer length:" + bufferSize);
+				if (displayRawBytesValues)
+					System.out.println(">>>Buffer values: " + displayBuffer(buffer, bufferSize));
+				if (!telnetInputString.contains(CRLF)) {
+					System.out.println("No CLRF !!!");
+				}
+				System.out.println();
+				finish = true;
+				success = true;
+
+				clearBuffer(buffer);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		if (bufferSize > 0) 
+			return buffer;
+		else
+			return null;
+	}
+
+	
 	public void write(String value) {
 		try {
 			//System.out.println("Sunrise --> " + value);
@@ -154,139 +172,6 @@ public class LucanaIIWA_Telnetlib {
 		}
 	}
 
-	/**
-	 * Method sends trigger command to Cognex camera to take a snapshot
-	 * @param command
-	 * Parameter can be SE8 or SW8 of ECognexTrigger enumerator type
-	 * E.G. sendCognexTrigger(ECognexTrigger.SE8)
-	 */
-	public void sendCognexTrigger (ECognexTrigger command) {
-		this.setCurrentTrigger(ECognexTrigger.NULL);
-		switch (command) {
-		case SE8:
-		case SW8:
-			this.setCurrentTrigger(command);
-			break;
-
-		default:
-			throw new ArithmeticException("Unknown trigger: " + command + " <CognexIIWAlib>");
-		}
-
-		try {
-			out.print(command+"\r\n");
-			out.flush();
-			System.out.println("Sunrise --> Command executed: " + command);
-			this.readUntilCRLF();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Send command to Cognex 
-	 * Currently supports GV command
-	 * {@code sendCognexCommand(ECognexCommand.GV, "B012") }
-	 * Result in sending GVB012
-	 * @param command GV enum type ECognexCommand
-	 * @param location "A003" String where A is a column 003 is a row
-	 */
-	public void sendCognexCommand(ECognexCommand command, String location) {
-		this.setCurrentCommand(ECognexCommand.NULL);
-		this.initialize();
-		switch (command) {
-		case GV:
-			this.setCurrentCommand(command);
-			break;
-
-		default:
-			throw new ArithmeticException("Unknown command: " + command + " <CognexIIWAlib>");
-		}
-		StringBuilder sb = new StringBuilder();
-		sb.append(command.toString());
-		sb.append(location);
-		try {
-			System.out.println("Sunrise --> " + sb);
-			out.print(sb+"\r\n");
-			out.flush();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Send command to Cognex 
-	 * Currently supports GV command
-	 * {@code sendCognexCommand(ECognexCommand.GV, "B", 12) }
-	 * Result in sending GVB012
-	 * @param command GV (enum type ECognexCommand)
-	 * @param column (String)
-	 * @param row (int)
-	 */
-	public void sendCognexCommand(ECognexCommand command, String column, int row) {
-		this.setCurrentCommand(ECognexCommand.NULL);
-		StringBuilder sb = new StringBuilder();
-		//Get command
-		switch (command) {
-		case GV:
-			this.setCurrentCommand(command);
-			String stringRepOfInt = String.format("%03d", row);
-			sb.append(command.toString());
-			sb.append(column);
-			sb.append(stringRepOfInt);
-			break;
-
-		default:
-			throw new ArithmeticException("Unknown command: " + command + " <CognexIIWAlib>");
-		}
-		//Send command
-		try {
-			System.out.println("Sunrise --> " + sb);
-			out.print(sb+"\r\n");
-			out.flush();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void sendCognexCommand(ECognexCommand command, String column, int row, double value) {
-		this.setCurrentCommand(ECognexCommand.NULL);
-		StringBuilder sb = new StringBuilder();
-		String stringRepOfInt;
-		//Get command
-		switch (command) {
-		case SF:
-			this.setCurrentCommand(command);
-			stringRepOfInt = String.format("%03d", row);
-			sb.append(command.toString());
-			sb.append(column);
-			sb.append(stringRepOfInt);
-			sb.append(value);
-
-			break;
-		case GV:
-			this.setCurrentCommand(command);
-			stringRepOfInt = String.format("%03d", row);
-			sb.append(command.toString());
-			sb.append(column);
-			sb.append(stringRepOfInt);
-			break;
-
-		default:
-			throw new ArithmeticException("Unknown command: " + command + " <CognexIIWAlib>");
-		}
-		//Send command
-		try {
-			System.out.println("Sunrise --> Commnad executed: " + sb);
-			out.print(sb+"\r\n");
-			out.flush();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	public String readUntil(String pattern) {
 		int asciiValue; 
@@ -436,55 +321,7 @@ public class LucanaIIWA_Telnetlib {
 		}
 	}
 
-	public ECognexTrigger getCurrentTrigger() {
-		return currentTrigger;
-	}
-
-	public void setCurrentTrigger(ECognexTrigger currentTrigger) {
-		this.currentTrigger = currentTrigger;
-	}
-
-	public ECognexCommand getCurrentCommand() {
-		return currentCommand;
-	}
-
-	public void setCurrentCommand(ECognexCommand currentCommand) {
-		this.currentCommand = currentCommand;
-	}
-
-	public int getCognexCommandResponseValue() {
-		return cognexCommandResponseValue;
-	}
-
-	public void setCognexCommandResponseValue(int cognexCommandResponseValue) {
-		this.cognexCommandResponseValue = cognexCommandResponseValue;
-	}
-
-	public String getCognexSpreadSheetValue() {
-		return cognexSpreadSheetValue;
-	}
-
-	public void setCognexSpreadSheetValue(String cognexSpreadSheetValue) {
-		this.cognexSpreadSheetValue = cognexSpreadSheetValue;
-	}
-	public double getCognexSpreadSheetValueDouble() {
-		return cognexSpreadSheetValueDouble;
-	}
-	public void setCognexSpreadSheetValueDouble(double cognexSpreadSheetValueDouble) {
-		this.cognexSpreadSheetValueDouble = cognexSpreadSheetValueDouble;
-	}
-	public char getSpreadSheetColumn() {
-		return spreadSheetColumn;
-	}
-	public void setSpreadSheetColumn(char spreadSheetColumn) {
-		this.spreadSheetColumn = spreadSheetColumn;
-	}
-	public int getSpreadSheetRow() {
-		return spreadSheetRow;
-	}
-	public void setSpreadSheetRow(int spreadSheetRow) {
-		this.spreadSheetRow = spreadSheetRow;
-	}
+	
 	public String getUsername() {
 		return username;
 	}

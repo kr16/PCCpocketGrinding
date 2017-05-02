@@ -105,7 +105,8 @@ public class LucanaCollectPictures extends RoboticsAPIApplication {
 		telnet.login();
 		
 		telnet.write("hAuto"+"\n");
-		telnet.readLucanaResponse(false);
+		//telnet.readLucanaResponse(false);
+		telnet.readLucanaResponseDumpBytes(true);
 		telnet.disconnect();
 		
 		getApplicationControl().halt();
@@ -148,9 +149,9 @@ public class LucanaCollectPictures extends RoboticsAPIApplication {
 				currentTCP.move(lin(TheoreticalPos).setCartVelocity(50).setCartAcceleration(100));
 				telnetLogin();
 				currentExposureTime = globalVarFromPLC.getVarDouble("exposureTime");
-				telnet.sendCognexCommand(ECognexCommand.SF, "A", 21, currentExposureTime);
-				telnet.readLucanaResponse(false);
-				telnet.sendCognexTrigger(ECognexTrigger.SE8);
+//				telnet.sendCognexCommand(ECognexCommand.SF, "A", 21, currentExposureTime);
+//				telnet.readLucanaResponse(false);
+//				telnet.sendCognexTrigger(ECognexTrigger.SE8);
 				telnet.disconnect();
 				ThreadUtil.milliSleep(500);
 				//downloadImage();	//download image to PC

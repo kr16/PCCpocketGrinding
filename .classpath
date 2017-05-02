@@ -5,7 +5,11 @@
 	<classpathentry kind="lib" path="libs/jaxen-1.1.6-javadoc.jar"/>
 	<classpathentry kind="lib" path="libs/jaxen-1.1.6.jar"/>
 	<classpathentry kind="lib" path="libs/jdom-2.0.6-javadoc.jar"/>
-	<classpathentry kind="lib" path="libs/jdom-2.0.6.jar"/>
+	<classpathentry kind="lib" path="libs/jdom-2.0.6.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/CognexKSAF_Nutrunner/libs/jdom-2.0.6-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="libs/commons-net-3.5.jar"/>
 	<classpathentry kind="lib" path="KUKAJavaLib/javax.inject_1.0.0.v20091030.jar"/>
 	<classpathentry kind="lib" path="KUKAJavaLib/com.kuka.appframework.api_1.0.0.8.jar">
