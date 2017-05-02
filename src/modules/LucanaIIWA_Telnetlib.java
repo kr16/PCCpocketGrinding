@@ -23,7 +23,7 @@ public class LucanaIIWA_Telnetlib {
 	private TelnetClient telnet = new TelnetClient();
 	private InputStream in;
 	private PrintStream out;
-	private int bufferSize = 50; //how many bytes max we read
+	private int bufferSize = 16 * 1024; //how many bytes max we read
 	private int bufferSizeActual;
 	
 	//Object properties
@@ -101,7 +101,7 @@ public class LucanaIIWA_Telnetlib {
 	public boolean readLucanaResponse(boolean displayRawBytesValues) {
 		final String CRLF = "1310";
 
-		byte[] buffer = new byte[1000];
+		byte[] buffer = new byte[16 * 1024];
 		boolean finish = false;
 		boolean success = false;
 
@@ -134,7 +134,7 @@ public class LucanaIIWA_Telnetlib {
 	public byte[] readLucanaResponseDumpBytes(boolean displayRawBytesValues) {
 		final String CRLF = "1310";
 
-		byte[] buffer = new byte[1000];
+		byte[] buffer = new byte[16 * 1024];
 		boolean finish = false;
 		boolean success = false;
 
@@ -148,10 +148,7 @@ public class LucanaIIWA_Telnetlib {
 		try {
 			while (!finish) {
 				int bufferSize = in.read(buffer);
-				
-				for (byte singleByte : buffer) {
-					out.write(singleByte);
-				}
+				out.write(buffer, 0, bufferSize);
 				out.close();
 				in.close();
 				String telnetInputString = displayBuffer(buffer, bufferSize);
