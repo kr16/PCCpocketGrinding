@@ -66,7 +66,7 @@ public class LucanaIIWA_Telnetlib {
 			return true;
 		}
 		catch (Exception e) {
-			System.out.println("/nSunrise --> FAILED: Telnet connection to: " + getServerAddress() + " port: " + telnet.getRemotePort());
+			System.out.println("Sunrise --> FAILED: Telnet connection to: " + getServerAddress() + " port: " + telnet.getRemotePort());
 			System.out.println("KUKA Roboter says: Check ethernet cable connections");
 			System.out.println("Application HALT for now <CognexIIWA_TelnetLib>");
 			e.printStackTrace();
