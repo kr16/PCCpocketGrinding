@@ -111,7 +111,7 @@ public class LucanaCollectPictures extends RoboticsAPIApplication {
 		
 		telnet.write("hAuto"+"\n");
 		//telnet.readLucanaResponse(false);
-		buffer = telnet.readLucanaResponseDumpBytes(true);
+		//buffer = telnet.readLucanaResponseDumpBytes(true);
 		lucanaData.dumpLucanaDataToFile(buffer);
 		telnet.disconnect();
 		
