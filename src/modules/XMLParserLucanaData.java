@@ -98,7 +98,7 @@ public class XMLParserLucanaData {
 	}
 	
 	@SuppressWarnings("null")
-	public XMLParserLucanaData(byte[] buffer) {
+	public XMLParserLucanaData() {
 		filename = "D:/ttttttttttttt.xml";
 		this.setCouponID(couponID);
 		this.CouponXMLparserInit();

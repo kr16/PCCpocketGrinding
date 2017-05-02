@@ -91,6 +91,7 @@ public class LucanaCollectPictures extends RoboticsAPIApplication {
 		globalVarFromPLC = new XmlParserGlobalVarsRD(globalsFilePath, globalsFileNamePLC);
 		globalVarFromKRC = new XmlParserGlobalVarsRD(globalsFilePath, globalsFileNameKRC);
 		coupon1 = new XMLParserCoupon(1, "d:/Transfer/UserXMLs/CognexIIWACouponHL08.xml");
+		lucanaData = new XMLParserLucanaData();
 	}
 
 	@Override
