@@ -61,7 +61,7 @@ public class LucanaIIWA_Telnetlib {
 	}
 	
 	public boolean login() {
-		System.out.println("Sunrise --> Connection to: " + getServerAddress() + " port: " + getServerPort());
+		System.out.println("Sunrise --> Opening connection to: " + getServerAddress() + " port: " + getServerPort() + "...");
 		try {
 			// Connect to the server
 			telnet.connect(getServerAddress(), getServerPort());
@@ -78,9 +78,9 @@ public class LucanaIIWA_Telnetlib {
 			//readUntil("Password: ");
 			//readResponse();
 			//write(getPassword()); 
-			this.readUntilCRLF();
+			//this.readUntilCRLF();
 			
-			System.out.println("Sunrise --> Connection to: " + getServerAddress() + " remot port: " + telnet.getRemotePort() + "established");
+			System.out.println("Sunrise --> Connection established");
 			return true;
 		}
 		catch (Exception e) {
