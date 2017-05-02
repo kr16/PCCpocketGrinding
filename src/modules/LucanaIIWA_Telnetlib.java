@@ -147,9 +147,10 @@ public class LucanaIIWA_Telnetlib {
 		
 		try {
 			while (!finish) {
-				int bufferSize;
-				while ((bufferSize = in.read(buffer)) > 0) {
-					out.write(buffer, 0, bufferSize);
+				int bufferSize = in.read(buffer);
+				
+				for (byte singleByte : buffer) {
+					out.write(singleByte);
 				}
 				out.close();
 				in.close();
