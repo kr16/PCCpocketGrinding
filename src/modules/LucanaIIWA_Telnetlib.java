@@ -125,7 +125,7 @@ public class LucanaIIWA_Telnetlib {
 		this.setCognexSpreadSheetValueDouble(0);
 		final String CRLF = "1310";
 		
-    	byte[] buffer = new byte[bufferSize];
+    	byte[] buffer = new byte[1000];
     	boolean finish = false;
     	boolean success = false;
     	
