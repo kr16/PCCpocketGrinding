@@ -1,8 +1,11 @@
 package modules;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -78,8 +81,20 @@ public class XMLParserLucanaData {
 	ssock.close();
 	*/
 	
-	public void dumpLucanaDataToFile() {
-		
+	public void dumpLucanaDataToFile(byte[] bytes) {
+		OutputStream out = null;
+		try {
+			out = new FileOutputStream("D:/LucanaDump.xml");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		int count;
+		try {
+			out.write(bytes, 0, 50);
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
 	}
 	
 	@SuppressWarnings("null")

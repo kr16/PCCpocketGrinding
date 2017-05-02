@@ -12,6 +12,7 @@ import modules.CognexIIWA_Telnetlib;
 import modules.CouponXMLparser;
 import modules.LucanaIIWA_Telnetlib;
 import modules.XMLParserCoupon;
+import modules.XMLParserLucanaData;
 import modules.XmlParserGlobalVarsRD;
 import modules.Common.ECognexCommand;
 import modules.Common.ECognexTrigger;
@@ -72,6 +73,7 @@ public class LucanaCollectPictures extends RoboticsAPIApplication {
     private LucanaIIWA_Telnetlib telnet;
     private CognexIIWA_FTPlib ftp;
     private XMLParserCoupon coupon1;
+    private XMLParserLucanaData lucanaData;
     
 	@Override
 	public void initialize() {
@@ -102,11 +104,14 @@ public class LucanaCollectPictures extends RoboticsAPIApplication {
 		Thread TimerThread;
 		TimerThread = new Thread(timer);
 		
+		byte[] buffer = new byte[1000];
+		
 		telnet.login();
 		
 		telnet.write("hAuto"+"\n");
 		//telnet.readLucanaResponse(false);
-		telnet.readLucanaResponseDumpBytes(true);
+		buffer = telnet.readLucanaResponseDumpBytes(true);
+		lucanaData.dumpLucanaDataToFile(buffer);
 		telnet.disconnect();
 		
 		getApplicationControl().halt();
