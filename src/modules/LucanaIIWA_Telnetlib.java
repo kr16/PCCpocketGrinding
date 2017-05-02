@@ -61,7 +61,7 @@ public class LucanaIIWA_Telnetlib {
 	}
 
 	public boolean login() {
-		System.out.print("Sunrise --> Opening connection to: " + getServerAddress() + " port: " + getServerPort() + "...");
+		System.out.printf("Sunrise --> Opening connection to: " + getServerAddress() + " port: " + getServerPort() + "...");
 		try {
 			// Connect to the server
 			telnet.connect(getServerAddress(), getServerPort());
