@@ -100,9 +100,9 @@ public class XMLParserLucanaData {
 	@SuppressWarnings("null")
 	public XMLParserLucanaData() {
 		filename = "D:/ttttttttttttt.xml";
-		this.setCouponID(couponID);
-		this.CouponXMLparserInit();
-		this.buildList();
+		//this.setCouponID(couponID);
+		//this.CouponXMLparserInit();
+		//this.buildList();
 	}
 	private void buildList() {
 		List<HotDotCouponItem> locations = new ArrayList<XMLObjects.HotDotCouponItem>();
