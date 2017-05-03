@@ -166,43 +166,28 @@ public class LucanaIIWA_CommLib {
 		}
 	}
 	
-	public byte[] readLucanaResponseDumpBytes(boolean displayRawBytesValues) {
-		final String CRLF = "1310";
-
-		byte[] buffer = new byte[16 * 1024];
-		boolean finish = false;
+	public boolean writeLucanaDataToFile(String fileLocation) {
 		boolean success = false;
 
 		OutputStream out = null;
 		try {
-			out = new FileOutputStream("D:/LucanaDump.xml");
+			out = new FileOutputStream(fileLocation);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		
 		try {
-			while (!finish) {
-				int bufferSize = in.read(buffer);
-				out.write(buffer, 0, bufferSize);
+				out.write(getLucanaBufferData(), 0, getLucanaBufferDataSize());
 				out.close();
 				in.close();
-				String telnetInputString = displayBuffer(buffer, bufferSize);
-				System.out.println(">>>Response buffer length:" + bufferSize);
-				if (displayRawBytesValues)
-					System.out.println(">>>Buffer values: " + displayBuffer(buffer, bufferSize));
-				if (!telnetInputString.contains(CRLF)) {
-					System.out.println("No CLRF !!!");
-				}
-				System.out.println();
-				finish = true;
+				System.out.println("Sunrise --> Lucana data dumped to file:" + fileLocation );
 				success = true;
-
-				clearBuffer(buffer);
-			}
+			
 		} catch (IOException e) {
 			e.printStackTrace();
+			return false;
 		}
-		return buffer;
+		return success;
 	}
 
 	

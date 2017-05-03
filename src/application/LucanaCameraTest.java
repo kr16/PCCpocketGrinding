@@ -102,7 +102,7 @@ public class LucanaCameraTest extends RoboticsAPIApplication {
 		lucanaCam.getLucanaCommandResponse();
 		lucanaCam.disconnect();
 		lucanaCam.displayLucanaDataAscii();
-		lucanaCam.displayLucanaDataRaw();
+		//lucanaCam.displayLucanaDataRaw();
 		
 		
 		//bot new home
