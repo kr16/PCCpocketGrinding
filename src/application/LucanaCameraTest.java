@@ -104,9 +104,11 @@ public class LucanaCameraTest extends RoboticsAPIApplication {
 		lucanaCam.write("hAuto"+"\n");
 		lucanaCam.getLucanaCommandResponse();
 		lucanaCam.disconnect();
-		lucanaCam.displayLucanaDataAscii();
+		//lucanaCam.displayLucanaDataAscii();
+		lucanaCam.getLucanaBufferData().toString();
 		lucanaCam.writeLucanaDataToFile("D:/lucanaDump.xml");
 		//lucanaCam.displayLucanaDataRaw();
+		//lucanaCam.stringToDom()
 		lucanaData = new XMLParserLucanaData();
 		
 		

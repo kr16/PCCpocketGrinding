@@ -1,10 +1,14 @@
 package modules;
 
 import org.apache.commons.net.telnet.TelnetClient;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import modules.Common.ECognexCommand;
 import modules.Common.ECognexTrigger;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -12,12 +16,23 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import javax.activation.MimeTypeParameterList;
 import javax.swing.plaf.SliderUI;
+import javax.xml.*;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 public class LucanaIIWA_CommLib {
 	private TelnetClient telnet = new TelnetClient();
@@ -350,7 +365,22 @@ public class LucanaIIWA_CommLib {
 			buffer[i] = 0;
 		}
 	}
+	
+	public static void stringToDom(String xmlSource) 
+	        throws IOException, ParserConfigurationException, SAXException, TransformerException {
+	    // Parse the given input
+	    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	    DocumentBuilder builder = factory.newDocumentBuilder();
+	    Document doc = builder.parse(new InputSource(new StringReader(xmlSource)));
 
+	    // Write the parsed document to an xml file
+	    TransformerFactory transformerFactory = TransformerFactory.newInstance();
+	    Transformer transformer = transformerFactory.newTransformer();
+	    DOMSource source = new DOMSource(doc);
+
+	    StreamResult result =  new StreamResult(new File("D:/my-file.xml"));
+	    transformer.transform(source, result);
+	}
 	
 	public String getUsername() {
 		return username;
