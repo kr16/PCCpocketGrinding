@@ -58,45 +58,12 @@ public class XMLParserLucanaData {
 	MONTH = "month",
 	DAY = "day",
 	YEAR = "year";	
-
-	
-	/*
-	ServerSocket ssock = null;
-	InputStream in = null;
-	OutputStream out = null;
-
-	ssock = new ServerSocket(30010); // open socket
-	Socket sock = ssock.accept(); // accept connection
-	in = sock.getInputStream();// Receive from socket
-	out = new FileOutputStream("D:/ttttttttttttt.xml");
-	byte[] bytes = new byte[16 * 1024];
-	int count;
-	while ((count = in.read(bytes)) > 0) {
-		out.write(bytes, 0, count);
-	}
-
-	out.close();
-	in.close();
-	sock.close();
-	ssock.close();
-	*/
-	
-	public void dumpLucanaDataToFile(byte[] bytes) {
-		OutputStream out = null;
-		try {
-			out = new FileOutputStream("D:/LucanaDump.xml");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		int count;
-		
-	}
 	
 	@SuppressWarnings("null")
 	public XMLParserLucanaData() {
-		filename = "D:/ttttttttttttt.xml";
+		filename = "D:/lucanadump.xml";
 		//this.setCouponID(couponID);
-		//this.CouponXMLparserInit();
+		this.CouponXMLparserInit();
 		//this.buildList();
 	}
 	private void buildList() {
@@ -136,20 +103,21 @@ public class XMLParserLucanaData {
 			
 		root = doc.getRootElement();
 		List<Element> coupons = root.getChildren(EXTERNALDATA);
-		for(Element couponTemp : coupons) {
-			try {
-				if (couponTemp.getAttribute(ERRORCODE).getIntValue() == couponID) {
-					bSuccess = true;
-					this.coupon = couponTemp;
-				}
-			} catch (DataConversionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		if (!bSuccess){
-			System.out.println("No coupon ID: " + couponID + " in file: " + filename);
-		}
+		coupons.toString();
+//		for(Element couponTemp : coupons) {
+//			try {
+//				if (couponTemp.getAttribute(ERRORCODE).getIntValue() == couponID) {
+//					bSuccess = true;
+//					this.coupon = couponTemp;
+//				}
+//			} catch (DataConversionException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+//		if (!bSuccess){
+//			System.out.println("No coupon ID: " + couponID + " in file: " + filename);
+//		}
 	}
 	
 	/**

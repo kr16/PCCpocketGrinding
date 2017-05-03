@@ -83,7 +83,6 @@ public class LucanaCameraTest extends RoboticsAPIApplication {
 		nullBase = getApplicationData().getFrame("/nullBase");
 		startPos = getApplicationData().getFrame("/CouponBase/couponBaseApp");
 		referencePos = getApplicationData().getFrame("/CouponBase/referencePosHL08");
-		lucanaCam = new LucanaIIWA_CommLib("172.31.1.148", 9000);
 		
 		globalsFilePath = "d:/Transfer/UserXMLs/";
 		globalsFileNamePLC = "GlobalVarsCognexPLC.xml";
@@ -91,7 +90,11 @@ public class LucanaCameraTest extends RoboticsAPIApplication {
 		globalVarFromPLC = new XmlParserGlobalVarsRD(globalsFilePath, globalsFileNamePLC);
 		globalVarFromKRC = new XmlParserGlobalVarsRD(globalsFilePath, globalsFileNameKRC);
 		coupon1 = new XMLParserCoupon(1, "d:/Transfer/UserXMLs/CognexIIWACouponHL08.xml");
-		lucanaData = new XMLParserLucanaData();
+		
+		//Lucana network location
+		lucanaCam = new LucanaIIWA_CommLib("172.31.1.148", 9000);
+		//xml parser for lucana data
+		
 	}
 
 	@Override
@@ -104,6 +107,7 @@ public class LucanaCameraTest extends RoboticsAPIApplication {
 		lucanaCam.displayLucanaDataAscii();
 		lucanaCam.writeLucanaDataToFile("D:/lucanaDump.xml");
 		//lucanaCam.displayLucanaDataRaw();
+		lucanaData = new XMLParserLucanaData();
 		
 		
 		//bot new home
