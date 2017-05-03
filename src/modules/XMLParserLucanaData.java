@@ -82,9 +82,7 @@ public class XMLParserLucanaData {
 	
 	private void CouponXMLparserInit() {
 		boolean bSuccess = false;
-		//file = new File("D:/testDump.xml");
 		builder = new SAXBuilder();
-		
 			try {
 				doc = builder.build(this.filename);
 			} catch (JDOMException e1) {
@@ -99,6 +97,7 @@ public class XMLParserLucanaData {
 		
 			
 		root = doc.getRootElement();
+		System.out.println(root);
 		List<Element> coupons = root.getChildren(EXTERNALDATA);
 		System.out.println(coupons.size());
 		System.out.println(coupons.toString());
