@@ -128,7 +128,7 @@ public class LucanaCameraTest extends RoboticsAPIApplication {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		lucanaData = new XMLParserLucanaData("D:\testDump.xml");
+		lucanaData = new XMLParserLucanaData("D:/testDump.xml");
 		
 		
 		//bot new home
