@@ -59,12 +59,9 @@ public class XMLParserLucanaData {
 	DAY = "day",
 	YEAR = "year";	
 	
-	@SuppressWarnings("null")
-	public XMLParserLucanaData() {
-		filename = "D:/testDump.xml";
-		//this.setCouponID(couponID);
+	public XMLParserLucanaData(String fileName) {
+		this.filename = fileName;
 		this.CouponXMLparserInit();
-		//this.buildList();
 	}
 	private void buildList() {
 		List<HotDotCouponItem> locations = new ArrayList<XMLObjects.HotDotCouponItem>();
@@ -85,11 +82,11 @@ public class XMLParserLucanaData {
 	
 	private void CouponXMLparserInit() {
 		boolean bSuccess = false;
-		file = new File("D:/testDump.xml");
+		//file = new File("D:/testDump.xml");
 		builder = new SAXBuilder();
 		
 			try {
-				doc = builder.build(file);
+				doc = builder.build(this.filename);
 			} catch (JDOMException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

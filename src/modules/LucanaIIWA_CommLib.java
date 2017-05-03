@@ -157,6 +157,16 @@ public class LucanaIIWA_CommLib {
 		return getLucanaBufferData();
 	}
 	
+	public String lucanaDatatoString() {
+		if (getLucanaBufferDataSize() > 0) {
+			String lucanaDataString = displayBufferAscii(getLucanaBufferData());
+			return lucanaDataString;
+		} else {
+			System.err.println("Lucana Data Buffer is empty!");
+			return null;
+		}
+	}
+	
 	public String displayLucanaDataAscii() {
 		if (getLucanaBufferDataSize() > 0) {
 			String lucanaDataString = displayBufferAscii(getLucanaBufferData());

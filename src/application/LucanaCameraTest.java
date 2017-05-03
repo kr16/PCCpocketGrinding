@@ -114,7 +114,7 @@ public class LucanaCameraTest extends RoboticsAPIApplication {
 		lucanaCam.writeLucanaDataToFile("D:/lucanaDump.xml");
 		//lucanaCam.displayLucanaDataRaw();
 		try {
-			lucanaCam.stringToDom(lucanaCam.displayLucanaDataAscii());
+			lucanaCam.stringToDom(lucanaCam.lucanaDatatoString());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -128,7 +128,7 @@ public class LucanaCameraTest extends RoboticsAPIApplication {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		lucanaData = new XMLParserLucanaData();
+		lucanaData = new XMLParserLucanaData("D:\testDump.xml");
 		
 		
 		//bot new home
