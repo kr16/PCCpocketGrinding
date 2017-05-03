@@ -19,7 +19,7 @@ import java.util.Calendar;
 import javax.activation.MimeTypeParameterList;
 import javax.swing.plaf.SliderUI;
 
-public class LucanaIIWA_Telnetlib {
+public class LucanaIIWA_CommLib {
 	private TelnetClient telnet = new TelnetClient();
 	private InputStream in;
 	private PrintStream out;
@@ -32,7 +32,7 @@ public class LucanaIIWA_Telnetlib {
 	private String serverAddress;
 	private int serverPort;
 
-	public LucanaIIWA_Telnetlib(String serverAddress, String user, String password) {
+	public LucanaIIWA_CommLib(String serverAddress, String user, String password) {
 		this.initialize();
 		this.setUsername(user);
 		this.setPassword(password);
@@ -40,7 +40,7 @@ public class LucanaIIWA_Telnetlib {
 		this.setServerPort(23);		//default , use other constructor to pass your port number
 	}
 
-	public LucanaIIWA_Telnetlib(String serverAddress, int serverPort, String user, String password) {
+	public LucanaIIWA_CommLib(String serverAddress, int serverPort, String user, String password) {
 		this.initialize();
 		this.setUsername(user);
 		this.setPassword(password);
@@ -53,7 +53,7 @@ public class LucanaIIWA_Telnetlib {
 	}
 
 	public boolean login() {
-		System.out.printf("Sunrise --> Opening connection to: " + getServerAddress() + " port: " + getServerPort() + "...");
+		System.out.printf("Sunrise --> Opening connection to Lucana at: " + getServerAddress() + " port: " + getServerPort() + "...");
 		try {
 			// Connect to the server
 			telnet.connect(getServerAddress(), getServerPort());
@@ -65,13 +65,13 @@ public class LucanaIIWA_Telnetlib {
 
 			//LUCANA does not respond with anything 
 			
-			System.out.println("Sunrise --> ...established");
+			System.out.printf("Sunrise --> ...established");
 			return true;
 		}
 		catch (Exception e) {
-			System.out.println("Sunrise --> FAILED: Telnet connection to: " + getServerAddress() + " port: " + telnet.getRemotePort());
+			System.out.println("Sunrise --> FAILED: Connection to: " + getServerAddress() + " port: " + telnet.getRemotePort());
 			System.out.println("KUKA Roboter says: Check ethernet cable connections");
-			System.out.println("Application HALT for now <CognexIIWA_TelnetLib>");
+			System.out.println("Application HALT for now <LucanaIIWA_CommLib>");
 			e.printStackTrace();
 			return false;
 		}
@@ -82,13 +82,13 @@ public class LucanaIIWA_Telnetlib {
 		if (telnet.isConnected()) {
 			try {
 				telnet.disconnect();
-				System.out.println("Sunrise --> Telnet disconnected");
+				System.out.println("Sunrise --> Lucana disconnected");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else {
-			System.out.println("Sunrise --> No Telnet connection");
+			System.out.println("Sunrise --> No Lucana connection");
 		}
 	}
 

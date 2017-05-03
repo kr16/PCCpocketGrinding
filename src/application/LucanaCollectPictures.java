@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import modules.CognexIIWA_FTPlib;
 import modules.CognexIIWA_Telnetlib;
 import modules.CouponXMLparser;
-import modules.LucanaIIWA_Telnetlib;
+import modules.LucanaIIWA_CommLib;
 import modules.XMLParserCoupon;
 import modules.XMLParserLucanaData;
 import modules.XmlParserGlobalVarsRD;
@@ -70,7 +70,7 @@ public class LucanaCollectPictures extends RoboticsAPIApplication {
     private String globalsFilePath;
 	private String globalsFileNamePLC, globalsFileNameKRC;
     private XmlParserGlobalVarsRD globalVarFromPLC, globalVarFromKRC;
-    private LucanaIIWA_Telnetlib telnet;
+    private LucanaIIWA_CommLib lucanaCam;
     private CognexIIWA_FTPlib ftp;
     private XMLParserCoupon coupon1;
     private XMLParserLucanaData lucanaData;
@@ -83,7 +83,7 @@ public class LucanaCollectPictures extends RoboticsAPIApplication {
 		nullBase = getApplicationData().getFrame("/nullBase");
 		startPos = getApplicationData().getFrame("/CouponBase/couponBaseApp");
 		referencePos = getApplicationData().getFrame("/CouponBase/referencePosHL08");
-		telnet = new LucanaIIWA_Telnetlib("172.31.1.148",9000,"","");
+		lucanaCam = new LucanaIIWA_CommLib("172.31.1.148",9000,"","");
 		
 		globalsFilePath = "d:/Transfer/UserXMLs/";
 		globalsFileNamePLC = "GlobalVarsCognexPLC.xml";
@@ -107,13 +107,13 @@ public class LucanaCollectPictures extends RoboticsAPIApplication {
 		
 		byte[] buffer = new byte[1000];
 		
-		telnet.login();
+		lucanaCam.login();
 		
-		telnet.write("hAuto"+"\n");
+		lucanaCam.write("hAuto"+"\n");
 		//telnet.readLucanaResponse(false);
-		telnet.readLucanaResponseDumpBytes(false);
+		lucanaCam.readLucanaResponseDumpBytes(false);
 		//lucanaData.dumpLucanaDataToFile(buffer);
-		telnet.disconnect();
+		lucanaCam.disconnect();
 		
 		getApplicationControl().halt();
 		
@@ -130,7 +130,7 @@ public class LucanaCollectPictures extends RoboticsAPIApplication {
 			currentTCP.moveAsync(ptp(startPos).setJointVelocityRel(0.3).setBlendingCart(10));
 			
 			telnetLogin();
-			telnet.disconnect();
+			lucanaCam.disconnect();
 			
 			System.err.println("Coupon RESET");
 			coupon1.resetCoupon();
@@ -158,7 +158,7 @@ public class LucanaCollectPictures extends RoboticsAPIApplication {
 //				telnet.sendCognexCommand(ECognexCommand.SF, "A", 21, currentExposureTime);
 //				telnet.readLucanaResponse(false);
 //				telnet.sendCognexTrigger(ECognexTrigger.SE8);
-				telnet.disconnect();
+				lucanaCam.disconnect();
 				ThreadUtil.milliSleep(500);
 				//downloadImage();	//download image to PC
 				coupon1.setRowColumnValue(row, column, EHotDotCouponStates.Scaned);
@@ -202,7 +202,7 @@ public class LucanaCollectPictures extends RoboticsAPIApplication {
 		}
 	}
 	private void telnetLogin() {
-		if (!telnet.login()) {
+		if (!lucanaCam.login()) {
 			getApplicationControl().halt();
 		}
 	}
