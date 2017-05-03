@@ -54,6 +54,7 @@ public class LucanaIIWA_CommLib {
 
 	public boolean login() {
 		System.out.printf("Sunrise --> Opening connection to Lucana at: " + getServerAddress() + " port: " + getServerPort() + "...");
+		System.out.printf("DUPA");
 		try {
 			// Connect to the server
 			telnet.connect(getServerAddress(), getServerPort());
