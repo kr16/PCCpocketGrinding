@@ -65,6 +65,7 @@ public class LucanaIIWA_CommLib {
 	}
 	private void initialize() {
 		lucanaBufferDataSizeMax = 16 * 1024; //how many bytes max we read
+		lucanaBufferDataSize = 0;
 		lucanaBufferData = new byte[lucanaBufferDataSizeMax];
 	}
 
@@ -120,11 +121,9 @@ public class LucanaIIWA_CommLib {
 	/**
 	 * Attempt to read Lucana responses.
 	 * 
-	 * @return boolean 
+	 * @return 
 	 */
-	public boolean readLucanaResponse(boolean displayRawBytesValues) {
-		final String CRLF = "1310";
-		boolean success = false;
+	public byte[] getLucanaCommandResponse() {
 		byte[] localDataBuffer = new byte[16 * 1024];
 		
 		try {		
@@ -136,24 +135,37 @@ public class LucanaIIWA_CommLib {
 					this.lucanaBufferData[i] = localDataBuffer[i];
 				}
 				
-				String dataInputString = displayBuffer(getLucanaBufferData());
-				
-				System.out.println(">>>Response buffer length:" + getLucanaBufferDataSize());
-				if (displayRawBytesValues)
-					System.out.println(">>>Buffer values: " + displayBuffer(getLucanaBufferData()));
-				System.out.println(">>>Ascii values response:\n " + displayBufferAscii(getLucanaBufferData()));
-				if (!dataInputString.contains(CRLF)) {
-					System.out.println("No CLRF !!!");
-				}
-				success = true;
-			
 		} catch (IOException e) {
-			success = false;
 			e.printStackTrace();
+			return null;
 		}
-		return success;
+		return getLucanaBufferData();
 	}
-
+	
+	public void displayLucanaDataAscii() {
+		if (getLucanaBufferDataSize() > 0) {
+			System.out.println("Sunrise --> Ascii values response:\n " + displayBufferAscii(getLucanaBufferData()));
+		} else {
+			System.err.println("Lucana Data Buffer is empty!");
+		}
+	}
+	
+	public void displayLucanaDataAscii(byte[] inputBufferData) {
+		if (inputBufferData.length > 0) {
+			System.out.println("Sunrise --> Ascii values:\n " + displayBufferAscii(inputBufferData,inputBufferData.length));
+		} else {
+			System.err.println("Lucana Data Buffer is empty!");
+		}
+	}
+	
+	public void displayLucanaDataRaw() {
+		if (getLucanaBufferDataSize() > 0) {
+			System.out.println("Sunrise --> Raw bytes values:\n " + displayBuffer(getLucanaBufferData()));
+		} else {
+			System.err.println("Lucana Data Buffer is empty!");
+		}
+	}
+	
 	public byte[] readLucanaResponseDumpBytes(boolean displayRawBytesValues) {
 		final String CRLF = "1310";
 

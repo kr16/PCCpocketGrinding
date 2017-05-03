@@ -108,11 +108,8 @@ public class LucanaCollectPictures extends RoboticsAPIApplication {
 		byte[] buffer = new byte[1000];
 		
 		lucanaCam.login();
-		
 		lucanaCam.write("hAuto"+"\n");
-		//telnet.readLucanaResponse(false);
-		lucanaCam.readLucanaResponse(true);
-		//lucanaData.dumpLucanaDataToFile(buffer);
+		lucanaCam.getLucanaCommandResponse();
 		lucanaCam.disconnect();
 		
 		getApplicationControl().halt();
