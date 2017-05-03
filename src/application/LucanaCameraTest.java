@@ -1,11 +1,16 @@
 package application;
 
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+
+import org.xml.sax.SAXException;
 
 import modules.CognexIIWA_FTPlib;
 import modules.CognexIIWA_Telnetlib;
@@ -105,10 +110,24 @@ public class LucanaCameraTest extends RoboticsAPIApplication {
 		lucanaCam.getLucanaCommandResponse();
 		lucanaCam.disconnect();
 		//lucanaCam.displayLucanaDataAscii();
-		System.out.println(lucanaCam.getLucanaBufferData().toString());
+		lucanaCam.displayLucanaDataAscii();
 		lucanaCam.writeLucanaDataToFile("D:/lucanaDump.xml");
 		//lucanaCam.displayLucanaDataRaw();
-		//lucanaCam.stringToDom()
+		try {
+			lucanaCam.stringToDom(lucanaCam.displayLucanaDataAscii());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TransformerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		lucanaData = new XMLParserLucanaData();
 		
 		

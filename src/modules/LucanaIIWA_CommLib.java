@@ -157,11 +157,14 @@ public class LucanaIIWA_CommLib {
 		return getLucanaBufferData();
 	}
 	
-	public void displayLucanaDataAscii() {
+	public String displayLucanaDataAscii() {
 		if (getLucanaBufferDataSize() > 0) {
-			System.out.println("Sunrise --> Ascii values response:\n " + displayBufferAscii(getLucanaBufferData()));
+			String lucanaDataString = displayBufferAscii(getLucanaBufferData());
+			System.out.println("Sunrise --> Ascii values response:\n " + lucanaDataString);
+			return lucanaDataString;
 		} else {
 			System.err.println("Lucana Data Buffer is empty!");
+			return null;
 		}
 	}
 	
