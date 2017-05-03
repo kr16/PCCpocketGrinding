@@ -38,7 +38,7 @@ public class XMLParserLucanaData {
 	
 	//XML Elements and attribute names
 	public static final String
-	EXTERNALDATA = "ExternalData",
+	EXTERNALDATA = "ExternalDatr",
 	ERRORCODE = "errorCode",
 	HEARTBEAT = "heartbeat",
 	DISTANCEX = "dx",
@@ -61,7 +61,7 @@ public class XMLParserLucanaData {
 	
 	@SuppressWarnings("null")
 	public XMLParserLucanaData() {
-		filename = "D:/my-file.xml";
+		filename = "D:/testDump.xml";
 		//this.setCouponID(couponID);
 		this.CouponXMLparserInit();
 		//this.buildList();
