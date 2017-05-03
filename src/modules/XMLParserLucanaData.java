@@ -85,7 +85,7 @@ public class XMLParserLucanaData {
 	
 	private void CouponXMLparserInit() {
 		boolean bSuccess = false;
-		file = new File(filename);
+		file = new File("D:/testDump.xml");
 		builder = new SAXBuilder();
 		
 			try {
@@ -103,6 +103,7 @@ public class XMLParserLucanaData {
 			
 		root = doc.getRootElement();
 		List<Element> coupons = root.getChildren(EXTERNALDATA);
+		System.out.println(coupons.size());
 		System.out.println(coupons.toString());
 //		for(Element couponTemp : coupons) {
 //			try {
