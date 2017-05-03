@@ -98,9 +98,7 @@ public class LucanaCollectPictures extends RoboticsAPIApplication {
 	public void run() {
 		
 		double rowOffset = 25.1;
-		double columnOffset = 25.1;
-		double currentExposureTime; 
-		currentExposureTime = globalVarFromPLC.getVarDouble("exposureTime");
+		double columnOffset = 25.1; 
 		timer = new TimerKCT();
 		Thread TimerThread;
 		TimerThread = new Thread(timer);
@@ -153,7 +151,7 @@ public class LucanaCollectPictures extends RoboticsAPIApplication {
 				//   Move to process position
 				currentTCP.move(lin(TheoreticalPos).setCartVelocity(50).setCartAcceleration(100));
 				telnetLogin();
-				currentExposureTime = globalVarFromPLC.getVarDouble("exposureTime");
+				
 //				telnet.sendCognexCommand(ECognexCommand.SF, "A", 21, currentExposureTime);
 //				telnet.readLucanaResponse(false);
 //				telnet.sendCognexTrigger(ECognexTrigger.SE8);
