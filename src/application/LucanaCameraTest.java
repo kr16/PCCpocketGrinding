@@ -58,7 +58,7 @@ import com.sun.org.apache.xerces.internal.xni.parser.XMLParserConfiguration;
  * @see #run()
  * @see #dispose()
  */
-public class LucanaCollectPictures extends RoboticsAPIApplication {
+public class LucanaCameraTest extends RoboticsAPIApplication {
 	@Inject
 	private LBR bot;
 	private Tool KSAF_EE;
@@ -97,14 +97,6 @@ public class LucanaCollectPictures extends RoboticsAPIApplication {
 	@Override
 	public void run() {
 		
-		double rowOffset = 25.1;
-		double columnOffset = 25.1; 
-		timer = new TimerKCT();
-		Thread TimerThread;
-		TimerThread = new Thread(timer);
-		
-		byte[] buffer = new byte[1000];
-		
 		lucanaCam.login();
 		lucanaCam.write("hAuto"+"\n");
 		lucanaCam.getLucanaCommandResponse();
@@ -112,59 +104,11 @@ public class LucanaCollectPictures extends RoboticsAPIApplication {
 		lucanaCam.displayLucanaDataAscii();
 		lucanaCam.displayLucanaDataRaw();
 		
-		getApplicationControl().halt();
 		
-		//bot home
+		//bot new home
 		setNewHomePosition();
 		KSAF_EE.attachTo(bot.getFlange());
-		System.out.println(coupon1.getFirstNotProcessed(EHotDotCouponStates.Empty));
 		
-		while (true) {
-
-			System.out.println("Moving to Home/Start position");
-			bot.move(ptpHome().setJointVelocityRel(0.3));
-
-			currentTCP.moveAsync(ptp(startPos).setJointVelocityRel(0.3).setBlendingCart(10));
-			
-			telnetLogin();
-			lucanaCam.disconnect();
-			
-			System.err.println("Coupon RESET");
-			coupon1.resetCoupon();
-			
-			Map processPosition = new HashMap();
-			while (coupon1.getFirstNotProcessed(EHotDotCouponStates.Empty) != null) {
-				processPosition = coupon1.getFirstNotProcessed(EHotDotCouponStates.Empty);
-				int row = (Integer) processPosition.get("row");
-				int column = (Integer) processPosition.get("column");
-				Frame TheoreticalPos = gridCalculation(referencePos.copy(), row,
-						column, rowOffset, columnOffset,0);
-				getLogger().info(
-						"**********  Position: Row:  " + row + " Column: "
-								+ column + "**********");
-
-				getLogger().info("XYZ: " + TheoreticalPos);
-				
-				Transformation tcpToVisionShift = Transformation.ofTranslation(18.0, 0.0, -42.0);
-				TheoreticalPos.transform(tcpToVisionShift);
-				
-				//   Move to process position
-				currentTCP.move(lin(TheoreticalPos).setCartVelocity(50).setCartAcceleration(100));
-				telnetLogin();
-				
-//				telnet.sendCognexCommand(ECognexCommand.SF, "A", 21, currentExposureTime);
-//				telnet.readLucanaResponse(false);
-//				telnet.sendCognexTrigger(ECognexTrigger.SE8);
-				lucanaCam.disconnect();
-				ThreadUtil.milliSleep(500);
-				//downloadImage();	//download image to PC
-				coupon1.setRowColumnValue(row, column, EHotDotCouponStates.Scaned);
-			}
-				
-			currentTCP.moveAsync(lin(startPos).setCartVelocity(30).setBlendingCart(10));
-				
-			bot.move(ptpHome().setJointVelocityRel(0.3));
-		}
 	}
 
 	private void setNewHomePosition() {
@@ -180,37 +124,14 @@ public class LucanaCollectPictures extends RoboticsAPIApplication {
 				Math.toRadians(45));	//A7
 		bot.setHomePosition(newHome);
 	}
-
-
-	public Frame gridCalculation(Frame Origin, int rowNumber, int colNumber,
-			double rowOffset, double colOffset, double ZOffset) {
-		return Origin.copy()
-				.setX(Origin.copy().getX() + (colNumber - 1) * colOffset)
-				.setY(Origin.copy().getY() + (rowNumber - 1) * rowOffset)
-				.setZ(Origin.copy().getZ() + ZOffset);
-	}
 	
-	private void downloadImage() {
-		try {
-			ftp.downloadFile();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	private void telnetLogin() {
-		if (!lucanaCam.login()) {
-			getApplicationControl().halt();
-		}
-	}
 	@Override
     public void dispose()
     {
         try {
-        	// Add your "clean up" code here e.g.
-            timer.timerStopAndKill(); 
+        	 
         } catch (NullPointerException e ) {
-        	System.err.println("One or more threads were not initialized");
+        	
         }
         finally
         {
