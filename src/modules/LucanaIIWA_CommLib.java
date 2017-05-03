@@ -157,6 +157,11 @@ public class LucanaIIWA_CommLib {
 		return getLucanaBufferData();
 	}
 	
+	@Override
+	public String toString() {
+		return displayBuffer(getLucanaBufferData());
+	}
+	
 	public String lucanaDatatoString() {
 		if (getLucanaBufferDataSize() > 0) {
 			String lucanaDataString = displayBufferAscii(getLucanaBufferData());

@@ -110,24 +110,9 @@ public class LucanaCameraTest extends RoboticsAPIApplication {
 		lucanaCam.getLucanaCommandResponse();
 		lucanaCam.disconnect();
 		//lucanaCam.displayLucanaDataAscii();
-		lucanaCam.displayLucanaDataAscii();
+		System.out.println(lucanaCam.toString());
 		lucanaCam.writeLucanaDataToFile("D:/lucanaDump.xml");
 		//lucanaCam.displayLucanaDataRaw();
-		try {
-			lucanaCam.stringToDom(lucanaCam.lucanaDatatoString());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TransformerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		lucanaData = new XMLParserLucanaData("D:/lucanaDump.xml");
 		
 		
