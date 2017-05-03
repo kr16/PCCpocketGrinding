@@ -103,7 +103,7 @@ public class XMLParserLucanaData {
 			
 		root = doc.getRootElement();
 		List<Element> coupons = root.getChildren(EXTERNALDATA);
-		coupons.toString();
+		System.out.println(coupons.toString());
 //		for(Element couponTemp : coupons) {
 //			try {
 //				if (couponTemp.getAttribute(ERRORCODE).getIntValue() == couponID) {
