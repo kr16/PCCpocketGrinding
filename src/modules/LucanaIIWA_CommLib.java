@@ -132,7 +132,7 @@ public class LucanaIIWA_CommLib {
 				this.setLucanaBufferDataSize(BufferSize);
 				this.lucanaBufferData = new byte[getLucanaBufferDataSize()];
 				
-				for (int i = 0; i < localDataBuffer.length; i++) {
+				for (int i = 0; i < getLucanaBufferDataSize(); i++) {
 					this.lucanaBufferData[i] = localDataBuffer[i];
 				}
 				
