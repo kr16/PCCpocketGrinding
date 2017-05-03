@@ -61,7 +61,7 @@ public class XMLParserLucanaData {
 	
 	@SuppressWarnings("null")
 	public XMLParserLucanaData() {
-		filename = "D:/lucanadump.xml";
+		filename = "D:/my-file.xml";
 		//this.setCouponID(couponID);
 		this.CouponXMLparserInit();
 		//this.buildList();
