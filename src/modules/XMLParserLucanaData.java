@@ -98,7 +98,7 @@ public class XMLParserLucanaData {
 			
 		root = doc.getRootElement();
 		System.out.println(root);
-		List<Element> coupons = root.getChildren(EXTERNALDATA);
+		List<Element> coupons = root.getChildren();
 		System.out.println(coupons.size());
 		System.out.println(coupons.toString());
 //		for(Element couponTemp : coupons) {
