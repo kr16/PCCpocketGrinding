@@ -111,7 +111,8 @@ public class LucanaCollectPictures extends RoboticsAPIApplication {
 		lucanaCam.write("hAuto"+"\n");
 		lucanaCam.getLucanaCommandResponse();
 		lucanaCam.disconnect();
-		lucanaCam.displayLucanaDataAscii(lucanaCam.getLucanaBufferData());
+		lucanaCam.displayLucanaDataAscii();
+		lucanaCam.displayLucanaDataRaw();
 		
 		getApplicationControl().halt();
 		
