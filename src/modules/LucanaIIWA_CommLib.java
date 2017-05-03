@@ -159,7 +159,7 @@ public class LucanaIIWA_CommLib {
 	
 	@Override
 	public String toString() {
-		return displayBuffer(getLucanaBufferData());
+		return displayBufferAscii(getLucanaBufferData());
 	}
 	
 	public String lucanaDatatoString() {
