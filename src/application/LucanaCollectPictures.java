@@ -83,7 +83,7 @@ public class LucanaCollectPictures extends RoboticsAPIApplication {
 		nullBase = getApplicationData().getFrame("/nullBase");
 		startPos = getApplicationData().getFrame("/CouponBase/couponBaseApp");
 		referencePos = getApplicationData().getFrame("/CouponBase/referencePosHL08");
-		lucanaCam = new LucanaIIWA_CommLib("172.31.1.148",9000,"","");
+		lucanaCam = new LucanaIIWA_CommLib("172.31.1.148", 9000);
 		
 		globalsFilePath = "d:/Transfer/UserXMLs/";
 		globalsFileNamePLC = "GlobalVarsCognexPLC.xml";
@@ -111,7 +111,7 @@ public class LucanaCollectPictures extends RoboticsAPIApplication {
 		
 		lucanaCam.write("hAuto"+"\n");
 		//telnet.readLucanaResponse(false);
-		lucanaCam.readLucanaResponseDumpBytes(false);
+		lucanaCam.readLucanaResponse(true);
 		//lucanaData.dumpLucanaDataToFile(buffer);
 		lucanaCam.disconnect();
 		

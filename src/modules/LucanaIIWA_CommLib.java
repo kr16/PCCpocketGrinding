@@ -23,8 +23,10 @@ public class LucanaIIWA_CommLib {
 	private TelnetClient telnet = new TelnetClient();
 	private InputStream in;
 	private PrintStream out;
-	private int bufferSize = 16 * 1024; //how many bytes max we read
-	private int bufferSizeActual;
+	private byte[] lucanaBufferData;
+	private int lucanaBufferDataSizeMax; 
+	private int lucanaBufferDataSize;
+	
 	
 	//Object properties
 	private String username;
@@ -32,6 +34,19 @@ public class LucanaIIWA_CommLib {
 	private String serverAddress;
 	private int serverPort;
 
+	/**
+	 * Constructor for Lucana camera on given server (String) and port (Integer)
+	 * @param serverAddress
+	 * @param serverPort
+	 * e.g:
+	 *  LucanaIIWA_CommLib myCamera = LucanaIIWA_CommLib("172.31.1.148", 9000);
+	 */
+	public LucanaIIWA_CommLib(String serverAddress, int serverPort) {
+		this.initialize();
+		this.setServerAddress(serverAddress);
+		this.setServerPort(serverPort);		
+	}
+	
 	public LucanaIIWA_CommLib(String serverAddress, String user, String password) {
 		this.initialize();
 		this.setUsername(user);
@@ -49,12 +64,20 @@ public class LucanaIIWA_CommLib {
 
 	}
 	private void initialize() {
-		
+		lucanaBufferDataSizeMax = 16 * 1024; //how many bytes max we read
+		lucanaBufferData = new byte[lucanaBufferDataSizeMax];
 	}
 
+	/**
+	 * Open connection to Lucana camera
+	 * e.g:
+	 * 	myCamera.login();
+	 * @return
+	 * 	true if connection successful 
+	 *  false if not 
+	 */
 	public boolean login() {
 		System.out.printf("Sunrise --> Opening connection to Lucana at: " + getServerAddress() + " port: " + getServerPort() + "...");
-		System.out.printf("DUPA");
 		try {
 			// Connect to the server
 			telnet.connect(getServerAddress(), getServerPort());
@@ -73,7 +96,7 @@ public class LucanaIIWA_CommLib {
 			System.out.println("Sunrise --> FAILED: Connection to: " + getServerAddress() + " port: " + telnet.getRemotePort());
 			System.out.println("KUKA Roboter says: Check ethernet cable connections");
 			System.out.println("Application HALT for now <LucanaIIWA_CommLib>");
-			e.printStackTrace();
+			//e.printStackTrace();
 			return false;
 		}
 	}
@@ -101,32 +124,31 @@ public class LucanaIIWA_CommLib {
 	 */
 	public boolean readLucanaResponse(boolean displayRawBytesValues) {
 		final String CRLF = "1310";
-
-		byte[] buffer = new byte[16 * 1024];
-		boolean finish = false;
 		boolean success = false;
-
-		try {
-			while (!finish) {
-				int bufferSize = in.read(buffer);
-				String telnetInputString = displayBuffer(buffer, bufferSize);
-				this.setBufferSizeActual(bufferSize);
+		byte[] localDataBuffer = new byte[16 * 1024];
+		
+		try {		
+				int BufferSize = in.read(localDataBuffer);
+				this.setLucanaBufferDataSize(BufferSize);
+				this.lucanaBufferData = new byte[getLucanaBufferDataSize()];
 				
-				System.out.println(">>>Response buffer length:" + bufferSize);
+				for (int i = 0; i < localDataBuffer.length; i++) {
+					this.lucanaBufferData[i] = localDataBuffer[i];
+				}
+				
+				String dataInputString = displayBuffer(getLucanaBufferData());
+				
+				System.out.println(">>>Response buffer length:" + getLucanaBufferDataSize());
 				if (displayRawBytesValues)
-					System.out.println(">>>Buffer values: " + displayBuffer(buffer, bufferSize));
-				System.out.println(">>>Ascii values response:\n " + displayBufferAscii(buffer, bufferSize));
-				if (!telnetInputString.contains(CRLF)) {
+					System.out.println(">>>Buffer values: " + displayBuffer(getLucanaBufferData()));
+				System.out.println(">>>Ascii values response:\n " + displayBufferAscii(getLucanaBufferData()));
+				if (!dataInputString.contains(CRLF)) {
 					System.out.println("No CLRF !!!");
 				}
-
-				System.out.println();
-				finish = true;
 				success = true;
-
-				clearBuffer(buffer);
-			}
+			
 		} catch (IOException e) {
+			success = false;
 			e.printStackTrace();
 		}
 		return success;
@@ -168,10 +190,7 @@ public class LucanaIIWA_CommLib {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		if (bufferSize > 0) 
-			return buffer;
-		else
-			return null;
+		return buffer;
 	}
 
 	
@@ -214,7 +233,7 @@ public class LucanaIIWA_CommLib {
 
 	public void readUntilCRLF() {
 		boolean response = false;
-		byte[] buffer = new byte[bufferSize];
+		byte[] buffer = new byte[lucanaBufferDataSizeMax];
 		try {
 			while (!response) {
 				int len = in.read(buffer);
@@ -272,7 +291,7 @@ public class LucanaIIWA_CommLib {
 	}
 
 	public void readResponse() {
-		byte[] buffer = new byte[bufferSize];
+		byte[] buffer = new byte[lucanaBufferDataSizeMax];
 		try {
 			while (true) {
 				int asciiValue = in.read(buffer);
@@ -330,7 +349,7 @@ public class LucanaIIWA_CommLib {
 	}
 
 	private void clearBuffer (byte[] buffer) {
-		for (int i = 0; i < bufferSize; i++) {
+		for (int i = 0; i < lucanaBufferDataSizeMax; i++) {
 			buffer[i] = 0;
 		}
 	}
@@ -363,12 +382,20 @@ public class LucanaIIWA_CommLib {
 		this.serverPort = serverPort;
 	}
 
-	public int getBufferSizeActual() {
-		return bufferSizeActual;
+	public byte[] getLucanaBufferData() {
+		return lucanaBufferData;
 	}
 
-	public void setBufferSizeActual(int bufferSizeActual) {
-		this.bufferSizeActual = bufferSizeActual;
+	public void setLucanaBufferData(byte[] lucanaBufferData) {
+		this.lucanaBufferData = lucanaBufferData;
+	}
+
+	public int getLucanaBufferDataSize() {
+		return lucanaBufferDataSize;
+	}
+
+	public void setLucanaBufferDataSize(int lucanaBufferDataSize) {
+		this.lucanaBufferDataSize = lucanaBufferDataSize;
 	}
 
 }
