@@ -84,7 +84,10 @@ public class CognexIIWA_FTPlib {
 		
 		//local file output format and path
 		String currDate = mySdf.format(myDate.getTime()) + "_";
-		String localOutputPath = this.getFtpLocalDownloadPath() + currDate + this.getFtpLocalFileName();	
+		String localOutputPath = this.getFtpLocalDownloadPath() + currDate + this.getFtpLocalFileName() + this.getFileExtension();	
+		
+		//remote Cognex ftp file name 
+		String remoteFilename = this.getFtpRemoteFileName() + this.getFileExtension();
 		
 		ftp.setListHiddenFiles(false);
 		//Line below enables detail server responses, usefull for debug
@@ -157,7 +160,7 @@ public class CognexIIWA_FTPlib {
             }
             
             if (listFile) {
-            	for (FTPFile f : ftp.listFiles(this.getFtpRemoteFileName())) {
+            	for (FTPFile f : ftp.listFiles(remoteFilename)) {
             		System.out.println(f.getRawListing());
             		//System.out.println(f.toFormattedString(displayTimeZoneId));
             	}
@@ -214,8 +217,10 @@ public class CognexIIWA_FTPlib {
 	}
 	public void setFileExtension(EfileExtension fileExtension) {
 		this.ftpFileExtension = "." + fileExtension.toString();
-		System.err.println("FILE EXTENSION: " + this.ftpFileExtension);
 	}	
+	public String getFileExtension() {
+		return this.ftpFileExtension;
+	}
 	public String getServerAddress() {
 		return serverAddress;
 	}
@@ -238,7 +243,7 @@ public class CognexIIWA_FTPlib {
 		return ftpLocalFileName;
 	}
 	public void setFtpLocalFileName(String ftpLocalFileName) {
-		this.ftpLocalFileName = ftpLocalFileName + this.ftpFileExtension;
+		this.ftpLocalFileName = ftpLocalFileName;
 	}
 	public String getFtpLocalDownloadPath() {
 		return ftpLocalDownloadPath;
@@ -250,7 +255,7 @@ public class CognexIIWA_FTPlib {
 		return ftpRemoteFileName;
 	}
 	public void setFtpRemoteFileName(String ftpRemoteFileName) {
-		this.ftpRemoteFileName = ftpRemoteFileName + this.ftpFileExtension;
+		this.ftpRemoteFileName = ftpRemoteFileName;
 	}
 	public int getServerPort() {
 		return serverPort;
