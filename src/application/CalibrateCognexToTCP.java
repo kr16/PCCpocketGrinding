@@ -148,8 +148,8 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 		xMove = yMove = 0;
 		row = column = 0;
 		
-		while (row < 16) {
-			while (column < 18) {
+		while (row < rowOffset) {
+			while (column < columnOffset) {
 				getLogger().info(
 						"**********  Position: Row:  " + row + " Column: "
 								+ column + "**********");
