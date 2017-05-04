@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.net.SocketException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Enumeration;
 
 import org.apache.commons.net.PrintCommandListener;
 import org.apache.commons.net.ftp.FTP;
@@ -19,18 +20,34 @@ import org.apache.commons.net.ftp.FTPReply;
 public class CognexIIWA_FTPlib {
 	
 	private String serverAddress = null;
+	private int serverPort;
 	private String username = null;
 	private String password = null;
 	private String ftpLocalFileName = null;
 	private String ftpLocalDownloadPath = null;
 	private String ftpRemoteFileName = null;
+	private String ftpFileExtension = null;
+	public enum EfileExtension {jpg, bmp};
 	
+	/**
+	 * Server default port set to 21
+	 * @param serverAddress	String e.g "172.31.1.148"
+	 * @param username		String e.g "JohnDoe"
+	 * @param password		String e.g "password123"
+	 */
 	public CognexIIWA_FTPlib(String serverAddress, String username, String password) {
 		this.setServerAddress(serverAddress);
 		this.setUsername(username);
-		this.setPassword(password);
-		
+		this.setPassword(password);	
+		this.setServerPort(21);
 	}
+	public CognexIIWA_FTPlib(String serverAddress, int serverPort, String username, String password) {
+		this.setServerAddress(serverAddress);
+		this.setUsername(username);
+		this.setPassword(password);	
+		this.setServerPort(serverPort);
+	}
+	
 	public void downloadFile() throws InterruptedException {
 		// TODO Auto-generated method stub
 		
@@ -46,9 +63,13 @@ public class CognexIIWA_FTPlib {
 			System.err.println("Warning: remote filaname not set, defaults to \"Image.jpg\"  <CognexIIWA_FTPlib.java>");
 			this.setFtpRemoteFileName("Image.jpg");
 		}
+		if (this.ftpFileExtension == null) {
+			System.err.println("Warning: remote filaname extension not set, defaults to \"Image.jpg\"  <CognexIIWA_FTPlib.java>");
+			this.ftpFileExtension = "jpg";
+		}
 		
 		String server = this.getServerAddress();
-		int port = 21;
+		int port = getServerPort();
 		String username = this.getUsername();
 		String password = this.getPassword();
 		boolean binaryTransfer = true;
@@ -189,9 +210,11 @@ public class CognexIIWA_FTPlib {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+			
 	}
+	public void setFileExtension(EfileExtension fileExtension) {
+		this.ftpFileExtension = "." + fileExtension.toString();
+	}	
 	public String getServerAddress() {
 		return serverAddress;
 	}
@@ -214,7 +237,7 @@ public class CognexIIWA_FTPlib {
 		return ftpLocalFileName;
 	}
 	public void setFtpLocalFileName(String ftpLocalFileName) {
-		this.ftpLocalFileName = ftpLocalFileName;
+		this.ftpLocalFileName = ftpLocalFileName + this.ftpFileExtension;
 	}
 	public String getFtpLocalDownloadPath() {
 		return ftpLocalDownloadPath;
@@ -226,7 +249,13 @@ public class CognexIIWA_FTPlib {
 		return ftpRemoteFileName;
 	}
 	public void setFtpRemoteFileName(String ftpRemoteFileName) {
-		this.ftpRemoteFileName = ftpRemoteFileName;
+		this.ftpRemoteFileName = ftpRemoteFileName + this.ftpFileExtension;
+	}
+	public int getServerPort() {
+		return serverPort;
+	}
+	public void setServerPort(int serverPort) {
+		this.serverPort = serverPort;
 	}
 
 }

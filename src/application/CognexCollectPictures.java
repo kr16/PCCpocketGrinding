@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 import modules.CognexIIWA_FTPlib;
+import modules.CognexIIWA_FTPlib.EfileExtension;
 import modules.CognexIIWA_Telnetlib;
 import modules.CouponXMLparser;
 import modules.XMLParserCoupon;
@@ -56,7 +57,7 @@ import com.sun.org.apache.xerces.internal.xni.parser.XMLParserConfiguration;
  * @see #run()
  * @see #dispose()
  */
-public class CollectPictures extends RoboticsAPIApplication {
+public class CognexCollectPictures extends RoboticsAPIApplication {
 	@Inject
 	private LBR bot;
 	private Tool KSAF_EE;
@@ -97,9 +98,10 @@ public class CollectPictures extends RoboticsAPIApplication {
 		double columnOffset = 25.1;
 		double currentExposureTime; 
 		currentExposureTime = globalVarFromPLC.getVarDouble("exposureTime");
-		ftp.setFtpLocalFileName(" HL70_08" + " Exposure " + currentExposureTime + ".bmp");
+		ftp.setFtpLocalFileName(" HL70_08" + " Exposure " + currentExposureTime);
 		ftp.setFtpLocalDownloadPath("d:/Transfer/CognexPics/");
-		ftp.setFtpRemoteFileName("Image.bmp");
+		ftp.setFtpRemoteFileName("Image");
+		ftp.setFileExtension(EfileExtension.bmp);
 		timer = new TimerKCT();
 		Thread TimerThread;
 		TimerThread = new Thread(timer);
