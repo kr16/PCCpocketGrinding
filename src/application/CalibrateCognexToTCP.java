@@ -200,7 +200,7 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 				column++;
 			}
 			xMove = 1;
-			yMove = columnOffset;
+			yMove = columnOffset-1;
 			column = 0;
 			row++;
 		}	
