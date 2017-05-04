@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 import modules.CognexIIWA_FTPlib;
+import modules.CognexIIWA_FTPlib.EfileExtension;
 import modules.CognexIIWA_Telnetlib;
 import modules.XmlParserGlobalVarsRD;
 import modules.Common.ECognexCommand;
@@ -63,13 +64,13 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 	private ObjectFrame currentTCP;
 	private ObjectFrame startPos, centerPos;
 	private ObjectFrame referencePos;
-    private TimerKCT timer;
-    private String globalsFilePath;
+	private TimerKCT timer;
+	private String globalsFilePath;
 	private String globalsFileNamePLC, globalsFileNameKRC;
-    private XmlParserGlobalVarsRD globalVarFromPLC, globalVarFromKRC;
-    private CognexIIWA_Telnetlib telnet;
-    private CognexIIWA_FTPlib ftp;
-    
+	private XmlParserGlobalVarsRD globalVarFromPLC, globalVarFromKRC;
+	private CognexIIWA_Telnetlib telnet;
+	private CognexIIWA_FTPlib ftp;
+
 	@Override
 	public void initialize() {
 		// initialize your application here
@@ -90,7 +91,7 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 
 	@Override
 	public void run() {
-		
+
 		PrintWriter logFile = null;
 		// Log to file section
 		SimpleDateFormat prefixDateFormat;
@@ -106,7 +107,7 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 			e1.printStackTrace();
 		}
 		//////////////////////
-		
+
 		double rowOffset, columnOffset;
 		int row, column;		
 		double xMove, yMove;
@@ -115,107 +116,113 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 		ftp.setFtpLocalFileName(" HL70_08" + " Exposure " + currentExposureTime + ".jpg");
 		ftp.setFtpLocalDownloadPath("d:/Transfer/CognexPics/");
 		ftp.setFtpRemoteFileName("Image.jpg");
+		ftp.setFileExtension(EfileExtension.bmp);
 		timer = new TimerKCT();
 		Thread TimerThread;
 		TimerThread = new Thread(timer);
-		
-		
+
+
 		//bot home
 		setNewHomePosition();
 		KSAF_EE.attachTo(bot.getFlange());
-		
 
-			System.out.println("Moving to Home/Start position");
-			bot.move(ptpHome().setJointVelocityRel(0.3));
-			System.out.println("Moving to Center on pin position, HALT, press start to continue");
-			currentTCP.move(lin(centerPos).setCartVelocity(30));
-			logFile.println("Fastener center position: " + bot.getCurrentCartesianPosition(currentTCP, nullBase));
-			logFile.println("BlobX\t,BlobY\t,BestCircX\t,BestCircY\t,LargestCircX\t,LargestCircY\t, Position");
-			getApplicationControl().halt();
-			System.out.println("Moving to Start calibration grid position");
-			currentTCP.move(linRel(13, 14, 0));
-			
-			double BlobX, BlobY;
-			double BestCircX, BestCircY;
-			double LargestCircX, LargestCircY;
-			xMove = yMove = 0;
-			row = column = 0;
-			rowOffset = 16; // motions in X direction of a tool which is Y for World
-			columnOffset = 23; // motion in Y direction of a tool which is X for World
-			while (row <= 16) {
-				while (column <= 23) {
-					getLogger().info(
-							"**********  Position: Row:  " + row + " Column: "
-									+ column + "**********");
+		System.out.println("Moving to Home/Start position");
+		bot.move(ptpHome().setJointVelocityRel(0.3));
+		System.out.println("Moving to Center on pin position, HALT, press start to continue");
+		currentTCP.move(lin(centerPos).setCartVelocity(30));
+		logFile.println("Fastener center position: " + bot.getCurrentCartesianPosition(currentTCP, nullBase));
+		logFile.println("BlobX\t,BlobY\t,BestCircX\t,BestCircY\t,LargestCircX\t,LargestCircY\t, Position");
+		getApplicationControl().halt();
+		System.out.println("Moving to Start calibration grid position");
+		currentTCP.move(linRel(13, 14, 0));
 
-					//   Move to process position
-					
-					currentTCP.move(linRel(xMove, yMove, 0).setCartVelocity(30).setCartAcceleration(50));
-					telnetLogin();
-					//currentExposureTime = globalVarFromPLC.getVarDouble("exposureTime");
-					//telnet.sendCognexCommand(ECognexCommand.SF, "A", 21, currentExposureTime);
-					telnet.sendCognexTrigger(ECognexTrigger.SE8);
-					ThreadUtil.milliSleep(500);
-					//downloadImage();
-					telnet.sendCognexCommand(ECognexCommand.GV, "N", 7);
-					telnet.readCognexResponse();
-					BlobX = telnet.getCognexSpreadSheetValueDouble();
-					telnet.sendCognexCommand(ECognexCommand.GV, "O", 7);
-					telnet.readCognexResponse();
-					BlobY = telnet.getCognexSpreadSheetValueDouble();
-					telnet.sendCognexCommand(ECognexCommand.GV, "N", 8);
-					telnet.readCognexResponse();
-					BestCircX = telnet.getCognexSpreadSheetValueDouble();
-					telnet.sendCognexCommand(ECognexCommand.GV, "O", 8);
-					telnet.readCognexResponse();
-					BestCircY = telnet.getCognexSpreadSheetValueDouble();
-					telnet.sendCognexCommand(ECognexCommand.GV, "N", 9);
-					telnet.readCognexResponse();
-					LargestCircX = telnet.getCognexSpreadSheetValueDouble();
-					telnet.sendCognexCommand(ECognexCommand.GV, "O", 9);
-					telnet.readCognexResponse();
-					LargestCircY = telnet.getCognexSpreadSheetValueDouble();
-					telnet.disconnect();
-					getLogger().info("XYZ: " + bot.getCurrentCartesianPosition(currentTCP, nullBase));
-					System.out.println("BlobX: " + BlobX + " BlobY: " + BlobY);
-					System.out.println("BestCircX: " + BestCircX + " BestCircY: " + BestCircY);
-					System.out.println("LargestCircX: " + LargestCircX + " LargestCircY: " + LargestCircY);
-					System.out.println("***********************************************");
-					
-					logFile.println(BlobX + "," + BlobY + "," + BestCircX + "," + BestCircY + ","
-									+ LargestCircX + "," + LargestCircY + "," 
-									+ "XYZ: " + bot.getCurrentCartesianPosition(currentTCP, nullBase));
-					logFile.flush();
-					
-					//getApplicationControl().halt();
-					
-					xMove = 0;
-					yMove = -1;
-					column++;
-				}
-				xMove = 1;
-				yMove = columnOffset;
-				column = 0;
-				row++;
-			}	
-			
-			bot.move(ptpHome().setJointVelocityRel(0.3));
+		double BlobX, BlobY;
+		double BestCircX, BestCircY;
+		double LargestCircX, LargestCircY;
+		xMove = yMove = 0;
+		row = column = 0;
+		rowOffset = 16; // motions in X direction of a tool which is Y for World
+		columnOffset = 23; // motion in Y direction of a tool which is X for World
+		while (row <= 16) {
+			while (column <= 23) {
+				getLogger().info(
+						"**********  Position: Row:  " + row + " Column: "
+								+ column + "**********");
+
+				//   Move to process position
+
+				currentTCP.move(linRel(xMove, yMove, 0).setCartVelocity(30).setCartAcceleration(50));
+				telnetLogin();
+				//currentExposureTime = globalVarFromPLC.getVarDouble("exposureTime");
+				//telnet.sendCognexCommand(ECognexCommand.SF, "A", 21, currentExposureTime);
+				telnet.sendCognexTrigger(ECognexTrigger.SE8);
+				ThreadUtil.milliSleep(500);
+				//downloadImage();
+				telnet.sendCognexCommand(ECognexCommand.GV, "N", 7);
+				telnet.readCognexResponse();
+				BlobX = telnet.getCognexSpreadSheetValueDouble();
+				telnet.sendCognexCommand(ECognexCommand.GV, "O", 7);
+				telnet.readCognexResponse();
+				BlobY = telnet.getCognexSpreadSheetValueDouble();
+				telnet.sendCognexCommand(ECognexCommand.GV, "N", 8);
+				telnet.readCognexResponse();
+				BestCircX = telnet.getCognexSpreadSheetValueDouble();
+				telnet.sendCognexCommand(ECognexCommand.GV, "O", 8);
+				telnet.readCognexResponse();
+				BestCircY = telnet.getCognexSpreadSheetValueDouble();
+				telnet.sendCognexCommand(ECognexCommand.GV, "N", 9);
+				telnet.readCognexResponse();
+				LargestCircX = telnet.getCognexSpreadSheetValueDouble();
+				telnet.sendCognexCommand(ECognexCommand.GV, "O", 9);
+				telnet.readCognexResponse();
+				LargestCircY = telnet.getCognexSpreadSheetValueDouble();
+				telnet.disconnect();
+				getLogger().info("XYZ: " + bot.getCurrentCartesianPosition(currentTCP, nullBase));
+				System.out.println("BlobX: " + BlobX + " BlobY: " + BlobY);
+				System.out.println("BestCircX: " + BestCircX + " BestCircY: " + BestCircY);
+				System.out.println("LargestCircX: " + LargestCircX + " LargestCircY: " + LargestCircY);
+				System.out.println("***********************************************");
+
+				logFile.println(BlobX + "," + BlobY + "," + BestCircX + "," + BestCircY + ","
+						+ LargestCircX + "," + LargestCircY + "," 
+						+ "XYZ: " + bot.getCurrentCartesianPosition(currentTCP, nullBase));
+				logFile.flush();
+
+				//getApplicationControl().halt();
+
+				xMove = 0;
+				yMove = -1;
+				column++;
+			}
+			xMove = 1;
+			yMove = columnOffset;
+			column = 0;
+			row++;
+		}	
+
+		bot.move(ptpHome().setJointVelocityRel(0.3));
 	}
 	private void setNewHomePosition() {
 		// Currently needed every run for this program
 		// Otherwise robot goes to candle home
-		JointPosition newHome = new JointPosition(Math.toRadians(-84), Math.toRadians(59),
-				Math.toRadians(-2), Math.toRadians(-109), Math.toRadians(5), Math.toRadians(-78), Math.toRadians(67));
+		JointPosition newHome = new JointPosition(
+				Math.toRadians(15),		//A1
+				Math.toRadians(-5), 	//A2
+				Math.toRadians(0), 		//A3
+				Math.toRadians(-117),	//A4
+				Math.toRadians(-80), 	//A5
+				Math.toRadians(-75), 	//A6
+				Math.toRadians(45));	//A7
 		bot.setHomePosition(newHome);
 	}
-	
+
 	public Frame gridCalculation(Frame Origin, int rowNumber, int colNumber,
 			double rowOffset, double colOffset, double ZOffset) {
 		return Origin.copy().setX(Origin.getX() - (rowNumber - 1) * rowOffset)
 				.setY(Origin.copy().getY() + (colNumber - 1) * colOffset)
 				.setZ(Origin.copy().getZ() + ZOffset);
 	}
-	
+
 	private void downloadImage() {
 		try {
 			ftp.downloadFile();
@@ -230,17 +237,17 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 		}
 	}
 	@Override
-    public void dispose()
-    {
-        try {
-        	// Add your "clean up" code here e.g.
-            timer.timerStopAndKill(); 
-        } catch (NullPointerException e ) {
-        	System.err.println("One or more threads were not initialized");
-        }
-        finally
-        {
-            super.dispose();
-        }
-    }
+	public void dispose()
+	{
+		try {
+			// Add your "clean up" code here e.g.
+			timer.timerStopAndKill(); 
+		} catch (NullPointerException e ) {
+			System.err.println("One or more threads were not initialized");
+		}
+		finally
+		{
+			super.dispose();
+		}
+	}
 }
