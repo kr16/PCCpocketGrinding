@@ -68,6 +68,8 @@ public class CognexIIWA_FTPlib {
 			this.ftpFileExtension = "jpg";
 		}
 		
+		
+		
 		String server = this.getServerAddress();
 		int port = getServerPort();
 		String username = this.getUsername();
@@ -88,7 +90,7 @@ public class CognexIIWA_FTPlib {
 		
 		//remote Cognex ftp file name 
 		String remoteFilename = this.getFtpRemoteFileName() + this.getFileExtension();
-		
+		System.err.println(remoteFilename);
 		ftp.setListHiddenFiles(false);
 		//Line below enables detail server responses, usefull for debug
 		//ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out), true));
