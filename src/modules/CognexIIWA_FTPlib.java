@@ -214,6 +214,7 @@ public class CognexIIWA_FTPlib {
 	}
 	public void setFileExtension(EfileExtension fileExtension) {
 		this.ftpFileExtension = "." + fileExtension.toString();
+		System.err.println("FILE EXTENSION: " + this.ftpFileExtension);
 	}	
 	public String getServerAddress() {
 		return serverAddress;
