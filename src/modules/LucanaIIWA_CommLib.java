@@ -134,9 +134,12 @@ public class LucanaIIWA_CommLib {
 
 
 	/**
-	 * Attempt to read Lucana responses.
+	 * Read Lucana response after command was send.
+	 * Method return array of bytes with Lucana response.
+	 * Use other methods to process this data. 
 	 * 
-	 * @return 
+	 * @return byte[] array
+	 * @return null if array is not populated (no data)
 	 */
 	public byte[] getLucanaCommandResponse() {
 		byte[] localDataBuffer = new byte[16 * 1024];
@@ -151,7 +154,7 @@ public class LucanaIIWA_CommLib {
 				}
 				
 		} catch (IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return null;
 		}
 		return getLucanaBufferData();
