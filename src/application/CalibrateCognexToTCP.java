@@ -77,7 +77,7 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 		KSAF_EE = getApplicationData().createFromTemplate("KSAFNutRunnerEE");
 		currentTCP = KSAF_EE.getFrame("NutRunner_HL70_06");
 		nullBase = getApplicationData().getFrame("/nullBase");
-		startPos = getApplicationData().getFrame("/SpiralTest/SpiralTestStart");
+		startPos = getApplicationData().getFrame("/CouponBase/couponBaseApp");
 		referencePos = getApplicationData().getFrame("/nullBase/referencePosHL12");
 		centerPos = getApplicationData().getFrame("/nullBase/CognexCalibration");
 		telnet = new CognexIIWA_Telnetlib("172.31.1.69","admin","");
