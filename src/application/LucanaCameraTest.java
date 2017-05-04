@@ -113,8 +113,9 @@ public class LucanaCameraTest extends RoboticsAPIApplication {
 		System.out.println(lucanaCam.toString());
 		lucanaCam.writeLucanaDataToFile("D:/lucanaDump.xml");
 		//lucanaCam.displayLucanaDataRaw();
-		lucanaData = new XMLParserLucanaData("D:/lucanaDump.xml");
+		lucanaData = new XMLParserLucanaData();
 		lucanaData.parseXMLDataFromString(lucanaCam.toString());
+		lucanaData.displayXMLdataInPrettyFormat(lucanaCam.toString());
 		
 		//bot new home
 		setNewHomePosition();
