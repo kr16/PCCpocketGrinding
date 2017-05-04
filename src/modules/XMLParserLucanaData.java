@@ -88,14 +88,17 @@ public class XMLParserLucanaData {
 			
 		root = doc.getRootElement();
 		System.out.println(root);
-		List<Element> coupons = root.getChildren();
-		if (coupons.size() > 0 ) {
-			
+		List<Element> xmlElements = root.getChildren();
+		if (xmlElements.size() > 0 ) {
+			for (Element xmlElement : xmlElements) {
+				System.out.println(xmlElement.getName() + " = " + xmlElement.getValue());
+			}
 		} else {
-			
+			System.err.println("Empty string passed?");
+			System.out.println(xmlElements.size());
+			System.out.println(xmlElements.toString());
 		}
-		System.out.println(coupons.size());
-		System.out.println(coupons.toString());
+		
 	}
 	
 	private void parseXMLDataFromFile() {
