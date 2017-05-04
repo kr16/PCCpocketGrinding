@@ -134,6 +134,7 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 		logFile.println("BlobX\t,BlobY\t,BestCircX\t,BestCircY\t,LargestCircX\t,LargestCircY\t, Position");
 		getApplicationControl().halt();
 		System.out.println("Moving to Start calibration grid position");
+		// Offset from center of fastener, Z value for camera focus has to be set correctly at lin(centerPos)
 		currentTCP.move(linRel(15, 14, 0));
 
 		double BlobX, BlobY;
