@@ -98,10 +98,14 @@ public class CognexCollectPictures extends RoboticsAPIApplication {
 		double columnOffset = 25.1;
 		double currentExposureTime; 
 		currentExposureTime = globalVarFromPLC.getVarDouble("exposureTime");
+		//SET LOCAL FILE NAME: 
 		ftp.setFtpLocalFileName(" HL70_08" + " Exposure " + currentExposureTime);
+		//SET DOWNLOAD PATH:
 		ftp.setFtpLocalDownloadPath("d:/Transfer/CognexPics/");
+		//COGNEX default file name for remote picture at ftp server
 		ftp.setFtpRemoteFileName("Image");
-		ftp.setFileExtension(EfileExtension.bmp);
+		//SET FILE EXTENSION bmp or jpg:
+		ftp.setFileExtension(EfileExtension.bmp);	
 		timer = new TimerKCT();
 		Thread TimerThread;
 		TimerThread = new Thread(timer);
