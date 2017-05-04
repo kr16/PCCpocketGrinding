@@ -27,6 +27,9 @@ public class CognexIIWA_FTPlib {
 	private String ftpLocalDownloadPath = null;
 	private String ftpRemoteFileName = null;
 	private String ftpFileExtension = null;
+	/**
+	 *Cognex supports .jpg and .bmp
+	 */
 	public enum EfileExtension {jpg, bmp};
 	
 	/**
