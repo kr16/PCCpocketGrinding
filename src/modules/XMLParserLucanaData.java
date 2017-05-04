@@ -159,6 +159,14 @@ public class XMLParserLucanaData {
 	}
 	
 	public void displayXMLdataInPrettyFormat (String xmlData) {
+		builder = new SAXBuilder();
+		try {
+			this.doc = builder.build(new StringReader(xmlData));
+		} catch (JDOMException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 		
 		//XML doc as pure string to console///////
 		//Nice debug/overview 				//////
 		XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
