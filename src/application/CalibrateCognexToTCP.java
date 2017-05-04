@@ -60,7 +60,7 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 	@Inject
 	private LBR bot;
 	private Tool KSAF_EE;
-	private ObjectFrame nullBase;
+	private ObjectFrame nullBase, couponBase;
 	private ObjectFrame currentTCP;
 	private ObjectFrame startPos, centerPos;
 	private ObjectFrame referencePos;
@@ -77,6 +77,7 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 		KSAF_EE = getApplicationData().createFromTemplate("KSAFNutRunnerEE");
 		currentTCP = KSAF_EE.getFrame("NutRunner_HL70_06");
 		nullBase = getApplicationData().getFrame("/nullBase");
+		couponBase = getApplicationData().getFrame("/CouponBase");
 		startPos = getApplicationData().getFrame("/CouponBase/couponBaseApp");
 		referencePos = getApplicationData().getFrame("/nullBase/referencePosHL12");
 		centerPos = getApplicationData().getFrame("/CouponBase/CognexCalibration");
@@ -182,7 +183,7 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 				telnet.readCognexResponse();
 				LargestCircY = telnet.getCognexSpreadSheetValueDouble();
 				telnet.disconnect();
-				getLogger().info("XYZ: " + bot.getCurrentCartesianPosition(currentTCP, nullBase));
+				getLogger().info("XYZ: " + bot.getCurrentCartesianPosition(currentTCP, couponBase));
 				System.out.println("BlobX: " + BlobX + " BlobY: " + BlobY);
 				System.out.println("BestCircX: " + BestCircX + " BestCircY: " + BestCircY);
 				System.out.println("LargestCircX: " + LargestCircX + " LargestCircY: " + LargestCircY);
