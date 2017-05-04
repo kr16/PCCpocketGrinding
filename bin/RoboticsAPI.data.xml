@@ -45,11 +45,11 @@
             </frame>
         </frame>
         <frame id="_e5db4bde-4b07-4070-a8ab-7db769758c41" name="CouponBase">
-            <transformation a="-1.5861290036497837" b="0.01182766378415555" c="1.580589945696403" x="836.1843523812813" y="494.2490841079985" z="557.9312875529203"/>
+            <transformation a="-1.586360230326122" b="0.01553366624569467" c="1.5792833397962507" x="826.3411245651023" y="468.6286716006331" z="559.5459802578022"/>
             <additionalInformation>
-                <info key="LastModificationTime" type="java.lang.Long" value="1493652483077"/>
+                <info key="LastModificationTime" type="java.lang.Long" value="1493927569256"/>
                 <info key="UseAsBaseForJogging" type="java.lang.Boolean" value="true"/>
-                <info measurementMethod="Base3Point" timestamp="1493652483077" type="com.kuka.roboticsAPI.deviceModel.MeasurementInformation"/>
+                <info measurementMethod="Base3Point" timestamp="1493927569256" type="com.kuka.roboticsAPI.deviceModel.MeasurementInformation"/>
             </additionalInformation>
             <frame id="_43de695e-0fe0-418f-affd-b83255dda971" name="couponBaseApp">
                 <transformation a="-0.051568348874862426" b="-0.03763990463588399" c="3.121901639004286" x="174.9372501222074" y="85.3746612529444" z="56.27659486314087"/>
