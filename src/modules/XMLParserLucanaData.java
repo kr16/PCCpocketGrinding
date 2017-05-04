@@ -61,7 +61,6 @@ public class XMLParserLucanaData {
 	
 	public XMLParserLucanaData(String fileName) {
 		this.filename = fileName;
-		this.CouponXMLparserInit();
 	}
 	private void buildList() {
 		List<HotDotCouponItem> locations = new ArrayList<XMLObjects.HotDotCouponItem>();
@@ -80,7 +79,7 @@ public class XMLParserLucanaData {
 		}
 	}
 	
-	private void CouponXMLparserInit() {
+	private void parseDataFromFile() {
 		boolean bSuccess = false;
 		builder = new SAXBuilder();
 			try {
@@ -95,10 +94,14 @@ public class XMLParserLucanaData {
 				throw new ArithmeticException("THERE IS NO FILE LIKE THAT: " + filename);
 			}			 
 		
-			
 		root = doc.getRootElement();
 		System.out.println(root);
 		List<Element> coupons = root.getChildren();
+		if (coupons.size() > 0 ) {
+			
+		} else {
+			
+		}
 		System.out.println(coupons.size());
 		System.out.println(coupons.toString());
 //		for(Element couponTemp : coupons) {

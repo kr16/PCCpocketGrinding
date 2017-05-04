@@ -150,7 +150,7 @@ public class CollectPictures extends RoboticsAPIApplication {
 				telnet.sendCognexTrigger(ECognexTrigger.SE8);
 				telnet.disconnect();
 				ThreadUtil.milliSleep(500);
-				//downloadImage();	//download image to PC
+				downloadImage();	//download image to PC
 				coupon1.setRowColumnValue(row, column, EHotDotCouponStates.Scaned);
 			}
 				
