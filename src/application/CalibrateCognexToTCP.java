@@ -138,8 +138,8 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 		currentTCP.move(linRel(15, 12, 0));
 
 		// How far robot will move during data collection
-		rowOffset = 15; // motions in X direction of a tool
-		columnOffset = 15; // motion in Y direction of a tool 
+		rowOffset = 16; // motions in X direction of a tool
+		columnOffset = 18; // motion in Y direction of a tool 
 		
 		double BlobX, BlobY;
 		double BestCircX, BestCircY;
@@ -148,7 +148,7 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 		row = column = 0;
 		
 		while (row <= 16) {
-			while (column <= 23) {
+			while (column <= 18) {
 				getLogger().info(
 						"**********  Position: Row:  " + row + " Column: "
 								+ column + "**********");
