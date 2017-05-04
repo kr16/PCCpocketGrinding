@@ -142,8 +142,8 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 		double LargestCircX, LargestCircY;
 		xMove = yMove = 0;
 		row = column = 0;
-		rowOffset = 16; // motions in X direction of a tool which is Y for World
-		columnOffset = 23; // motion in Y direction of a tool which is X for World
+		rowOffset = 16; // motions in X direction of a tool
+		columnOffset = 18; // motion in Y direction of a tool 
 		while (row <= 16) {
 			while (column <= 23) {
 				getLogger().info(
