@@ -99,7 +99,7 @@ public class CognexCollectPictures extends RoboticsAPIApplication {
 		double currentExposureTime; 
 		currentExposureTime = globalVarFromPLC.getVarDouble("exposureTime");
 		//SET FILE EXTENSION bmp or jpg:
-		ftp.setFileExtension(EfileExtension.jpg);
+		//ftp.setFileExtension(EfileExtension.jpg);
 		//SET LOCAL FILE NAME: 
 		ftp.setFtpLocalFileName(" HL70_08" + " Exposure " + currentExposureTime);
 		//SET DOWNLOAD PATH:

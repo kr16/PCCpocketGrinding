@@ -177,7 +177,7 @@ public class CognexIIWA_FTPlib {
                 ftp.retrieveFile(remoteFilename, output);
 
                 output.close();
-                System.out.println("Sunrise --> File: " + currDate +  localOutputPath + " downloaded succesfully");
+                System.out.println("Sunrise --> File: " + localOutputPath + " downloaded succesfully");
             }
 
             ftp.noop(); // check that control connection is working OK
