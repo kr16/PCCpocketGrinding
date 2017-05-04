@@ -68,7 +68,7 @@ public class CognexIIWA_FTPlib {
 		}
 		if (this.ftpFileExtension == null) {
 			System.err.println("Warning: remote filaname extension not set, defaults to \"image.jpg\"  <CognexIIWA_FTPlib.java>");
-			this.ftpFileExtension = "jpg";
+			this.ftpFileExtension = ".jpg";
 		}
 		
 		
