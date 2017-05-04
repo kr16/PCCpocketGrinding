@@ -113,9 +113,9 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 		double xMove, yMove;
 		double currentExposureTime; 
 		currentExposureTime = globalVarFromPLC.getVarDouble("exposureTime");
-		ftp.setFtpLocalFileName(" HL70_08" + " Exposure " + currentExposureTime + ".jpg");
+		ftp.setFtpLocalFileName(" HL70_08" + " Exposure " + currentExposureTime);
 		ftp.setFtpLocalDownloadPath("d:/Transfer/CognexPics/");
-		ftp.setFtpRemoteFileName("Image.jpg");
+		//ftp.setFtpRemoteFileName("Image");
 		ftp.setFileExtension(EfileExtension.bmp);
 		timer = new TimerKCT();
 		Thread TimerThread;
