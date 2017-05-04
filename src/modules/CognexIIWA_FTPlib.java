@@ -160,7 +160,7 @@ public class CognexIIWA_FTPlib {
             }
             
             if (listFile) {
-            	for (FTPFile f : ftp.listFiles(remoteFilename)) {
+            	for (FTPFile f : ftp.listFiles("Image.bmp")) {
             		System.out.println(f.getRawListing());
             		//System.out.println(f.toFormattedString(displayTimeZoneId));
             	}
