@@ -137,13 +137,16 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 		// Offset from center of fastener, Z value for camera focus has to be set correctly at lin(centerPos)
 		currentTCP.move(linRel(15, 14, 0));
 
+		// How far robot will move during data collection
+		rowOffset = 16; // motions in X direction of a tool
+		columnOffset = 18; // motion in Y direction of a tool 
+		
 		double BlobX, BlobY;
 		double BestCircX, BestCircY;
 		double LargestCircX, LargestCircY;
 		xMove = yMove = 0;
 		row = column = 0;
-		rowOffset = 16; // motions in X direction of a tool
-		columnOffset = 18; // motion in Y direction of a tool 
+		
 		while (row <= 16) {
 			while (column <= 23) {
 				getLogger().info(
