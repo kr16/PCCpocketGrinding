@@ -134,7 +134,7 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 		logFile.println("BlobX\t,BlobY\t,BestCircX\t,BestCircY\t,LargestCircX\t,LargestCircY\t, Position");
 		getApplicationControl().halt();
 		System.out.println("Moving to Start calibration grid position");
-		currentTCP.move(linRel(13, 14, 0));
+		currentTCP.move(linRel(15, 14, 0));
 
 		double BlobX, BlobY;
 		double BestCircX, BestCircY;
@@ -158,22 +158,22 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 				telnet.sendCognexTrigger(ECognexTrigger.SE8);
 				ThreadUtil.milliSleep(500);
 				//downloadImage();
-				telnet.sendCognexCommand(ECognexCommand.GV, "N", 7);
+				telnet.sendCognexCommand(ECognexCommand.GV, "C", 3);
 				telnet.readCognexResponse();
 				BlobX = telnet.getCognexSpreadSheetValueDouble();
-				telnet.sendCognexCommand(ECognexCommand.GV, "O", 7);
+				telnet.sendCognexCommand(ECognexCommand.GV, "D", 3);
 				telnet.readCognexResponse();
 				BlobY = telnet.getCognexSpreadSheetValueDouble();
-				telnet.sendCognexCommand(ECognexCommand.GV, "N", 8);
+				telnet.sendCognexCommand(ECognexCommand.GV, "B", 7);
 				telnet.readCognexResponse();
 				BestCircX = telnet.getCognexSpreadSheetValueDouble();
-				telnet.sendCognexCommand(ECognexCommand.GV, "O", 8);
+				telnet.sendCognexCommand(ECognexCommand.GV, "C", 7);
 				telnet.readCognexResponse();
 				BestCircY = telnet.getCognexSpreadSheetValueDouble();
-				telnet.sendCognexCommand(ECognexCommand.GV, "N", 9);
+				telnet.sendCognexCommand(ECognexCommand.GV, "B", 10);
 				telnet.readCognexResponse();
 				LargestCircX = telnet.getCognexSpreadSheetValueDouble();
-				telnet.sendCognexCommand(ECognexCommand.GV, "O", 9);
+				telnet.sendCognexCommand(ECognexCommand.GV, "C", 10);
 				telnet.readCognexResponse();
 				LargestCircY = telnet.getCognexSpreadSheetValueDouble();
 				telnet.disconnect();
