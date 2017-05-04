@@ -105,7 +105,7 @@ public class CognexCollectPictures extends RoboticsAPIApplication {
 		//SET DOWNLOAD PATH:
 		ftp.setFtpLocalDownloadPath("d:/Transfer/CognexPics/");
 		//COGNEX default file name for remote picture at ftp server
-		ftp.setFtpRemoteFileName("Image");	
+		ftp.setFtpRemoteFileName("image");	
 		timer = new TimerKCT();
 		Thread TimerThread;
 		TimerThread = new Thread(timer);

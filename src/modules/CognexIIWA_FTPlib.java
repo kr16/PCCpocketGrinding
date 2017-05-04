@@ -60,11 +60,11 @@ public class CognexIIWA_FTPlib {
 			this.setFtpLocalFileName(".jpg");
 		}
 		if (this.getFtpRemoteFileName() == null) {
-			System.err.println("Warning: remote filaname not set, defaults to \"Image.jpg\"  <CognexIIWA_FTPlib.java>");
+			System.err.println("Warning: remote filaname not set, defaults to \"image.jpg\"  <CognexIIWA_FTPlib.java>");
 			this.setFtpRemoteFileName("Image.jpg");
 		}
 		if (this.ftpFileExtension == null) {
-			System.err.println("Warning: remote filaname extension not set, defaults to \"Image.jpg\"  <CognexIIWA_FTPlib.java>");
+			System.err.println("Warning: remote filaname extension not set, defaults to \"image.jpg\"  <CognexIIWA_FTPlib.java>");
 			this.ftpFileExtension = "jpg";
 		}
 		
@@ -90,7 +90,6 @@ public class CognexIIWA_FTPlib {
 		
 		//remote Cognex ftp file name 
 		String remoteFilename = this.getFtpRemoteFileName() + this.getFileExtension();
-		System.err.println(remoteFilename);
 		ftp.setListHiddenFiles(false);
 		//Line below enables detail server responses, usefull for debug
 		//ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out), true));
@@ -162,7 +161,7 @@ public class CognexIIWA_FTPlib {
             }
             
             if (listFile) {
-            	for (FTPFile f : ftp.listFiles("Image.bmp")) {
+            	for (FTPFile f : ftp.listFiles("/")) {
             		System.out.println(f.getRawListing());
             		//System.out.println(f.toFormattedString(displayTimeZoneId));
             	}
@@ -172,10 +171,10 @@ public class CognexIIWA_FTPlib {
 
                 output = new FileOutputStream(localOutputPath);
 
-                ftp.retrieveFile(this.getFtpRemoteFileName(), output);
+                ftp.retrieveFile(remoteFilename, output);
 
                 output.close();
-                System.out.println("Sunrise --> File: " + currDate + ftpLocalFileName + " downloaded succesfully");
+                System.out.println("Sunrise --> File: " + currDate +  localOutputPath + " downloaded succesfully");
             }
 
             ftp.noop(); // check that control connection is working OK
