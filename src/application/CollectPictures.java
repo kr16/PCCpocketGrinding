@@ -99,9 +99,9 @@ public class CollectPictures extends RoboticsAPIApplication {
 		double columnOffset = 25.1;
 		double currentExposureTime; 
 		currentExposureTime = globalVarFromPLC.getVarDouble("exposureTime");
-		ftp.setFtpLocalFileName(" HL70_08" + " Exposure " + currentExposureTime + ".jpg");
+		ftp.setFtpLocalFileName(" HL70_08" + " Exposure " + currentExposureTime + ".bmp");
 		ftp.setFtpLocalDownloadPath("d:/Transfer/CognexPics/");
-		ftp.setFtpRemoteFileName("Image.jpg");
+		ftp.setFtpRemoteFileName("Image.bmp");
 		timer = new TimerKCT();
 		Thread TimerThread;
 		TimerThread = new Thread(timer);
