@@ -1,16 +1,22 @@
 package modules;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import modules.Common.EHotDotCouponStates;
 import modules.XMLObjects.HotDotCouponItem;
@@ -22,6 +28,7 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
+import org.xml.sax.SAXException;
 
 import com.kuka.common.ThreadUtil;
 
@@ -77,6 +84,47 @@ public class XMLParserLucanaData {
 			  locations.add(location);
 			}
 		}
+	}
+	
+	public Document parseXmlFromString(String xmlString){
+	    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	    DocumentBuilder builder = null;
+		try {
+			builder = factory.newDocumentBuilder();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    InputStream inputStream = new    ByteArrayInputStream(xmlString.getBytes());
+	    org.w3c.dom.Document document = null;
+		try {
+			document = builder.parse(inputStream);
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    return (Document) document;
+	}
+	
+	public void parseDataFromDocument(Document document) {
+		boolean bSuccess = false;
+		builder = new SAXBuilder();
+			doc = document;			 
+		
+		root = doc.getRootElement();
+		System.out.println(root);
+		List<Element> coupons = root.getChildren();
+		if (coupons.size() > 0 ) {
+			
+		} else {
+			
+		}
+		System.out.println(coupons.size());
+		System.out.println(coupons.toString());
+	
 	}
 	
 	private void parseDataFromFile() {
