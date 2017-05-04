@@ -79,7 +79,7 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 		nullBase = getApplicationData().getFrame("/nullBase");
 		startPos = getApplicationData().getFrame("/CouponBase/couponBaseApp");
 		referencePos = getApplicationData().getFrame("/nullBase/referencePosHL12");
-		centerPos = getApplicationData().getFrame("/nullBase/CognexCalibration");
+		centerPos = getApplicationData().getFrame("/CouponBase/CognexCalibration");
 		telnet = new CognexIIWA_Telnetlib("172.31.1.69","admin","");
 		ftp = new CognexIIWA_FTPlib("172.31.1.69","admin","");
 		globalsFilePath = "d:/Transfer/UserXMLs/";
