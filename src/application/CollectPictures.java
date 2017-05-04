@@ -93,8 +93,6 @@ public class CollectPictures extends RoboticsAPIApplication {
 	@Override
 	public void run() {
 		
-		
-		
 		double rowOffset = 25.1;
 		double columnOffset = 25.1;
 		double currentExposureTime; 
@@ -105,7 +103,6 @@ public class CollectPictures extends RoboticsAPIApplication {
 		timer = new TimerKCT();
 		Thread TimerThread;
 		TimerThread = new Thread(timer);
-		
 		
 		//bot home
 		setNewHomePosition();
