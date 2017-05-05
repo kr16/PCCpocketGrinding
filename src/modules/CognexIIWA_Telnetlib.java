@@ -134,16 +134,17 @@ public class CognexIIWA_Telnetlib {
     			String telnetInputString = displayBuffer(buffer, bufferSize);
     			String commandResponse;
     			String valueReceived;
-    			System.out.println(">>>Response buffer length:" + bufferSize);
-    			System.out.println(">>>Buffer values: " + displayBuffer(buffer, bufferSize));
-    			System.out.println(">>>Ascii values: " + displayBufferAscii(buffer, bufferSize));
+    			//Enable for Debug
+    			//System.out.println(">>>Response buffer length:" + bufferSize);
+    			//System.out.println(">>>Buffer values: " + displayBuffer(buffer, bufferSize));
+    			//System.out.println(">>>Ascii values: " + displayBufferAscii(buffer, bufferSize));
     			if (telnetInputString.contains(CRLF)) {
     				int locateCRLF = telnetInputString.indexOf(CRLF);
     				if (locateCRLF > 0) {
     					commandResponse = displayBufferAscii(buffer,locateCRLF-1);
     					this.setCognexCommandResponseValue(Integer.parseInt(commandResponse));
     					if (telnetInputString.substring(locateCRLF + CRLF.length(), telnetInputString.length()).endsWith(CRLF)) {
-    						System.out.println("Bingo");
+    						
     					}
     					valueReceived = displayBufferAscii(buffer, locateCRLF, bufferSize);
     					
