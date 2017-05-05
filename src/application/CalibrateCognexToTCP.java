@@ -34,6 +34,7 @@ import com.kuka.roboticsAPI.geometricModel.Frame;
 import com.kuka.roboticsAPI.geometricModel.ObjectFrame;
 import com.kuka.roboticsAPI.geometricModel.Tool;
 import com.kuka.roboticsAPI.geometricModel.math.CoordinateAxis;
+import com.kuka.roboticsAPI.geometricModel.math.Transformation;
 import com.kuka.roboticsAPI.motionModel.IMotionContainer;
 import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianImpedanceControlMode;
 import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianSineImpedanceControlMode;
@@ -130,8 +131,13 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 		System.out.println("Moving to Home/Start position");
 		bot.move(ptpHome().setJointVelocityRel(0.3));
 		System.out.println("Moving to Center on pin position");
-		currentTCP.move(lin(centerPos).setCartVelocity(30));
-		logFile.println("Fastener center position: " + bot.getCurrentCartesianPosition(currentTCP, nullBase));
+		Transformation tcpToVisionShift = Transformation.ofTranslation(18.0, 0.0, -42.0);
+		
+		Frame TheoreticalPos = centerPos.copy();
+		TheoreticalPos.transform(tcpToVisionShift);
+		currentTCP.move(lin(TheoreticalPos).setCartVelocity(30));
+		
+		logFile.println("Fastener center position: " + bot.getCurrentCartesianPosition(currentTCP, couponBase));
 		logFile.println("BlobX\t,BlobY\t,BestCircX\t,BestCircY\t,LargestCircX\t,LargestCircY\t, Position");
 		System.out.println("HALT, press start to continue");
 		getApplicationControl().halt();
