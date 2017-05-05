@@ -146,7 +146,7 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 		getApplicationControl().halt();
 		System.out.println("Moving to Start calibration grid position");
 		// Offset from center of fastener, Z value for camera focus has to be set correctly at lin(centerPos)
-		currentTCP.move(linRel(-10, 13, 0).setCartVelocity(20));
+		currentTCP.move(linRel(-7, 13, 0).setCartVelocity(20));
 
 		// How far robot will move during data collection
 		rowOffset = 16; // motions in X direction of a tool
@@ -230,7 +230,7 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 			currentTCP.move(lin(offsetedPos).setCartVelocity(30));
 			//check pos
 			System.out.println("At Fastener Cognex?");
-			getApplicationControl().halt();
+			ThreadUtil.milliSleep(1000);
 			currentTCP.move(lin(currPos).setCartVelocity(30));
 		} else {
 			System.err.println("Incorrect Cognex offset values: " + bestCircleX.toString() + ", " + bestCircleY.toString());
