@@ -133,7 +133,7 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 		
 		//Offset from working TCP on center of the pin to camera view of the pin (kind of tool shift) 
 		System.out.println("Moving to Center on pin position");
-		Transformation tcpToVisionShift = Transformation.ofTranslation(22.0, 0.0, -42.0);
+		Transformation tcpToVisionShift = Transformation.ofTranslation(23.0, 0.0, -42.0);
 		Frame TheoreticalPos = centerPos.copy();
 		TheoreticalPos.transform(tcpToVisionShift);
 		currentTCP.move(lin(TheoreticalPos).setCartVelocity(30));
