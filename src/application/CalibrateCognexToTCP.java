@@ -138,7 +138,9 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 		TheoreticalPos.transform(tcpToVisionShift);
 		currentTCP.move(lin(TheoreticalPos).setCartVelocity(30));
 		
-		logFile.println("Fastener center position: " + bot.getCurrentCartesianPosition(currentTCP, couponBase));
+		logFile.println("Shift from working TCP on center of pin to camera visible pin" + tcpToVisionShift.toString()); 
+		logFile.println("Fastener center position visible to camera commanded: "+ bot.getCommandedCartesianPosition(currentTCP, couponBase));
+		logFile.println("Fastener center position visible to camera actual: " 	+ bot.getCurrentCartesianPosition(currentTCP, couponBase));
 		logFile.println("BlobX\t,BlobY\t,BestCircX\t,BestCircY\t,LargestCircX\t,LargestCircY\t, Position");
 		System.out.println("HALT, press start to continue");
 		getApplicationControl().halt();
