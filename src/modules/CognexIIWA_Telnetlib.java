@@ -28,6 +28,7 @@ public class CognexIIWA_Telnetlib {
 	private ECognexCommand currentCommand;
 	private int cognexCommandResponseValue;
 	private String cognexSpreadSheetValue;
+	private Object cognexSpreadSheetValueObject;
 	private char spreadSheetColumn;
 	private int spreadSheetRow;
 	private double cognexSpreadSheetValueDouble;
@@ -154,13 +155,16 @@ public class CognexIIWA_Telnetlib {
     					System.out.println("Cognex --> Command response: " + this.getCognexCommandResponseValue());
     					System.out.println("Cognex --> Value received: " + this.getCognexSpreadSheetValue());
     					if (this.getCurrentCommand() == ECognexCommand.GV && valueReceived.length() > 0) {
-    						try {
-    							double currentCognexSpreadSheetValueDouble = Double.parseDouble(valueReceived);
-    							this.setCognexSpreadSheetValueDouble(currentCognexSpreadSheetValueDouble);
-    						}
-    						catch (NumberFormatException e) {
-    							System.err.println(" - value is not of double type ! <CognexIIWAlib>");
-    						}
+    						if (isStringInt(valueReceived)) this.setCognexSpreadSheetValueObject(Integer.parseInt(valueReceived));
+    						if (isStringDouble(valueReceived)) this.setCognexSpreadSheetValueObject(Double.parseDouble(valueReceived));
+    						this.setCognexSpreadSheetValueObject(valueReceived); //String
+//    						try {
+//    							double currentCognexSpreadSheetValueDouble = Double.parseDouble(valueReceived);
+//    							this.setCognexSpreadSheetValueDouble(currentCognexSpreadSheetValueDouble);
+//    						}
+//    						catch (NumberFormatException e) {
+//    							System.err.println(" - value is not of double type ! <CognexIIWAlib>");
+//    						}
     					}
     				}
     				
@@ -179,7 +183,7 @@ public class CognexIIWA_Telnetlib {
 		}
     	return success;
     }
-    
+
 	public void write(String value) {
 		try {
 			//System.out.println("Sunrise --> " + value);
@@ -472,8 +476,39 @@ public void sendCognexCommand(ECognexCommand command, String column, int row, do
 		}
 	}
 
+
+	public boolean isStringDouble(String value) {
+		try {
+			Double.parseDouble(value);
+			return true;
+		} catch (NumberFormatException e) {
+			return false;
+		}
+	}
+
+	public boolean isStringInt(String s)
+	{
+		try
+		{
+			Integer.parseInt(s);
+			return true;
+		} catch (NumberFormatException ex)
+		{
+			return false;
+		}
+	}
+
 	public ECognexTrigger getCurrentTrigger() {
 		return currentTrigger;
+	}
+
+	public Object getCognexSpreadSheetValueObject() {
+		return cognexSpreadSheetValueObject;
+	}
+
+	public void setCognexSpreadSheetValueObject(
+			Object cognexSpreadSheetValueObject) {
+		this.cognexSpreadSheetValueObject = cognexSpreadSheetValueObject;
 	}
 
 	public void setCurrentTrigger(ECognexTrigger currentTrigger) {

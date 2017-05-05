@@ -152,9 +152,9 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 		rowOffset = 16; // motions in X direction of a tool
 		columnOffset = 18; // motion in Y direction of a tool 
 		
-		double BlobX, BlobY;
-		double BestCircX, BestCircY;
-		double LargestCircX, LargestCircY;
+		Object BlobX, BlobY;
+		Object BestCircX, BestCircY;
+		Object LargestCircX, LargestCircY;
 		xMove = yMove = 0;
 		row = column = 0;
 		
@@ -175,22 +175,22 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 				//downloadImage();
 				telnet.sendCognexCommand(ECognexCommand.GV, "C", 3);
 				telnet.readCognexResponse();
-				BlobX = telnet.getCognexSpreadSheetValueDouble();
+				BlobX = telnet.getCognexSpreadSheetValueObject();
 				telnet.sendCognexCommand(ECognexCommand.GV, "D", 3);
 				telnet.readCognexResponse();
-				BlobY = telnet.getCognexSpreadSheetValueDouble();
+				BlobY = telnet.getCognexSpreadSheetValueObject();
 				telnet.sendCognexCommand(ECognexCommand.GV, "B", 7);
 				telnet.readCognexResponse();
-				BestCircX = telnet.getCognexSpreadSheetValueDouble();
+				BestCircX = telnet.getCognexSpreadSheetValueObject();
 				telnet.sendCognexCommand(ECognexCommand.GV, "C", 7);
 				telnet.readCognexResponse();
-				BestCircY = telnet.getCognexSpreadSheetValueDouble();
+				BestCircY = telnet.getCognexSpreadSheetValueObject();
 				telnet.sendCognexCommand(ECognexCommand.GV, "B", 10);
 				telnet.readCognexResponse();
-				LargestCircX = telnet.getCognexSpreadSheetValueDouble();
+				LargestCircX = telnet.getCognexSpreadSheetValueObject();
 				telnet.sendCognexCommand(ECognexCommand.GV, "C", 10);
 				telnet.readCognexResponse();
-				LargestCircY = telnet.getCognexSpreadSheetValueDouble();
+				LargestCircY = telnet.getCognexSpreadSheetValueObject();
 				telnet.disconnect();
 				getLogger().info("XYZ: " + bot.getCurrentCartesianPosition(currentTCP, couponBase));
 				System.out.println("BlobX: " + BlobX + " BlobY: " + BlobY);
