@@ -155,8 +155,8 @@ public class CognexIIWA_Telnetlib {
     					System.out.println("Cognex --> Command response: " + this.getCognexCommandResponseValue());
     					System.out.println("Cognex --> Value received: " + this.getCognexSpreadSheetValue());
     					if (this.getCurrentCommand() == ECognexCommand.GV && valueReceived.length() > 0) {
-    						if (isStringInt(valueReceived)) this.setCognexSpreadSheetValueObject(Integer.parseInt(valueReceived));
-    						if (isStringDouble(valueReceived)) this.setCognexSpreadSheetValueObject(Double.parseDouble(valueReceived));
+    						//if (isStringInt(valueReceived)) this.setCognexSpreadSheetValueObject(Integer.parseInt(valueReceived));
+    						//if (isStringDouble(valueReceived)) this.setCognexSpreadSheetValueObject(Double.parseDouble(valueReceived));
     						this.setCognexSpreadSheetValueObject(valueReceived); //String
 //    						try {
 //    							double currentCognexSpreadSheetValueDouble = Double.parseDouble(valueReceived);

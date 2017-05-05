@@ -204,7 +204,7 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 				logFile.flush();
 
 				//getApplicationControl().halt();
-
+				repositionToFastenerHead(BestCircX, BestCircY);
 				xMove = 0;
 				yMove = -1;
 				column++;
@@ -217,6 +217,41 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 
 		bot.move(ptpHome().setJointVelocityRel(0.3));
 	}
+	
+	private boolean repositionToFastenerHead (Object bestCircleX, Object bestCircleY) {
+		boolean bResult = false;
+		if (telnet.isStringDouble(bestCircleX.toString()) && telnet.isStringDouble(bestCircleY.toString())) {
+			double xOffset = calculateXoffset((Double)bestCircleY);
+			double yOffset = calculateYoffset((Double)bestCircleX);
+			Transformation tcpToFastenerOffset = Transformation.ofTranslation(xOffset, yOffset, 42.0);
+			Frame currPos = bot.getCurrentCartesianPosition(currentTCP, couponBase);
+			Frame offsetedPos = currPos.copy();
+			offsetedPos.transform(tcpToFastenerOffset);
+			currentTCP.move(lin(offsetedPos).setCartVelocity(10));
+			//check pos
+			getApplicationControl().halt();
+			System.out.println("At Fastener Cognex?");
+			currentTCP.move(lin(currPos).setCartVelocity(10));
+		} else {
+			System.err.println("Incorrect Cognex offset values: " + bestCircleX.toString() + ", " + bestCircleY.toString());
+		}
+		
+		return bResult;
+	}
+	
+	private double calculateXoffset(double bestCircleX) {
+		double fixedMultiplier = -0.07;
+		double fixedXoffset	= 35.82;
+		return bestCircleX * fixedMultiplier + fixedXoffset;
+	}
+	
+	private double calculateYoffset(double bestCircleY) {
+		double fixedMultiplier = -0.07;
+		double fixedYoffset	= 19.47 ;
+		return bestCircleY * fixedMultiplier + fixedYoffset;
+	}
+	
+	
 	private void setNewHomePosition() {
 		// Currently needed every run for this program
 		// Otherwise robot goes to candle home
