@@ -221,8 +221,8 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 	private boolean repositionToFastenerHead (Object bestCircleX, Object bestCircleY) {
 		boolean bResult = false;
 		if (telnet.isStringDouble(bestCircleX.toString()) && telnet.isStringDouble(bestCircleY.toString())) {
-			double xOffset = calculateXoffset((Double)bestCircleY);
-			double yOffset = calculateYoffset((Double)bestCircleX);
+			double xOffset = calculateXoffset(Double.parseDouble((String) bestCircleY));
+			double yOffset = calculateYoffset(Double.parseDouble((String) bestCircleX));
 			Transformation tcpToFastenerOffset = Transformation.ofTranslation(xOffset, yOffset, 42.0);
 			Frame currPos = bot.getCurrentCartesianPosition(currentTCP, couponBase);
 			Frame offsetedPos = currPos.copy();
