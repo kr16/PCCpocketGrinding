@@ -227,11 +227,11 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 			Frame currPos = bot.getCurrentCartesianPosition(currentTCP, couponBase);
 			Frame offsetedPos = currPos.copy();
 			offsetedPos.transform(tcpToFastenerOffset);
-			currentTCP.move(lin(offsetedPos).setCartVelocity(10));
+			currentTCP.move(lin(offsetedPos).setCartVelocity(30));
 			//check pos
 			System.out.println("At Fastener Cognex?");
 			getApplicationControl().halt();
-			currentTCP.move(lin(currPos).setCartVelocity(10));
+			currentTCP.move(lin(currPos).setCartVelocity(30));
 		} else {
 			System.err.println("Incorrect Cognex offset values: " + bestCircleX.toString() + ", " + bestCircleY.toString());
 		}
