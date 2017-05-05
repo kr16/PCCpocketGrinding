@@ -229,6 +229,7 @@ public class CalibrateCognexToTCP extends RoboticsAPIApplication {
 			offsetedPos.transform(tcpToFastenerOffset);
 			currentTCP.move(lin(offsetedPos).setCartVelocity(30));
 			//check pos
+			System.out.println("OffsetX: " + xOffset + " OffsetY: " + yOffset);
 			System.out.println("At Fastener Cognex?");
 			ThreadUtil.milliSleep(1000);
 			currentTCP.move(lin(currPos).setCartVelocity(30));
