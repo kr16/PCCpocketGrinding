@@ -3,6 +3,7 @@ package modules;
 
 import com.kuka.common.ThreadUtil;
 import com.kuka.generated.ioAccess.EK1100IOGroup;
+import com.kuka.generated.ioAccess.SMC600_SPN1_4valvesonlyIOGroup;
 import com.kuka.roboticsAPI.applicationModel.tasks.RoboticsAPIBackgroundTask;
 import com.kuka.roboticsAPI.applicationModel.tasks.RoboticsAPICyclicBackgroundTask;
 import com.kuka.roboticsAPI.controllerModel.Controller;
@@ -29,12 +30,14 @@ import com.kuka.roboticsAPI.uiModel.userKeys.UserKeyLEDSize;
  */
 public class UserKeys extends RoboticsAPIBackgroundTask {
 	private Controller controller;
-	private EK1100IOGroup beckhoffIO; 
+	private EK1100IOGroup beckhoffIO;
+	private SMC600_SPN1_4valvesonlyIOGroup SMC_IO;
 	private boolean appRunkeyLock;
 	
 	public void initialize() {
 		controller = getController("KUKA_Sunrise_Cabinet_1");
 		beckhoffIO = new EK1100IOGroup(controller);
+		SMC_IO = new SMC600_SPN1_4valvesonlyIOGroup(controller);
 		appRunkeyLock = false;
 	}
 
@@ -49,19 +52,19 @@ public class UserKeys extends RoboticsAPIBackgroundTask {
 
 		///////////////////////////////////////////////////////////////////////////////////////////////////
 		
-		IUserKeyBar keybarNutRunner02 = getApplicationUI().createUserKeyBar("BeckhofIO");
+		IUserKeyBar keybarNutRunner02 = getApplicationUI().createUserKeyBar("IOs");
 			
 		IUserKeyListener listenerGrindManualReq = new IUserKeyListener() {
 			@Override
 			public void onKeyEvent(IUserKey arg0, UserKeyEvent arg1) {
 				if(!StaticGlobals.disableTool) {
 					if((arg1==UserKeyEvent.KeyDown)) {
-						if (!beckhoffIO.getEK1100_DO01_GrindingToolReq()) {
+						if (!SMC_IO.getSMC_DO01A_GrinderValve()) {
 							arg0.setLED(UserKeyAlignment.Middle, UserKeyLED.Green,UserKeyLEDSize.Normal);
-							beckhoffIO.setEK1100_DO01_GrindingToolReq(true);
+							SMC_IO.setSMC_DO01A_GrinderValve(true);
 							StaticGlobals.grindManualReqKey = true;
 						}else {
-							beckhoffIO.setEK1100_DO01_GrindingToolReq(false);
+							SMC_IO.setSMC_DO01A_GrinderValve(false);
 							StaticGlobals.grindManualReqKey = false;
 							arg0.setLED(UserKeyAlignment.Middle, UserKeyLED.Red, UserKeyLEDSize.Normal);
 						}
