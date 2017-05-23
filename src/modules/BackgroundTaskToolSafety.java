@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import java.util.concurrent.TimeUnit;
 
 import com.kuka.generated.ioAccess.EK1100IOGroup;
+import com.kuka.generated.ioAccess.SMC600_SPN1_4valvesonlyIOGroup;
 import com.kuka.roboticsAPI.applicationModel.tasks.CycleBehavior;
 import com.kuka.roboticsAPI.applicationModel.tasks.RoboticsAPICyclicBackgroundTask;
 import com.kuka.roboticsAPI.controllerModel.Controller;
@@ -36,12 +37,14 @@ public class BackgroundTaskToolSafety extends RoboticsAPICyclicBackgroundTask {
 	ISafetyState currentState; 
 	GrindingTool btTool;
 	EK1100IOGroup beckhoffIO;
+	SMC600_SPN1_4valvesonlyIOGroup SMC_IO;
 
 	@Override
 	public void initialize() {
 		botState = (LBR) getDevice(KUKA_Sunrise_Cabinet_1,
 				"LBR_iiwa_14_R820_1");
 		beckhoffIO = new EK1100IOGroup(KUKA_Sunrise_Cabinet_1);
+		SMC_IO = new SMC600_SPN1_4valvesonlyIOGroup(KUKA_Sunrise_Cabinet_1);
 		btTool = new GrindingTool(KUKA_Sunrise_Cabinet_1);
 		initializeCyclic(0, 10, TimeUnit.MILLISECONDS,
 				CycleBehavior.BestEffort);
@@ -58,19 +61,20 @@ public class BackgroundTaskToolSafety extends RoboticsAPICyclicBackgroundTask {
 				if (botState.getSafetyState().getEnablingDeviceState() == EnablingDeviceState.NONE) {
 					//stop tool drop app request 
 					btTool.grindingStop();
-				} else {
-					//if app request present start tool 
-					if(beckhoffIO.getEK1100_DO01_GrindingToolReq()) {
-						btTool.grindingStartNoRequest();
-					}
 				}
+//				} else {
+//					//if app request present start tool 
+//					if(beckhoffIO.getEK1100_DO01_GrindingToolReq()) {
+//						btTool.grindingStartNoRequest();
+//					}
+//				}
 			}
 			//if AUT
 			if(botState.getSafetyState().getOperationMode() == OperationMode.AUT) {
 				if (StaticGlobals.grindManualReqKey) {
 					btTool.grindingStartNoRequest();
 				} else {
-					if (!beckhoffIO.getEK1100_DO01_GrindingToolReq()) {
+					if (!SMC_IO.getSMC_DO01A_GrinderValve()) {
 						StaticGlobals.grindManualReqKey = false;
 						btTool.grindingStop();
 					}
