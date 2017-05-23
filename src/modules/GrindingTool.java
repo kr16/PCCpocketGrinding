@@ -5,13 +5,14 @@ import modules.Common.EToolName;
 import com.kuka.common.ThreadUtil;
 import com.kuka.generated.ioAccess.EK1100IOGroup;
 import com.kuka.generated.ioAccess.SMC600_SPN1IOGroup;
+import com.kuka.generated.ioAccess.SMC600_SPN1_4valvesonlyIOGroup;
 import com.kuka.roboticsAPI.controllerModel.Controller;
 import com.kuka.roboticsAPI.geometricModel.Frame;
 import com.kuka.roboticsAPI.geometricModel.ObjectFrame;
 import com.kuka.roboticsAPI.geometricModel.Tool;
 
 public class GrindingTool {
-	private SMC600_SPN1IOGroup toolIO;
+	private SMC600_SPN1_4valvesonlyIOGroup SMC_IO;
 	private EK1100IOGroup beckhoffEcatIO;
 	private Tool sunriseTool;
 	private String cutterName;
@@ -22,7 +23,7 @@ public class GrindingTool {
 	
 
 	public GrindingTool(Controller controller) {
-		toolIO = new SMC600_SPN1IOGroup(controller);
+		SMC_IO = new SMC600_SPN1_4valvesonlyIOGroup(controller);
 		beckhoffEcatIO = new EK1100IOGroup(controller);
 	}
 	
@@ -32,10 +33,7 @@ public class GrindingTool {
 	 */
 	public void grindingStart() {
 		if(!StaticGlobals.disableTool) {
-			beckhoffEcatIO.setEK1100_DO15(false);
-			beckhoffEcatIO.setEK1100_DO16(true);
-//			toolIO.setDO08_1_GrinderAir1(true);
-//			toolIO.setDO09_1_GrinderAir2(true);
+			SMC_IO.setSMC_DO01A_GrinderValve(true);
 			beckhoffEcatIO.setEK1100_DO01_GrindingToolReq(true);
 		} else {
 			System.err.println("Tool is disabled !!!");
@@ -50,8 +48,7 @@ public class GrindingTool {
 	public void grindingStartNoRequest() {
 		long cutterStartDelay = 500;	//so many milisecs to start spinning full speed
 		if(!StaticGlobals.disableTool) {
-			beckhoffEcatIO.setEK1100_DO15(false);
-			beckhoffEcatIO.setEK1100_DO16(true);
+			SMC_IO.setSMC_DO01A_GrinderValve(true);
 			ThreadUtil.milliSleep(cutterStartDelay);
 		} else {
 			System.err.println("Tool is disabled !!!");
@@ -63,8 +60,7 @@ public class GrindingTool {
 	 */
 	public void grindingStop() {
 		long cutterStopDelay = 1000;	//so many milisecs to fully stop spinning
-		beckhoffEcatIO.setEK1100_DO15(true);
-		beckhoffEcatIO.setEK1100_DO16(false);
+		SMC_IO.setSMC_DO01A_GrinderValve(false);
 		beckhoffEcatIO.setEK1100_DO01_GrindingToolReq(false);
 		ThreadUtil.milliSleep(cutterStopDelay);	//stop delay
 	}
@@ -75,8 +71,7 @@ public class GrindingTool {
 	 * DO NOT USE IT outside Background Task
 	 */
 	public void grindingStopNoRequest() {
-		beckhoffEcatIO.setEK1100_DO15(true);
-		beckhoffEcatIO.setEK1100_DO16(false);
+		SMC_IO.setSMC_DO01A_GrinderValve(false);
 	}
 	
 	public void setTool(Tool sunriseTool) {
