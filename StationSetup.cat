@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <ConfigurationProject>
     <TopologyItem itemPath="com.kuka/Project" name="Project" selectedVersion="1" uniqueID="">
-        <TopologyItem itemPath="com.kuka/ControllerLBR5" name="KUKA_Sunrise_Cabinet_1" selectedVersion="1" uniqueID="67a85b3c-e476-457b-8e25-9540c1b3e78a">
-            <TopologyItem itemPath="com.kuka/LBR5_14kg" name="LBR_iiwa_14_R820_1" selectedVersion="2" uniqueID="be24b741-e6fa-45c2-b8d2-12efad3d2265">
+        <TopologyItem itemPath="com.kuka/ControllerLBR5" name="KUKA_Sunrise_Cabinet_1" selectedVersion="1" uniqueID="1ebf575b-521b-451c-958b-a2ba06469b5c">
+            <TopologyItem itemPath="com.kuka/LBR5_14kg" name="LBR_iiwa_14_R820_1" selectedVersion="2" uniqueID="eedc2aae-a68c-4cd1-a7e7-7587e72f5e0c">
                 <Property displayName="userName" key="userName" type="String">
                     <Value>LBR_iiwa_14_R820_1</Value>
                 </Property>
@@ -130,8 +130,8 @@
             <SoftwareItem autoSelected="true" canChangeSelection="true" displayName="PDS-Firmware Update" installItem="true" installedVersion="1" itemPath="com.kuka/PdsFirmwareUpdate" selectedVersion="1" usage="Feature"/>
             <SoftwareItem autoSelected="true" canChangeSelection="true" displayName="PlatformAdapter" installItem="true" installedVersion="1" itemPath="com.kuka/PlatformAdapter" selectedVersion="1" usage="Library"/>
             <SoftwareItem autoSelected="true" canChangeSelection="true" displayName="PowerManagementService" installItem="true" installedVersion="1" itemPath="com.kuka/PowerManagementService" selectedVersion="1" usage="Library"/>
-            <SoftwareItem autoSelected="false" canChangeSelection="true" displayName="KUKA Sunrise.ProfiNet M/S" installItem="true" installedVersion="1.1" itemPath="com.kuka/ProfiSafe" selectedVersion="1.1" usage="Feature"/>
-            <SoftwareItem autoSelected="false" canChangeSelection="true" displayName="KUKA Sunrise.ProfiNet D" installItem="true" installedVersion="1.1" itemPath="com.kuka/ProfinetDevice" selectedVersion="1.1" usage="Feature"/>
+            <SoftwareItem autoSelected="true" canChangeSelection="true" displayName="KUKA Sunrise.ProfiNet M/S" installItem="true" installedVersion="1.1" itemPath="com.kuka/ProfiSafe" selectedVersion="1.1" usage="Feature"/>
+            <SoftwareItem autoSelected="true" canChangeSelection="true" displayName="KUKA Sunrise.ProfiNet D" installItem="true" installedVersion="1.1" itemPath="com.kuka/ProfinetDevice" selectedVersion="1.1" usage="Feature"/>
             <SoftwareItem autoSelected="true" canChangeSelection="true" displayName="PROFINET Driver" installItem="true" installedVersion="3.1" itemPath="com.kuka/ProfinetDriver" selectedVersion="3.1" usage="Library"/>
             <SoftwareItem autoSelected="false" canChangeSelection="true" displayName="Robotics API" installItem="true" installedVersion="1.0.0" itemPath="com.kuka/RAPI" selectedVersion="1.0.0" usage="Feature"/>
             <SoftwareItem autoSelected="true" canChangeSelection="true" displayName="RAPI20" installItem="false" installedVersion="NONE" itemPath="com.kuka/RAPI20" selectedVersion="NONE" usage="Feature"/>

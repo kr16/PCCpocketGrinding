@@ -2,116 +2,184 @@
 <RoboticsAPIData version="3">
     <world>
         <gravitation x="0.0" y="0.0" z="9.81"/>
-        <frame id="_5818b846-bea2-4f53-9041-9bbd1b5fc169" name="nullBase">
+        <frame id="_e92c1d70-e5dd-43ed-9565-e7da17fc8e58" name="nullBase">
             <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
             <additionalInformation>
-                <info key="LastModificationTime" type="java.lang.Long" value="1480941177468"/>
+                <info key="LastModificationTime" type="java.lang.Long" value="1487192180852"/>
                 <info key="UseAsBaseForJogging" type="java.lang.Boolean" value="true"/>
             </additionalInformation>
-            <redundancyData>
-                <redundancy transformationProviderName="legacy" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy"/>
-            </redundancyData>
-            <frame id="_a0fa498e-2cf5-478a-bcec-1f0aed530d19" name="referencePosHL10">
-                <transformation a="-1.5753410391949632" b="-1.5425954030303388" c="-3.0905116780355564" x="117.20600563726876" y="-904.3434021914867" z="450.0458386182199"/>
+            <frame id="_2ae9bff0-f0da-4d43-b43b-1770d5bae086" name="StartProcess">
+                <transformation a="1.148149270755393" b="1.5631395120735534" c="-1.9655521105634641" x="778.1642222989958" y="89.63542545467332" z="699.3782982709411"/>
                 <additionalInformation>
-                    <info key="LastModificationTime" type="java.lang.Long" value="1486060608337"/>
-                    <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="KSAFNutRunnerEE/NutRunner_HL70_06" tool="KSAFNutRunnerEE" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
-                        <tcpTransformation a="1.963495408493621" b="0.0" c="0.0" x="-97.9" y="234.7" z="125.8"/>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1492697626035"/>
+                    <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="PccGrinderVer01/BallWorkingSD3" tool="PccGrinderVer01" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
+                        <tcpTransformation a="0.0" b="0.0" c="3.141592653589793" x="-116.18" y="-0.473834593235397" z="138.95"/>
                     </info>
+                    <info key="Comment" type="java.lang.String" value="Default positions for starting grind process."/>
                 </additionalInformation>
                 <redundancyData>
                     <redundancy transformationProviderName="KUKA_Sunrise_Cabinet_1/LBR_iiwa_14_R820_1" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy">
                         <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="6" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="121" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="1.3326071004726694" valueType="java.lang.Double"/>
+                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="104" valueType="java.lang.Integer"/>
+                        <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="0.0014080265935046707" valueType="java.lang.Double"/>
                     </redundancy>
                 </redundancyData>
             </frame>
-            <frame id="_78bb027a-b516-4bc7-9d15-0fcb15a4b65e" name="referencePosHL12">
-                <transformation a="-1.578873223309523" b="-1.5426398452077321" c="-3.087117324355733" x="117.09073821383228" y="-876.8815377945382" z="450.0482205301999"/>
+            <frame id="_b7e88d4d-d51a-4ce8-8ae0-7ed884ad4c86" name="appRightCoupon">
+                <transformation a="1.0531831209349276" b="1.550009177792604" c="-2.1197861408813217" x="703.4883372597761" y="181.63590890212853" z="649.3876654830672"/>
                 <additionalInformation>
-                    <info key="LastModificationTime" type="java.lang.Long" value="1486064824511"/>
-                    <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="KSAFNutRunnerEE/NutRunner_HL70_06" tool="KSAFNutRunnerEE" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
-                        <tcpTransformation a="1.963495408493621" b="0.0" c="0.0" x="-97.9" y="234.7" z="125.8"/>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1490108470961"/>
+                    <info key="Comment" type="java.lang.String" value="Orange stand right coupon approach position"/>
+                    <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="PccGrinderVer01/BallWorkingSD3" tool="PccGrinderVer01" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
+                        <tcpTransformation a="0.0" b="0.17453292519943295" c="3.141592653589793" x="-116.18" y="-0.473834593235397" z="138.95"/>
                     </info>
                 </additionalInformation>
                 <redundancyData>
                     <redundancy transformationProviderName="KUKA_Sunrise_Cabinet_1/LBR_iiwa_14_R820_1" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy">
                         <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="6" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="121" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="1.3326448507444761" valueType="java.lang.Double"/>
+                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="104" valueType="java.lang.Integer"/>
+                        <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="8.317050209452053E-5" valueType="java.lang.Double"/>
                     </redundancy>
                 </redundancyData>
+            </frame>
+            <frame id="_11023622-8ca8-43ce-8085-a50bb75393eb" name="P1">
+                <transformation a="0.5522124329809406" b="1.548901617974326" c="-2.2881155684993364" x="641.7304936062308" y="44.55730362242221" z="797.4939129228131"/>
+                <additionalInformation>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1492712132367"/>
+                </additionalInformation>
+            </frame>
+            <frame id="_729dd281-ad30-4e20-8193-31974efe73ce" name="P2">
+                <transformation a="-2.0992193474457213" b="1.5593895757015122" c="0.9125095311858984" x="589.9335364540157" y="287.4125274695165" z="776.4688929212437"/>
+                <additionalInformation>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1492712132374"/>
+                </additionalInformation>
+            </frame>
+            <frame id="_e7e0006f-6a49-4f8b-890b-162a53a3cb37" name="P3">
+                <transformation a="-0.295290855487684" b="1.563728395179973" c="3.044094609895658" x="662.6937034527213" y="81.4521051429166" z="787.2625567520457"/>
+                <additionalInformation>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1492778705042"/>
+                </additionalInformation>
+            </frame>
+            <frame id="_a109cd92-efc7-4a5d-b6dc-77f6297363b8" name="P4">
+                <transformation a="-0.29528736026370056" b="1.5637284681804444" c="3.0440979105287913" x="662.6937237358776" y="81.45221134925488" z="787.2625185846094"/>
+                <additionalInformation>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1492778705047"/>
+                </additionalInformation>
+            </frame>
+            <frame id="_b752ad10-40ed-49a7-a853-faf920618876" name="P5">
+                <transformation a="-0.29528736026370056" b="1.5637284681804444" c="3.0440979105287913" x="662.6937237358776" y="81.45221134925488" z="787.2625185846094"/>
+                <additionalInformation>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1492778705053"/>
+                </additionalInformation>
+            </frame>
+            <frame id="_4b5d8521-a7dc-4f92-95ea-8fb0694068b3" name="P6">
+                <transformation a="-0.29528944952148656" b="1.5637285808758625" c="3.0440958594475163" x="662.6937450719863" y="81.45217992976765" z="787.2624370653106"/>
+                <additionalInformation>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1492778705063"/>
+                </additionalInformation>
+            </frame>
+            <frame id="_f4c7bc5b-12c6-4472-bd73-efb9de44b437" name="P8">
+                <transformation a="2.5885962327382344" b="1.5500744553775434" c="-0.3828310030755415" x="653.732725394005" y="98.71864294883238" z="772.9850469514414"/>
+                <additionalInformation>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1492779052655"/>
+                </additionalInformation>
+            </frame>
+            <frame id="_0cbe55cc-7528-42ff-b991-f491acd1fff6" name="Diablo7">
+                <transformation a="-0.29528671005761303" b="1.5637284328536785" c="3.0440986669244143" x="662.6937097834889" y="81.45213628467573" z="787.2625442590966"/>
+                <additionalInformation>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1492778705071"/>
+                </additionalInformation>
             </frame>
         </frame>
-        <frame id="_e5db4bde-4b07-4070-a8ab-7db769758c41" name="CouponBase">
-            <transformation a="-1.586360230326122" b="0.01553366624569467" c="1.5792833397962507" x="826.3411245651023" y="468.6286716006331" z="559.5459802578022"/>
+        <frame id="_8196b7ba-3114-46a9-8844-0ac91e89a4cc" name="testBase">
+            <transformation a="-1.5983260102230943" b="0.0064165118549289095" c="1.5745726407872382" x="787.193660565692" y="324.3087163253445" z="564.7214954744654"/>
             <additionalInformation>
-                <info key="LastModificationTime" type="java.lang.Long" value="1493927569256"/>
+                <info key="LastModificationTime" type="java.lang.Long" value="1490194524383"/>
+                <info key="Comment" type="java.lang.String" value="Spiral testing"/>
                 <info key="UseAsBaseForJogging" type="java.lang.Boolean" value="true"/>
-                <info measurementMethod="Base3Point" timestamp="1493927569256" type="com.kuka.roboticsAPI.deviceModel.MeasurementInformation"/>
+                <info measurementMethod="Base3Point" timestamp="1490194524383" type="com.kuka.roboticsAPI.deviceModel.MeasurementInformation"/>
             </additionalInformation>
-            <frame id="_43de695e-0fe0-418f-affd-b83255dda971" name="couponBaseApp">
-                <transformation a="-0.051568348874862426" b="-0.03763990463588399" c="3.121901639004286" x="174.9372501222074" y="85.3746612529444" z="56.27659486314087"/>
+            <frame id="_2c090e8a-a281-4d72-b3cb-22d082341e7a" name="testPos">
+                <transformation a="-1.5282758873086701" b="-0.0015369838216202456" c="3.092623439599998" x="-304.239709962097" y="15.054179314091812" z="57.906769954538504"/>
                 <additionalInformation>
-                    <info key="LastModificationTime" type="java.lang.Long" value="1493652548611"/>
-                    <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="KSAFNutRunnerEE/NutRunner_HL70_06" tool="KSAFNutRunnerEE" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
-                        <tcpTransformation a="0.0" b="1.5707963267948966" c="1.1780972450961724" x="96.14592382491348" y="-235.32853232224016" z="126.47503541352219"/>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1488899630748"/>
+                    <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="PccGrinderVer01/Ball" tool="PccGrinderVer01" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
+                        <tcpTransformation a="0.0" b="-0.9599310885968813" c="0.0" x="-124.59594320019991" y="0.6794688580790565" z="147.08987618057188"/>
                     </info>
                 </additionalInformation>
                 <redundancyData>
                     <redundancy transformationProviderName="KUKA_Sunrise_Cabinet_1/LBR_iiwa_14_R820_1" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy">
-                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="6" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="56" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="6.831000526149306E-6" valueType="java.lang.Double"/>
+                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="2" valueType="java.lang.Integer"/>
+                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="24" valueType="java.lang.Integer"/>
+                        <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="9.491504079734687E-5" valueType="java.lang.Double"/>
                     </redundancy>
                 </redundancyData>
             </frame>
-            <frame id="_3fb6ce3d-7cff-4b08-9096-62bf7a71d308" name="referencePosHL08">
-                <transformation a="-0.0010246467380364962" b="-5.84462403986128E-5" c="3.141251216877807" x="0.04450465709641094" y="-0.026088103915299143" z="-0.013970008310252524"/>
+            <frame id="_ad6772a4-72be-4588-ae36-67f8eca536af" name="testApproach">
+                <transformation a="-1.4740703859280895" b="0.001514660527432852" c="3.092485437155295" x="-251.8066198804315" y="46.20317514205385" z="143.9597737494197"/>
                 <additionalInformation>
-                    <info key="LastModificationTime" type="java.lang.Long" value="1493928001478"/>
-                    <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="KSAFNutRunnerEE/NutRunner_HL70_06" tool="KSAFNutRunnerEE" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
-                        <tcpTransformation a="0.0" b="1.5707963267948966" c="1.1780972450961724" x="96.14592382491348" y="-235.32853232224016" z="126.47503541352219"/>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1488834216915"/>
+                    <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="PccGrinderVer01/Ball" tool="PccGrinderVer01" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
+                        <tcpTransformation a="0.0" b="-0.9599310885968813" c="0.0" x="-124.59594320019991" y="0.6794688580790565" z="147.08987618057188"/>
                     </info>
                 </additionalInformation>
                 <redundancyData>
                     <redundancy transformationProviderName="KUKA_Sunrise_Cabinet_1/LBR_iiwa_14_R820_1" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy">
-                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="6" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="56" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="1.7377152531325044E-5" valueType="java.lang.Double"/>
-                    </redundancy>
-                </redundancyData>
-            </frame>
-            <frame id="_6138592a-ad50-44f2-8d7c-92f4afe9d5d4" name="CognexCalibration">
-                <transformation a="-0.0010245497139215278" b="-5.8490239498251395E-5" c="3.1412510995123606" x="0.04445931173813733" y="-0.026150607190174924" z="-0.013926071580613097"/>
-                <additionalInformation>
-                    <info key="LastModificationTime" type="java.lang.Long" value="1493928010507"/>
-                    <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="KSAFNutRunnerEE/NutRunner_HL70_06" tool="KSAFNutRunnerEE" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
-                        <tcpTransformation a="0.0" b="1.5707963267948966" c="1.1780972450961724" x="96.14592382491348" y="-235.32853232224016" z="126.47503541352219"/>
-                    </info>
-                </additionalInformation>
-                <redundancyData>
-                    <redundancy transformationProviderName="KUKA_Sunrise_Cabinet_1/LBR_iiwa_14_R820_1" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy">
-                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="6" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="56" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="1.7377152531325044E-5" valueType="java.lang.Double"/>
+                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="2" valueType="java.lang.Integer"/>
+                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="24" valueType="java.lang.Integer"/>
+                        <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="1.1636677355053095E-4" valueType="java.lang.Double"/>
                     </redundancy>
                 </redundancyData>
             </frame>
         </frame>
     </world>
     <objectTemplates>
-        <toolTemplate class="" name="KSAFNutRunnerEE">
+        <toolTemplate class="" defaultMotionFrameRef="" name="PccGrinderVer01">
             <frames>
-                <frame id="_8df1a676-c8c0-4748-8ebb-b5fb2c36687c" name="NutRunner_HL70_06">
-                    <transformation a="-1.1780972450961724" b="1.5707963267948966" c="0.0" x="96.14592382491348" y="-235.32853232224016" z="126.47503541352219"/>
+                <frame id="_1d8d6ae5-594d-414d-9b9e-1bbb409ec222" name="BallSD6">
+                    <transformation a="0.0" b="-0.9599310885968813" c="0.0" x="-124.59594320019991" y="0.6794688580790565" z="147.08987618057188"/>
                 </frame>
-                <frame id="_bf89a93f-3fcf-45e7-a89f-cb4be386a752" name="NullTool">
-                    <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
+                <frame id="_198ebf7e-5b7f-423d-8372-59cf3485140f" name="BallSD3">
+                    <transformation a="0.0" b="-0.9599310885968813" c="0.0" x="-120.11672121920664" y="-0.473834593235397" z="141.70056173560005"/>
+                </frame>
+                <frame id="_86f5c515-9a0b-4eb2-8a03-5554919b278f" name="BallWorkingSD6">
+                    <transformation a="0.0" b="0.08726646259971647" c="3.141592653589793" x="-118.128" y="0.7" z="142.568"/>
+                    <additionalInformation>
+                        <info key="Comment" type="java.lang.String" value="15.8mm 5/8 inch&#13;&#10;SD-6&#13;&#10;"/>
+                    </additionalInformation>
+                </frame>
+                <frame id="_9cc15670-439c-4543-9a1e-85c0ff055d20" name="BallWorkingSD3">
+                    <transformation a="0.0" b="0.0" c="3.141592653589793" x="-116.18" y="-0.473834593235397" z="138.95"/>
+                    <additionalInformation>
+                        <info key="Comment" type="java.lang.String" value="9.6mm 3/16 inch&#13;&#10;SD-3 "/>
+                    </additionalInformation>
+                </frame>
+                <frame id="_25ce770b-5f51-4333-ba3e-6e8900c2968d" name="BallSD51SC">
+                    <transformation a="0.0" b="-0.9599310885968813" c="0.0" x="-119.67541841115813" y="-0.1403891942213764" z="141.9058394707677"/>
+                    <additionalInformation>
+                        <info key="Comment" type="java.lang.String" value="6.35mm 1/4 inch &#13;&#10;SD-51-SC"/>
+                    </additionalInformation>
+                </frame>
+                <frame id="_71659b04-c224-4c94-8d95-36ea2bda40f1" name="BallWorkingSD51SC">
+                    <transformation a="0.0" b="0.08726646259971647" c="3.141592653589793" x="-117.07" y="-0.14" z="140.08"/>
+                    <additionalInformation>
+                        <info key="Comment" type="java.lang.String" value="6.35mm 1/4 inch &#13;&#10;SD-51-SC"/>
+                    </additionalInformation>
+                </frame>
+                <frame id="_131c8f56-d2b0-4efe-aedb-e05fc226d899" name="BallSD5SC">
+                    <transformation a="0.0" b="-0.9599310885968813" c="0.0" x="-123.22941384375878" y="-1.9584968695246312" z="146.19507658255696"/>
+                </frame>
+                <frame id="_1790aa16-0c29-46db-abc2-9aadd135f038" name="BallWorkingSD5SC">
+                    <transformation a="0.0" b="0.0" c="3.141592653589793" x="-118.03" y="-1.96" z="142.55"/>
+                    <additionalInformation>
+                        <info key="Comment" type="java.lang.String" value="12.7mm 1/2 inch&#13;&#10;SD-5 S/C"/>
+                    </additionalInformation>
                 </frame>
             </frames>
-            <loadData cogA="0.0" cogB="0.0" cogC="0.0" cogX="-25.598722350088153" cogY="65.37487345557702" cogZ="77.5951047717959" inertiaX="0.0" inertiaY="0.0" inertiaZ="0.0" mass="7.593528264148435"/>
+            <loadData cogA="0.0" cogB="0.0" cogC="0.0" cogX="-62.93394529170342" cogY="-2.1838778696431596" cogZ="29.833463779329648" inertiaX="0.0" inertiaY="0.0" inertiaZ="0.0" mass="2.5549314966519256"/>
         </toolTemplate>
     </objectTemplates>
+    <processDataContainer>
+        <processData dataType="java.lang.Integer" defaultValue="0" displayName="Process Counter" id="processCounter" max="1000.0" min="0.0" value="2"/>
+    </processDataContainer>
 </RoboticsAPIData>
