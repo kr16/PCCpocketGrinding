@@ -82,11 +82,11 @@ public class UserKeys extends RoboticsAPIBackgroundTask {
 						} else {
 							myGrindManualStart.setLED(UserKeyAlignment.Middle, UserKeyLED.Yellow, UserKeyLEDSize.Normal);
 							myGrindManualStart.setText(UserKeyAlignment.TopMiddle, "DEAD");
-							myGrindManualStart.setText(UserKeyAlignment.TopMiddle, "MAN");
+							myGrindManualStart.setText(UserKeyAlignment.BottomMiddle, "MAN");
 							ThreadUtil.milliSleep(500);
 							myGrindManualStart.setLED(UserKeyAlignment.Middle, UserKeyLED.Red, UserKeyLEDSize.Normal);
 							myGrindManualStart.setText(UserKeyAlignment.TopMiddle, "GRIND");
-							myGrindManualStart.setText(UserKeyAlignment.TopMiddle, "START");
+							myGrindManualStart.setText(UserKeyAlignment.BottomMiddle, "START");
 						}
 					}
 					if((arg1==UserKeyEvent.KeyUp)) {
