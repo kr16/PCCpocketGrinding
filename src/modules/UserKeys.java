@@ -7,6 +7,8 @@ import com.kuka.generated.ioAccess.SMC600_SPN1_4valvesonlyIOGroup;
 import com.kuka.roboticsAPI.applicationModel.tasks.RoboticsAPIBackgroundTask;
 import com.kuka.roboticsAPI.applicationModel.tasks.RoboticsAPICyclicBackgroundTask;
 import com.kuka.roboticsAPI.controllerModel.Controller;
+import com.kuka.roboticsAPI.controllerModel.sunrise.SunriseSafetyState.EnablingDeviceState;
+import com.kuka.roboticsAPI.deviceModel.LBR;
 import com.kuka.roboticsAPI.uiModel.userKeys.IUserKey;
 import com.kuka.roboticsAPI.uiModel.userKeys.IUserKeyBar;
 import com.kuka.roboticsAPI.uiModel.userKeys.IUserKeyListener;
@@ -33,9 +35,12 @@ public class UserKeys extends RoboticsAPIBackgroundTask {
 	private EK1100IOGroup beckhoffIO;
 	private SMC600_SPN1_4valvesonlyIOGroup SMC_IO;
 	private boolean appRunkeyLock;
+	private LBR botState;
+	private IUserKey myGrindManualStart;
 	
 	public void initialize() {
 		controller = getController("KUKA_Sunrise_Cabinet_1");
+		botState = (LBR) getDevice(controller,"LBR_iiwa_14_R820_1");
 		beckhoffIO = new EK1100IOGroup(controller);
 		SMC_IO = new SMC600_SPN1_4valvesonlyIOGroup(controller);
 		appRunkeyLock = false;
@@ -44,12 +49,19 @@ public class UserKeys extends RoboticsAPIBackgroundTask {
 	public void run() {
 		createChooseAppKeyBar();
 		while(true){
+			if ((botState.getSafetyState().getEnablingDeviceState() != EnablingDeviceState.NONE) && 
+					(SMC_IO.getSMC_DO01A_GrinderValve()))
+			{
+				myGrindManualStart.setLED(UserKeyAlignment.Middle, UserKeyLED.Green, UserKeyLEDSize.Normal);	
+			} else {
+				myGrindManualStart.setLED(UserKeyAlignment.Middle, UserKeyLED.Red, UserKeyLEDSize.Normal);
+			}
+
 			ThreadUtil.milliSleep(500);
 		}
 	}
 	
 	private void createChooseAppKeyBar() {
-
 		///////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		IUserKeyBar keybarNutRunner02 = getApplicationUI().createUserKeyBar("IOs");
@@ -59,18 +71,20 @@ public class UserKeys extends RoboticsAPIBackgroundTask {
 			public void onKeyEvent(IUserKey arg0, UserKeyEvent arg1) {
 				if(!StaticGlobals.disableTool) {
 					if((arg1==UserKeyEvent.KeyDown)) {
-						if (!SMC_IO.getSMC_DO01A_GrinderValve()) {
-							arg0.setLED(UserKeyAlignment.Middle, UserKeyLED.Green,UserKeyLEDSize.Normal);
-							SMC_IO.setSMC_DO01A_GrinderValve(true);
-							StaticGlobals.grindManualReqKey = true;
+						if (botState.getSafetyState().getEnablingDeviceState() != EnablingDeviceState.NONE) {
+							if (!SMC_IO.getSMC_DO01A_GrinderValve()) {
+								//arg0.setLED(UserKeyAlignment.Middle, UserKeyLED.Green,UserKeyLEDSize.Normal);
+								SMC_IO.setSMC_DO01A_GrinderValve(true);
+								StaticGlobals.grindManualReqKey = true;
+							}
 						}else {
 							SMC_IO.setSMC_DO01A_GrinderValve(false);
 							StaticGlobals.grindManualReqKey = false;
-							arg0.setLED(UserKeyAlignment.Middle, UserKeyLED.Red, UserKeyLEDSize.Normal);
 						}
 					}
 					if((arg1==UserKeyEvent.KeyUp)) {
 						//nothing to do here
+
 					}
 				}
 			}
@@ -138,16 +152,16 @@ public class UserKeys extends RoboticsAPIBackgroundTask {
 		
 		// Create user keys 
 		
-		IUserKey grindManualReq = keybarNutRunner02.addUserKey(0, listenerGrindManualReq, true);
+		myGrindManualStart = keybarNutRunner02.addUserKey(0, listenerGrindManualReq, true);
 		IUserKey disableTool = keybarNutRunner02.addUserKey(1, listenerDisableTool, true);
 		IUserKey handGuidingTeachPos = keybarNutRunner02.addUserKey(2, listenerHGteachPos, true);
 		IUserKey handGuidingEnd = keybarNutRunner02.addUserKey(3, listenerHGteachEnd, true);
 		
 		// Initialize correct state at start
 		
-		grindManualReq.setText(UserKeyAlignment.TopMiddle, "GRIND");
-		grindManualReq.setText(UserKeyAlignment.BottomMiddle, "START");
-		grindManualReq.setLED(UserKeyAlignment.Middle, UserKeyLED.Red, UserKeyLEDSize.Normal);
+		myGrindManualStart.setText(UserKeyAlignment.TopMiddle, "GRIND");
+		myGrindManualStart.setText(UserKeyAlignment.BottomMiddle, "START");
+		myGrindManualStart.setLED(UserKeyAlignment.Middle, UserKeyLED.Red, UserKeyLEDSize.Normal);
 		beckhoffIO.setEK1100_DO01_GrindingToolReq(false);
 		
 		disableTool.setText(UserKeyAlignment.TopMiddle, "TOOL");
