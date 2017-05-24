@@ -125,7 +125,7 @@ public class GrindingVer02 extends RoboticsAPIApplication {
 	private int pressCounter;
 	private Frame offsetedPos;
 	EK1100IOGroup beckhoffIO;
-	private AbstractIO pbFlangeTeach; //This is like SIGNAL in KRL
+	private AbstractIO pbFlangeTeach; //This is like SIGNAL in KRL but read only
 	private AbstractIO pbUserKeysHGteachPos;
 	private boolean maxForceExceeded;
 	private boolean loopExitCondition;
@@ -155,7 +155,7 @@ public class GrindingVer02 extends RoboticsAPIApplication {
 		forceTimerThread = new Thread(forceTimer);
 		beckhoffIO = new EK1100IOGroup(kuka_Sunrise_Cabinet_1);
 		pbFlangeTeach = beckhoffIO.getInput("EK1100_DI03");	//declare input from inputs io group
-		pbUserKeysHGteachPos = beckhoffIO.getOutput("EK1100_DO03");
+		pbUserKeysHGteachPos = beckhoffIO.getOutput("EK1100_DO03"); //push button on grinding guard
 		pressCounter = 0;
 		loopExitCondition = false;
 		
@@ -293,9 +293,11 @@ public class GrindingVer02 extends RoboticsAPIApplication {
 		System.out.println(myCollection.getAllParameters());
 		System.out.println(myCollection.toString());
 		
+		///////////////////////////////////////////////////////////////////
+		/////             HRC                   ///////////////////////////
 		///// handGuide function test /experimental use ///////////////////
 		///// set TRUE to enable //////////////////////////////////////////
-		handGuideMe(true);
+		handGuideMe(false); 
 		///////////////////////////////////////////////////////////////////
 		
 		String noteString = "Air run";
@@ -308,7 +310,7 @@ public class GrindingVer02 extends RoboticsAPIApplication {
 		Frame startOffsetted = posStartProcess.copy();
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		//Hand guiding enabled
+		//Hand guiding enabled - NOT HRC !!! Impedance mode 
 		/////////////////////////////
 
 		BooleanIOCondition HandIO = new BooleanIOCondition(pbFlangeTeach, true);  //declare condition for that input
@@ -319,7 +321,7 @@ public class GrindingVer02 extends RoboticsAPIApplication {
 			handGuideRecord(posAppRightCoupon.copy(), true);
 		}
 		if (bHandGuide) {										//hand guiding with recording positions
-			System.out.println("Hand guding enabled moving to reference position");
+			System.out.println("Hand guiding enabled moving to reference position");
 			ArrayList<Frame> recordedPositions = handGuideRecord(posAppRightCoupon.copy(), false);
 			if (recordedPositions.size() > 0 ) {
 				for (Frame position: recordedPositions) {

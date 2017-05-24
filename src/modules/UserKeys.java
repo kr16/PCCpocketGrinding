@@ -9,6 +9,7 @@ import com.kuka.roboticsAPI.applicationModel.tasks.RoboticsAPICyclicBackgroundTa
 import com.kuka.roboticsAPI.controllerModel.Controller;
 import com.kuka.roboticsAPI.controllerModel.sunrise.SunriseSafetyState.EnablingDeviceState;
 import com.kuka.roboticsAPI.deviceModel.LBR;
+import com.kuka.roboticsAPI.ioModel.AbstractIO;
 import com.kuka.roboticsAPI.uiModel.userKeys.IUserKey;
 import com.kuka.roboticsAPI.uiModel.userKeys.IUserKeyBar;
 import com.kuka.roboticsAPI.uiModel.userKeys.IUserKeyListener;
@@ -37,6 +38,7 @@ public class UserKeys extends RoboticsAPIBackgroundTask {
 	private boolean appRunkeyLock;
 	private LBR botState;
 	private IUserKey myGrindManualStart;
+	private AbstractIO doManualGrinderControll;
 	
 	public void initialize() {
 		controller = getController("KUKA_Sunrise_Cabinet_1");
@@ -44,13 +46,14 @@ public class UserKeys extends RoboticsAPIBackgroundTask {
 		beckhoffIO = new EK1100IOGroup(controller);
 		SMC_IO = new SMC600_SPN1_4valvesonlyIOGroup(controller);
 		appRunkeyLock = false;
+		doManualGrinderControll = SMC_IO.getOutput("SMC_DO01A_GrinderValve");
 	}
 
 	public void run() {
 		createChooseAppKeyBar();
 		while(true){
 			if ((botState.getSafetyState().getEnablingDeviceState() != EnablingDeviceState.NONE) && 
-					(SMC_IO.getSMC_DO01A_GrinderValve()))
+					(doManualGrinderControll.getBooleanIOValue()))
 			{
 				myGrindManualStart.setLED(UserKeyAlignment.Middle, UserKeyLED.Green, UserKeyLEDSize.Normal);	
 			} else {
@@ -72,14 +75,14 @@ public class UserKeys extends RoboticsAPIBackgroundTask {
 				if(!StaticGlobals.disableTool) {
 					if((arg1==UserKeyEvent.KeyDown)) {
 						if (botState.getSafetyState().getEnablingDeviceState() != EnablingDeviceState.NONE) {
-							if (!SMC_IO.getSMC_DO01A_GrinderValve()) {
+							if (!doManualGrinderControll.getBooleanIOValue()) {
 								SMC_IO.setSMC_DO01A_GrinderValve(true);
 								StaticGlobals.grindManualReqKey = true;
 							} else {
 								SMC_IO.setSMC_DO01A_GrinderValve(false);
 								StaticGlobals.grindManualReqKey = false;
 							}
-						} else {
+						} else {  // key was pushed but dead man was not 
 							myGrindManualStart.setText(UserKeyAlignment.TopMiddle, "DEAD");
 							myGrindManualStart.setText(UserKeyAlignment.BottomMiddle, "MAN");
 							ThreadUtil.milliSleep(750);
