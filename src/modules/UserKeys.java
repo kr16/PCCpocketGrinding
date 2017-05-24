@@ -73,14 +73,12 @@ public class UserKeys extends RoboticsAPIBackgroundTask {
 					if((arg1==UserKeyEvent.KeyDown)) {
 						if (botState.getSafetyState().getEnablingDeviceState() != EnablingDeviceState.NONE) {
 							if (!SMC_IO.getSMC_DO01A_GrinderValve()) {
-								//arg0.setLED(UserKeyAlignment.Middle, UserKeyLED.Green,UserKeyLEDSize.Normal);
 								SMC_IO.setSMC_DO01A_GrinderValve(true);
 								StaticGlobals.grindManualReqKey = true;
 							}
-						}else {
-							SMC_IO.setSMC_DO01A_GrinderValve(false);
-							StaticGlobals.grindManualReqKey = false;
 						}
+						SMC_IO.setSMC_DO01A_GrinderValve(false);
+						StaticGlobals.grindManualReqKey = false;
 					}
 					if((arg1==UserKeyEvent.KeyUp)) {
 						//nothing to do here
