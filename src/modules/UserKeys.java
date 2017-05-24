@@ -80,7 +80,7 @@ public class UserKeys extends RoboticsAPIBackgroundTask {
 								StaticGlobals.grindManualReqKey = false;
 							}
 						} else {
-							myGrindManualStart.removeElement(UserKeyAlignment.Middle);
+							myGrindManualStart.setLED(UserKeyAlignment.Middle, UserKeyLED.NoLED, UserKeyLEDSize.Normal);
 							ThreadUtil.milliSleep(250);
 							myGrindManualStart.setText(UserKeyAlignment.TopMiddle, "PRESS");
 							myGrindManualStart.setText(UserKeyAlignment.Middle, "DEAD");
