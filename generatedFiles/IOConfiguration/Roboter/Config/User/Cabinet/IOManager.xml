@@ -44,18 +44,6 @@
         <DigitalIO Name="SMC600_SPN1_4valvesonly.SMC_DO02B" Type="OUTPUT" Scope="USER_IO" StartBit="107" BitSize="1" Signed="false">
           <Description />
         </DigitalIO>
-        <DigitalIO Name="TestFrank.DO01A" Type="OUTPUT" Scope="USER_IO" StartBit="288" BitSize="1" Signed="false">
-          <Description />
-        </DigitalIO>
-        <DigitalIO Name="TestFrank.DO01B" Type="OUTPUT" Scope="USER_IO" StartBit="289" BitSize="1" Signed="false">
-          <Description />
-        </DigitalIO>
-        <DigitalIO Name="TestFrank.DO02A" Type="OUTPUT" Scope="USER_IO" StartBit="290" BitSize="1" Signed="false">
-          <Description />
-        </DigitalIO>
-        <DigitalIO Name="TestFrank.DO02B" Type="OUTPUT" Scope="USER_IO" StartBit="291" BitSize="1" Signed="false">
-          <Description />
-        </DigitalIO>
       </IOList>
     </Bus>
     <Bus BusDriverName="ECatIODriver" BusInstanceName="SYS-X44">

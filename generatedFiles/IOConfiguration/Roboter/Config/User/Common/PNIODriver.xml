@@ -10,6 +10,5 @@
   <DeviceInstance Name="PNIO-DEV" busCycleTime="8" busTimeout="20000" DiagnosticAlarmActive="false" ProfinetVersion="v8.3" EnableBusErrorBit="false" InvertBusErrorBit="false" BusErrorBitOffset="0" EnableMaintenanceRequestBit="false" InvertMaintenanceRequestBit="true" MaintenanceRequestBitOffset="0" EnableMaintenanceDemandBit="false" InvertMaintenanceDemandBit="true" MaintenanceDemandBitOffset="0" EnableDiagnosticAlarmBit="false" InvertDiagnosticAlarmBit="false" DiagnosticAlarmBitOffset="0" />
   <ControllerInstance Name="PNIO-CTRL" busCycleTime="2" busTimeout="20000">
     <Device Name="iiwa-airvalves-ex600" ARUserID="2" InputDataLength="8" OutputDataLength="10" DiagnosticAlarmActive="false" IsActive="true" DeleteARPCache="false" />
-    <Device Name="r-and-d-vm01" ARUserID="3" InputDataLength="11" OutputDataLength="11" DiagnosticAlarmActive="false" IsActive="true" DeleteARPCache="false" />
   </ControllerInstance>
 </Driver>
