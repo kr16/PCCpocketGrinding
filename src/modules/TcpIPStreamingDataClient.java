@@ -49,7 +49,7 @@ public class TcpIPStreamingDataClient extends RoboticsAPIApplication {
 		lucanaCam.write("MSG;HOLA, pozamiatane misiek, 2 razy :); ETX");
 		lucanaCam.disconnect();
 		lucanaCam.login();
-		lucanaCam.write("POS; 234.12, -23.4, 435.23, 0.2, 0.1, -179.2, ETX");
+		lucanaCam.write("POS;234.12; -23.4; 435.23; 0.2; 0.1; -179.2;ETX");
 		lucanaCam.disconnect();
 		lucanaCam.login();
 		lucanaCam.write("EOT");
