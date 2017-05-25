@@ -37,14 +37,17 @@ public class TcpIPStreamingDataClient extends RoboticsAPIApplication {
 	@Override
 	public void initialize() {
 		// initialize your application here
+		lucanaCam = new LucanaIIWA_CommLib("172.31.1.230", 30008);
 	}
 
 	@Override
 	public void run() {
 		
 		//Lucana lib tryout //////////
-		lucanaCam = new LucanaIIWA_CommLib("172.31.1.230", 30008);
 		
+		lucanaCam.login();
+		
+		getApplicationControl().halt();
 		
 		Socket socket = null;
 		try {
