@@ -46,9 +46,12 @@ public class TcpIPStreamingDataClient extends RoboticsAPIApplication {
 		//Lucana lib tryout //////////
 		
 		lucanaCam.login();
-		getApplicationControl().halt();
 		lucanaCam.write("HOLA, i pozamiatane, misiek, 2, razy, ETX");
-		getApplicationControl().halt();
+		lucanaCam.disconnect();
+		lucanaCam.login();
+		lucanaCam.write("POS, 234.12, -23.4, 435.23, 0.2, 0.1, -179.2, ETX");
+		lucanaCam.disconnect();
+		lucanaCam.login();
 		lucanaCam.write("EOT");
 		lucanaCam.disconnect();
 		getApplicationControl().halt();
