@@ -32,6 +32,7 @@ import com.kuka.roboticsAPI.deviceModel.LBR;
 public class TcpIPStreamingDataClient extends RoboticsAPIApplication {
 	@Inject
 	private LBR lBR_iiwa_14_R820_1;
+	private LucanaIIWA_CommLib lucanaCam;
 
 	@Override
 	public void initialize() {
@@ -40,6 +41,10 @@ public class TcpIPStreamingDataClient extends RoboticsAPIApplication {
 
 	@Override
 	public void run() {
+		
+		//Lucana lib tryout //////////
+		lucanaCam = new LucanaIIWA_CommLib("172.31.1.230", 30008);
+		
 		
 		Socket socket = null;
 		try {
