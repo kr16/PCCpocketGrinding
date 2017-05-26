@@ -1099,6 +1099,7 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 				if (bConditionResult) {		//got push button - done recording
 					System.err.println("Done recording positions. Total recorded: " + recPositions.size());
 					recPositionDone = true;
+					iiwaDataStream.write("EOT");
 				}
 
 			} else {
