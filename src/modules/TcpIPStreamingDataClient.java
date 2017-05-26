@@ -7,6 +7,8 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import javax.inject.Inject;
+
+import com.kuka.common.ThreadUtil;
 import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
 import static com.kuka.roboticsAPI.motionModel.BasicMotions.*;
 import com.kuka.roboticsAPI.deviceModel.LBR;
@@ -50,6 +52,7 @@ public class TcpIPStreamingDataClient extends RoboticsAPIApplication {
 //		iiwaDataStream.disconnect();
 		iiwaDataStream.login();
 		iiwaDataStream.sendPosition(bot.getCurrentCartesianPosition(bot.getFlange()));
+		ThreadUtil.milliSleep(1000);
 		iiwaDataStream.sendPosition(bot.getCurrentCartesianPosition(bot.getFlange()), 3);
 		iiwaDataStream.disconnect();
 		iiwaDataStream.login();
