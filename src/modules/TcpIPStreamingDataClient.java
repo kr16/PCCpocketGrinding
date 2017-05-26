@@ -52,7 +52,7 @@ public class TcpIPStreamingDataClient extends RoboticsAPIApplication {
 //		iiwaDataStream.disconnect();
 		iiwaDataStream.login();
 		iiwaDataStream.sendPosition(bot.getCurrentCartesianPosition(bot.getFlange()));
-		ThreadUtil.milliSleep(1000);
+		iiwaDataStream.login();
 		iiwaDataStream.sendPosition(bot.getCurrentCartesianPosition(bot.getFlange()), 3);
 		iiwaDataStream.disconnect();
 		iiwaDataStream.login();
