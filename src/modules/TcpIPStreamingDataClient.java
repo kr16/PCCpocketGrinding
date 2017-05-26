@@ -51,9 +51,13 @@ public class TcpIPStreamingDataClient extends RoboticsAPIApplication {
 //		iiwaDataStream.write("MSG;HOLA, pozamiatane misiek, 2 razy :); ETX");
 //		iiwaDataStream.disconnect();
 		iiwaDataStream.login();
-		iiwaDataStream.sendPosition(bot.getCurrentCartesianPosition(bot.getFlange()));
+		iiwaDataStream.sendPosition(bot.getCurrentCartesianPosition(bot.getFlange()), 1);
+		iiwaDataStream.login();
+		iiwaDataStream.sendPosition(bot.getCurrentCartesianPosition(bot.getFlange()), 2);
 		iiwaDataStream.login();
 		iiwaDataStream.sendPosition(bot.getCurrentCartesianPosition(bot.getFlange()), 3);
+		iiwaDataStream.login();
+		iiwaDataStream.sendPosition(bot.getCurrentCartesianPosition(bot.getFlange()), 4);
 		iiwaDataStream.disconnect();
 		iiwaDataStream.login();
 		iiwaDataStream.write("EOT");
