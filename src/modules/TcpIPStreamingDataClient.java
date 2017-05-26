@@ -50,6 +50,7 @@ public class TcpIPStreamingDataClient extends RoboticsAPIApplication {
 //		iiwaDataStream.disconnect();
 		iiwaDataStream.login();
 		iiwaDataStream.sendPosition(bot.getCurrentCartesianPosition(bot.getFlange()));
+		iiwaDataStream.sendPosition(bot.getCurrentCartesianPosition(bot.getFlange()), 3);
 		iiwaDataStream.disconnect();
 		iiwaDataStream.login();
 		iiwaDataStream.write("EOT");
