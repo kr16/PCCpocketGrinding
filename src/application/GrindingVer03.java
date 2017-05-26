@@ -29,6 +29,7 @@ import modules.RedundancyInfo;
 import modules.GrindingTool;
 import modules.SpiralMotion;
 import modules.StaticGlobals;
+import modules.StreamDataCommLib;
 import modules.TimerKCT;
 import modules.TouchForceRecord;
 import modules.XmlParserGlobalVarsRD;
@@ -132,6 +133,7 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 	private SimpleMode shape;
 	ArrayList<Frame> recPositions;
 	private IMotionContainer positionHoldContainer;
+	private StreamDataCommLib iiwaDataStream;
 	
 	
 	
@@ -173,6 +175,7 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		this.setMaxForceExceeded(false);
 		airTest = false;
 		recPositions = new ArrayList<Frame>();
+		iiwaDataStream = new StreamDataCommLib("172.31.1.230", 30008);
 		
 	}
 
@@ -1084,6 +1087,8 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 			if (!manualGrinding) {				//no manual grinding with robot
 				recPositions.add(handPos);		//add position to array
 				System.out.println("Position " + recPositions.size() + " recorded");
+				iiwaDataStream.login();
+				iiwaDataStream.sendPosition(handPos, recPositions.size());
 				
 				//wait - delayTime value - for press on pushbutton to finish recording
 				//motions are blocked for that time
