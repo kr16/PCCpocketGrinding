@@ -5,6 +5,8 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import com.kuka.roboticsAPI.geometricModel.Frame;
+
 //import modules.Common.ECognexCommand;
 //import modules.Common.ECognexTrigger;
 
@@ -34,35 +36,31 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-public class LucanaIIWA_CommLib {
+public class StreamDataCommLib {
 	private TelnetClient telnet = new TelnetClient();
 	private InputStream in;
 	private PrintStream out;
 	private byte[] lucanaBufferData;
 	private int lucanaBufferDataSizeMax; 
 	private int lucanaBufferDataSize;
-	
+	private String className;
 	
 	//Object properties
 	private String username;
 	private String password;
 	private String serverAddress;
 	private int serverPort;
+	
+	private final int defaultMsgNumber = 9999;
+	private final String defaultDelimiter = ";";  
 
-	/**
-	 * Constructor for Lucana camera on given server (String) and port (Integer)
-	 * @param serverAddress
-	 * @param serverPort
-	 * e.g:
-	 *  LucanaIIWA_CommLib myCamera = LucanaIIWA_CommLib("172.31.1.148", 9000);
-	 */
-	public LucanaIIWA_CommLib(String serverAddress, int serverPort) {
+	public StreamDataCommLib(String serverAddress, int serverPort) {
 		this.initialize();
 		this.setServerAddress(serverAddress);
 		this.setServerPort(serverPort);		
 	}
 	
-	public LucanaIIWA_CommLib(String serverAddress, String user, String password) {
+	public StreamDataCommLib(String serverAddress, String user, String password) {
 		this.initialize();
 		this.setUsername(user);
 		this.setPassword(password);
@@ -70,7 +68,7 @@ public class LucanaIIWA_CommLib {
 		this.setServerPort(23);		//default , use other constructor to pass your port number
 	}
 
-	public LucanaIIWA_CommLib(String serverAddress, int serverPort, String user, String password) {
+	public StreamDataCommLib(String serverAddress, int serverPort, String user, String password) {
 		this.initialize();
 		this.setUsername(user);
 		this.setPassword(password);
@@ -82,6 +80,7 @@ public class LucanaIIWA_CommLib {
 		lucanaBufferDataSizeMax = 16 * 1024; //how many bytes max we read
 		lucanaBufferDataSize = 0;
 		lucanaBufferData = new byte[lucanaBufferDataSizeMax];
+		className = "<" + getClass().getName() + ">";
 	}
 
 	/**
@@ -93,7 +92,7 @@ public class LucanaIIWA_CommLib {
 	 *  false if not 
 	 */
 	public boolean login() {
-		System.out.printf("Sunrise --> Opening connection to Lucana at: " + getServerAddress() + " port: " + getServerPort() + "...");
+		System.out.printf("Sunrise --> Opening connection to SimpleDataServer at: " + getServerAddress() + " port: " + getServerPort() + "...");
 		try {
 			// Connect to the server
 			telnet.connect(getServerAddress(), getServerPort());
@@ -111,7 +110,8 @@ public class LucanaIIWA_CommLib {
 		catch (Exception e) {
 			System.out.println("Sunrise --> FAILED: Connection to: " + getServerAddress() + " port: " + telnet.getRemotePort());
 			System.out.println("KUKA Roboter says: Check ethernet cable connections");
-			System.out.println("Application HALT for now <LucanaIIWA_CommLib>");
+			System.out.println("Application HALT for now" 
+					+	className);
 			//e.printStackTrace();
 			return false;
 		}
@@ -170,9 +170,31 @@ public class LucanaIIWA_CommLib {
 			String lucanaDataString = displayBufferAscii(getLucanaBufferData());
 			return lucanaDataString;
 		} else {
-			System.err.println("Lucana Data Buffer is empty!");
+			System.err.println("Data Buffer is empty!"
+								+ className);
 			return null;
 		}
+	}
+	public void sendPosition(Frame pos) {
+		int posNum = -1;
+		sendPos(pos, posNum);
+	}
+	public void sendPosition(Frame pos, int posNum) {
+		if(posNum < 0) {
+			System.err.println("Negative numbers for position number NOT ALLOWED!" 
+								+ className
+								+ " Default message number set to: " + this.defaultMsgNumber);
+			posNum = this.defaultMsgNumber;
+		}
+		sendPos(pos, posNum);
+	}
+	
+	private void sendPos(Frame pos, int posNum) {
+		String prefix = "POS";
+		String postfix = "ETX";
+		//"POS;123;position;ETX"
+		String posMsg = prefix + defaultDelimiter + posNum + defaultDelimiter + pos + defaultDelimiter + postfix;
+		this.write(posMsg);
 	}
 	
 	public String displayLucanaDataAscii() {
@@ -181,7 +203,8 @@ public class LucanaIIWA_CommLib {
 			System.out.println("Sunrise --> Ascii values response:\n " + lucanaDataString);
 			return lucanaDataString;
 		} else {
-			System.err.println("Lucana Data Buffer is empty!");
+			System.err.println("Data Buffer is empty!"
+								+ className);
 			return null;
 		}
 	}
@@ -190,7 +213,8 @@ public class LucanaIIWA_CommLib {
 		if (inputBufferData.length > 0) {
 			System.out.println("Sunrise --> Ascii values:\n " + displayBufferAscii(inputBufferData,inputBufferData.length));
 		} else {
-			System.err.println("Lucana Data Buffer is empty!");
+			System.err.println("Data Buffer is empty!"
+					+ className);
 		}
 	}
 	
@@ -198,7 +222,8 @@ public class LucanaIIWA_CommLib {
 		if (getLucanaBufferDataSize() > 0) {
 			System.out.println("Sunrise --> Raw bytes values:\n " + displayBuffer(getLucanaBufferData()));
 		} else {
-			System.err.println("Lucana Data Buffer is empty!");
+			System.err.println("Data Buffer is empty!"
+					+ className);
 		}
 	}
 	
@@ -216,7 +241,7 @@ public class LucanaIIWA_CommLib {
 				out.write(getLucanaBufferData(), 0, getLucanaBufferDataSize());
 				out.close();
 				in.close();
-				System.out.println("Sunrise --> Lucana data dumped to file:" + fileLocation );
+				System.out.println("Sunrise --> data dumped to file:" + fileLocation );
 				success = true;
 			
 		} catch (IOException e) {

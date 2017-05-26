@@ -31,13 +31,13 @@ import com.kuka.roboticsAPI.deviceModel.LBR;
  */
 public class TcpIPStreamingDataClient extends RoboticsAPIApplication {
 	@Inject
-	private LBR lBR_iiwa_14_R820_1;
-	private LucanaIIWA_CommLib lucanaCam;
+	private LBR bot;
+	private StreamDataCommLib iiwaDataStream;
 
 	@Override
 	public void initialize() {
 		// initialize your application here
-		lucanaCam = new LucanaIIWA_CommLib("172.31.1.230", 30008);
+		iiwaDataStream = new StreamDataCommLib("172.31.1.230", 30008);
 	}
 
 	@Override
@@ -45,15 +45,15 @@ public class TcpIPStreamingDataClient extends RoboticsAPIApplication {
 		
 		//Lucana lib tryout //////////
 		
-		lucanaCam.login();
-		lucanaCam.write("MSG;HOLA, pozamiatane misiek, 2 razy :); ETX");
-		lucanaCam.disconnect();
-		lucanaCam.login();
-		lucanaCam.write("POS;234.12; -23.4; 435.23; 0.2; 0.1; -179.2;ETX");
-		lucanaCam.disconnect();
-		lucanaCam.login();
-		lucanaCam.write("EOT");
-		lucanaCam.disconnect();
+//		iiwaDataStream.login();
+//		iiwaDataStream.write("MSG;HOLA, pozamiatane misiek, 2 razy :); ETX");
+//		iiwaDataStream.disconnect();
+		iiwaDataStream.login();
+		iiwaDataStream.sendPosition(bot.getCurrentCartesianPosition(bot.getFlange()));
+		iiwaDataStream.disconnect();
+		iiwaDataStream.login();
+		iiwaDataStream.write("EOT");
+		iiwaDataStream.disconnect();
 		getApplicationControl().halt();
 		
 		Socket socket = null;
