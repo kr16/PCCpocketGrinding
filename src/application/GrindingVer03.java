@@ -136,7 +136,6 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 	private StreamDataCommLib iiwaDataStream;
 	
 	
-	
 	@Override
 	public void initialize() {
 		kuka_Sunrise_Cabinet_1 = getController("KUKA_Sunrise_Cabinet_1");
@@ -493,10 +492,17 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		offsetedPos = shape.executeMode(eeTool, atPart, bot, grindingProcessTimer, logFile);
 		
 	}
-	
+	///////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////// HCR attempt /////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////
 	public void handGuideMe(boolean isEnabled) {
 		if(!isEnabled) return;		//if we got false we don't execute
 
+		//Enable ability to guide the robot with HCR button
+		//This is done in BackgroundTaskHCR
+		
+		
+		
 		//Max torque at which we should quit
 		double maxTorque = 4;
 		
@@ -504,6 +510,8 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		
 		JointTorqueCondition axis7twist = new JointTorqueCondition(bot, JointEnum.J7, -maxTorque, maxTorque);
 		
+		
+		//settings for axis limits in HCR mode
 		double a1N = Math.toRadians(-160);
 		double a2N = Math.toRadians(0);
 		double a3N = Math.toRadians(-10);
@@ -528,7 +536,8 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		boolean a6Act = false;
 		boolean a7Act = false;
 		
-		//condition for user press button that enables DI 03 on beckhoff
+		//condition for user press button that enables DO 03 on beckhoff
+		//push button for teaching position is setup in UserKeys as digital output 3 true/false (momentary push button)
 		BooleanIOCondition hgTeachButton = new BooleanIOCondition(beckhoffIO.getOutput("EK1100_DO03"), true);
 		
 		IRisingEdgeListener listener_hgTeachButton = new IRisingEdgeListener() {

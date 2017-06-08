@@ -40,9 +40,9 @@ public class StreamDataCommLib {
 	private TelnetClient telnet = new TelnetClient();
 	private InputStream in;
 	private PrintStream out;
-	private byte[] lucanaBufferData;
-	private int lucanaBufferDataSizeMax; 
-	private int lucanaBufferDataSize;
+	private byte[] iiwaBufferData;
+	private int iiwaBufferDataSizeMax; 
+	private int iiwaBufferDataSize;
 	private String className;
 	
 	//Object properties
@@ -77,9 +77,9 @@ public class StreamDataCommLib {
 
 	}
 	private void initialize() {
-		lucanaBufferDataSizeMax = 16 * 1024; //how many bytes max we read
-		lucanaBufferDataSize = 0;
-		lucanaBufferData = new byte[lucanaBufferDataSizeMax];
+		iiwaBufferDataSizeMax = 16 * 1024; //how many bytes max we read
+		iiwaBufferDataSize = 0;
+		iiwaBufferData = new byte[iiwaBufferDataSizeMax];
 		className = "<" + getClass().getName() + ">";
 	}
 
@@ -134,7 +134,7 @@ public class StreamDataCommLib {
 
 
 	/**
-	 * Read Lucana response after command was send.
+	 * Read IIWA response after command was send.
 	 * Method return array of bytes with Lucana response.
 	 * Use other methods to process this data. 
 	 * 
@@ -147,10 +147,10 @@ public class StreamDataCommLib {
 		try {		
 				int BufferSize = in.read(localDataBuffer);
 				this.setLucanaBufferDataSize(BufferSize);
-				this.lucanaBufferData = new byte[getLucanaBufferDataSize()];
+				this.iiwaBufferData = new byte[getLucanaBufferDataSize()];
 				
 				for (int i = 0; i < getLucanaBufferDataSize(); i++) {
-					this.lucanaBufferData[i] = localDataBuffer[i];
+					this.iiwaBufferData[i] = localDataBuffer[i];
 				}
 				
 		} catch (IOException e) {
@@ -291,7 +291,7 @@ public class StreamDataCommLib {
 
 	public void readUntilCRLF() {
 		boolean response = false;
-		byte[] buffer = new byte[lucanaBufferDataSizeMax];
+		byte[] buffer = new byte[iiwaBufferDataSizeMax];
 		try {
 			while (!response) {
 				int len = in.read(buffer);
@@ -349,7 +349,7 @@ public class StreamDataCommLib {
 	}
 
 	public void readResponse() {
-		byte[] buffer = new byte[lucanaBufferDataSizeMax];
+		byte[] buffer = new byte[iiwaBufferDataSizeMax];
 		try {
 			while (true) {
 				int asciiValue = in.read(buffer);
@@ -407,7 +407,7 @@ public class StreamDataCommLib {
 	}
 
 	private void clearBuffer (byte[] buffer) {
-		for (int i = 0; i < lucanaBufferDataSizeMax; i++) {
+		for (int i = 0; i < iiwaBufferDataSizeMax; i++) {
 			buffer[i] = 0;
 		}
 	}
@@ -456,19 +456,19 @@ public class StreamDataCommLib {
 	}
 
 	public byte[] getLucanaBufferData() {
-		return lucanaBufferData;
+		return iiwaBufferData;
 	}
 
 	public void setLucanaBufferData(byte[] lucanaBufferData) {
-		this.lucanaBufferData = lucanaBufferData;
+		this.iiwaBufferData = lucanaBufferData;
 	}
 
 	public int getLucanaBufferDataSize() {
-		return lucanaBufferDataSize;
+		return iiwaBufferDataSize;
 	}
 
 	public void setLucanaBufferDataSize(int lucanaBufferDataSize) {
-		this.lucanaBufferDataSize = lucanaBufferDataSize;
+		this.iiwaBufferDataSize = lucanaBufferDataSize;
 	}
 
 }
