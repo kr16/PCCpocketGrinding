@@ -500,7 +500,7 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 
 		//Enable ability to guide the robot with HCR button
 		//This is done in BackgroundTaskHCR
-		
+		StaticGlobals.hcrEnable = true;
 		
 		
 		//Max torque at which we should quit
@@ -540,6 +540,8 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		//push button for teaching position is setup in UserKeys as digital output 3 true/false (momentary push button)
 		BooleanIOCondition hgTeachButton = new BooleanIOCondition(beckhoffIO.getOutput("EK1100_DO03"), true);
 		
+		//this works like interrupt type solution 
+		//create listener and its code to execute on rising edge
 		IRisingEdgeListener listener_hgTeachButton = new IRisingEdgeListener() {
 			
 			@Override
@@ -550,10 +552,13 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 				System.out.println("Hola! :" + time);
 			}
 		};
-		
+		//create observer that connects event (teach button) with rising edge listener and its code
 		ConditionObserver hgTeachButtonObserver = getObserverManager().createConditionObserver(hgTeachButton, NotificationType.MissedEvents, listener_hgTeachButton);
+		//enabled observer (interupt)
 		hgTeachButtonObserver.enable();
 		
+		//create hand guiding object with  and set its axis limits based on previous data
+		//additional parameters (axis limit violation on start)
 		hgMotion = handGuiding().
 				setAxisLimitsMin(a1N, a2N, a3N, a4N, a5N, a6N, a7N).
 				setAxisLimitsMax(a1P, a2P, a3P, a4P, a5P, a6P, a7P).
@@ -561,19 +566,21 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 				setAxisLimitViolationFreezesAll(false).
 				setPermanentPullOnViolationAtStart(true).
 				setAxisSpeedLimit(0.5);
-
+		
+		//loop that puts robot into HRC mode 
+		//condition is smartPad push button from UserKeys (sets/resets EK1100 DO 4, hold button)
 		while (!beckhoffIO.getEK1100_DO04()) {
 			System.out.println("Goint into Free motion...");
 			positionHoldContainer = currentTCP.move(hgMotion);
 		}
 		
 		System.out.println("... and done");
-		positionHoldContainer.cancel();
-		hgTeachButtonObserver.disable();	
-		beckhoffIO.setEK1100_DO04(false);
+		positionHoldContainer.cancel();		//cancel HCR
+		hgTeachButtonObserver.disable();	//observer canceled (no points recording)	
+		beckhoffIO.setEK1100_DO04(false); 	//reset smart pad button
 		
 		System.out.println("Hand Guide Canceled");
-		
+		StaticGlobals.hcrEnable = false;
 		
 		String newPosName = null; 
 		int frameCounter = 0;
