@@ -68,6 +68,7 @@ public class UserKeys extends RoboticsAPIBackgroundTask {
 		///////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		IUserKeyBar keybarNutRunner02 = getApplicationUI().createUserKeyBar("IOs");
+		IUserKeyBar keybarHCR = getApplicationUI().createUserKeyBar("HCR");
 			
 		IUserKeyListener listenerGrindManualReq = new IUserKeyListener() {
 			@Override
@@ -158,6 +159,28 @@ public class UserKeys extends RoboticsAPIBackgroundTask {
 			}
 		};
 
+		IUserKeyListener listenerHCREnable = new IUserKeyListener() {
+			@Override
+			public void onKeyEvent(IUserKey arg0, UserKeyEvent arg1) {
+				if((arg1==UserKeyEvent.KeyDown)) {
+					if(!beckhoffIO.getEK1100_DO16()) {
+						arg0.setLED(UserKeyAlignment.Middle, UserKeyLED.Green,UserKeyLEDSize.Normal);
+						arg0.setText(UserKeyAlignment.TopMiddle, "HCR");
+						arg0.setText(UserKeyAlignment.BottomMiddle, "ON");
+						beckhoffIO.setEK1100_DO16(true);
+					} else {						
+						arg0.setLED(UserKeyAlignment.Middle, UserKeyLED.Red,UserKeyLEDSize.Normal);
+						arg0.setText(UserKeyAlignment.TopMiddle, "HCR");
+						arg0.setText(UserKeyAlignment.BottomMiddle, "OFF");
+						StaticGlobals.disableTool = false;
+					}
+				}
+				if(arg1==UserKeyEvent.KeyUp){
+					//nothing here;
+				}
+			}
+		};
+		
 		
 		// Create user keys 
 		
@@ -165,6 +188,8 @@ public class UserKeys extends RoboticsAPIBackgroundTask {
 		IUserKey disableTool = keybarNutRunner02.addUserKey(1, listenerDisableTool, true);
 		IUserKey handGuidingTeachPos = keybarNutRunner02.addUserKey(2, listenerHGteachPos, true);
 		IUserKey handGuidingEnd = keybarNutRunner02.addUserKey(3, listenerHGteachEnd, true);
+		
+		IUserKey hcrEnable = keybarHCR.addUserKey(0, listenerHCREnable, true);
 		
 		// Initialize correct state at start
 		
@@ -187,9 +212,14 @@ public class UserKeys extends RoboticsAPIBackgroundTask {
 		handGuidingEnd.setLED(UserKeyAlignment.Middle, UserKeyLED.Red, UserKeyLEDSize.Normal);
 		beckhoffIO.setEK1100_DO04(false);
 		
+		hcrEnable.setText(UserKeyAlignment.TopMiddle, "HCR");
+		hcrEnable.setText(UserKeyAlignment.BottomMiddle, "OFF");
+		hcrEnable.setLED(UserKeyAlignment.Middle, UserKeyLED.Red, UserKeyLEDSize.Normal);
+		beckhoffIO.setEK1100_DO16(false);
+		
 		// Deysplay keybar
 		
 		keybarNutRunner02.publish();
-		
+		keybarHCR.publish();
 	}
 }
