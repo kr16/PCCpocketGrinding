@@ -163,16 +163,16 @@ public class UserKeys extends RoboticsAPIBackgroundTask {
 			@Override
 			public void onKeyEvent(IUserKey arg0, UserKeyEvent arg1) {
 				if((arg1==UserKeyEvent.KeyDown)) {
-					if(!beckhoffIO.getEK1100_DO16()) {
+					if(!StaticGlobals.hcrEnable) {
 						arg0.setLED(UserKeyAlignment.Middle, UserKeyLED.Green,UserKeyLEDSize.Normal);
 						arg0.setText(UserKeyAlignment.TopMiddle, "HCR");
 						arg0.setText(UserKeyAlignment.BottomMiddle, "ON");
-						beckhoffIO.setEK1100_DO16(true);
+						StaticGlobals.hcrEnable = true;
 					} else {						
 						arg0.setLED(UserKeyAlignment.Middle, UserKeyLED.Red,UserKeyLEDSize.Normal);
 						arg0.setText(UserKeyAlignment.TopMiddle, "HCR");
 						arg0.setText(UserKeyAlignment.BottomMiddle, "OFF");
-						StaticGlobals.disableTool = false;
+						StaticGlobals.hcrEnable = false;
 					}
 				}
 				if(arg1==UserKeyEvent.KeyUp){
