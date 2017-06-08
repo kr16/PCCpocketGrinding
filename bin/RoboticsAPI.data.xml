@@ -175,6 +175,12 @@
                         <info key="Comment" type="java.lang.String" value="12.7mm 1/2 inch&#13;&#10;SD-5 S/C"/>
                     </additionalInformation>
                 </frame>
+                <frame id="_b005163a-ed51-43f9-9616-d28d1971ba0c" name="HCR">
+                    <transformation a="0.0" b="0.0" c="0.0" x="-91.0" y="0.0" z="30.0"/>
+                    <additionalInformation>
+                        <info key="Comment" type="java.lang.String" value="Use this only for HCR mode&#13;&#10;TCP sets at center of gravity"/>
+                    </additionalInformation>
+                </frame>
             </frames>
             <loadData cogA="0.0" cogB="0.0" cogC="0.0" cogX="-91.99438895000425" cogY="0.11462472434756946" cogZ="33.97724536385368" inertiaX="0.0" inertiaY="0.0" inertiaZ="0.0" mass="2.9381845120796246"/>
         </toolTemplate>
