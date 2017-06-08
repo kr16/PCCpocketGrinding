@@ -176,7 +176,7 @@
                     </additionalInformation>
                 </frame>
             </frames>
-            <loadData cogA="0.0" cogB="0.0" cogC="0.0" cogX="-62.93394529170342" cogY="-2.1838778696431596" cogZ="29.833463779329648" inertiaX="0.0" inertiaY="0.0" inertiaZ="0.0" mass="2.5549314966519256"/>
+            <loadData cogA="0.0" cogB="0.0" cogC="0.0" cogX="-91.99438895000425" cogY="0.11462472434756946" cogZ="33.97724536385368" inertiaX="0.0" inertiaY="0.0" inertiaZ="0.0" mass="2.9381845120796246"/>
         </toolTemplate>
     </objectTemplates>
     <processDataContainer>
