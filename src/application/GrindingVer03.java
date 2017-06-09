@@ -505,6 +505,7 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		ObjectFrame currentWorkingTCP = eeTool.setCurrentTCP(EToolName.valueOf(currentTCP.getName()));
 		System.out.println("DEBUG: " + currentWorkingTCP.toString() + " name = " + currentWorkingTCP.getName());
 		
+		System.out.println("DEBUG: " + currentTCP.toString() + " name = " + currentTCP.getName());
 		eeTool.setCurrentTCP(EToolName.HCR);
 		currentTCP = eeTool.getCurrentTCP();
 		System.out.println("DEBUG: " + currentTCP.toString() + " name = " + currentTCP.getName());
