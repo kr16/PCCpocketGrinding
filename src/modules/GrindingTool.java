@@ -25,6 +25,14 @@ public class GrindingTool {
 	public GrindingTool(Controller controller) {
 		SMC_IO = new SMC600_SPN1_4valvesonlyIOGroup(controller);
 		beckhoffEcatIO = new EK1100IOGroup(controller);
+		init();
+	}
+	
+	public void init() {
+		this.cutterDiameter = 0;
+		this.cutterName = null;
+		this.cutterRadius = 0;
+		this.currentTCP = null;
 	}
 	
 	/**
@@ -118,6 +126,7 @@ public class GrindingTool {
 		case HCR:
 			currentTCP = sunriseTool.getFrame(toolName.toString());
 			this.setCutterName(toolName);
+			break;
 			
 		default:
 			currentTCP = sunriseTool.getFrame("None");

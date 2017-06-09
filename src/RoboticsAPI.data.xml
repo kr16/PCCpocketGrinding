@@ -176,7 +176,7 @@
                     </additionalInformation>
                 </frame>
                 <frame id="_b005163a-ed51-43f9-9616-d28d1971ba0c" name="HCR">
-                    <transformation a="0.0" b="0.0" c="0.0" x="-91.0" y="0.0" z="30.0"/>
+                    <transformation a="0.0" b="-0.9599310885968813" c="0.0" x="-91.0" y="0.0" z="30.0"/>
                     <additionalInformation>
                         <info key="Comment" type="java.lang.String" value="Use this only for HCR mode&#13;&#10;TCP sets at center of gravity"/>
                     </additionalInformation>
