@@ -504,10 +504,7 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 				//or maybe its just COM??? and tcp does not matter
 		ObjectFrame currentWorkingTCP = eeTool.setCurrentTCP(EToolName.valueOf(currentTCP.getName()));
 		System.out.println("DEBUG: " + currentWorkingTCP.toString() + " name = " + currentWorkingTCP.getName());
-		
-		System.out.println("DEBUG: " + currentTCP.toString() + " name = " + currentTCP.getName());
-		eeTool.setCurrentTCP(EToolName.BallSD51SC);
-		currentTCP = eeTool.getCurrentTCP();
+		currentTCP = eeTool.setCurrentTCP(EToolName.HCR);
 		System.out.println("DEBUG: " + currentTCP.toString() + " name = " + currentTCP.getName());
 		
 		//Enable ability to guide the robot with HCR button

@@ -117,6 +117,7 @@ public class GrindingTool {
 			
 		case HCR:
 			currentTCP = sunriseTool.getFrame(toolName.toString());
+			this.setCutterName(toolName);
 			
 		default:
 			currentTCP = sunriseTool.getFrame("None");
