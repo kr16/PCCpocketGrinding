@@ -506,7 +506,7 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		System.out.println("DEBUG: " + currentWorkingTCP.toString() + " name = " + currentWorkingTCP.getName());
 		
 		eeTool.setCurrentTCP(EToolName.HCR);
-		System.out.println(eeTool.getCurrentTCP());
+		currentTCP = eeTool.getCurrentTCP();
 		System.out.println("DEBUG: " + currentTCP.toString() + " name = " + currentTCP.getName());
 		
 		//Enable ability to guide the robot with HCR button
