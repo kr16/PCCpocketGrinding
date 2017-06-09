@@ -477,9 +477,6 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 
 		long totalTimeSecs = (long) (travelDistance/travelVelocity); 
 
-
-
-
 		double additionalZForce = globalVarFromPLC.getVarDouble("simpleWorkingDirAdditionalForce");
 		double zProgress = globalVarFromPLC.getVarDouble("simpleZProgress");
 		long totalTime = globalVarFromPLC.getVarLong("simpleTotalTime");
@@ -498,14 +495,8 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 	public void handGuideMe(boolean isEnabled) {
 		if(!isEnabled) return;		//if we got false we don't execute
 		
-		 
-				
-				//Then we need to give back actual tool used before and used correct one for position teaching
-				//or maybe its just COM??? and tcp does not matter
 		ObjectFrame currentWorkingTCP = eeTool.setCurrentTCP(EToolName.valueOf(currentTCP.getName()));
-		System.out.println("DEBUG: " + currentWorkingTCP.toString() + " name = " + currentWorkingTCP.getName());
 		currentTCP = eeTool.setCurrentTCP(EToolName.HCR);
-		System.out.println("DEBUG: " + currentTCP.toString() + " name = " + currentTCP.getName());
 		
 		//Enable ability to guide the robot with HCR button
 		//This is done in BackgroundTaskHCR
@@ -557,8 +548,9 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 			public void onRisingEdge(ConditionObserver conditionObserver, Date time,
 					int missedEvents) {
 				pressCounter++;
-				recPositions.add(bot.getCurrentCartesianPosition(currentTCP, nullBase));
-				System.out.println("Hola! :" + time);
+				Frame position = bot.getCurrentCartesianPosition(currentTCP, nullBase).copyWithRedundancy();
+				recPositions.add(position);
+				System.out.println("Position + " + pressCounter + " : " + position.toString());
 			}
 		};
 		//create observer that connects event (teach button) with rising edge listener and its code
@@ -587,6 +579,7 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		positionHoldContainer.cancel();		//cancel HCR
 		hgTeachButtonObserver.disable();	//observer canceled (no points recording)	
 		beckhoffIO.setEK1100_DO04(false); 	//reset smart pad button
+		currentTCP = currentWorkingTCP;		//restore original TCP used
 		
 		System.out.println("Hand Guide Canceled");
 		StaticGlobals.hcrEnable = false;
