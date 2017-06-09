@@ -60,6 +60,12 @@
                     <info key="LastModificationTime" type="java.lang.Long" value="1492778705042"/>
                 </additionalInformation>
             </frame>
+            <frame id="_a109cd92-efc7-4a5d-b6dc-77f6297363b8" name="P4">
+                <transformation a="-0.29528736026370056" b="1.5637284681804444" c="3.0440979105287913" x="662.6937237358776" y="81.45221134925488" z="787.2625185846094"/>
+                <additionalInformation>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1492778705047"/>
+                </additionalInformation>
+            </frame>
             <frame id="_b752ad10-40ed-49a7-a853-faf920618876" name="P5">
                 <transformation a="-0.29528736026370056" b="1.5637284681804444" c="3.0440979105287913" x="662.6937237358776" y="81.45221134925488" z="787.2625185846094"/>
                 <additionalInformation>
@@ -82,12 +88,6 @@
                 <transformation a="-0.29528671005761303" b="1.5637284328536785" c="3.0440986669244143" x="662.6937097834889" y="81.45213628467573" z="787.2625442590966"/>
                 <additionalInformation>
                     <info key="LastModificationTime" type="java.lang.Long" value="1492778705071"/>
-                </additionalInformation>
-            </frame>
-            <frame id="_2b372cc6-6ff9-42a1-9095-6bfbb079cbf0" name="P7">
-                <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
-                <additionalInformation>
-                    <info key="LastModificationTime" type="java.lang.Long" value="1497036216748"/>
                 </additionalInformation>
             </frame>
         </frame>

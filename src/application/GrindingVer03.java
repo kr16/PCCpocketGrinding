@@ -299,7 +299,8 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		/////             HRC                   ///////////////////////////
 		///// handGuide function test /experimental use ///////////////////
 		///// set TRUE to enable //////////////////////////////////////////
-		handGuideMe(true); 
+		//handGuideMe(true); 
+		handGuideMe(globalVarFromPLC.getVarBoolean("bChckbxHcrModeEnable")); 
 		///////////////////////////////////////////////////////////////////
 		
 		String noteString = "Air run";
@@ -502,6 +503,7 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		//This is done in BackgroundTaskHCR
 		StaticGlobals.hcrEnable = true;
 		
+		System.out.println("Mode?: " + bot.getOperationMode());
 		
 		//Max torque at which we should quit
 		double maxTorque = 4;
@@ -550,7 +552,7 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 				pressCounter++;
 				Frame position = bot.getCurrentCartesianPosition(currentTCP, nullBase).copyWithRedundancy();
 				recPositions.add(position);
-				System.out.println("Position + " + pressCounter + " : " + position.toString());
+				System.out.println("Position " + pressCounter + " : " + position.toString());
 			}
 		};
 		//create observer that connects event (teach button) with rising edge listener and its code

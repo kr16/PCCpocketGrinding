@@ -55,6 +55,7 @@ public class BackgroundTaskToolSafety extends RoboticsAPICyclicBackgroundTask {
 		//if tool is not disabled
 		if (!StaticGlobals.disableTool) {
 			//if T1 or T2
+			
 			if (botState.getSafetyState().getOperationMode() == OperationMode.T1
 					|| botState.getSafetyState().getOperationMode() == OperationMode.T2) {
 				//if dead man NOT enabled
