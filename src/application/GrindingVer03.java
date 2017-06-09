@@ -299,7 +299,7 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		/////             HRC                   ///////////////////////////
 		///// handGuide function test /experimental use ///////////////////
 		///// set TRUE to enable //////////////////////////////////////////
-		handGuideMe(false); 
+		handGuideMe(true); 
 		///////////////////////////////////////////////////////////////////
 		
 		String noteString = "Air run";
@@ -497,7 +497,15 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 	///////////////////////////////////////////////////////////////////////////////////
 	public void handGuideMe(boolean isEnabled) {
 		if(!isEnabled) return;		//if we got false we don't execute
-
+		
+		 
+				
+				//Then we need to give back actual tool used before and used correct one for position teaching
+				//or maybe its just COM??? and tcp does not matter
+		ObjectFrame currentWorkingTCP = eeTool.setCurrentTCP(EToolName.valueOf(currentTCP.getName()));
+		System.out.println("DEBUG: " + currentWorkingTCP.toString() + " name= " + currentWorkingTCP.getName());
+		currentTCP = eeTool.setCurrentTCP(EToolName.HCR); 
+		
 		//Enable ability to guide the robot with HCR button
 		//This is done in BackgroundTaskHCR
 		StaticGlobals.hcrEnable = true;

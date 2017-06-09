@@ -78,7 +78,7 @@ public class GrindingTool {
 		setSunriseTool(sunriseTool);
 	}
 	
-	public void setCurrentTCP(EToolName toolName) {
+	public ObjectFrame setCurrentTCP(EToolName toolName) {
 		
 		switch (toolName) {
 		
@@ -115,10 +115,14 @@ public class GrindingTool {
 			this.setCutterDiameter(15.8);
 			break;
 			
+		case HCR:
+			currentTCP = sunriseTool.getFrame(toolName.toString());
+			
 		default:
 			currentTCP = sunriseTool.getFrame("None");
 			break;
 		}
+		return this.getCurrentTCP();
 	}
 	
 	public ObjectFrame getCurrentTCP() {
