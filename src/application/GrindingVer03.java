@@ -503,7 +503,6 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		//This is done in BackgroundTaskHCR
 		StaticGlobals.hcrEnable = true;
 		
-		System.out.println("Mode?: " + bot.getOperationMode());
 		
 		//Max torque at which we should quit
 		double maxTorque = 4;
