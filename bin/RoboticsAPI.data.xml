@@ -138,38 +138,6 @@
                 </redundancyData>
             </frame>
         </frame>
-        <frame id="_83683942-e21e-456e-9b15-c44d67aef8fc" name="P1">
-            <transformation a="2.1408705242894364" b="-0.003864523798541822" c="-1.5657155633589281" x="138.4330878471617" y="-687.7141345261948" z="557.0538429635121"/>
-            <additionalInformation>
-                <info key="LastModificationTime" type="java.lang.Long" value="1497532506970"/>
-                <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="KSAFNutRunnerEE/NutRunner_HL70_06" tool="KSAFNutRunnerEE" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
-                    <tcpTransformation a="0.0" b="1.5707963267948966" c="1.1780972450961724" x="96.14592382491348" y="-235.32853232224016" z="126.47503541352219"/>
-                </info>
-            </additionalInformation>
-            <redundancyData>
-                <redundancy transformationProviderName="KUKA_Sunrise_Cabinet_1/LBR_iiwa_14_R820_1" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy">
-                    <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="6" valueType="java.lang.Integer"/>
-                    <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="121" valueType="java.lang.Integer"/>
-                    <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="4.11058854598922E-5" valueType="java.lang.Double"/>
-                </redundancy>
-            </redundancyData>
-        </frame>
-        <frame id="_529f9102-80a4-4d3a-9f02-12715d4c17a7" name="P2">
-            <transformation a="2.140876602701593" b="-0.003864345599471857" c="-1.5657140186317229" x="138.43678524428282" y="-687.7136033425694" z="557.0542806269914"/>
-            <additionalInformation>
-                <info key="LastModificationTime" type="java.lang.Long" value="1497532509111"/>
-                <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="KSAFNutRunnerEE/NutRunner_HL70_06" tool="KSAFNutRunnerEE" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
-                    <tcpTransformation a="0.0" b="1.5707963267948966" c="1.1780972450961724" x="96.14592382491348" y="-235.32853232224016" z="126.47503541352219"/>
-                </info>
-            </additionalInformation>
-            <redundancyData>
-                <redundancy transformationProviderName="KUKA_Sunrise_Cabinet_1/LBR_iiwa_14_R820_1" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy">
-                    <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="6" valueType="java.lang.Integer"/>
-                    <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="121" valueType="java.lang.Integer"/>
-                    <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="4.350276793827166E-5" valueType="java.lang.Double"/>
-                </redundancy>
-            </redundancyData>
-        </frame>
     </world>
     <objectTemplates>
         <toolTemplate class="" name="KSAFNutRunnerEE">
