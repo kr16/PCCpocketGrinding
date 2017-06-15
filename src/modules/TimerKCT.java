@@ -119,7 +119,6 @@ public class TimerKCT implements Runnable {
 				dInitTime = System.currentTimeMillis() - dCurrentTime;
 			}
 		}
-		System.out.println("Timer killed");
 	}
 }		
 

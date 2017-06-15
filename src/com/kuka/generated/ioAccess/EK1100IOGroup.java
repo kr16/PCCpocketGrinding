@@ -6,7 +6,6 @@ import javax.inject.Singleton;
 import com.kuka.roboticsAPI.controllerModel.Controller;
 import com.kuka.roboticsAPI.ioModel.AbstractIOGroup;
 import com.kuka.roboticsAPI.ioModel.IOTypes;
-import com.kuka.roboticsAPI.ioModel.OutputReservedException;
 
 /**
  * Automatically generated class to abstract I/O access to I/O group <b>EK1100</b>.<br>
@@ -46,7 +45,7 @@ public class EK1100IOGroup extends AbstractIOGroup
 		addInput("EK1100_DI14", IOTypes.BOOLEAN, 1);
 		addInput("EK1100_DI15", IOTypes.BOOLEAN, 1);
 		addInput("EK1100_DI16", IOTypes.BOOLEAN, 1);
-		addDigitalOutput("EK1100_DO01_GrindingToolReq", IOTypes.BOOLEAN, 1);
+		addDigitalOutput("EK1100_DO01", IOTypes.BOOLEAN, 1);
 		addDigitalOutput("EK1100_DO02", IOTypes.BOOLEAN, 1);
 		addDigitalOutput("EK1100_DO03", IOTypes.BOOLEAN, 1);
 		addDigitalOutput("EK1100_DO04", IOTypes.BOOLEAN, 1);
@@ -55,10 +54,10 @@ public class EK1100IOGroup extends AbstractIOGroup
 		addDigitalOutput("EK1100_DO07", IOTypes.BOOLEAN, 1);
 		addDigitalOutput("EK1100_DO08", IOTypes.BOOLEAN, 1);
 		addDigitalOutput("EK1100_DO09", IOTypes.BOOLEAN, 1);
-		addMockedDigitalOutput("EK1100_DO10", IOTypes.BOOLEAN, 1);
-		addMockedDigitalOutput("EK1100_DO11", IOTypes.BOOLEAN, 1);
-		addMockedDigitalOutput("EK1100_DO12", IOTypes.BOOLEAN, 1);
-		addMockedDigitalOutput("EK1100_DO13", IOTypes.BOOLEAN, 1);
+		addDigitalOutput("EK1100_DO10", IOTypes.BOOLEAN, 1);
+		addDigitalOutput("EK1100_DO11", IOTypes.BOOLEAN, 1);
+		addDigitalOutput("EK1100_DO12", IOTypes.BOOLEAN, 1);
+		addDigitalOutput("EK1100_DO13", IOTypes.BOOLEAN, 1);
 		addDigitalOutput("EK1100_DO14", IOTypes.BOOLEAN, 1);
 		addDigitalOutput("EK1100_DO15", IOTypes.BOOLEAN, 1);
 		addDigitalOutput("EK1100_DO16", IOTypes.BOOLEAN, 1);
@@ -385,7 +384,7 @@ public class EK1100IOGroup extends AbstractIOGroup
 	}
 
 	/**
-	 * Gets the value of the <b>digital output '<i>EK1100_DO01_GrindingToolReq</i>'</b>.<br>
+	 * Gets the value of the <b>digital output '<i>EK1100_DO01</i>'</b>.<br>
 	 * <i>This method is automatically generated. Please, do not modify!</i>
 	 * <p>
 	 * <b>I/O direction and type:</b><br>
@@ -397,15 +396,15 @@ public class EK1100IOGroup extends AbstractIOGroup
 	 * <b>Range of the I/O value:</b><br>
 	 * [false; true]
 	 *
-	 * @return current value of the digital output 'EK1100_DO01_GrindingToolReq'
+	 * @return current value of the digital output 'EK1100_DO01'
 	 */
-	public boolean getEK1100_DO01_GrindingToolReq()
+	public boolean getEK1100_DO01()
 	{
-		return getBooleanIOValue("EK1100_DO01_GrindingToolReq", true);
+		return getBooleanIOValue("EK1100_DO01", true);
 	}
 
 	/**
-	 * Sets the value of the <b>digital output '<i>EK1100_DO01_GrindingToolReq</i>'</b>.<br>
+	 * Sets the value of the <b>digital output '<i>EK1100_DO01</i>'</b>.<br>
 	 * <i>This method is automatically generated. Please, do not modify!</i>
 	 * <p>
 	 * <b>I/O direction and type:</b><br>
@@ -418,11 +417,11 @@ public class EK1100IOGroup extends AbstractIOGroup
 	 * [false; true]
 	 *
 	 * @param value
-	 *            the value, which has to be written to the digital output 'EK1100_DO01_GrindingToolReq'
+	 *            the value, which has to be written to the digital output 'EK1100_DO01'
 	 */
-	public void setEK1100_DO01_GrindingToolReq(java.lang.Boolean value)
+	public void setEK1100_DO01(java.lang.Boolean value)
 	{
-		setDigitalOutput("EK1100_DO01_GrindingToolReq", value);
+		setDigitalOutput("EK1100_DO01", value);
 	}
 
 	/**
@@ -767,17 +766,14 @@ public class EK1100IOGroup extends AbstractIOGroup
 	 * [false; true]
 	 *
 	 * @return current value of the digital output 'EK1100_DO10'
-	* 
-	 * @deprecated The output 'EK1100_DO10' is currently used as station state output in the Sunrise project properties.
 	 */
-	@Deprecated
 	public boolean getEK1100_DO10()
 	{
 		return getBooleanIOValue("EK1100_DO10", true);
 	}
 
 	/**
-	 * Always throws an {@code OutputReservedException}, because the <b>digital output '<i>EK1100_DO10</i>'</b> is currently used as station state output in the Sunrise project properties.
+	 * Sets the value of the <b>digital output '<i>EK1100_DO10</i>'</b>.<br>
 	 * <i>This method is automatically generated. Please, do not modify!</i>
 	 * <p>
 	 * <b>I/O direction and type:</b><br>
@@ -791,15 +787,10 @@ public class EK1100IOGroup extends AbstractIOGroup
 	 *
 	 * @param value
 	 *            the value, which has to be written to the digital output 'EK1100_DO10'
-	 * @throws OutputReservedException
-	 *            Always thrown, because this output is currently used as station state output in the Sunrise project properties.
-	* 
-	 * @deprecated The output 'EK1100_DO10' is currently used as station state output in the Sunrise project properties.
 	 */
-	@Deprecated
-	public void setEK1100_DO10(java.lang.Boolean value) throws OutputReservedException
+	public void setEK1100_DO10(java.lang.Boolean value)
 	{
-		throw new OutputReservedException("The output 'EK1100_DO10' must not be set because it is currently used as station state output in the Sunrise project properties.");
+		setDigitalOutput("EK1100_DO10", value);
 	}
 
 	/**
@@ -816,17 +807,14 @@ public class EK1100IOGroup extends AbstractIOGroup
 	 * [false; true]
 	 *
 	 * @return current value of the digital output 'EK1100_DO11'
-	* 
-	 * @deprecated The output 'EK1100_DO11' is currently used as station state output in the Sunrise project properties.
 	 */
-	@Deprecated
 	public boolean getEK1100_DO11()
 	{
 		return getBooleanIOValue("EK1100_DO11", true);
 	}
 
 	/**
-	 * Always throws an {@code OutputReservedException}, because the <b>digital output '<i>EK1100_DO11</i>'</b> is currently used as station state output in the Sunrise project properties.
+	 * Sets the value of the <b>digital output '<i>EK1100_DO11</i>'</b>.<br>
 	 * <i>This method is automatically generated. Please, do not modify!</i>
 	 * <p>
 	 * <b>I/O direction and type:</b><br>
@@ -840,15 +828,10 @@ public class EK1100IOGroup extends AbstractIOGroup
 	 *
 	 * @param value
 	 *            the value, which has to be written to the digital output 'EK1100_DO11'
-	 * @throws OutputReservedException
-	 *            Always thrown, because this output is currently used as station state output in the Sunrise project properties.
-	* 
-	 * @deprecated The output 'EK1100_DO11' is currently used as station state output in the Sunrise project properties.
 	 */
-	@Deprecated
-	public void setEK1100_DO11(java.lang.Boolean value) throws OutputReservedException
+	public void setEK1100_DO11(java.lang.Boolean value)
 	{
-		throw new OutputReservedException("The output 'EK1100_DO11' must not be set because it is currently used as station state output in the Sunrise project properties.");
+		setDigitalOutput("EK1100_DO11", value);
 	}
 
 	/**
@@ -865,17 +848,14 @@ public class EK1100IOGroup extends AbstractIOGroup
 	 * [false; true]
 	 *
 	 * @return current value of the digital output 'EK1100_DO12'
-	* 
-	 * @deprecated The output 'EK1100_DO12' is currently used as station state output in the Sunrise project properties.
 	 */
-	@Deprecated
 	public boolean getEK1100_DO12()
 	{
 		return getBooleanIOValue("EK1100_DO12", true);
 	}
 
 	/**
-	 * Always throws an {@code OutputReservedException}, because the <b>digital output '<i>EK1100_DO12</i>'</b> is currently used as station state output in the Sunrise project properties.
+	 * Sets the value of the <b>digital output '<i>EK1100_DO12</i>'</b>.<br>
 	 * <i>This method is automatically generated. Please, do not modify!</i>
 	 * <p>
 	 * <b>I/O direction and type:</b><br>
@@ -889,15 +869,10 @@ public class EK1100IOGroup extends AbstractIOGroup
 	 *
 	 * @param value
 	 *            the value, which has to be written to the digital output 'EK1100_DO12'
-	 * @throws OutputReservedException
-	 *            Always thrown, because this output is currently used as station state output in the Sunrise project properties.
-	* 
-	 * @deprecated The output 'EK1100_DO12' is currently used as station state output in the Sunrise project properties.
 	 */
-	@Deprecated
-	public void setEK1100_DO12(java.lang.Boolean value) throws OutputReservedException
+	public void setEK1100_DO12(java.lang.Boolean value)
 	{
-		throw new OutputReservedException("The output 'EK1100_DO12' must not be set because it is currently used as station state output in the Sunrise project properties.");
+		setDigitalOutput("EK1100_DO12", value);
 	}
 
 	/**
@@ -914,17 +889,14 @@ public class EK1100IOGroup extends AbstractIOGroup
 	 * [false; true]
 	 *
 	 * @return current value of the digital output 'EK1100_DO13'
-	* 
-	 * @deprecated The output 'EK1100_DO13' is currently used as station state output in the Sunrise project properties.
 	 */
-	@Deprecated
 	public boolean getEK1100_DO13()
 	{
 		return getBooleanIOValue("EK1100_DO13", true);
 	}
 
 	/**
-	 * Always throws an {@code OutputReservedException}, because the <b>digital output '<i>EK1100_DO13</i>'</b> is currently used as station state output in the Sunrise project properties.
+	 * Sets the value of the <b>digital output '<i>EK1100_DO13</i>'</b>.<br>
 	 * <i>This method is automatically generated. Please, do not modify!</i>
 	 * <p>
 	 * <b>I/O direction and type:</b><br>
@@ -938,15 +910,10 @@ public class EK1100IOGroup extends AbstractIOGroup
 	 *
 	 * @param value
 	 *            the value, which has to be written to the digital output 'EK1100_DO13'
-	 * @throws OutputReservedException
-	 *            Always thrown, because this output is currently used as station state output in the Sunrise project properties.
-	* 
-	 * @deprecated The output 'EK1100_DO13' is currently used as station state output in the Sunrise project properties.
 	 */
-	@Deprecated
-	public void setEK1100_DO13(java.lang.Boolean value) throws OutputReservedException
+	public void setEK1100_DO13(java.lang.Boolean value)
 	{
-		throw new OutputReservedException("The output 'EK1100_DO13' must not be set because it is currently used as station state output in the Sunrise project properties.");
+		setDigitalOutput("EK1100_DO13", value);
 	}
 
 	/**

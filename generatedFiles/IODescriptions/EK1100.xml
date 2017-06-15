@@ -53,7 +53,7 @@ Automatically generated IO group description. Please do NOT modify!
       <DigitalIOItem Name="EK1100_DI16" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="true">
         <Description />
       </DigitalIOItem>
-      <DigitalIOItem Name="EK1100_DO01_GrindingToolReq" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="true">
+      <DigitalIOItem Name="EK1100_DO01" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="true">
         <Description />
       </DigitalIOItem>
       <DigitalIOItem Name="EK1100_DO02" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="true">

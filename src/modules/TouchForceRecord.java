@@ -21,7 +21,7 @@ import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
 import com.kuka.roboticsAPI.deviceModel.LBR;
 import com.kuka.roboticsAPI.controllerModel.Controller;
 import modules.Common;
-import modules.Common.ESearchDirection;;
+import modules.Common.searchDir;
 
 
 public class TouchForceRecord {
@@ -40,7 +40,7 @@ public class TouchForceRecord {
 	}
 	
 	public void recordPosition(
-			ESearchDirection searchDirection, 		//search direction in TOOL  
+			searchDir searchDirection, 		//search direction in TOOL  
 			double brakeForce, 				//force in N to stop the search move
 			double searchDistance, 			//relative to tool position distance in mm
 			double searchVelocity,			//search velocity
@@ -97,7 +97,8 @@ public class TouchForceRecord {
 		if (mc.hasFired(forceCond)) {
 			//something was found, register position
 			this.position = currentLBR.getCurrentCartesianPosition(currentTcp, currentBase);
-			System.out.println("Reference position found");
+			//System.out.println("Reference position found");
+			System.out.println("TA DA");
 			if (recordDelay > 0) {
 				System.out.println("Delay of: " + recordDelay + " miliseconds");
 				ThreadUtil.milliSleep(recordDelay);
@@ -105,7 +106,7 @@ public class TouchForceRecord {
 			result = true;
 		} else {
 			//nothing was found
-			System.err.println("Reference position not found");
+			System.out.println("Reference position not found");
 			result = false;
 		}
 	}
