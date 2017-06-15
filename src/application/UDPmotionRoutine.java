@@ -5,6 +5,8 @@ import javax.inject.Inject;
 import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
 import static com.kuka.roboticsAPI.motionModel.BasicMotions.*;
 import com.kuka.roboticsAPI.deviceModel.LBR;
+import com.kuka.roboticsAPI.geometricModel.ObjectFrame;
+import com.kuka.roboticsAPI.geometricModel.Tool;
 
 /**
  * Implementation of a robot application.
@@ -26,16 +28,24 @@ import com.kuka.roboticsAPI.deviceModel.LBR;
  */
 public class UDPmotionRoutine extends RoboticsAPIApplication {
 	@Inject
-	private LBR lBR_iiwa_14_R820_1;
+	private LBR bot;
+	private Tool KSAF_EE;
+	ObjectFrame currentTCP;
 
 	@Override
 	public void initialize() {
-		// initialize your application here
+		KSAF_EE = getApplicationData().createFromTemplate("KSAFNutRunnerEE");
+		currentTCP = KSAF_EE.getFrame("NutRunner_HL70_06");
 	}
 
 	@Override
 	public void run() {
-		// your application execution starts here
-		lBR_iiwa_14_R820_1.move(ptpHome());
+		KSAF_EE.attachTo(bot.getFlange());
+		
+		while (true) {
+		currentTCP.move(ptp(getApplicationData().getFrame("/UDPmotionRoutine/posOutside")).setJointVelocityRel(0.1));
+		
+		currentTCP.move(ptp(getApplicationData().getFrame("/UDPmotionRoutine/posInside")));
+		}
 	}
 }
