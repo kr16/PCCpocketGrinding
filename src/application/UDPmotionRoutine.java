@@ -45,7 +45,7 @@ public class UDPmotionRoutine extends RoboticsAPIApplication {
 		while (true) {
 		currentTCP.move(ptp(getApplicationData().getFrame("/UDPmotionRoutine/posOutside")).setJointVelocityRel(0.1));
 		
-		currentTCP.move(ptp(getApplicationData().getFrame("/UDPmotionRoutine/posInside")));
+		currentTCP.move(ptp(getApplicationData().getFrame("/UDPmotionRoutine/posInside")).setJointVelocityRel(0.1));
 		}
 	}
 }
