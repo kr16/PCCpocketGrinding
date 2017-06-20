@@ -37,6 +37,7 @@ public class CognexIIWA_Telnetlib {
     private String serverAddress;
     private int serverPort;
     
+    //constructors
 	public CognexIIWA_Telnetlib(String serverAddress, String user, String password) {
 		this.initialize();
 		this.setUsername(user);
@@ -53,6 +54,8 @@ public class CognexIIWA_Telnetlib {
 		this.setServerPort(serverPort);
 		
 	}
+	
+	//methods
 	private void initialize() {
 		this.setCurrentTrigger(ECognexTrigger.NULL);
 		this.setCurrentCommand(ECognexCommand.NULL);
