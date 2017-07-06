@@ -166,7 +166,7 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 		//Reset coupon? if yes we set everything as not processed
 		setResetCouponStatus();
 		
-		while (ek1100IO.getEK1100_DI01()) {
+		while (true) {
 			boolean quit = false;
 			int nUserPressedButton = getApplicationUI().displayModalDialog(
 					ApplicationDialogType.QUESTION, "Pick cycle",
