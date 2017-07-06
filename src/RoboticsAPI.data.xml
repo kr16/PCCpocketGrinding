@@ -45,11 +45,11 @@
             </frame>
         </frame>
         <frame id="_7a4823b3-5109-4411-8195-8247e5783b6a" name="HotDotCoupon">
-            <transformation a="2.2217835764037464" b="1.562512658299535" c="-0.9219161351170835" x="876.7077312358442" y="177.55107208032476" z="731.7822830855921"/>
+            <transformation a="1.0915541117640364" b="1.5654281689786098" c="-2.002787221563807" x="741.917846493513" y="602.9878786328569" z="909.2536930717577"/>
             <additionalInformation>
-                <info key="LastModificationTime" type="java.lang.Long" value="1481230129237"/>
+                <info key="LastModificationTime" type="java.lang.Long" value="1499363232638"/>
                 <info key="UseAsBaseForJogging" type="java.lang.Boolean" value="true"/>
-                <info measurementMethod="Base3Point" timestamp="1481230129237" type="com.kuka.roboticsAPI.deviceModel.MeasurementInformation"/>
+                <info measurementMethod="Base3Point" timestamp="1499363232638" type="com.kuka.roboticsAPI.deviceModel.MeasurementInformation"/>
             </additionalInformation>
             <redundancyData>
                 <redundancy transformationProviderName="legacy" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy"/>
