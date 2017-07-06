@@ -237,7 +237,10 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 				smudgeCounter++;
 			} else {
 				smudgeCounter=1;
-				coupon.setRowColumnValue(row, column, EHotDotCouponStates.Smudged);
+				//set position as processed
+				//coupon.setRowColumnValue(row, column, EHotDotCouponStates.Smudged);
+				coupon.setRowColumnValue(row, column, EHotDotCouponStates.Empty);
+				//-------------------------
 			}
 			//------------------------
 		}
