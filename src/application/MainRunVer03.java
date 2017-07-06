@@ -229,7 +229,7 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 			heatGunCleanUp = true;
 			//------------------------
 			//Pick Hot Dot
-			pickHotDot();
+			pickHotDot(false);
 			//------------------------
 			//Apply Hot Dot
 			applyHotDot(row,column);
@@ -583,7 +583,9 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 	/**
 	 * @param searchDelay - time in milliseconds, delay iron at pickup position
 	 */
-	public void pickHotDot() {
+	public void pickHotDot(boolean pick) {
+		if (!pick) return;
+		
 		CartesianImpedanceControlMode mode = new CartesianImpedanceControlMode();
 		
 		TimerThread = new Thread(hotDotHeatUpTimer);
