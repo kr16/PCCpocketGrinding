@@ -54,7 +54,7 @@ public class XMLParserCoupon {
 		this.CouponXMLparserInit();
 		this.buildList();
 	}
-	private void buildList() {
+	public void buildList() {
 		List<HotDotCouponItem> locations = new ArrayList<XMLObjects.HotDotCouponItem>();
 		for (int i = 1; i <= getRowCount(); i++) {
 			for (int j = 1; j <= getColumnCount(); j++) {
@@ -71,7 +71,7 @@ public class XMLParserCoupon {
 		}
 	}
 	
-	private void CouponXMLparserInit() {
+	public void CouponXMLparserInit() {
 		boolean bSuccess = false;
 		file = new File(filename);
 		builder = new SAXBuilder();
