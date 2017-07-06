@@ -337,11 +337,15 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 		//smuge first pass
 		dynamicTCP.move(ptp(smudgeBeginPos1).setJointVelocityRel(0.3));
 		
+		//Heatup timer logic 
+		/*
 		if (hotDotHeatUpTimer.getTimerValue() < globalVarFromPLC.getVarLong("hotDotHeatUpTime")) {
 			System.out.println("Waiting for heat up timer, current value: " + hotDotHeatUpTimer.getTimerValue());
 			while (hotDotHeatUpTimer.getTimerValue() < globalVarFromPLC.getVarLong("hotDotHeatUpTime")) {}
 		}
 		hotDotHeatUpTimer.timerStopAndKill();
+		*/
+		//------------------
 		
 		findSurface.recordPosition(searchDir.PosX, 5, 10, 5, 0, dynamicTCP, hotDotCoupon, bot);
 		if (findSurface.getResult()) {
