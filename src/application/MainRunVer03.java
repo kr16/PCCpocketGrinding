@@ -41,6 +41,7 @@ import static com.kuka.roboticsAPI.motionModel.BasicMotions.*;
 
 import com.kuka.roboticsAPI.conditionModel.ForceCondition;
 import com.kuka.roboticsAPI.controllerModel.Controller;
+import com.kuka.roboticsAPI.controllerModel.recovery.PTPRecoveryStrategy;
 import com.kuka.roboticsAPI.controllerModel.sunrise.connectionLib.CommandType;
 import com.kuka.roboticsAPI.deviceModel.JointPosition;
 import com.kuka.roboticsAPI.deviceModel.LBR;
@@ -238,8 +239,8 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 			} else {
 				smudgeCounter=1;
 				//set position as processed
-				//coupon.setRowColumnValue(row, column, EHotDotCouponStates.Smudged);
-				coupon.setRowColumnValue(row, column, EHotDotCouponStates.Empty);
+				coupon.setRowColumnValue(row, column, EHotDotCouponStates.Smudged);
+				//coupon.setRowColumnValue(row, column, EHotDotCouponStates.Empty);
 				//-------------------------
 			}
 			//------------------------
@@ -280,6 +281,12 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 		System.out.println("ColumnOffset: " + columnOffset);
 		//approach coupon  
 		currentTCP.move(ptp(appCoupon).setJointVelocityRel(0.3).setBlendingCart(20));
+		//testing only remove
+			currentTCP.move(ptp(Math.toRadians(55.15), Math.toRadians(23.59), 0, Math.toRadians(-84.0), Math.toRadians(-23.72), Math.toRadians(-97.61), Math.toRadians(-83.21))
+				.setJointVelocityRel(0.3));
+			getApplicationControl().halt();
+			currentTCP.move(ptp(appCoupon).setJointVelocityRel(0.3).setBlendingCart(20));
+		//-------------------
 		applyHotDot = coupon.calculateXYpos(row, column, refPos.copy(), rowOffset, columnOffset, ECalcDirection.XisRow);
 		appHotDot = applyHotDot.copy();
 		appHotDot.setZ(appHotDot.getZ() + 50);
