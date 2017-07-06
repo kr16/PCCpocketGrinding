@@ -98,7 +98,7 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 	private ObjectFrame skiveCleanUpApp, skiveCleanRefPos;
 	private ObjectFrame refPos;
 	private ObjectFrame nullBase;
-	private Tool HotDotTest;
+	private Tool HotDotTool;
 	private ServerSocket ssock = null;
 	private XmlParserGlobalVarsRD globalVarFromPLC, globalVarFromKRC;
 	private XMLParserCoupon coupon;
@@ -119,11 +119,14 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 		kuka_Sunrise_Cabinet_1 = getController("KUKA_Sunrise_Cabinet_1");
 		bot = (LBR) getDevice(kuka_Sunrise_Cabinet_1,
 				"LBR_iiwa_14_R820_1");
-		HotDotTest = getApplicationData().createFromTemplate("HotDotEE");
+		//HotDotTool = getApplicationData().createFromTemplate("HotDotEE");
+		HotDotTool = getApplicationData().createFromTemplate("HotDotEEnoVRSI");
+		
 		nullBase = getApplicationData().getFrame("/nullBase");
-		currentTCP = HotDotTest.getFrame("IronVer01");
-		dynamicTCP = HotDotTest.getFrame("dynamicTCP");
-		vrsiTCP = HotDotTest.getFrame("VRSIfocalPoint");
+		//currentTCP = HotDotTest.getFrame("IronVer01");
+		currentTCP = HotDotTool.getFrame("Iron");
+		dynamicTCP = HotDotTool.getFrame("dynamicTCP");
+		//vrsiTCP = HotDotTool.getFrame("VRSIfocalPoint");
 		hotDotDispenser = getApplicationData().getFrame("/HotDotDispencer");
 		hotDotCoupon = getApplicationData().getFrame("/HotDotCoupon");
 		appHotDot = getApplicationData().getFrame("/HotDotDispencer/AppHotDot");
@@ -157,7 +160,7 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 	public void run() {
 		
 		setNewHomePosition();
-		HotDotTest.attachTo(bot.getFlange());
+		HotDotTool.attachTo(bot.getFlange());
 		
 		//bot home
 		System.out.println("Moving to Home/Start position");
@@ -319,7 +322,7 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 				,currentTCP.getAlphaRad()
 				,betaTCProtation
 				,currentTCP.getGammaRad());
-		HotDotTest.changeFramePosition(dynamicTCP, dynamicTCPoffset);
+		HotDotTool.changeFramePosition(dynamicTCP, dynamicTCPoffset);
 		
 		TouchForceRecord findSurface = new TouchForceRecord(); 
 		
@@ -382,7 +385,7 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 				,currentTCP.getAlphaRad()
 				,betaTCProtation
 				,currentTCP.getGammaRad());
-		HotDotTest.changeFramePosition(dynamicTCP, dynamicTCPoffset);
+		HotDotTool.changeFramePosition(dynamicTCP, dynamicTCPoffset);
 		
 		dynamicTCP.move(lin(smudgeBeginPos1).setCartVelocity(velocity*4));
 		findSurface.recordPosition(searchDir.PosX, 5, 10, 5, 0, dynamicTCP, hotDotCoupon, bot);
@@ -473,7 +476,7 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 				,currentTCP.getAlphaRad()
 				,TCPskiveBeta
 				,currentTCP.getGammaRad());
-		HotDotTest.changeFramePosition(dynamicTCP, dynamicTCPoffset);
+		HotDotTool.changeFramePosition(dynamicTCP, dynamicTCPoffset);
 		
 		TouchForceRecord findSurface = new TouchForceRecord(); 
 		
@@ -805,7 +808,7 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 		IMotionContainer positionHoldContainer = null;
 		List<Frame> positions = new ArrayList<Frame>();
 		
-		HotDotTest.attachTo(bot.getFlange());
+		HotDotTool.attachTo(bot.getFlange());
 		Frame Start = appHotDot.copy();
 		Start.setZ(Start.getZ() + 100);
 		currentTCP.move(ptp(Start).setJointVelocityRel(0.05));

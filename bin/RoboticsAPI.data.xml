@@ -257,6 +257,9 @@
                     <transformation a="0.0" b="-0.3490658503988659" c="0.0" x="-338.73393052719825" y="3.5723055452235446" z="61.597354957850165"/>
                     <measurementTranslation calculationError="0.8843380457483893" method="XYZ4Point" timestamp="1499360532328"/>
                 </frame>
+                <frame id="_36f65d3c-8b20-4f46-8a66-a44b1cc92748" name="dynamicTCP">
+                    <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
+                </frame>
             </frames>
             <loadData cogA="0.0" cogB="0.0" cogC="0.0" cogX="-116.10746787206617" cogY="-3.030927386334712" cogZ="41.1594766614413" inertiaX="0.0" inertiaY="0.0" inertiaZ="0.0" mass="2.6327030588146028"/>
         </toolTemplate>
