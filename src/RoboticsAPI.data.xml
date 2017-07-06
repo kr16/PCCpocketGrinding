@@ -254,8 +254,7 @@
         <toolTemplate class="" name="HotDotEEnoVRSI">
             <frames>
                 <frame id="_3dcbab47-f7ed-4dca-9618-7d750905639a" name="Iron">
-                    <transformation a="0.0" b="-0.3490658503988659" c="0.0" x="-338.73393052719825" y="3.5723055452235446" z="61.597354957850165"/>
-                    <measurementTranslation calculationError="0.8843380457483893" method="XYZ4Point" timestamp="1499360532328"/>
+                    <transformation a="0.0" b="-1.9198621771937625" c="0.0" x="-338.73393052719825" y="3.5723055452235446" z="61.597354957850165"/>
                 </frame>
                 <frame id="_36f65d3c-8b20-4f46-8a66-a44b1cc92748" name="dynamicTCP">
                     <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
