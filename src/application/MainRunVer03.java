@@ -218,12 +218,17 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 			if (row == 5 || row == 6) {
 				currentCoupon = new CouponProperties(ECouponSectionName.Coupon56);
 			}
+			//Heat Gun Cleanup -------
 			if(globalVarFromPLC.getVarBoolean("heatGunCleanUp") && heatGunCleanUp) {
 				heatGunCleanUp();
 				heatGunCleanUp = false;
 			}
 			heatGunCleanUp = true;
+			//------------------------
+			//Pick Hot Dot
 			pickHotDot();
+			//------------------------
+			//Apply Hot Dot
 			applyHotDot(row,column);
 			if (globalVarFromPLC.getVarBoolean("smudgeMulti") && (smudgeCounter < globalVarFromPLC.getVarInteger("smudgeCounter"))) {
 				smudgeCounter++;
@@ -231,6 +236,7 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 				smudgeCounter=1;
 				coupon.setRowColumnValue(row, column, EHotDotCouponStates.Smudged);
 			}
+			//------------------------
 		}
 		System.out.println("No empty slots to apply hot dot");
 	}
