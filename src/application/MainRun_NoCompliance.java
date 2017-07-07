@@ -347,7 +347,7 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		mode.parametrize(CartDOF.ALL).setDamping(.7);
 		
 		//smuge first pass
-		dynamicTCP.move(ptp(smudgeBeginPos1).setJointVelocityRel(0.3));
+		dynamicTCP.move(lin(smudgeBeginPos1).setOrientationVelocity(Math.toRadians(5)));
 		
 		//Heatup timer logic 
 		/*
