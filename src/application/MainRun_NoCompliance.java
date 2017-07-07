@@ -314,7 +314,7 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 				.getTime());
 		try {
 			logfile = new PrintWriter(filePathRoot + currentDateTime + "_"
-					+ "LockheedNoCompliance_x: " + globalVarFromPLC.getVarDouble("xPushHard") + "mm" + ".csv", "UTF-8");
+					+ "LockheedNoCompliance_X_ " + globalVarFromPLC.getVarDouble("xPushHard") + "mm" + ".csv", "UTF-8");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {
