@@ -142,7 +142,6 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		skiveCleanRefPos = getApplicationData().getFrame("/HotDotCoupon/ReferencePosSkiveCleanUp");
 		heatGunCleanUpPos = getApplicationData().getFrame("/HotDotDispencer/HeatGunCleanUp");
 		
-		extForcesAtTcp = new externalForcesAtTCP(bot, currentTCP);
 		extForcesThread = new Thread(extForcesAtTcp);
 		extForcesThread.setDaemon(true);
 		extForcesThread.start();
@@ -172,6 +171,8 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		//bot home
 		System.out.println("Moving to Home/Start position");
 		bot.move(ptpHome().setJointVelocityRel(0.3));
+		
+		extForcesAtTcp = new externalForcesAtTCP(bot, currentTCP);
 		
 		//Reset coupon? if yes we set everything as not processed
 		setResetCouponStatus();
