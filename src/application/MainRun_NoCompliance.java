@@ -322,7 +322,7 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		}
 		logfile.println("Current push in X direction: " + globalVarFromPLC.getVarDouble("xPushHard") + "mm");
 		for (Double item : extForcesAtTcp.getExtForces()) {
-			logfile.print(item + ",");
+			logfile.println(item);
 		}
 		logfile.flush();
 		//-----------------------------------------------------
