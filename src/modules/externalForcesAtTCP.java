@@ -40,7 +40,6 @@ public class externalForcesAtTCP implements Runnable  {
 				ThreadUtil.milliSleep(interval);
 			}
 		}
-		System.out.println(extForces);
 	}
 
 	@Override
@@ -65,6 +64,10 @@ public class externalForcesAtTCP implements Runnable  {
 	 **/
 	public void setCommand(int command) {
 		this.command = command;
+	}
+
+	public List<Double> getExtForces() {
+		return extForces;
 	}
 
 

@@ -357,7 +357,7 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		
 		//smuge first pass
 		extForcesAtTcp.setTcp(dynamicTCP);
-		extForcesAtTcp.setCommand(2);
+		extForcesAtTcp.setCommand(1);
 		dynamicTCP.move(lin(smudgeBeginPos1).setOrientationVelocity(Math.toRadians(5)));
 		
 		//Heatup timer logic 
@@ -426,6 +426,7 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		smudgeMode = CartesianSineImpedanceControlMode.createDesiredForce(CartDOF.X, smudgeXforce, 5000);
 		dynamicTCP.move(linRel(0,0,-length).setCartVelocity(velocity).setMode(smudgeMode));
 		extForcesAtTcp.setCommand(0);
+		System.out.println(extForcesAtTcp.getExtForces().toString());
 		
 	}
 	
