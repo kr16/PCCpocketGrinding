@@ -324,7 +324,8 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		for (Double item : extForcesAtTcp.getExtForces()) {
 			logfile.print(item + ",");
 		}
-		//
+		logfile.flush();
+		//-----------------------------------------------------
 		
 		currentTCP.moveAsync(lin(appHotDot).setCartVelocity(40).setBlendingCart(30));
 		currentTCP.move(ptp(appCoupon).setJointVelocityRel(0.3).setBlendingCart(20));
