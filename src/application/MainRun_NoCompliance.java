@@ -1,10 +1,13 @@
 package application;
 
 
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.text.SimpleDateFormat;
@@ -117,6 +120,7 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 	private EK1100IOGroup ek1100IO;
 	private externalForcesAtTCP extForcesAtTcp;
 	private Thread extForcesThread;
+	private PrintWriter logfile;
 	
 	@Override
 	public void initialize() {
@@ -301,7 +305,27 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		System.out.println("Approaching position row: " + row + " column: " + column);
 		currentTCP.moveAsync(ptp(appHotDot).setJointVelocityRel(0.3).setBlendingCart(10));
 		smudgeProcess(applyHotDot);
-		System.out.println("Forces: " + extForcesAtTcp.getExtForces().toString());
+		
+		//Logging external forces
+		SimpleDateFormat prefixDateFormat;
+		prefixDateFormat = new SimpleDateFormat("yyyy.MM.dd_HH.mm.ss");
+		String filePathRoot = "d:/Transfer/LockheedNoComplianceTest/";
+		String currentDateTime = prefixDateFormat.format(Calendar.getInstance()
+				.getTime());
+		try {
+			logfile = new PrintWriter(filePathRoot + currentDateTime + "_"
+					+ "LockheedNoCompliance" + ".csv", "UTF-8");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		logfile.println("Current push in X direction: " + globalVarFromPLC.getVarDouble("xPushHard") + "mm");
+		for (Double item : extForcesAtTcp.getExtForces()) {
+			logfile.print(item + ",");
+		}
+		//
+		
 		currentTCP.moveAsync(lin(appHotDot).setCartVelocity(40).setBlendingCart(30));
 		currentTCP.move(ptp(appCoupon).setJointVelocityRel(0.3).setBlendingCart(20));
 		
