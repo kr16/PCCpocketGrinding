@@ -302,6 +302,7 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		System.out.println("Approaching position row: " + row + " column: " + column);
 		currentTCP.moveAsync(ptp(appHotDot).setJointVelocityRel(0.3).setBlendingCart(10));
 		smudgeProcess(applyHotDot);
+		System.out.println("Forces: " + extForcesAtTcp.getExtForces().toString());
 		currentTCP.moveAsync(lin(appHotDot).setCartVelocity(40).setBlendingCart(30));
 		currentTCP.move(ptp(appCoupon).setJointVelocityRel(0.3).setBlendingCart(20));
 		
@@ -426,8 +427,6 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		smudgeMode = CartesianSineImpedanceControlMode.createDesiredForce(CartDOF.X, smudgeXforce, 5000);
 		dynamicTCP.move(linRel(0,0,-length).setCartVelocity(velocity).setMode(smudgeMode));
 		extForcesAtTcp.setCommand(0);
-		System.out.println("WTF");
-		System.out.println("Forces: " + extForcesAtTcp.getExtForces().toString());
 		
 	}
 	
