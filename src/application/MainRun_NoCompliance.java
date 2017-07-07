@@ -324,7 +324,7 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 			if (smudgeCounter > 1 ) {
 				smudgeBeginPos1.setY(smudgeBeginPos1.getY() + smudgeOffsetDD);	
 			}		
-		
+		//funky calculations for angle rotation
 		betaTCProtation = currentTCP.getBetaRad();
 		betaTCProtation = betaTCProtation + Math.toRadians(smudgeAngle);
 		dynamicTCPoffset = Transformation.ofRad(	
@@ -335,6 +335,9 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 				,betaTCProtation
 				,currentTCP.getGammaRad());
 		HotDotTool.changeFramePosition(dynamicTCP, dynamicTCPoffset);
+		
+		System.out.println("DEBUG: " + currentTCP + currentTCP.getName());
+		System.out.println("DEBUG: " + dynamicTCP + dynamicTCP.getName());
 		
 		TouchForceRecord findSurface = new TouchForceRecord(); 
 		
