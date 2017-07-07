@@ -260,7 +260,7 @@
                     <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
                 </frame>
             </frames>
-            <loadData cogA="0.0" cogB="0.0" cogC="0.0" cogX="-116.10746787206617" cogY="-3.030927386334712" cogZ="41.1594766614413" inertiaX="0.0" inertiaY="0.0" inertiaZ="0.0" mass="2.6327030588146028"/>
+            <loadData cogA="0.0" cogB="0.0" cogC="0.0" cogX="-116.10746787206617" cogY="-3.030927386334712" cogZ="41.1594766614413" inertiaX="0.0" inertiaY="0.0" inertiaZ="0.0" mass="2.4"/>
         </toolTemplate>
     </objectTemplates>
 </RoboticsAPIData>
