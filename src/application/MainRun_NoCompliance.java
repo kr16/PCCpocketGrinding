@@ -385,7 +385,6 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		extForcesAtTcp.setExtForces();
 		extForcesAtTcp.setCommand(1);
 
-		System.out.println("System recording tcp forces: " + extForcesAtTcp.isRunning());
 		dynamicTCP.move(lin(smudgeBeginPos1).setOrientationVelocity(Math.toRadians(5)));
 		
 		//Heatup timer logic 
@@ -405,7 +404,8 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 			System.err.println("Surface not found");
 			getApplicationControl().halt();
 		}
-		smudgeMode = CartesianSineImpedanceControlMode.createDesiredForce(CartDOF.X, smudgeXforce, 5000);
+		//smudgeMode = CartesianSineImpedanceControlMode.createDesiredForce(CartDOF.X, smudgeXforce, 5000);
+		dynamicTCP.move(lin(smudgeBeginPos2).setCartVelocity(1));
 		dynamicTCP.move(linRel(xPushHard,0,0).setCartVelocity(velocity));
 		dynamicTCP.move(linRel(0,0,-length).setCartVelocity(velocity));
 		dynamicTCP.move(linRel(-approachDistance,0,0).setCartVelocity(velocity*4));
