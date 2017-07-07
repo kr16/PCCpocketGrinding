@@ -406,7 +406,8 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 			getApplicationControl().halt();
 		}
 		smudgeMode = CartesianSineImpedanceControlMode.createDesiredForce(CartDOF.X, smudgeXforce, 5000);
-		dynamicTCP.move(linRel(xPushHard,0,-length).setCartVelocity(velocity));
+		dynamicTCP.move(linRel(xPushHard,0,0).setCartVelocity(velocity));
+		dynamicTCP.move(linRel(0,0,-length).setCartVelocity(velocity));
 		dynamicTCP.move(linRel(-approachDistance,0,0).setCartVelocity(velocity*4));
 
 		
