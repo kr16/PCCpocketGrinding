@@ -324,7 +324,7 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 			if (smudgeCounter > 1 ) {
 				smudgeBeginPos1.setY(smudgeBeginPos1.getY() + smudgeOffsetDD);	
 			}		
-		//funky calculations for angle rotation
+		//Calculations for angle rotation
 		betaTCProtation = currentTCP.getBetaRad();
 		betaTCProtation = betaTCProtation + Math.toRadians(smudgeAngle);
 		dynamicTCPoffset = Transformation.ofRad(	
@@ -336,8 +336,6 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 				,currentTCP.getGammaRad());
 		HotDotTool.changeFramePosition(dynamicTCP, dynamicTCPoffset);
 		
-		System.out.println("DEBUG: " + currentTCP + currentTCP.getName());
-		System.out.println("DEBUG: " + dynamicTCP + dynamicTCP.getName());
 		
 		TouchForceRecord findSurface = new TouchForceRecord(); 
 		
@@ -370,7 +368,7 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 			getApplicationControl().halt();
 		}
 		smudgeMode = CartesianSineImpedanceControlMode.createDesiredForce(CartDOF.X, smudgeXforce, 5000);
-		dynamicTCP.move(linRel(0,0,-length).setCartVelocity(velocity).setMode(smudgeMode));
+		dynamicTCP.move(linRel(0,0,-length).setCartVelocity(velocity));
 		dynamicTCP.move(linRel(-approachDistance,0,0).setCartVelocity(velocity*4));
 
 		//smuge second pass
