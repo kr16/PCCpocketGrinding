@@ -35,6 +35,7 @@ public class externalForcesAtTCP implements Runnable  {
 	public void run() {
 		setRunning(true);
 		while (command > 0) {
+			
 			if (command == 1) {
 				data = bot.getExternalForceTorque(tcp);
 				extForces.add(data.getForce().getX());
@@ -66,6 +67,13 @@ public class externalForcesAtTCP implements Runnable  {
 		return extForces;
 	}
 
+	/**
+	 * Clears the list from all elements
+	 */
+	public void setExtForces() {
+		extForces.clear();
+	}
+	
 	public boolean isRunning() {
 		return running;
 	}
