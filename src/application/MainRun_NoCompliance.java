@@ -426,6 +426,7 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		smudgeMode = CartesianSineImpedanceControlMode.createDesiredForce(CartDOF.X, smudgeXforce, 5000);
 		dynamicTCP.move(linRel(0,0,-length).setCartVelocity(velocity).setMode(smudgeMode));
 		extForcesAtTcp.setCommand(0);
+		System.out.println("WTF");
 		System.out.println("Forces: " + extForcesAtTcp.getExtForces().toString());
 		
 	}
