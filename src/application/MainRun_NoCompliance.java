@@ -32,6 +32,7 @@ import modules.TimerKCT;
 import modules.TouchForceRecord;
 import modules.XMLParserCoupon;
 import modules.XmlParserGlobalVarsRD;
+import modules.externalForcesAtTCP;
 
 import com.kuka.common.ThreadUtil;
 import com.kuka.generated.ioAccess.EK1100IOGroup;
@@ -114,6 +115,8 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 	private DataRecorder recData; 
 	private CouponProperties currentCoupon;
 	private EK1100IOGroup ek1100IO;
+	private externalForcesAtTCP extForcesAtTcp;
+	private Thread extForcesThread;
 	
 	@Override
 	public void initialize() {
@@ -137,9 +140,12 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		refPos03 = getApplicationData().getFrame("/HotDotCoupon/ReferencePos03");
 		skiveCleanUpApp = getApplicationData().getFrame("/HotDotCoupon/AppSkiveCleanUp");
 		skiveCleanRefPos = getApplicationData().getFrame("/HotDotCoupon/ReferencePosSkiveCleanUp");
-		
-		
 		heatGunCleanUpPos = getApplicationData().getFrame("/HotDotDispencer/HeatGunCleanUp");
+		
+		extForcesAtTcp = new externalForcesAtTCP(bot, currentTCP);
+		extForcesThread = new Thread(extForcesAtTcp);
+		extForcesThread.setDaemon(true);
+		extForcesThread.start();
 		
 		hotDotHeatUpTimer = new TimerKCT();
 		dispenser2 = new DispenserIOver02(kuka_Sunrise_Cabinet_1);
@@ -349,6 +355,8 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		mode.parametrize(CartDOF.ALL).setDamping(.7);
 		
 		//smuge first pass
+		extForcesAtTcp.setTcp(dynamicTCP);
+		extForcesAtTcp.setCommand(2);
 		dynamicTCP.move(lin(smudgeBeginPos1).setOrientationVelocity(Math.toRadians(5)));
 		
 		//Heatup timer logic 
@@ -372,6 +380,8 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		dynamicTCP.move(linRel(xPushHard,0,-length).setCartVelocity(velocity));
 		dynamicTCP.move(linRel(-approachDistance,0,0).setCartVelocity(velocity*4));
 
+		
+		
 		//smuge second pass
 		if(!globalVarFromPLC.getVarBoolean("secondSmudgePass")) {
 			System.err.println("Second smudge pass disabled!");
@@ -414,6 +424,7 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		
 		smudgeMode = CartesianSineImpedanceControlMode.createDesiredForce(CartDOF.X, smudgeXforce, 5000);
 		dynamicTCP.move(linRel(0,0,-length).setCartVelocity(velocity).setMode(smudgeMode));
+		extForcesAtTcp.setCommand(0);
 		
 	}
 	
