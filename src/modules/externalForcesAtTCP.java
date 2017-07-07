@@ -28,25 +28,18 @@ public class externalForcesAtTCP implements Runnable  {
 	}
 
 	public void init() {
-		data = bot.getExternalForceTorque(tcp);
 		extForces = new ArrayList<Double>();
 	}
 	
-	
-	
-	public void runLocal() {
+	public void run() {
 		setRunning(true);
 		while (command > 0) {
 			if (command == 1) {
+				data = bot.getExternalForceTorque(tcp);
 				extForces.add(data.getForce().getX());
 				ThreadUtil.milliSleep(interval);
 			}
 		}
-	}
-
-	@Override
-	public void run() {
-		runLocal();
 	}
 
 	public ObjectFrame getTcp() {
