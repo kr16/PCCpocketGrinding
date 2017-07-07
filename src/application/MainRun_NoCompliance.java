@@ -142,10 +142,6 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		skiveCleanRefPos = getApplicationData().getFrame("/HotDotCoupon/ReferencePosSkiveCleanUp");
 		heatGunCleanUpPos = getApplicationData().getFrame("/HotDotDispencer/HeatGunCleanUp");
 		
-		extForcesThread = new Thread(extForcesAtTcp);
-		extForcesThread.setDaemon(true);
-		extForcesThread.start();
-		
 		hotDotHeatUpTimer = new TimerKCT();
 		dispenser2 = new DispenserIOver02(kuka_Sunrise_Cabinet_1);
 		ek1100IO = new EK1100IOGroup(kuka_Sunrise_Cabinet_1);
@@ -173,6 +169,9 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		bot.move(ptpHome().setJointVelocityRel(0.3));
 		
 		extForcesAtTcp = new externalForcesAtTCP(bot, currentTCP);
+		extForcesThread = new Thread(extForcesAtTcp);
+		extForcesThread.setDaemon(true);
+		extForcesThread.start();
 		
 		//Reset coupon? if yes we set everything as not processed
 		setResetCouponStatus();
@@ -359,7 +358,8 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		//smuge first pass
 		extForcesAtTcp.setTcp(dynamicTCP);
 		extForcesAtTcp.setCommand(1);
-		extForcesAtTcp.run();
+
+		
 		System.out.println("System recording tcp forces: " + extForcesAtTcp.isRunning());
 		dynamicTCP.move(lin(smudgeBeginPos1).setOrientationVelocity(Math.toRadians(5)));
 		

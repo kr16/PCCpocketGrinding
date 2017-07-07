@@ -22,13 +22,14 @@ public class externalForcesAtTCP implements Runnable  {
 	public externalForcesAtTCP(LBR bot, ObjectFrame tcp) {
 		this.bot = bot;
 		this.tcp = tcp;
-		command = 2;
-		interval = 100;
 		init();
 	}
 
 	public void init() {
+		command = 2;
+		interval = 100;
 		extForces = new ArrayList<Double>();
+		running = false;
 	}
 	
 	public void run() {
