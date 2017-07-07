@@ -17,6 +17,7 @@ public class externalForcesAtTCP implements Runnable  {
 	private List<Double> extForces; 
 	private int command;
 	private long interval;
+	private boolean running;
 	
 	public externalForcesAtTCP(LBR bot, ObjectFrame tcp) {
 		this.bot = bot;
@@ -34,6 +35,7 @@ public class externalForcesAtTCP implements Runnable  {
 	
 	
 	public void runLocal() {
+		setRunning(true);
 		while (command > 0) {
 			if (command == 1) {
 				extForces.add(data.getForce().getX());
@@ -68,6 +70,14 @@ public class externalForcesAtTCP implements Runnable  {
 
 	public List<Double> getExtForces() {
 		return extForces;
+	}
+
+	public boolean isRunning() {
+		return running;
+	}
+
+	public void setRunning(boolean running) {
+		this.running = running;
 	}
 
 

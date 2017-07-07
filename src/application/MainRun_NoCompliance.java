@@ -359,6 +359,7 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		//smuge first pass
 		extForcesAtTcp.setTcp(dynamicTCP);
 		extForcesAtTcp.setCommand(1);
+		System.out.println("System recording tcp forces: " + extForcesAtTcp.isRunning());
 		dynamicTCP.move(lin(smudgeBeginPos1).setOrientationVelocity(Math.toRadians(5)));
 		
 		//Heatup timer logic 
