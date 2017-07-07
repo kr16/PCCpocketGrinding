@@ -311,6 +311,7 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		double smudgeStiffnessX = globalVarFromPLC.getVarDouble("smudgeStiffnessXPass1");
 		double smudgeStiffnessZ = globalVarFromPLC.getVarDouble("smudgeStiffnessZPass1");
 		double smudgeOffsetDD = globalVarFromPLC.getVarDouble("smudgeOffsetDD");
+		double xPushHard = globalVarFromPLC.getVarDouble("xPushHard");
 		double betaTCProtation;
 		
 		//X positive is row !!!
@@ -368,7 +369,7 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 			getApplicationControl().halt();
 		}
 		smudgeMode = CartesianSineImpedanceControlMode.createDesiredForce(CartDOF.X, smudgeXforce, 5000);
-		dynamicTCP.move(linRel(0,0,-length).setCartVelocity(velocity));
+		dynamicTCP.move(linRel(xPushHard,0,-length).setCartVelocity(velocity));
 		dynamicTCP.move(linRel(-approachDistance,0,0).setCartVelocity(velocity*4));
 
 		//smuge second pass
