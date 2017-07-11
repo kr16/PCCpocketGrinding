@@ -50,19 +50,17 @@ public class VRSItesterNoMotion extends RoboticsAPIApplication {
 		// your application execution starts here
 		//lBR_iiwa_14_R820_1.move(ptpHome());
 		
-		long delay = 500;
+		long delay = 2000;
 		
 		ThreadUtil.milliSleep(delay);
 		
 		iiwaDataStream.login();
 		
 		iiwaDataStream.write(vrsiComm.setSlideHomeREQ());
-		ThreadUtil.milliSleep(delay);
 		vrsiComm.getSlideHomeResponse(iiwaDataStream.getServerCommandResponseString(), EVRSIhomeSlide.SlideHomeCmdReceived);
 		ThreadUtil.milliSleep(delay);
 		
 		iiwaDataStream.write(vrsiComm.setSlideHomeACK());
-		ThreadUtil.milliSleep(delay);
 		vrsiComm.getSlideHomeResponse(iiwaDataStream.getServerCommandResponseString(), EVRSIhomeSlide.SlideAtHome);
 		ThreadUtil.milliSleep(delay);
 		
