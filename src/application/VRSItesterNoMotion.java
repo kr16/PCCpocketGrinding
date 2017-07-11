@@ -64,7 +64,7 @@ public class VRSItesterNoMotion extends RoboticsAPIApplication {
 		iiwaDataStream.write(vrsiComm.setSlideHomeACK());
 		ThreadUtil.milliSleep(delay);
 		vrsiComm.getSlideHomeResponse(iiwaDataStream.getServerCommandResponseString(), EVRSIhomeSlide.SlideAtHome);
-		ThreadUtil.milliSleep(2000);
+		ThreadUtil.milliSleep(10000);
 		
 		iiwaDataStream.write(vrsiComm.scanFastenerREQ("KDD001", 2.3, 0));
 		ThreadUtil.milliSleep(5000);
