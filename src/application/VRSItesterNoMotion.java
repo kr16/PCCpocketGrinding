@@ -50,7 +50,7 @@ public class VRSItesterNoMotion extends RoboticsAPIApplication {
 		// your application execution starts here
 		//lBR_iiwa_14_R820_1.move(ptpHome());
 		
-		long delay = 2000;
+		long delay = 5000;
 		
 		ThreadUtil.milliSleep(delay);
 		
