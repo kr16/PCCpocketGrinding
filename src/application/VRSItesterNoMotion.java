@@ -66,5 +66,7 @@ public class VRSItesterNoMotion extends RoboticsAPIApplication {
 		vrsiComm.getSlideHomeResponse(iiwaDataStream.getServerCommandResponseString(), EVRSIhomeSlide.SlideAtHome);
 		ThreadUtil.milliSleep(delay);
 		
+		iiwaDataStream.disconnect();
+		
 	}
 }
