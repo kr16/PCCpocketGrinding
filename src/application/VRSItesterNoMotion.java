@@ -41,7 +41,7 @@ public class VRSItesterNoMotion extends RoboticsAPIApplication {
 	@Override
 	public void initialize() {
 		// initialize your application here
-		iiwaDataStream = new StreamDataCommLib("172.31.1.168", 30001);
+		iiwaDataStream = new StreamDataCommLib("172.31.1.230", 30001);
 		vrsiComm = new VRSIiiwaCommLib(true);
 	}
 
