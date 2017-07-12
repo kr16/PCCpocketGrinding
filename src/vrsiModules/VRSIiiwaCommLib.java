@@ -362,8 +362,9 @@ public class VRSIiiwaCommLib {
 			case ScanEmptyFastenerCmd:
 				//ACK from VRSI should be all 0.000
 				if (allZeros(cmd, dataString)) {
-					System.out.println("Here?");
-					bResult = true;		
+					System.out.println(emptyFastener.toString());
+				} else {
+					bResult = true;
 				}
 				break;
 			case ScanEmptyFastenerComplete:
