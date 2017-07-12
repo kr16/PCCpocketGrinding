@@ -344,6 +344,7 @@ public class VRSIiiwaCommLib {
 	 */
 	public boolean processScanData(EVRSIscanFastener cmd, List<String> dataString) {
 		boolean bResult = false;
+		System.out.println(cmd.toString());
 		switch (cmd) {
 		case ScanEmptyFastenerCmd: case ScanEmptyFastenerComplete:
 			VRSIemptyFastener emptyFastener = new VRSIemptyFastener(	
