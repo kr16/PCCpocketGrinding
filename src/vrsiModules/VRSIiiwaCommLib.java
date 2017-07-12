@@ -156,7 +156,6 @@ public class VRSIiiwaCommLib {
 		Thread slideHomeThread = new Thread(slideHomeRunnable);
 		slideHomeThread.setDaemon(true);
 		slideHomeThread.start();
-		System.out.println("Slide to Home Requested");
 		while (!slideHomeRunnable.isbSuccess()) {
 			if (timer >= timeout) {
 				break;
@@ -164,7 +163,7 @@ public class VRSIiiwaCommLib {
 			ThreadUtil.milliSleep(hertz);
 			timer +=hertz;
 		}
-		System.out.println("Slide to Home Finished");
+		System.out.println("Slide to Home Finished; timeout requested: " + timeout + " actual timer: " + timer);
 		return slideHomeRunnable.isbSuccess();
 	}
 	
