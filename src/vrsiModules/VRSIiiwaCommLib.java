@@ -147,7 +147,33 @@ public class VRSIiiwaCommLib {
 		return bResult;
 	}
 
+	/**
+	 * Command to send VRSI slide to home position
+	 * @param timeout - milliseconds, time period for VRSI to successfully execute send home routine
+	 * @return boolean - 	true if VRSI is at home or gets back to home before timout
+	 * 						false otherwise
+	 */
 	public boolean setSlideHome(long timeout) {
+		boolean bSuccess = false;
+		long timer = 0;
+		long hertz = 100;
+		VRSIsetSlideHome slideHomeRunnable = new VRSIsetSlideHome();
+		slideHomeRunnable.setCommPorthandle(commPort);
+		Thread slideHomeThread = new Thread(slideHomeRunnable);
+		slideHomeThread.setDaemon(true);
+		slideHomeThread.start();
+		while (!slideHomeRunnable.isbSuccess()) {
+			if (timer >= timeout) {
+				break;
+			}
+			ThreadUtil.milliSleep(hertz);
+			timer +=hertz;
+		}
+		System.out.println("Slide to Home Finished; timeout requested: " + timeout + " actual timer: " + timer);
+		return slideHomeRunnable.isbSuccess();
+	}
+	
+	public boolean scanEmptyFastener(String holeID, double pinDia, int pinType, long timeout) {
 		boolean bSuccess = false;
 		long timer = 0;
 		long hertz = 100;

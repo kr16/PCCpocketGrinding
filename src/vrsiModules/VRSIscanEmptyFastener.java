@@ -4,13 +4,13 @@ import com.kuka.common.ThreadUtil;
 
 import vrsiModules.VRSIcommon.EVRSIhomeSlide;
 
-public class VRSIsetSlideHome implements Runnable{
+public class VRSIscanEmptyFastener implements Runnable{
 
 	private VRSIiiwaCommLib vrsiCommands = new VRSIiiwaCommLib(true);
 	private boolean bSuccess;
 	private StreamDataCommLib commPorthandle; 
 	
-	public void setSlideHome() {
+	public void scanFastener() {
 		commPorthandle.login();
 		ThreadUtil.milliSleep(100);
 	    commPorthandle.write(vrsiCommands.setSlideHomeREQ());
@@ -28,7 +28,7 @@ public class VRSIsetSlideHome implements Runnable{
 	
 	public void run() {
 		init();
-		setSlideHome();
+		scanFastener();
 	}
 
 	public boolean isbSuccess() {

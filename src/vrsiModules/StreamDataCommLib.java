@@ -92,6 +92,8 @@ public class StreamDataCommLib {
 	 *  false if not 
 	 */
 	public boolean login() {
+		if (telnet.isConnected()) return true;
+		
 		System.out.printf("Sunrise --> Opening connection to SimpleDataServer at: " + getServerAddress() + " port: " + getServerPort() + "...");
 		try {
 			// Connect to the server

@@ -80,6 +80,11 @@ public class VRSItesterNoMotion extends RoboticsAPIApplication {
 		vrsiComm.getScanEmptyFastenerResponse(iiwaDataStream.getServerCommandResponseString(), EVRSIscanFastener.ScanEmptyFastenerCmd);
 		ThreadUtil.milliSleep(delay);
 		
+		iiwaDataStream.write(vrsiComm.scanFillREQ("EMM001", 2.1, 0));
+		vrsiComm.getScanEmptyFastenerResponse(iiwaDataStream.getServerCommandResponseString(), EVRSIscanFastener.ScanEmptyFastenerCmd);
+		ThreadUtil.milliSleep(delay);
+		
+		
 		iiwaDataStream.write(vrsiComm.scanFastenerREQ("KDD002", 2.3, 0));
 		vrsiComm.getScanEmptyFastenerResponse(iiwaDataStream.getServerCommandResponseString(), EVRSIscanFastener.ScanEmptyFastenerCmd);
 		ThreadUtil.milliSleep(delay);

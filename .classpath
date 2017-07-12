@@ -62,6 +62,10 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/HotDotFinal/libs/guava-22.0-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="libs/commons-net-3.5.jar"/>
+	<classpathentry kind="lib" path="libs/commons-net-3.5.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/C:/KUKA_AIT/Java/Apache Commons Net library/commons-net-3.5/apidocs/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
