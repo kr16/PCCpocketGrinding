@@ -52,11 +52,13 @@ public class VRSItesterNoMotion extends RoboticsAPIApplication {
 		
 		long delay = 5000;
 		
-		ThreadUtil.milliSleep(delay);
+//		ThreadUtil.milliSleep(delay);
+//		
+//		vrsiComm.setSlideHome(5000);
+//		
+//		getApplicationControl().halt();
 		
-		vrsiComm.setSlideHome(5000);
-		
-		getApplicationControl().halt();
+		iiwaDataStream.login();
 		
 		ThreadUtil.milliSleep(5000);
 		
