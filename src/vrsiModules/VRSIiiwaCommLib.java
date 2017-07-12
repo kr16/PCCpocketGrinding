@@ -177,20 +177,21 @@ public class VRSIiiwaCommLib {
 		boolean bSuccess = false;
 		long timer = 0;
 		long hertz = 100;
-		VRSIsetSlideHome slideHomeRunnable = new VRSIsetSlideHome();
-		slideHomeRunnable.setCommPorthandle(commPort);
-		Thread slideHomeThread = new Thread(slideHomeRunnable);
-		slideHomeThread.setDaemon(true);
-		slideHomeThread.start();
-		while (!slideHomeRunnable.isbSuccess()) {
+		VRSIscanEmptyFastener scanEmptyFastenerRunnable = new VRSIscanEmptyFastener();
+		scanEmptyFastenerRunnable.setCommPorthandle(commPort);
+		scanEmptyFastenerRunnable.setScanFastener(holeID, pinDia, pinType);
+		Thread scanEmptyFastener = new Thread(scanEmptyFastenerRunnable);
+		scanEmptyFastener.setDaemon(true);
+		scanEmptyFastener.start();
+		while (!scanEmptyFastenerRunnable.isbSuccess()) {
 			if (timer >= timeout) {
 				break;
 			}
 			ThreadUtil.milliSleep(hertz);
 			timer +=hertz;
 		}
-		System.out.println("Slide to Home Finished; timeout requested: " + timeout + " actual timer: " + timer);
-		return slideHomeRunnable.isbSuccess();
+		System.out.println("Scan empty finish; timeout requested: " + timeout + " actual timer: " + timer);
+		return scanEmptyFastenerRunnable.isbSuccess();
 	}
 	
 	/**
