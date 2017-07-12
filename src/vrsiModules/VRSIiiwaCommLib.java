@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.kuka.common.ThreadUtil;
+
 
 //import com.google.common.collect.ArrayListMultimap;
 //import com.google.common.collect.Multimap;
@@ -29,6 +31,9 @@ public class VRSIiiwaCommLib {
 	//0dh is equivalent to 13 in decimal and to carriage return ('\r') in ASCII which moves the cursor to the beginning of the current row.
 	private static final String delimiter = ";";
 	private boolean debug;			//when enabled at constructor display additional DEBUG messages
+	private StreamDataCommLib commPort;
+	private String vrsiServerIP;
+	private int vrsiServerPort;
 	
 	private static final Map<Integer, String> pinTypeMap;
 	static {
@@ -50,12 +55,20 @@ public class VRSIiiwaCommLib {
 
 	public VRSIiiwaCommLib() {
 		this.debug = false;
+		init();
 	}
 
 	public VRSIiiwaCommLib(boolean debug) {
 		this.debug = debug;
+		init();
 	}
 
+	public void init() {
+		this.setVrsiServerIP("172.31.1.230");
+		this.setVrsiServerPort(30001);
+		commPort = new StreamDataCommLib(getVrsiServerIP(), getVrsiServerPort());
+	}
+	
 	/**
 	 * Check response String from VRSI for scan fastener command (empty, fill)
 	 * @param response 	- String response from VRSI
@@ -134,7 +147,27 @@ public class VRSIiiwaCommLib {
 		return bResult;
 	}
 
-
+	public boolean setSlideHome(long timeout) {
+		boolean bSuccess = false;
+		long timer = 0;
+		long hertz = 100;
+		VRSIsetSlideHome slideHomeRunnable = new VRSIsetSlideHome();
+		slideHomeRunnable.setCommPorthandle(commPort);
+		Thread slideHomeThread = new Thread(slideHomeRunnable);
+		slideHomeThread.setDaemon(true);
+		slideHomeThread.start();
+		
+		while (!slideHomeRunnable.isbSuccess()) {
+			if (timer >= timeout) {
+				break;
+			}
+			ThreadUtil.milliSleep(hertz);
+			timer +=hertz;
+		}
+		
+		return slideHomeRunnable.isbSuccess();
+	}
+	
 	/**
 	 * Check response String from VRSI for slide home command  
 	 * @param response 	- String response from VRSI
@@ -436,6 +469,22 @@ public class VRSIiiwaCommLib {
 
 	public void setHomeSlide(int homeSlide) {
 		this.homeSlide = homeSlide;
+	}
+
+	public String getVrsiServerIP() {
+		return vrsiServerIP;
+	}
+
+	public void setVrsiServerIP(String vrsiServerIP) {
+		this.vrsiServerIP = vrsiServerIP;
+	}
+
+	public int getVrsiServerPort() {
+		return vrsiServerPort;
+	}
+
+	public void setVrsiServerPort(int vrsiServerPort) {
+		this.vrsiServerPort = vrsiServerPort;
 	}
 
 }
