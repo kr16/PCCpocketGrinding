@@ -362,7 +362,7 @@ public class VRSIiiwaCommLib {
 			case ScanEmptyFastenerCmd:
 				//ACK from VRSI should be all 0.000
 				if (allZeros(cmd, dataString)) {
-					emptyFastener.toString();
+					bResult = true;		
 				}
 				break;
 			case ScanEmptyFastenerComplete:
@@ -400,7 +400,7 @@ public class VRSIiiwaCommLib {
 			case ScanFillFastenerCmd:
 				//ACK from VRSI should be all 0.000
 				if (allZeros(cmd, dataString)) {
-					fillFastener.toString();
+					bResult = true;	
 				}
 				break;
 			case ScanFillFastenerComplete:
@@ -419,7 +419,7 @@ public class VRSIiiwaCommLib {
 			break;
 		}
 
-		System.err.println("Data evaluation failure");
+		if (!bResult) System.err.println("Data evaluation failure");
 		return bResult;
 	}
 
