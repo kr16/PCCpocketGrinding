@@ -12,7 +12,7 @@ public class VRSIsetSlideHome implements Runnable{
 	
 	public void setSlideHome() {
 		commPorthandle.login();
-		ThreadUtil.milliSleep(100);
+		//ThreadUtil.milliSleep(100);
 	    commPorthandle.write(vrsiCommands.setSlideHomeREQ());
 	    if (vrsiCommands.getSlideHomeResponse(commPorthandle.getServerCommandResponseString(), EVRSIhomeSlide.SlideHomeCmdReceived)) {
 	    	if (vrsiCommands.getSlideHomeResponse(commPorthandle.getServerCommandResponseString(), EVRSIhomeSlide.SlideAtHome)) {
