@@ -52,7 +52,7 @@ public class VRSItesterNoMotion extends RoboticsAPIApplication {
 		
 		long delay = 5000;
 		
-		vrsiComm.setSlideHome(5000);
+		vrsiComm.scanEmptyFastener("MIC001", 0.666, 1, 10000);
 		
 		getApplicationControl().halt();
 		
