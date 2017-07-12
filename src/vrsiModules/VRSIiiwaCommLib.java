@@ -164,7 +164,7 @@ public class VRSIiiwaCommLib {
 			ThreadUtil.milliSleep(hertz);
 			timer +=hertz;
 		}
-		
+		System.out.println("Slide to Home Finished");
 		return slideHomeRunnable.isbSuccess();
 	}
 	
