@@ -34,7 +34,7 @@ public class VRSIiiwaCommLib {
 	private StreamDataCommLib commPort;
 	private String vrsiServerIP;
 	private int vrsiServerPort;
-	
+
 	private static final Map<Integer, String> pinTypeMap;
 	static {
 		Map<Integer, String> aMap = new HashMap<Integer, String>();
@@ -68,7 +68,7 @@ public class VRSIiiwaCommLib {
 		this.setVrsiServerPort(30001);
 		commPort = new StreamDataCommLib(getVrsiServerIP(), getVrsiServerPort());
 	}
-	
+
 	/**
 	 * Check response String from VRSI for scan fastener command (empty, fill)
 	 * @param response 	- String response from VRSI
@@ -171,7 +171,7 @@ public class VRSIiiwaCommLib {
 		System.out.println("Slide to Home Finished; timeout requested: " + timeout + " actual timer: " + timer);
 		return slideHomeRunnable.isbSuccess();
 	}
-	
+
 	public boolean scanEmptyFastener(String holeID, double pinDia, int pinType, long timeout) {
 		long timer = 0;
 		long hertz = 100;
@@ -191,7 +191,7 @@ public class VRSIiiwaCommLib {
 		System.out.println("Scan empty finish; timeout requested: " + timeout + " actual timer: " + timer);
 		return scanEmptyFastenerRunnable.isbSuccess();
 	}
-	
+
 	/**
 	 * Check response String from VRSI for slide home command  
 	 * @param response 	- String response from VRSI
@@ -344,7 +344,6 @@ public class VRSIiiwaCommLib {
 	 */
 	public boolean processScanData(EVRSIscanFastener cmd, List<String> dataString) {
 		boolean bResult = false;
-		System.out.println(cmd.toString());
 		switch (cmd) {
 		case ScanEmptyFastenerCmd: case ScanEmptyFastenerComplete:
 			VRSIemptyFastener emptyFastener = new VRSIemptyFastener(	
@@ -376,11 +375,12 @@ public class VRSIiiwaCommLib {
 			default:
 				break;
 			}
-
+			break;
+			
 		case ScanFillFastenerCmd: case ScanFillFastenerComplete:
 			VRSIfillFastener fillFastener;
 			try {
-				 fillFastener = new VRSIfillFastener(
+				fillFastener = new VRSIfillFastener(
 						Double.parseDouble(dataString.get(0)), 
 						Double.parseDouble(dataString.get(1)), 
 						Double.parseDouble(dataString.get(2)), 
