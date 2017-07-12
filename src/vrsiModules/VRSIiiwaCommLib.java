@@ -154,7 +154,6 @@ public class VRSIiiwaCommLib {
 	 * 						false otherwise
 	 */
 	public boolean setSlideHome(long timeout) {
-		boolean bSuccess = false;
 		long timer = 0;
 		long hertz = 100;
 		VRSIsetSlideHome slideHomeRunnable = new VRSIsetSlideHome();
@@ -174,7 +173,6 @@ public class VRSIiiwaCommLib {
 	}
 	
 	public boolean scanEmptyFastener(String holeID, double pinDia, int pinType, long timeout) {
-		boolean bSuccess = false;
 		long timer = 0;
 		long hertz = 100;
 		VRSIscanEmptyFastener scanEmptyFastenerRunnable = new VRSIscanEmptyFastener();
