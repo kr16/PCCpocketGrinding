@@ -156,7 +156,7 @@ public class VRSIiiwaCommLib {
 		Thread slideHomeThread = new Thread(slideHomeRunnable);
 		slideHomeThread.setDaemon(true);
 		slideHomeThread.start();
-		
+		System.out.println("Slide to Home Requested");
 		while (!slideHomeRunnable.isbSuccess()) {
 			if (timer >= timeout) {
 				break;

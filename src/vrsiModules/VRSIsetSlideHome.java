@@ -1,5 +1,7 @@
 package vrsiModules;
 
+import com.kuka.common.ThreadUtil;
+
 import vrsiModules.VRSIcommon.EVRSIhomeSlide;
 
 public class VRSIsetSlideHome implements Runnable{
@@ -10,6 +12,7 @@ public class VRSIsetSlideHome implements Runnable{
 	
 	public void setSlideHome() {
 		commPorthandle.login();
+		ThreadUtil.milliSleep(500);
 	    vrsiCommands.setSlideHomeREQ();
 	    if (vrsiCommands.getSlideHomeResponse(commPorthandle.getServerCommandResponseString(), EVRSIhomeSlide.SlideHomeCmdReceived)) {
 	    	if (vrsiCommands.getSlideHomeResponse(commPorthandle.getServerCommandResponseString(), EVRSIhomeSlide.SlideAtHome)) {
