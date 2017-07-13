@@ -17,10 +17,10 @@ public class VRSIscanFillFastener implements Runnable{
 	public void scanFastener() {
 		commPorthandle.login();
 		ThreadUtil.milliSleep(100);
-	    commPorthandle.write(vrsiCommands.scanFastenerREQ(holeID, pinDia, pinType));
-	    if (vrsiCommands.getScanFastenerResponse(commPorthandle.getServerCommandResponseString(), EVRSIscanFastener.ScanEmptyFastenerCmd)) {
-	    	if (vrsiCommands.getScanFastenerResponse(commPorthandle.getServerCommandResponseString(), EVRSIscanFastener.ScanEmptyFastenerComplete)) {
-	    		commPorthandle.write(vrsiCommands.scanFastenerACK());
+	    commPorthandle.write(vrsiCommands.scanFillREQ(holeID, pinDia, pinType));
+	    if (vrsiCommands.getScanFastenerResponse(commPorthandle.getServerCommandResponseString(), EVRSIscanFastener.ScanFillFastenerCmd)) {
+	    	if (vrsiCommands.getScanFastenerResponse(commPorthandle.getServerCommandResponseString(), EVRSIscanFastener.ScanFillFastenerComplete)) {
+	    		commPorthandle.write(vrsiCommands.scanFillACK());
 	    		setbSuccess(true);
 	    	}
 	    }
