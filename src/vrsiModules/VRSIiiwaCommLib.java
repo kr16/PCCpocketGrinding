@@ -166,6 +166,7 @@ public class VRSIiiwaCommLib {
 		while (!slideHomeRunnable.isbSuccess()) {
 			if (timer >= timeout) {
 				System.err.println("Timeout!  requested: " + timeout + " actual: " + timer);
+				commPort.disconnect();
 				break;
 			}
 			ThreadUtil.milliSleep(hertz);
@@ -198,6 +199,7 @@ public class VRSIiiwaCommLib {
 		while (!scanEmptyFastenerRunnable.isbSuccess()) {
 			if (timer >= timeout) {
 				System.err.println("Timeout!  requested: " + timeout + " actual: " + timer);
+				commPort.disconnect();
 				break;
 			}
 			ThreadUtil.milliSleep(hertz);
@@ -230,6 +232,7 @@ public class VRSIiiwaCommLib {
 		while (!scanFillFastenerRunnable.isbSuccess()) {
 			if (timer >= timeout) {
 				System.err.println("Timeout!  requested: " + timeout + " actual: " + timer);
+				commPort.disconnect();
 				break;
 			}
 			ThreadUtil.milliSleep(hertz);

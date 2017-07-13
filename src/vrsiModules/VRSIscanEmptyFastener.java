@@ -2,7 +2,6 @@ package vrsiModules;
 
 import com.kuka.common.ThreadUtil;
 
-import vrsiModules.VRSIcommon.EVRSIhomeSlide;
 import vrsiModules.VRSIcommon.EVRSIscanFastener;
 
 public class VRSIscanEmptyFastener implements Runnable{
