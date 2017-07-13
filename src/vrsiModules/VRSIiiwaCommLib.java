@@ -468,7 +468,11 @@ public class VRSIiiwaCommLib {
 			break;
 		case ScanFillFastenerCmd:
 			for(String vrsiData : dataString) {
-				if (Integer.parseInt(vrsiData) != 0.000) bNotZero = true; 
+				try {
+				if (Integer.parseInt(vrsiData) != 0) bNotZero = true;
+				} catch (NumberFormatException e) {
+					if (Double.parseDouble(vrsiData) != 0.000) bNotZero = true;
+				}
 			}
 			break;
 		default:
