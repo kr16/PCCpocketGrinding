@@ -431,8 +431,9 @@ public class VRSIiiwaCommLib {
 			case ScanFillFastenerComplete:
 				//Usefull data from VRSI
 				fillFastener.setHoleID(getHoleID());
+				
 				fillFastenerData = new VRSIfillFastener(fillFastener);
-				System.out.println(fillFastenerData.toString());
+				System.out.println(getFillFastenerData().toString());
 				bResult = true; 
 				break;
 
