@@ -1,6 +1,7 @@
 package vrsiModules;
 
 public class VRSIfillFastener {
+	private String holeID;						//hole ID/fastener ID
 	private double flushnessMaxDepth;			//VRSI Measured maximum flushness depth
 	private double flushnessMinDepth;			//VRSI Measured minimum flushness depth
 	private double flushnessAverageDepth;		//VRSI Measured average flushness depth
@@ -149,6 +150,14 @@ public class VRSIfillFastener {
 
 	public void setOutPinDiameterBubbleDefectCount(int outPinDiameterBubbleDefectCount) {
 		this.outPinDiameterBubbleDefectCount = outPinDiameterBubbleDefectCount;
+	}
+
+	public String getHoleID() {
+		return holeID;
+	}
+
+	public void setHoleID(String holeID) {
+		this.holeID = holeID;
 	}
 	
 

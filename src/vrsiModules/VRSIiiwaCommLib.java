@@ -18,7 +18,6 @@ import vrsiModules.VRSIcommon.EVRSIscanFastener;
 
 public class VRSIiiwaCommLib {
 	//IIWA to VRSI
-	private int heartBeatIn;		//heartbeat signal from IIWA to VRSI
 	private int modeStatus;			//mode status
 	private int homeSlide;			//0 = Idle, 1 = Return All Slides to Home
 	private int faultReset;			//When set to 1, Command Status will be set to 0, clearing any fault code
@@ -31,9 +30,12 @@ public class VRSIiiwaCommLib {
 	//0dh is equivalent to 13 in decimal and to carriage return ('\r') in ASCII which moves the cursor to the beginning of the current row.
 	private static final String delimiter = ";";
 	private boolean debug;			//when enabled at constructor display additional DEBUG messages
-	private StreamDataCommLib commPort;
-	private String vrsiServerIP;
-	private int vrsiServerPort;
+	private StreamDataCommLib commPort;	//instance of communication library independent from custom VRSI stuff
+	private String vrsiServerIP;		//IP address of VRSI server
+	private int vrsiServerPort;			//Post address of VRSI server 
+
+	private VRSIemptyFastener emptyFastenerData; 	//Successful scan will initialize empty fastener data for processing (evaluation, bot reposition) 
+	private VRSIfillFastener fillFastenerData;		//Successful scan will initialize fill fastener data for processing (PLC?)
 
 	private static final Map<Integer, String> pinTypeMap;
 	static {
@@ -229,7 +231,7 @@ public class VRSIiiwaCommLib {
 		System.out.println("Scan fill finish; timeout requested: " + timeout + " actual timer: " + timer);
 		return scanFillFastenerRunnable.isbSuccess();
 	}
-	
+
 	/**
 	 * Check response String from VRSI for slide home command  
 	 * @param response 	- String response from VRSI
@@ -264,12 +266,6 @@ public class VRSIiiwaCommLib {
 	public String setSlideHomeREQ() {
 		if (debug) System.out.println("Sunrise --> DEBUG: HomeSlideREQ");
 		return vrsiPrefix + ";100;1;" + vrsiPostfix;
-		//		setVRSIcommand("HomeSlideREQ");
-		//		setHomeSlide(1);
-		//		return vrsiPrefix + delimiter 
-		//				+ getVrsiCommand() + delimiter 
-		//				+ getHomeSlide() + delimiter
-		//				+ vrsiPostfix;
 	}
 
 	/**
@@ -278,12 +274,6 @@ public class VRSIiiwaCommLib {
 	public String setSlideHomeACK() {
 		if (debug) System.out.println("Sunrise --> DEBUG: HomeSlideACK");
 		return vrsiPrefix + ";100;0;" + vrsiPostfix;
-		//		setVRSIcommand("HomeSlideACK");
-		//		setHomeSlide(0);
-		//		return vrsiPrefix + delimiter 
-		//				+ getVrsiCommand() + delimiter 
-		//				+ getHomeSlide() + delimiter
-		//				+ vrsiPostfix;
 	}
 
 
@@ -296,10 +286,9 @@ public class VRSIiiwaCommLib {
 	 */
 	public String scanFastenerREQ(String holeID, double pinDia, int pinType) {
 		//VRSI;1;FLU123;0.190;1;0Dh
-		//		setVRSIcommand("Scan_Pin");
 		setHoleID(holeID);
-		//		setPinDiamater(pinDia);
-		//		setPinType(pinType);
+		setPinDiamater(pinDia);
+		setPinType(pinType);
 		if (debug) System.out.println("Sunrise --> DEBUG: Scan Empty Fastener REQ " + holeID + " " + pinTypeMap.get(pinType));
 		return vrsiPrefix + delimiter
 				+ 1 + delimiter 
@@ -316,18 +305,6 @@ public class VRSIiiwaCommLib {
 	public String scanFastenerACK() {
 		if (debug) System.out.println("Sunrise --> DEBUG: Scan Fastener ACK");
 		return vrsiPrefix + ";1;;0.000;0;" + vrsiPostfix;
-		//setVRSIcommand("Scan_Pin");
-		//setHoleID("");
-		//setPinDiamater(0.000);		
-		//setPinType(0);
-
-		//		return vrsiPrefix + delimiter
-		//				+ getVrsiCommand() + delimiter 
-		//				+ getHoleID() + delimiter
-		//				+ getPinDiamater() + delimiter
-		//				+ getPinType() + delimiter
-		//				+ vrsiPostfix;
-
 	}
 
 
@@ -340,10 +317,9 @@ public class VRSIiiwaCommLib {
 	public String scanFillREQ(String holeID, double pinDia, int pinType) {
 		if (debug) System.out.println("Sunrise --> DEBUG: Scan Fill Fastener REQ " + holeID + " " + pinTypeMap.get(pinType));
 		//VRSI;2;FLU123;0.190;1;0Dh
-		//		setVRSIcommand("Scan_Fill");
-		//		setHoleID(holeID);
-		//		setPinDiamater(pinDia);
-		//		setPinType(pinType);
+		setHoleID(holeID);
+		setPinDiamater(pinDia);
+		setPinType(pinType);
 
 		return vrsiPrefix + delimiter
 				+ 2 + delimiter 
@@ -360,22 +336,10 @@ public class VRSIiiwaCommLib {
 	public String scanFillACK() {
 		if (debug) System.out.println("Sunrise --> DEBUG: Scan Fill Fastener ACK");
 		return vrsiPrefix + ";2;0;;0.000;0;" + vrsiPostfix;
-		//		setVRSIcommand("Scan_Fill");
-		//		setHoleID("");
-		//		setPinDiamater(0.000);		
-		//		setPinType(0);
-		//		
-		//		return vrsiPrefix + delimiter
-		//				+ getVrsiCommand() + delimiter 
-		//				+ getHoleID() + delimiter
-		//				+ getPinDiamater() + delimiter
-		//				+ getPinType() + delimiter
-		//				+ vrsiPostfix;
-
 	}
 
 	/**
-	 * Once we receive correct feedback from VRSI we want to evaluate actual numbers (to avoid robot reposition crashes)
+	 * Once we receive correct feedback from VRSI we want to evaluate actual numbers and set data objects for further processing
 	 * @param cmd - command that was send to VRSI  
 	 * @param dataString - data String received from VRSI
 	 * @return
@@ -384,40 +348,46 @@ public class VRSIiiwaCommLib {
 		boolean bResult = false;
 		switch (cmd) {
 		case ScanEmptyFastenerCmd: case ScanEmptyFastenerComplete:
-			VRSIemptyFastener emptyFastener = new VRSIemptyFastener(	
-					Double.parseDouble(dataString.get(0)), 
-					Double.parseDouble(dataString.get(1)), 
-					Double.parseDouble(dataString.get(2)), 
-					Double.parseDouble(dataString.get(3)), 
-					Double.parseDouble(dataString.get(4)), 
-					Double.parseDouble(dataString.get(5)), 
-					Double.parseDouble(dataString.get(6)), 
-					Double.parseDouble(dataString.get(7)),
-					Double.parseDouble(dataString.get(8)), 
-					Double.parseDouble(dataString.get(9)), 
-					Double.parseDouble(dataString.get(10)));
+			VRSIemptyFastener emptyFastener;
+			try {
+				emptyFastener = new VRSIemptyFastener(	
+						Double.parseDouble(dataString.get(0)), 
+						Double.parseDouble(dataString.get(1)), 
+						Double.parseDouble(dataString.get(2)), 
+						Double.parseDouble(dataString.get(3)), 
+						Double.parseDouble(dataString.get(4)), 
+						Double.parseDouble(dataString.get(5)), 
+						Double.parseDouble(dataString.get(6)), 
+						Double.parseDouble(dataString.get(7)),
+						Double.parseDouble(dataString.get(8)), 
+						Double.parseDouble(dataString.get(9)), 
+						Double.parseDouble(dataString.get(10)));
+			} catch (NumberFormatException e) {
+				System.err.println(e);
+				return bResult;
+			}
 			switch (cmd) {
 			case ScanEmptyFastenerCmd:
 				//ACK from VRSI should be all 0.000
 				if (allZeros(cmd, dataString)) {
+					System.err.println("Command response " + cmd + " unexpected data");
 					System.out.println(emptyFastener.toString());
 				} else {
 					bResult = true;
 				}
 				break;
 			case ScanEmptyFastenerComplete:
-				//Usefull data from VRSI
-
-				//TO DO
-				//Bot reposition data
-				
-				bResult = true; //For testing purposes lets assume data is good
+				//Useful data from VRSI
+				emptyFastener.setHoleID(getHoleID());
+				emptyFastenerData = new VRSIemptyFastener();
+				emptyFastenerData = emptyFastener;
+				bResult = true; 
 				break;
 			default:
 				break;
 			}
 			break;
-			
+
 		case ScanFillFastenerCmd: case ScanFillFastenerComplete:
 			VRSIfillFastener fillFastener;
 			try {
@@ -433,7 +403,7 @@ public class VRSIiiwaCommLib {
 						Integer.parseInt(dataString.get(8)), 
 						Integer.parseInt(dataString.get(9)), 
 						Integer.parseInt(dataString.get(10)));
-			} catch (Exception e) {
+			} catch (NumberFormatException e) {
 				System.err.println(e);
 				return bResult;
 			}
@@ -441,6 +411,7 @@ public class VRSIiiwaCommLib {
 			case ScanFillFastenerCmd:
 				//ACK from VRSI should be all 0.000
 				if (allZeros(cmd, dataString)) {
+					System.err.println("Command response " + cmd + " unexpected data");
 					System.out.println(fillFastener.toString());
 				} else {
 					bResult = true;
@@ -448,9 +419,10 @@ public class VRSIiiwaCommLib {
 				break;
 			case ScanFillFastenerComplete:
 				//Usefull data from VRSI
-
-				//TO DO
-
+				fillFastener.setHoleID(getHoleID());
+				fillFastenerData = new VRSIfillFastener();
+				fillFastenerData = fillFastener;
+				bResult = true; 
 				break;
 
 			default:
@@ -466,13 +438,29 @@ public class VRSIiiwaCommLib {
 		return bResult;
 	}
 
+	/**
+	 * Check REQ response from VRSI
+	 * Since there is no data yet we are expecting 0.0 for all numbers
+	 * @param cmd			- command (ScanEmptyFastenerCmd, ScanFillFastenerCmd)
+	 * @param dataString	- actual data
+	 * @return	- true if data is incorrect (not 0.0)
+	 * 			- false otherwise
+	 */
 	private boolean allZeros(EVRSIscanFastener cmd, List<String> dataString) {
 		boolean bNotZero = false;
-		for(String vrsiData : dataString) {
-			if (Double.parseDouble(vrsiData) != 0.000) bNotZero = true; 
-		}
-		if (bNotZero) {
-			System.err.println("Command response " + cmd + " unexpected data");
+		switch (cmd) {
+		case ScanEmptyFastenerCmd:
+			for(String vrsiData : dataString) {
+				if (Double.parseDouble(vrsiData) != 0.000) bNotZero = true; 
+			}
+			break;
+		case ScanFillFastenerCmd:
+			for(String vrsiData : dataString) {
+				if (Integer.parseInt(vrsiData) != 0.000) bNotZero = true; 
+			}
+			break;
+		default:
+			break;
 		}
 		return bNotZero;
 	}
@@ -487,12 +475,6 @@ public class VRSIiiwaCommLib {
 	}
 
 
-	public int getHeartBeatIn() {
-		return heartBeatIn;
-	}
-	public void setHeartBeatIn(int heartBeatIn) {
-		this.heartBeatIn = heartBeatIn;
-	}
 	public int getModeStatus() {
 		return modeStatus;
 	}

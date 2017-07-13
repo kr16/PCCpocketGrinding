@@ -1,6 +1,7 @@
 package vrsiModules;
 
 public class VRSIemptyFastener {
+	private String holeID;				//hole ID/fastener ID
 	private double pinDiameter; 		//VRSI Measured average pin diameter
 	private double pinMaximumDepth;		//VRSI Measured maximum pin depth
 	private double pinMinimumDepth;		//VRSI Measured minimum pin depth
@@ -12,6 +13,10 @@ public class VRSIemptyFastener {
 	private double rotI;				//VRSI Measured	pin vector
 	private double rotJ; 				//VRSI Measured	pin vector
 	private double rotK; 				//VRSI Measured	pin vector
+	
+	public VRSIemptyFastener() {
+		
+	}
 	
 	public VRSIemptyFastener(double pinDiameter, double pinMaximumDepth, double pinMinimumDepth, double pinAverageDepth,
 			double fillVolume, double posX, double posY, double posZ, double rotI, double rotJ, double rotK) {
@@ -94,6 +99,14 @@ public class VRSIemptyFastener {
 	}
 	public void setRotK(double rotK) {
 		this.rotK = rotK;
+	}
+
+	public String getHoleID() {
+		return holeID;
+	}
+
+	public void setHoleID(String holeID) {
+		this.holeID = holeID;
 	}
 
 	
