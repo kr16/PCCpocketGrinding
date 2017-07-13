@@ -34,14 +34,12 @@ import vrsiModules.VRSIiiwaCommLib;
 public class VRSItesterNoMotion extends RoboticsAPIApplication {
 	@Inject
 	private LBR lBR_iiwa_14_R820_1;
-	private StreamDataCommLib iiwaDataStream;
 	private VRSIiiwaCommLib vrsiComm;
 	private Thread dataServerThread;
 
 	@Override
 	public void initialize() {
 		// initialize your application here
-		iiwaDataStream = new StreamDataCommLib("172.31.1.230", 30001);
 		vrsiComm = new VRSIiiwaCommLib(true);
 	}
 
@@ -60,33 +58,6 @@ public class VRSItesterNoMotion extends RoboticsAPIApplication {
 		
 		getApplicationControl().halt();
 		
-		iiwaDataStream.login();
-		
-		ThreadUtil.milliSleep(500);
-		
-		iiwaDataStream.write(vrsiComm.setSlideHomeREQ());
-		vrsiComm.getSlideHomeResponse(iiwaDataStream.getServerCommandResponseString(), EVRSIhomeSlide.SlideHomeCmdReceived);
-		ThreadUtil.milliSleep(delay);
-		
-		iiwaDataStream.write(vrsiComm.setSlideHomeACK());
-		vrsiComm.getSlideHomeResponse(iiwaDataStream.getServerCommandResponseString(), EVRSIhomeSlide.SlideAtHome);
-		ThreadUtil.milliSleep(delay);
-		
-		iiwaDataStream.write(vrsiComm.setSlideHomeREQ());
-		vrsiComm.getSlideHomeResponse(iiwaDataStream.getServerCommandResponseString(), EVRSIhomeSlide.SlideHomeCmdReceived);
-		ThreadUtil.milliSleep(delay);
-		
-		iiwaDataStream.write(vrsiComm.setSlideHomeACK());
-		vrsiComm.getSlideHomeResponse(iiwaDataStream.getServerCommandResponseString(), EVRSIhomeSlide.SlideAtHome);
-		ThreadUtil.milliSleep(delay);
-		
-		
-		
-		iiwaDataStream.write("EOT");
-		iiwaDataStream.disconnect();
-		
-		
-		
 	}
 	@Override
     public void dispose()
@@ -94,7 +65,7 @@ public class VRSItesterNoMotion extends RoboticsAPIApplication {
         try {
         	// Add your "clean up" code here e.g.
         	// ssock.close();
-            iiwaDataStream.disconnect();
+            vrsiComm.getCommPort().disconnect();
         } catch (Exception e ) {
         	System.out.println(e);
         }

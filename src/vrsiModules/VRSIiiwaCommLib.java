@@ -569,4 +569,12 @@ public class VRSIiiwaCommLib {
 		this.fillFastenerData = fillFastenerData;
 	}
 
+	public StreamDataCommLib getCommPort() {
+		return commPort;
+	}
+
+	public void setCommPort(StreamDataCommLib commPort) {
+		this.commPort = commPort;
+	}
+
 }
