@@ -18,6 +18,22 @@ public class VRSIemptyFastener {
 		
 	}
 	
+	public VRSIemptyFastener(VRSIemptyFastener origObject) {
+		this.holeID = origObject.holeID;
+		this.pinDiameter = origObject.pinDiameter;
+		this.pinMaximumDepth = origObject.pinMaximumDepth;
+		this.pinMinimumDepth = origObject.pinMinimumDepth;
+		this.pinAverageDepth = origObject.pinAverageDepth;
+		this.fillVolume = origObject.fillVolume;
+		this.posX = origObject.posX;
+		this.posY = origObject.posY;
+		this.posZ = origObject.posZ;
+		this.rotC = origObject.rotC;
+		this.rotB = origObject.rotB;
+		this.rotA = origObject.rotA;
+	}
+	
+	
 	public VRSIemptyFastener(double pinDiameter, double pinMaximumDepth, double pinMinimumDepth, double pinAverageDepth,
 			double fillVolume, double posX, double posY, double posZ, double rotC, double rotB, double rotA) {
 		super();

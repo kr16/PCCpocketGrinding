@@ -391,8 +391,7 @@ public class VRSIiiwaCommLib {
 			case ScanEmptyFastenerComplete:
 				//Useful data from VRSI
 				emptyFastener.setHoleID(getHoleID());
-				emptyFastenerData = new VRSIemptyFastener();
-				emptyFastenerData = emptyFastener;
+				emptyFastenerData = new VRSIemptyFastener(emptyFastener);
 				bResult = true; 
 				break;
 			default:
@@ -432,8 +431,7 @@ public class VRSIiiwaCommLib {
 			case ScanFillFastenerComplete:
 				//Usefull data from VRSI
 				fillFastener.setHoleID(getHoleID());
-				fillFastenerData = new VRSIfillFastener();
-				fillFastenerData = fillFastener;
+				fillFastenerData = new VRSIfillFastener(fillFastener);
 				bResult = true; 
 				break;
 

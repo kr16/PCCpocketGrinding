@@ -24,6 +24,21 @@ public class VRSIfillFastener {
 		
 	}
 	
+	public VRSIfillFastener(VRSIfillFastener origObject) {
+		this.holeID = origObject.holeID;
+		this.flushnessMaxDepth = origObject.flushnessMaxDepth;
+		this.flushnessMinDepth = origObject.flushnessMinDepth;
+		this.flushnessAverageDepth = origObject.flushnessAverageDepth;
+		this.pinDiameterVoidDefectCount = origObject.pinDiameterVoidDefectCount;
+		this.pinDiameterMMDefectCount = origObject.pinDiameterMMDefectCount;
+		this.pinDiameterSpeckDefectCount = origObject.pinDiameterSpeckDefectCount;
+		this.pinDiameterBubbleDefectCount = origObject.pinDiameterBubbleDefectCount;
+		this.outPinDiameterVoidDefectCount = origObject.outPinDiameterVoidDefectCount;
+		this.outPinDiameterMMDefectCount = origObject.outPinDiameterMMDefectCount;
+		this.outPinDiameterSpeckDefectCount = origObject.outPinDiameterSpeckDefectCount;
+		this.outPinDiameterBubbleDefectCount = origObject.outPinDiameterBubbleDefectCount;
+	}
+	
 	public VRSIfillFastener(double flushnessMaxDepth, double flushnessMinDepth, double flushnessAverageDepth,
 			int pinDiameterVoidDefectCount, int pinDiameterMMDefectCount, int pinDiameterSpeckDefectCount,
 			int pinDiameterBubbleDefectCount, int outPinDiameterVoidDefectCount, int outPinDiameterMMDefectCount,
