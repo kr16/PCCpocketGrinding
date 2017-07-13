@@ -85,5 +85,22 @@ public class VRSItesterNoMotion extends RoboticsAPIApplication {
 		iiwaDataStream.write("EOT");
 		iiwaDataStream.disconnect();
 		
+		
+		
 	}
+	@Override
+    public void dispose()
+    {
+        try {
+        	// Add your "clean up" code here e.g.
+        	// ssock.close();
+            iiwaDataStream.disconnect();
+        } catch (Exception e ) {
+        	System.out.println(e);
+        }
+        finally
+        {
+            super.dispose();
+        }
+    }
 }
