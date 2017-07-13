@@ -197,12 +197,15 @@ public class VRSIiiwaCommLib {
 		scanEmptyFastenerThread.start();
 		while (!scanEmptyFastenerRunnable.isbSuccess()) {
 			if (timer >= timeout) {
+				System.err.println("Timeout!  requested: " + timeout + " actual: " + timer);
 				break;
 			}
 			ThreadUtil.milliSleep(hertz);
 			timer +=hertz;
 		}
-		System.out.println("Scan empty finish; timeout requested: " + timeout + " actual timer: " + timer);
+		if (this.debug) {
+			System.out.println("DEBUG: Process timer value: " + timer);
+		}
 		return scanEmptyFastenerRunnable.isbSuccess();
 	}
 
@@ -226,12 +229,15 @@ public class VRSIiiwaCommLib {
 		scanFillFastenerThread.start();
 		while (!scanFillFastenerRunnable.isbSuccess()) {
 			if (timer >= timeout) {
+				System.err.println("Timeout!  requested: " + timeout + " actual: " + timer);
 				break;
 			}
 			ThreadUtil.milliSleep(hertz);
 			timer +=hertz;
 		}
-		System.out.println("Scan fill finish; timeout requested: " + timeout + " actual timer: " + timer);
+		if (this.debug) {
+			System.out.println("DEBUG: Process timer value: " + timer);
+		}
 		return scanFillFastenerRunnable.isbSuccess();
 	}
 
