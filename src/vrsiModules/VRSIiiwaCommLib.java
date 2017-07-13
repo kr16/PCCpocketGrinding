@@ -66,8 +66,6 @@ public class VRSIiiwaCommLib {
 	}
 
 	public void init() {
-		fillFastenerData = new VRSIfillFastener();
-		emptyFastenerData = new VRSIemptyFastener();
 		
 		this.setVrsiServerIP("172.31.1.230");
 		this.setVrsiServerPort(30001);
@@ -403,9 +401,9 @@ public class VRSIiiwaCommLib {
 			break;
 
 		case ScanFillFastenerCmd: case ScanFillFastenerComplete:
-			VRSIfillFastener fillFastener;
+			//VRSIfillFastener fillFastenerData;
 			try {
-				fillFastener = new VRSIfillFastener(
+				fillFastenerData = new VRSIfillFastener(
 						Double.parseDouble(dataString.get(0)), 
 						Double.parseDouble(dataString.get(1)), 
 						Double.parseDouble(dataString.get(2)), 
@@ -427,16 +425,14 @@ public class VRSIiiwaCommLib {
 				//ACK from VRSI should be all 0.000
 				if (allZeros(cmd, dataString)) {
 					System.err.println("Command response " + cmd + " unexpected data");
-					System.out.println(fillFastener.toString());
+					//System.out.println(fillFastener.toString());
 				} else {
 					bResult = true;
 				}
 				break;
 			case ScanFillFastenerComplete:
 				//Usefull data from VRSI
-				fillFastener.setHoleID(getHoleID());
-				//fillFastenerData.
-				System.out.println(getFillFastenerData().toString());
+				fillFastenerData.setHoleID(getHoleID());
 				bResult = true; 
 				break;
 
