@@ -432,6 +432,7 @@ public class VRSIiiwaCommLib {
 				//Usefull data from VRSI
 				fillFastener.setHoleID(getHoleID());
 				fillFastenerData = new VRSIfillFastener(fillFastener);
+				System.out.println(getFillFastenerData());
 				bResult = true; 
 				break;
 
