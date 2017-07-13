@@ -561,11 +561,7 @@ public class VRSIiiwaCommLib {
 	}
 
 	public VRSIfillFastener getFillFastenerData() {
-		return fillFastenerData;
-	}
-
-	public void setFillFastenerData(VRSIfillFastener fillFastenerData) {
-		this.fillFastenerData = fillFastenerData;
+		return this.fillFastenerData;
 	}
 
 	public StreamDataCommLib getCommPort() {
