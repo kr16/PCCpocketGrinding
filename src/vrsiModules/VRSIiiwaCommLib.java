@@ -372,7 +372,8 @@ public class VRSIiiwaCommLib {
 
 				//TO DO
 				//Bot reposition data
-
+				
+				bResult = true; //For testing purposes lets assume data is good
 				break;
 			default:
 				break;
