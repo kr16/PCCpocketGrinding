@@ -58,7 +58,6 @@ public class VRSItesterNoMotion extends RoboticsAPIApplication {
 			System.out.println(vrsiComm.getFillFastenerData().toString());
 		}
 		
-		
 		getApplicationControl().halt();
 		
 		iiwaDataStream.login();

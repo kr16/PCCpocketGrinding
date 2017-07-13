@@ -10,16 +10,16 @@ public class VRSIemptyFastener {
 	private double posX;				//VRSI Measured pin position
 	private double posY;				//VRSI Measured pin position
 	private double posZ;				//VRSI Measured pin position
-	private double rotI;				//VRSI Measured	pin vector
-	private double rotJ; 				//VRSI Measured	pin vector
-	private double rotK; 				//VRSI Measured	pin vector
+	private double rotC;				//VRSI Measured	pin vector
+	private double rotB; 				//VRSI Measured	pin vector
+	private double rotA; 				//VRSI Measured	pin vector
 	
 	public VRSIemptyFastener() {
 		
 	}
 	
 	public VRSIemptyFastener(double pinDiameter, double pinMaximumDepth, double pinMinimumDepth, double pinAverageDepth,
-			double fillVolume, double posX, double posY, double posZ, double rotI, double rotJ, double rotK) {
+			double fillVolume, double posX, double posY, double posZ, double rotC, double rotB, double rotA) {
 		super();
 		this.pinDiameter = pinDiameter;
 		this.pinMaximumDepth = pinMaximumDepth;
@@ -29,9 +29,9 @@ public class VRSIemptyFastener {
 		this.posX = posX;
 		this.posY = posY;
 		this.posZ = posZ;
-		this.rotI = rotI;
-		this.rotJ = rotJ;
-		this.rotK = rotK;
+		this.rotC = rotC;
+		this.rotB = rotB;
+		this.rotA = rotA;
 	}
 	
 	public double getPinDiameter() {
@@ -82,23 +82,23 @@ public class VRSIemptyFastener {
 	public void setPosZ(double posZ) {
 		this.posZ = posZ;
 	}
-	public double getRotI() {
-		return rotI;
+	public double getRotC() {
+		return rotC;
 	}
-	public void setRotI(double rotI) {
-		this.rotI = rotI;
+	public void setRotC(double rotC) {
+		this.rotC = rotC;
 	}
-	public double getRotJ() {
-		return rotJ;
+	public double getRotB() {
+		return rotB;
 	}
-	public void setRotJ(double rotJ) {
-		this.rotJ = rotJ;
+	public void setRotB(double rotB) {
+		this.rotB = rotB;
 	}
-	public double getRotK() {
-		return rotK;
+	public double getRotA() {
+		return rotA;
 	}
-	public void setRotK(double rotK) {
-		this.rotK = rotK;
+	public void setRotA(double rotA) {
+		this.rotA = rotA;
 	}
 
 	public String getHoleID() {
@@ -115,9 +115,11 @@ public class VRSIemptyFastener {
 				+ pinDiameter + ", pinMaximumDepth=" + pinMaximumDepth
 				+ ", pinMinimumDepth=" + pinMinimumDepth + ", pinAverageDepth="
 				+ pinAverageDepth + ", fillVolume=" + fillVolume + ", posX="
-				+ posX + ", posY=" + posY + ", posZ=" + posZ + ", rotI=" + rotI
-				+ ", rotJ=" + rotJ + ", rotK=" + rotK + "]";
+				+ posX + ", posY=" + posY + ", posZ=" + posZ + ", rotC=" + rotC
+				+ ", rotB=" + rotB + ", rotA=" + rotA + "]";
 	}
+
+	
 
 	
 	
