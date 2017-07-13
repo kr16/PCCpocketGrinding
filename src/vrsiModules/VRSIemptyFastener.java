@@ -109,6 +109,16 @@ public class VRSIemptyFastener {
 		this.holeID = holeID;
 	}
 
+	@Override
+	public String toString() {
+		return "VRSIemptyFastener [holeID=" + holeID + ", pinDiameter="
+				+ pinDiameter + ", pinMaximumDepth=" + pinMaximumDepth
+				+ ", pinMinimumDepth=" + pinMinimumDepth + ", pinAverageDepth="
+				+ pinAverageDepth + ", fillVolume=" + fillVolume + ", posX="
+				+ posX + ", posY=" + posY + ", posZ=" + posZ + ", rotI=" + rotI
+				+ ", rotJ=" + rotJ + ", rotK=" + rotK + "]";
+	}
+
 	
 	
 }

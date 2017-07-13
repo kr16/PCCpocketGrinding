@@ -159,6 +159,27 @@ public class VRSIfillFastener {
 	public void setHoleID(String holeID) {
 		this.holeID = holeID;
 	}
+
+	@Override
+	public String toString() {
+		return "VRSIfillFastener [holeID=" + holeID + ", flushnessMaxDepth="
+				+ flushnessMaxDepth + ", flushnessMinDepth="
+				+ flushnessMinDepth + ", flushnessAverageDepth="
+				+ flushnessAverageDepth + ", pinDiameterVoidDefectCount="
+				+ pinDiameterVoidDefectCount + ", pinDiameterMMDefectCount="
+				+ pinDiameterMMDefectCount + ", pinDiameterSpeckDefectCount="
+				+ pinDiameterSpeckDefectCount
+				+ ", pinDiameterBubbleDefectCount="
+				+ pinDiameterBubbleDefectCount
+				+ ", outPinDiameterVoidDefectCount="
+				+ outPinDiameterVoidDefectCount
+				+ ", outPinDiameterMMDefectCount="
+				+ outPinDiameterMMDefectCount
+				+ ", outPinDiameterSpeckDefectCount="
+				+ outPinDiameterSpeckDefectCount
+				+ ", outPinDiameterBubbleDefectCount="
+				+ outPinDiameterBubbleDefectCount + "]";
+	}
 	
 
 }

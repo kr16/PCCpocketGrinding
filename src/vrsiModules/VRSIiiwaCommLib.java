@@ -537,4 +537,20 @@ public class VRSIiiwaCommLib {
 		this.vrsiServerPort = vrsiServerPort;
 	}
 
+	public VRSIemptyFastener getEmptyFastenerData() {
+		return emptyFastenerData;
+	}
+
+	public void setEmptyFastenerData(VRSIemptyFastener emptyFastenerData) {
+		this.emptyFastenerData = emptyFastenerData;
+	}
+
+	public VRSIfillFastener getFillFastenerData() {
+		return fillFastenerData;
+	}
+
+	public void setFillFastenerData(VRSIfillFastener fillFastenerData) {
+		this.fillFastenerData = fillFastenerData;
+	}
+
 }
