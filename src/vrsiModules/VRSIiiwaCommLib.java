@@ -75,7 +75,7 @@ public class VRSIiiwaCommLib {
 	 * @param cmd		- enum (EVRSIscanFastener) expected VRSI response 
 	 * @return			- true if expected response is received and data evaluation was good 
 	 */
-	public boolean getScanEmptyFastenerResponse(String response, EVRSIscanFastener cmd) {
+	public boolean getScanFastenerResponse(String response, EVRSIscanFastener cmd) {
 		boolean bResult = false;
 		List<String> stringsList = new ArrayList<String>(Arrays.asList(response.split(";")));
 		//check if our command is within the range 
@@ -148,9 +148,9 @@ public class VRSIiiwaCommLib {
 	}
 
 	/**
-	 * Command to send VRSI slide to home position
-	 * @param timeout - milliseconds, time period for VRSI to successfully execute send home routine
-	 * @return boolean - 	true if VRSI is at home or gets back to home before timout
+	 * Command VRSI to send slide to home position (REQ/ACK)
+	 * @param timeout - milliseconds, time period for VRSI to successfully execute command
+	 * @return boolean - 	true if VRSI is at home or gets back to home before timeout
 	 * 						false otherwise
 	 */
 	public boolean setSlideHome(long timeout) {
@@ -172,15 +172,24 @@ public class VRSIiiwaCommLib {
 		return slideHomeRunnable.isbSuccess();
 	}
 
+	/**
+	 * Command VRSI to scan Empty fastener (REQ/ACK)
+	 * @param holeID	- String holeID
+	 * @param pinDia	- double fastener diameter
+	 * @param pinType	- int fastener type 1 = Flat Head, 2 = Star Head, 3 = Blind
+	 * @param timeout	- milliseconds, time period for VRSI to successfully execute command
+	 * @return			- true if VRSI completed scan successfully and data passed evaluation
+	 * 					- false otherwise
+	 */
 	public boolean scanEmptyFastener(String holeID, double pinDia, int pinType, long timeout) {
 		long timer = 0;
 		long hertz = 100;
 		VRSIscanEmptyFastener scanEmptyFastenerRunnable = new VRSIscanEmptyFastener();
 		scanEmptyFastenerRunnable.setCommPorthandle(commPort);
 		scanEmptyFastenerRunnable.setScanFastener(holeID, pinDia, pinType);
-		Thread scanEmptyFastener = new Thread(scanEmptyFastenerRunnable);
-		scanEmptyFastener.setDaemon(true);
-		scanEmptyFastener.start();
+		Thread scanEmptyFastenerThread = new Thread(scanEmptyFastenerRunnable);
+		scanEmptyFastenerThread.setDaemon(true);
+		scanEmptyFastenerThread.start();
 		while (!scanEmptyFastenerRunnable.isbSuccess()) {
 			if (timer >= timeout) {
 				break;
@@ -192,6 +201,35 @@ public class VRSIiiwaCommLib {
 		return scanEmptyFastenerRunnable.isbSuccess();
 	}
 
+	/**
+	 * Command VRSI to scan Fill fastener (REQ/ACK)
+	 * @param holeID	- String holeID
+	 * @param pinDia	- double fastener diameter
+	 * @param pinType	- int fastener type 1 = Flat Head, 2 = Star Head, 3 = Blind
+	 * @param timeout	- milliseconds, time period for VRSI to successfully execute command
+	 * @return			- true if VRSI completed scan successfully and data passed evaluation
+	 * 					- false otherwise
+	 */
+	public boolean scanFillFastener(String holeID, double pinDia, int pinType, long timeout) {
+		long timer = 0;
+		long hertz = 100;
+		VRSIscanFillFastener scanFillFastenerRunnable = new VRSIscanFillFastener();
+		scanFillFastenerRunnable.setCommPorthandle(commPort);
+		scanFillFastenerRunnable.setScanFastener(holeID, pinDia, pinType);
+		Thread scanFillFastenerThread = new Thread(scanFillFastenerRunnable);
+		scanFillFastenerThread.setDaemon(true);
+		scanFillFastenerThread.start();
+		while (!scanFillFastenerRunnable.isbSuccess()) {
+			if (timer >= timeout) {
+				break;
+			}
+			ThreadUtil.milliSleep(hertz);
+			timer +=hertz;
+		}
+		System.out.println("Scan fill finish; timeout requested: " + timeout + " actual timer: " + timer);
+		return scanFillFastenerRunnable.isbSuccess();
+	}
+	
 	/**
 	 * Check response String from VRSI for slide home command  
 	 * @param response 	- String response from VRSI

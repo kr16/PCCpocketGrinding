@@ -5,7 +5,7 @@ import com.kuka.common.ThreadUtil;
 import vrsiModules.VRSIcommon.EVRSIhomeSlide;
 import vrsiModules.VRSIcommon.EVRSIscanFastener;
 
-public class VRSIscanEmptyFastener implements Runnable{
+public class VRSIscanFillFastener implements Runnable{
 
 	private VRSIiiwaCommLib vrsiCommands = new VRSIiiwaCommLib(true);
 	private boolean bSuccess;
@@ -17,10 +17,10 @@ public class VRSIscanEmptyFastener implements Runnable{
 	public void scanFastener() {
 		commPorthandle.login();
 		ThreadUtil.milliSleep(100);
-	    commPorthandle.write(vrsiCommands.scanFillREQ(holeID, pinDia, pinType));
-	    if (vrsiCommands.getScanFastenerResponse(commPorthandle.getServerCommandResponseString(), EVRSIscanFastener.ScanFillFastenerCmd)) {
-	    	if (vrsiCommands.getScanFastenerResponse(commPorthandle.getServerCommandResponseString(), EVRSIscanFastener.ScanFillFastenerComplete)) {
-	    		commPorthandle.write(vrsiCommands.scanFillACK());
+	    commPorthandle.write(vrsiCommands.scanFastenerREQ(holeID, pinDia, pinType));
+	    if (vrsiCommands.getScanFastenerResponse(commPorthandle.getServerCommandResponseString(), EVRSIscanFastener.ScanEmptyFastenerCmd)) {
+	    	if (vrsiCommands.getScanFastenerResponse(commPorthandle.getServerCommandResponseString(), EVRSIscanFastener.ScanEmptyFastenerComplete)) {
+	    		commPorthandle.write(vrsiCommands.scanFastenerACK());
 	    		setbSuccess(true);
 	    	}
 	    }
@@ -56,4 +56,9 @@ public class VRSIscanEmptyFastener implements Runnable{
 	public void setCommPorthandle(StreamDataCommLib commPorthandle) {
 		this.commPorthandle = commPorthandle;
 	}
+
+	
+
+	
+	
 }

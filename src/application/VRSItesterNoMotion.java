@@ -52,7 +52,9 @@ public class VRSItesterNoMotion extends RoboticsAPIApplication {
 		
 		long delay = 5000;
 		
-		vrsiComm.scanEmptyFastener("MIC001", 0.666, 1, 10000);
+		//vrsiComm.setSlideHome(5000);
+		//vrsiComm.scanEmptyFastener("MIC001", 0.666, 1, 10000);
+		vrsiComm.scanFillFastener("KDD001", 0.666, 1, 10000);
 		
 		getApplicationControl().halt();
 		
@@ -76,22 +78,7 @@ public class VRSItesterNoMotion extends RoboticsAPIApplication {
 		vrsiComm.getSlideHomeResponse(iiwaDataStream.getServerCommandResponseString(), EVRSIhomeSlide.SlideAtHome);
 		ThreadUtil.milliSleep(delay);
 		
-		iiwaDataStream.write(vrsiComm.scanFastenerREQ("KDD001", 2.3, 0));
-		vrsiComm.getScanEmptyFastenerResponse(iiwaDataStream.getServerCommandResponseString(), EVRSIscanFastener.ScanEmptyFastenerCmd);
-		ThreadUtil.milliSleep(delay);
 		
-		iiwaDataStream.write(vrsiComm.scanFillREQ("EMM001", 2.1, 0));
-		vrsiComm.getScanEmptyFastenerResponse(iiwaDataStream.getServerCommandResponseString(), EVRSIscanFastener.ScanEmptyFastenerCmd);
-		ThreadUtil.milliSleep(delay);
-		
-		
-		iiwaDataStream.write(vrsiComm.scanFastenerREQ("KDD002", 2.3, 0));
-		vrsiComm.getScanEmptyFastenerResponse(iiwaDataStream.getServerCommandResponseString(), EVRSIscanFastener.ScanEmptyFastenerCmd);
-		ThreadUtil.milliSleep(delay);
-		
-		iiwaDataStream.write(vrsiComm.scanFastenerREQ("KDD003", 2.3, 0));
-		vrsiComm.getScanEmptyFastenerResponse(iiwaDataStream.getServerCommandResponseString(), EVRSIscanFastener.ScanFillFastenerCmd);
-		ThreadUtil.milliSleep(delay);
 		
 		iiwaDataStream.write("EOT");
 		iiwaDataStream.disconnect();
