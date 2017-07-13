@@ -66,6 +66,9 @@ public class VRSIiiwaCommLib {
 	}
 
 	public void init() {
+		fillFastenerData = new VRSIfillFastener();
+		emptyFastenerData = new VRSIemptyFastener();
+		
 		this.setVrsiServerIP("172.31.1.230");
 		this.setVrsiServerPort(30001);
 		commPort = new StreamDataCommLib(getVrsiServerIP(), getVrsiServerPort());
@@ -414,6 +417,7 @@ public class VRSIiiwaCommLib {
 						Integer.parseInt(dataString.get(8)), 
 						Integer.parseInt(dataString.get(9)), 
 						Integer.parseInt(dataString.get(10)));
+				
 			} catch (NumberFormatException e) {
 				System.err.println(e);
 				return bResult;
@@ -431,8 +435,7 @@ public class VRSIiiwaCommLib {
 			case ScanFillFastenerComplete:
 				//Usefull data from VRSI
 				fillFastener.setHoleID(getHoleID());
-				
-				fillFastenerData = new VRSIfillFastener(fillFastener);
+				//fillFastenerData.
 				System.out.println(getFillFastenerData().toString());
 				bResult = true; 
 				break;

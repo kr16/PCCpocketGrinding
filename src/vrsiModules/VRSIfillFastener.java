@@ -1,6 +1,6 @@
 package vrsiModules;
 
-public class VRSIfillFastener {
+public class VRSIfillFastener implements Cloneable{
 	private String holeID;						//hole ID/fastener ID
 	private double flushnessMaxDepth;			//VRSI Measured maximum flushness depth
 	private double flushnessMinDepth;			//VRSI Measured minimum flushness depth
