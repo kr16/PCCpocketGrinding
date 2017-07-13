@@ -165,12 +165,15 @@ public class VRSIiiwaCommLib {
 		slideHomeThread.start();
 		while (!slideHomeRunnable.isbSuccess()) {
 			if (timer >= timeout) {
+				System.err.println("Timeout!  requested: " + timeout + " actual: " + timer);
 				break;
 			}
 			ThreadUtil.milliSleep(hertz);
 			timer +=hertz;
 		}
-		System.out.println("Slide to Home Finished; timeout requested: " + timeout + " actual timer: " + timer);
+		if (this.debug) {
+			System.out.println("DEBUG: Process timer value: " + timer);
+		}
 		return slideHomeRunnable.isbSuccess();
 	}
 
