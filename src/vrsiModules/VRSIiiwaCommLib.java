@@ -195,6 +195,7 @@ public class VRSIiiwaCommLib {
 	public boolean scanEmptyFastener(String holeID, double pinDia, int pinType, long timeout) {
 		long timer = 0;
 		long hertz = 100;
+		System.out.println("WTF");
 		VRSIscanEmptyFastener scanEmptyFastenerRunnable = new VRSIscanEmptyFastener();
 		scanEmptyFastenerRunnable.setCommPorthandle(commPort);
 		scanEmptyFastenerRunnable.setScanFastener(holeID, pinDia, pinType, this);
