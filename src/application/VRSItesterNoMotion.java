@@ -11,6 +11,7 @@ import com.kuka.roboticsAPI.deviceModel.LBR;
 import vrsiModules.StreamDataCommLib;
 import vrsiModules.VRSIcommon.EVRSIhomeSlide;
 import vrsiModules.VRSIcommon.EVRSIscanFastener;
+import vrsiModules.VRSIfillFastener;
 import vrsiModules.VRSIiiwaCommLib;
 
 /**
@@ -52,8 +53,9 @@ public class VRSItesterNoMotion extends RoboticsAPIApplication {
 		
 		//vrsiComm.setSlideHome(5000);
 		//vrsiComm.scanEmptyFastener("MIC001", 0.666, 1, 10000);
-		if (vrsiComm.scanFillFastener("KDD001", 0.666, 1, -1)) {
-			System.out.println("VRSI data: " + vrsiComm.getFillFastenerData());
+		VRSIfillFastener dataFill = new VRSIfillFastener();
+		if (vrsiComm.scanFillFastener("KDD001", 0.666, 1, -1, dataFill)) {
+			System.out.println("VRSI data: " + dataFill);
 		}
 		
 		getApplicationControl().halt();

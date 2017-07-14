@@ -15,6 +15,7 @@ public class VRSIscanFillFastener implements Runnable{
 	private String holeID;
 	private double pinDia;
 	private int pinType;
+	private VRSIfillFastener fillFastenerData;
 	
 	public void scanFastener() {
 		commPorthandle.login();
@@ -23,15 +24,17 @@ public class VRSIscanFillFastener implements Runnable{
 	    if (vrsiCommands.getScanFastenerResponse(commPorthandle.getServerCommandResponseString(), EVRSIscanFastener.ScanFillFastenerCmd)) {
 	    	if (vrsiCommands.getScanFastenerResponse(commPorthandle.getServerCommandResponseString(), EVRSIscanFastener.ScanFillFastenerComplete)) {
 	    		commPorthandle.write(vrsiCommands.scanFillACK());
+	    		fillFastenerData = new VRSIfillFastener(vrsiCommands.getFillFastenerData());
 	    		setbSuccess(true);
 	    	}
 	    }
 	}
 	
-	public void setScanFastener(String holeID, double pinDia, int pinType) {
+	public void setScanFastener(String holeID, double pinDia, int pinType, VRSIfillFastener dataHandle) {
 		this.holeID = holeID;
 		this.pinDia = pinDia;
 		this.pinType = pinType;
+		this.fillFastenerData = dataHandle;
 	}
 	
 	public void init() {
