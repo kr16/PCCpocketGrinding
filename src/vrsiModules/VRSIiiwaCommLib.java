@@ -205,7 +205,6 @@ public class VRSIiiwaCommLib {
 			if (timeout >= 0) {
 				if (timer >= timeout) {
 					System.err.println("Timeout!  requested: " + timeout + " actual: " + timer);
-					commPort.disconnect();
 					break;
 				}
 			}
@@ -215,6 +214,7 @@ public class VRSIiiwaCommLib {
 		if (this.debug) {
 			System.out.println("DEBUG: Process timer value: " + timer);
 		}
+		commPort.disconnect();
 		return scanEmptyFastenerRunnable.isbSuccess();
 	}
 
@@ -240,7 +240,6 @@ public class VRSIiiwaCommLib {
 			if (timeout >= 0) {
 				if (timer >= timeout) {
 					System.err.println("Timeout!  requested: " + timeout + " actual: " + timer);
-					commPort.disconnect();
 					break;
 				}
 			}
@@ -251,6 +250,7 @@ public class VRSIiiwaCommLib {
 		if (this.debug) {
 			System.out.println("DEBUG: Process timer value: " + timer);
 		}
+		commPort.disconnect();
 		return scanFillFastenerRunnable.isbSuccess();
 	}
 
