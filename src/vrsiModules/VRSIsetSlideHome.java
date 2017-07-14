@@ -6,7 +6,7 @@ import vrsiModules.VRSIcommon.EVRSIhomeSlide;
 
 public class VRSIsetSlideHome implements Runnable{
 
-	private VRSIiiwaCommLib vrsiCommands = new VRSIiiwaCommLib(true);
+	private VRSIiiwaCommLib vrsiCommands;
 	private boolean bSuccess;
 	private StreamDataCommLib commPorthandle; 
 	
@@ -30,7 +30,11 @@ public class VRSIsetSlideHome implements Runnable{
 		init();
 		setSlideHome();
 	}
-
+	
+	public void setVRSIcommHandle(VRSIiiwaCommLib dataHandle) {
+		this.vrsiCommands = dataHandle;
+	}
+	
 	public boolean isbSuccess() {
 		return bSuccess;
 	}

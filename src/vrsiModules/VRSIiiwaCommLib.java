@@ -163,6 +163,7 @@ public class VRSIiiwaCommLib {
 		long hertz = 100;
 		VRSIsetSlideHome slideHomeRunnable = new VRSIsetSlideHome();
 		slideHomeRunnable.setCommPorthandle(commPort);
+		slideHomeRunnable.setVRSIcommHandle(this);
 		Thread slideHomeThread = new Thread(slideHomeRunnable);
 		slideHomeThread.setDaemon(true);
 		slideHomeThread.start();
@@ -170,7 +171,6 @@ public class VRSIiiwaCommLib {
 			if (timeout >= 0) {
 				if (timer >= timeout) {
 					System.err.println("Timeout!  requested: " + timeout + " actual: " + timer);
-					commPort.disconnect();
 					break;
 				}
 			}
@@ -180,6 +180,7 @@ public class VRSIiiwaCommLib {
 		if (this.debug) {
 			System.out.println("DEBUG: Process timer value: " + timer);
 		}
+		commPort.disconnect();
 		return slideHomeRunnable.isbSuccess();
 	}
 
