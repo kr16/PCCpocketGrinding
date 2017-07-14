@@ -34,7 +34,7 @@ public class VRSIiiwaCommLib {
 	private String vrsiServerIP;		//IP address of VRSI server
 	private int vrsiServerPort;			//Post address of VRSI server 
 
-	//private VRSIemptyFastener emptyFastenerData; 	//Successful scan will initialize empty fastener data for processing (evaluation, bot reposition) 
+	private VRSIemptyFastener emptyFastenerData; 	//Successful scan will initialize empty fastener data for processing (evaluation, bot reposition) 
 	private VRSIfillFastener fillFastenerData;		//Successful scan will initialize fill fastener data for processing (PLC?)
 
 	private static final Map<Integer, String> pinTypeMap;
@@ -401,6 +401,7 @@ public class VRSIiiwaCommLib {
 			case ScanEmptyFastenerComplete:
 				//Useful data from VRSI
 				emptyFastener.setHoleID(getHoleID());
+				emptyFastenerData = new VRSIemptyFastener(emptyFastener);
 				bResult = true; 
 				break;
 			default:
@@ -441,8 +442,8 @@ public class VRSIiiwaCommLib {
 			case ScanFillFastenerComplete:
 				//Usefull data from VRSI
 				fillFastener.setHoleID(getHoleID());
-				bResult = true; 
 				fillFastenerData = new VRSIfillFastener(fillFastener);
+				bResult = true; 
 				break;
 
 			default:
@@ -571,6 +572,10 @@ public class VRSIiiwaCommLib {
 
 	public VRSIfillFastener getFillFastenerData() {
 		return fillFastenerData;
+	}
+
+	public VRSIemptyFastener getEmptyFastenerData() {
+		return emptyFastenerData;
 	}
 
 }
