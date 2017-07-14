@@ -6,7 +6,7 @@ import vrsiModules.VRSIcommon.EVRSIscanFastener;
 
 public class VRSIscanEmptyFastener implements Runnable{
 
-	private VRSIiiwaCommLib vrsiCommands = new VRSIiiwaCommLib(true);
+	private VRSIiiwaCommLib vrsiCommands;
 	private boolean bSuccess;
 	private StreamDataCommLib commPorthandle; 
 	private String holeID;
@@ -25,10 +25,11 @@ public class VRSIscanEmptyFastener implements Runnable{
 	    }
 	}
 	
-	public void setScanFastener(String holeID, double pinDia, int pinType) {
+	public void setScanFastener(String holeID, double pinDia, int pinType, VRSIiiwaCommLib dataHandle) {
 		this.holeID = holeID;
 		this.pinDia = pinDia;
 		this.pinType = pinType;
+		this.vrsiCommands = dataHandle;
 	}
 	
 	public void init() {

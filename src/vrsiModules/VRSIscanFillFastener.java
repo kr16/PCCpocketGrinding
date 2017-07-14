@@ -44,8 +44,8 @@ public class VRSIscanFillFastener implements Runnable{
 	public void run() {
 		init();
 		scanFastener();
-		while (!isbRunnableDone());
-		Thread.currentThread().interrupt();
+//		while (!isbRunnableDone());
+//		Thread.currentThread().interrupt();
 		return;
 	}
 

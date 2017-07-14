@@ -197,7 +197,7 @@ public class VRSIiiwaCommLib {
 		long hertz = 100;
 		VRSIscanEmptyFastener scanEmptyFastenerRunnable = new VRSIscanEmptyFastener();
 		scanEmptyFastenerRunnable.setCommPorthandle(commPort);
-		scanEmptyFastenerRunnable.setScanFastener(holeID, pinDia, pinType);
+		scanEmptyFastenerRunnable.setScanFastener(holeID, pinDia, pinType, this);
 		Thread scanEmptyFastenerThread = new Thread(scanEmptyFastenerRunnable);
 		scanEmptyFastenerThread.setDaemon(true);
 		scanEmptyFastenerThread.start();
@@ -443,7 +443,6 @@ public class VRSIiiwaCommLib {
 				fillFastener.setHoleID(getHoleID());
 				bResult = true; 
 				fillFastenerData = new VRSIfillFastener(fillFastener);
-				//this.setFillFastenerData(fillFastener);
 				break;
 
 			default:
@@ -572,21 +571,6 @@ public class VRSIiiwaCommLib {
 
 	public VRSIfillFastener getFillFastenerData() {
 		return fillFastenerData;
-	}
-
-	public void setFillFastenerData(VRSIfillFastener origObject) {
-		fillFastenerData.setHoleID(origObject.getHoleID());
-		fillFastenerData.setFlushnessMaxDepth(origObject.getFlushnessMaxDepth());
-		fillFastenerData.setFlushnessMinDepth(origObject.getFlushnessMinDepth());
-		fillFastenerData.setFlushnessAverageDepth(origObject.getFlushnessAverageDepth());
-		fillFastenerData.setPinDiameterVoidDefectCount(origObject.getPinDiameterVoidDefectCount());
-		fillFastenerData.setPinDiameterMMDefectCount(origObject.getPinDiameterMMDefectCount());
-		fillFastenerData.setPinDiameterSpeckDefectCount(origObject.getPinDiameterSpeckDefectCount());
-		fillFastenerData.setPinDiameterBubbleDefectCount(origObject.getPinDiameterBubbleDefectCount());
-		fillFastenerData.setOutPinDiameterVoidDefectCount(origObject.getOutPinDiameterVoidDefectCount());
-		fillFastenerData.setOutPinDiameterMMDefectCount(origObject.getOutPinDiameterMMDefectCount());
-		fillFastenerData.setOutPinDiameterSpeckDefectCount(origObject.getOutPinDiameterSpeckDefectCount());
-		fillFastenerData.setOutPinDiameterBubbleDefectCount(origObject.getOutPinDiameterBubbleDefectCount());
 	}
 
 }
