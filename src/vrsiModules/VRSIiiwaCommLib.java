@@ -70,7 +70,7 @@ public class VRSIiiwaCommLib {
 		this.setVrsiServerIP("172.31.1.230");
 		this.setVrsiServerPort(30001);
 		commPort = new StreamDataCommLib(getVrsiServerIP(), getVrsiServerPort());
-		fillFastenerData = new VRSIfillFastener();
+		
 	}
 
 	/**
@@ -442,8 +442,8 @@ public class VRSIiiwaCommLib {
 				//Usefull data from VRSI
 				fillFastener.setHoleID(getHoleID());
 				bResult = true; 
-				System.out.println(fillFastener.toString());
-				this.setFillFastenerData(fillFastener);
+				fillFastenerData = new VRSIfillFastener(fillFastener);
+				//this.setFillFastenerData(fillFastener);
 				break;
 
 			default:
