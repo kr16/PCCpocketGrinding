@@ -34,8 +34,8 @@ public class VRSIiiwaCommLib {
 	private String vrsiServerIP;		//IP address of VRSI server
 	private int vrsiServerPort;			//Post address of VRSI server 
 
-	private VRSIemptyFastener emptyFastenerData; 	//Successful scan will initialize empty fastener data for processing (evaluation, bot reposition) 
-	private VRSIfillFastener fillFastenerData;		//Successful scan will initialize fill fastener data for processing (PLC?)
+	//private VRSIemptyFastener emptyFastenerData; 	//Successful scan will initialize empty fastener data for processing (evaluation, bot reposition) 
+	//private VRSIfillFastener fillFastenerData;		//Successful scan will initialize fill fastener data for processing (PLC?)
 
 	private static final Map<Integer, String> pinTypeMap;
 	static {
@@ -400,7 +400,6 @@ public class VRSIiiwaCommLib {
 			case ScanEmptyFastenerComplete:
 				//Useful data from VRSI
 				emptyFastener.setHoleID(getHoleID());
-				emptyFastenerData = new VRSIemptyFastener(emptyFastener);
 				bResult = true; 
 				break;
 			default:
@@ -409,7 +408,7 @@ public class VRSIiiwaCommLib {
 			break;
 
 		case ScanFillFastenerCmd: case ScanFillFastenerComplete:
-			//VRSIfillFastener fillFastenerData;
+			VRSIfillFastener fillFastenerData;
 			try {
 				fillFastenerData = new VRSIfillFastener(
 						Double.parseDouble(dataString.get(0)), 
@@ -442,6 +441,7 @@ public class VRSIiiwaCommLib {
 				//Usefull data from VRSI
 				fillFastenerData.setHoleID(getHoleID());
 				bResult = true; 
+				System.out.println(fillFastenerData.toString());
 				break;
 
 			default:
@@ -558,18 +558,6 @@ public class VRSIiiwaCommLib {
 
 	public void setVrsiServerPort(int vrsiServerPort) {
 		this.vrsiServerPort = vrsiServerPort;
-	}
-
-	public VRSIemptyFastener getEmptyFastenerData() {
-		return emptyFastenerData;
-	}
-
-	public void setEmptyFastenerData(VRSIemptyFastener emptyFastenerData) {
-		this.emptyFastenerData = emptyFastenerData;
-	}
-
-	public VRSIfillFastener getFillFastenerData() {
-		return this.fillFastenerData;
 	}
 
 	public StreamDataCommLib getCommPort() {

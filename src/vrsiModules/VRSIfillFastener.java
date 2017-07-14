@@ -177,7 +177,7 @@ public class VRSIfillFastener implements Cloneable{
 
 	@Override
 	public String toString() {
-		return "VRSIfillFastener [holeID=" + holeID + ", flushnessMaxDepth="
+		return "VRSIfillFastenerData [holeID=" + holeID + ", flushnessMaxDepth="
 				+ flushnessMaxDepth + ", flushnessMinDepth="
 				+ flushnessMinDepth + ", flushnessAverageDepth="
 				+ flushnessAverageDepth + ", pinDiameterVoidDefectCount="
