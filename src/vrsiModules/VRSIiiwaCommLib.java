@@ -35,7 +35,7 @@ public class VRSIiiwaCommLib {
 	private int vrsiServerPort;			//Post address of VRSI server 
 
 	//private VRSIemptyFastener emptyFastenerData; 	//Successful scan will initialize empty fastener data for processing (evaluation, bot reposition) 
-	//private VRSIfillFastener fillFastenerData;		//Successful scan will initialize fill fastener data for processing (PLC?)
+	private VRSIfillFastener fillFastenerData;		//Successful scan will initialize fill fastener data for processing (PLC?)
 
 	private static final Map<Integer, String> pinTypeMap;
 	static {
@@ -70,6 +70,7 @@ public class VRSIiiwaCommLib {
 		this.setVrsiServerIP("172.31.1.230");
 		this.setVrsiServerPort(30001);
 		commPort = new StreamDataCommLib(getVrsiServerIP(), getVrsiServerPort());
+		fillFastenerData = new VRSIfillFastener();
 	}
 
 	/**
@@ -408,9 +409,9 @@ public class VRSIiiwaCommLib {
 			break;
 
 		case ScanFillFastenerCmd: case ScanFillFastenerComplete:
-			VRSIfillFastener fillFastenerData;
+			VRSIfillFastener fillFastener;
 			try {
-				fillFastenerData = new VRSIfillFastener(
+				fillFastener = new VRSIfillFastener(
 						Double.parseDouble(dataString.get(0)), 
 						Double.parseDouble(dataString.get(1)), 
 						Double.parseDouble(dataString.get(2)), 
@@ -439,9 +440,10 @@ public class VRSIiiwaCommLib {
 				break;
 			case ScanFillFastenerComplete:
 				//Usefull data from VRSI
-				fillFastenerData.setHoleID(getHoleID());
+				fillFastener.setHoleID(getHoleID());
 				bResult = true; 
-				System.out.println(fillFastenerData.toString());
+				System.out.println(fillFastener.toString());
+				this.setFillFastenerData(fillFastener);
 				break;
 
 			default:
@@ -566,6 +568,25 @@ public class VRSIiiwaCommLib {
 
 	public void setCommPort(StreamDataCommLib commPort) {
 		this.commPort = commPort;
+	}
+
+	public VRSIfillFastener getFillFastenerData() {
+		return fillFastenerData;
+	}
+
+	public void setFillFastenerData(VRSIfillFastener origObject) {
+		fillFastenerData.setHoleID(origObject.getHoleID());
+		fillFastenerData.setFlushnessMaxDepth(origObject.getFlushnessMaxDepth());
+		fillFastenerData.setFlushnessMinDepth(origObject.getFlushnessMinDepth());
+		fillFastenerData.setFlushnessAverageDepth(origObject.getFlushnessAverageDepth());
+		fillFastenerData.setPinDiameterVoidDefectCount(origObject.getPinDiameterVoidDefectCount());
+		fillFastenerData.setPinDiameterMMDefectCount(origObject.getPinDiameterMMDefectCount());
+		fillFastenerData.setPinDiameterSpeckDefectCount(origObject.getPinDiameterSpeckDefectCount());
+		fillFastenerData.setPinDiameterBubbleDefectCount(origObject.getPinDiameterBubbleDefectCount());
+		fillFastenerData.setOutPinDiameterVoidDefectCount(origObject.getOutPinDiameterVoidDefectCount());
+		fillFastenerData.setOutPinDiameterMMDefectCount(origObject.getOutPinDiameterMMDefectCount());
+		fillFastenerData.setOutPinDiameterSpeckDefectCount(origObject.getOutPinDiameterSpeckDefectCount());
+		fillFastenerData.setOutPinDiameterBubbleDefectCount(origObject.getOutPinDiameterBubbleDefectCount());
 	}
 
 }
