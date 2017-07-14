@@ -237,11 +237,11 @@ public class VRSIiiwaCommLib {
 		scanFillFastenerThread.start();
 		while (!scanFillFastenerRunnable.isbSuccess()) {
 			if (timeout >= 0) {
-			if (timer >= timeout) {
-				System.err.println("Timeout!  requested: " + timeout + " actual: " + timer);
-				commPort.disconnect();
-				break;
-			}
+				if (timer >= timeout) {
+					System.err.println("Timeout!  requested: " + timeout + " actual: " + timer);
+					commPort.disconnect();
+					break;
+				}
 			}
 			ThreadUtil.milliSleep(hertz);
 			timer +=hertz;
