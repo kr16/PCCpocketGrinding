@@ -10,6 +10,7 @@ public class VRSIscanFillFastener implements Runnable{
 
 	private VRSIiiwaCommLib vrsiCommands = new VRSIiiwaCommLib(true);
 	private boolean bSuccess;
+	private boolean bRunnableDone;
 	private StreamDataCommLib commPorthandle; 
 	private String holeID;
 	private double pinDia;
@@ -35,13 +36,13 @@ public class VRSIscanFillFastener implements Runnable{
 	
 	public void init() {
 		setbSuccess(false);
+		setbRunnableDone(false);
 	}
 	
 	public void run() {
-		setbSuccess(false);
 		init();
 		scanFastener();
-		while (isbSuccess());
+		while (!isbRunnableDone());
 		Thread.currentThread().interrupt();
 		return;
 	}
@@ -60,6 +61,14 @@ public class VRSIscanFillFastener implements Runnable{
 
 	public void setCommPorthandle(StreamDataCommLib commPorthandle) {
 		this.commPorthandle = commPorthandle;
+	}
+
+	public boolean isbRunnableDone() {
+		return bRunnableDone;
+	}
+
+	public void setbRunnableDone(boolean bRunnableDone) {
+		this.bRunnableDone = bRunnableDone;
 	}
 
 	
