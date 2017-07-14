@@ -39,6 +39,7 @@ public class VRSIscanFillFastener implements Runnable{
 	public void run() {
 		init();
 		scanFastener();
+		return;
 	}
 
 	public boolean isbSuccess() {
