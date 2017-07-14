@@ -233,7 +233,7 @@ public class VRSIiiwaCommLib {
 		scanFillFastenerRunnable.setCommPorthandle(commPort);
 		scanFillFastenerRunnable.setScanFastener(holeID, pinDia, pinType);
 		Thread scanFillFastenerThread = new Thread(scanFillFastenerRunnable);
-		scanFillFastenerThread.setDaemon(true);
+		//scanFillFastenerThread.setDaemon(true);
 		scanFillFastenerThread.start();
 		while (!scanFillFastenerRunnable.isbSuccess()) {
 			if (timeout >= 0) {
