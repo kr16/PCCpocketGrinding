@@ -53,9 +53,9 @@ public class VRSItesterNoMotion extends RoboticsAPIApplication {
 		
 		//vrsiComm.setSlideHome(5000);
 		//vrsiComm.scanEmptyFastener("MIC001", 0.666, 1, 10000);
-		VRSIfillFastener dataFill = new VRSIfillFastener();
-		if (vrsiComm.scanFillFastener("KDD001", 0.666, 1, -1, dataFill)) {
-			System.out.println("VRSI data: " + dataFill);
+		
+		if (vrsiComm.scanFillFastener("KDD001", 0.666, 1, -1)) {
+			System.out.println("VRSI data: ");
 		}
 		
 		getApplicationControl().halt();

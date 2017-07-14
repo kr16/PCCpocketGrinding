@@ -227,12 +227,12 @@ public class VRSIiiwaCommLib {
 	 * @return			- true if VRSI completed scan successfully and data passed evaluation
 	 * 					- false otherwise
 	 */
-	public boolean scanFillFastener(String holeID, double pinDia, int pinType, long timeout, VRSIfillFastener fillFastenerDataHandle) {
+	public boolean scanFillFastener(String holeID, double pinDia, int pinType, long timeout) {
 		long timer = 0;
 		long hertz = 100;
 		VRSIscanFillFastener scanFillFastenerRunnable = new VRSIscanFillFastener();
 		scanFillFastenerRunnable.setCommPorthandle(commPort);
-		scanFillFastenerRunnable.setScanFastener(holeID, pinDia, pinType, fillFastenerDataHandle);
+		scanFillFastenerRunnable.setScanFastener(holeID, pinDia, pinType, this);
 		Thread scanFillFastenerThread = new Thread(scanFillFastenerRunnable);
 		//scanFillFastenerThread.setDaemon(true);
 		scanFillFastenerThread.start();

@@ -8,14 +8,14 @@ import vrsiModules.VRSIcommon.EVRSIscanFastener;
 
 public class VRSIscanFillFastener implements Runnable{
 
-	private VRSIiiwaCommLib vrsiCommands = new VRSIiiwaCommLib(true);
+	private VRSIiiwaCommLib vrsiCommands;
 	private boolean bSuccess;
 	private boolean bRunnableDone;
 	private StreamDataCommLib commPorthandle; 
 	private String holeID;
 	private double pinDia;
 	private int pinType;
-	private VRSIfillFastener fillFastenerData;
+	
 	
 	public void scanFastener() {
 		commPorthandle.login();
@@ -24,17 +24,16 @@ public class VRSIscanFillFastener implements Runnable{
 	    if (vrsiCommands.getScanFastenerResponse(commPorthandle.getServerCommandResponseString(), EVRSIscanFastener.ScanFillFastenerCmd)) {
 	    	if (vrsiCommands.getScanFastenerResponse(commPorthandle.getServerCommandResponseString(), EVRSIscanFastener.ScanFillFastenerComplete)) {
 	    		commPorthandle.write(vrsiCommands.scanFillACK());
-	    		fillFastenerData = new VRSIfillFastener(vrsiCommands.getFillFastenerData());
 	    		setbSuccess(true);
 	    	}
 	    }
 	}
 	
-	public void setScanFastener(String holeID, double pinDia, int pinType, VRSIfillFastener dataHandle) {
+	public void setScanFastener(String holeID, double pinDia, int pinType, VRSIiiwaCommLib dataHandle) {
 		this.holeID = holeID;
 		this.pinDia = pinDia;
 		this.pinType = pinType;
-		this.fillFastenerData = dataHandle;
+		this.vrsiCommands = dataHandle;
 	}
 	
 	public void init() {
