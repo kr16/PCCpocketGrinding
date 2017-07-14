@@ -246,6 +246,7 @@ public class VRSIiiwaCommLib {
 			ThreadUtil.milliSleep(hertz);
 			timer +=hertz;
 		}
+		scanFillFastenerRunnable.setbSuccess(false);
 		if (this.debug) {
 			System.out.println("DEBUG: Process timer value: " + timer);
 		}

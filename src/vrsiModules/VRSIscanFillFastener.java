@@ -2,6 +2,7 @@ package vrsiModules;
 
 import com.kuka.common.ThreadUtil;
 
+import sun.awt.windows.ThemeReader;
 import vrsiModules.VRSIcommon.EVRSIhomeSlide;
 import vrsiModules.VRSIcommon.EVRSIscanFastener;
 
@@ -37,8 +38,11 @@ public class VRSIscanFillFastener implements Runnable{
 	}
 	
 	public void run() {
+		setbSuccess(false);
 		init();
 		scanFastener();
+		while (isbSuccess());
+		Thread.currentThread().interrupt();
 		return;
 	}
 
