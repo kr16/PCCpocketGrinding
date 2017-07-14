@@ -66,7 +66,7 @@ public class VRSIiiwaCommLib {
 	}
 
 	public void init() {
-		
+
 		this.setVrsiServerIP("172.31.1.230");
 		this.setVrsiServerPort(30001);
 		commPort = new StreamDataCommLib(getVrsiServerIP(), getVrsiServerPort());
@@ -153,6 +153,7 @@ public class VRSIiiwaCommLib {
 	/**
 	 * Command VRSI to send slide to home position (REQ/ACK)
 	 * @param timeout - milliseconds, time period for VRSI to successfully execute command
+	 * 					set to negative value timeout is disabled
 	 * @return boolean - 	true if VRSI is at home or gets back to home before timeout
 	 * 						false otherwise
 	 */
@@ -165,10 +166,12 @@ public class VRSIiiwaCommLib {
 		slideHomeThread.setDaemon(true);
 		slideHomeThread.start();
 		while (!slideHomeRunnable.isbSuccess()) {
-			if (timer >= timeout) {
-				System.err.println("Timeout!  requested: " + timeout + " actual: " + timer);
-				commPort.disconnect();
-				break;
+			if (timeout >= 0) {
+				if (timer >= timeout) {
+					System.err.println("Timeout!  requested: " + timeout + " actual: " + timer);
+					commPort.disconnect();
+					break;
+				}
 			}
 			ThreadUtil.milliSleep(hertz);
 			timer +=hertz;
@@ -198,10 +201,12 @@ public class VRSIiiwaCommLib {
 		scanEmptyFastenerThread.setDaemon(true);
 		scanEmptyFastenerThread.start();
 		while (!scanEmptyFastenerRunnable.isbSuccess()) {
-			if (timer >= timeout) {
-				System.err.println("Timeout!  requested: " + timeout + " actual: " + timer);
-				commPort.disconnect();
-				break;
+			if (timeout >= 0) {
+				if (timer >= timeout) {
+					System.err.println("Timeout!  requested: " + timeout + " actual: " + timer);
+					commPort.disconnect();
+					break;
+				}
 			}
 			ThreadUtil.milliSleep(hertz);
 			timer +=hertz;
@@ -231,10 +236,12 @@ public class VRSIiiwaCommLib {
 		scanFillFastenerThread.setDaemon(true);
 		scanFillFastenerThread.start();
 		while (!scanFillFastenerRunnable.isbSuccess()) {
+			if (timeout >= 0) {
 			if (timer >= timeout) {
 				System.err.println("Timeout!  requested: " + timeout + " actual: " + timer);
 				commPort.disconnect();
 				break;
+			}
 			}
 			ThreadUtil.milliSleep(hertz);
 			timer +=hertz;
@@ -415,7 +422,7 @@ public class VRSIiiwaCommLib {
 						Integer.parseInt(dataString.get(8)), 
 						Integer.parseInt(dataString.get(9)), 
 						Integer.parseInt(dataString.get(10)));
-				
+
 			} catch (NumberFormatException e) {
 				System.err.println(e);
 				return bResult;
@@ -468,7 +475,7 @@ public class VRSIiiwaCommLib {
 		case ScanFillFastenerCmd:
 			for(String vrsiData : dataString) {
 				try {
-				if (Integer.parseInt(vrsiData) != 0) bNotZero = true;
+					if (Integer.parseInt(vrsiData) != 0) bNotZero = true;
 				} catch (NumberFormatException e) {
 					if (Double.parseDouble(vrsiData) != 0.000) bNotZero = true;
 				}
