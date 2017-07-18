@@ -187,7 +187,9 @@ public class VRSIiiwaCommLib {
 				System.err.println("Wrong data format received: " + response);
 				bErrorKill = true;
 			}
-
+			
+		}catch(IndexOutOfBoundsException e) {
+			System.err.println("Not enough data in the string: " + response + "\n" + e);
 		}catch(Exception e) {
 			System.err.println("Wrong data format received or other uncommon error: " + response + "\n" + e);
 		} 
