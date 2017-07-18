@@ -133,6 +133,7 @@ public class StreamDataCommLib {
 				return true;
 			}
 		}
+		System.out.println("Failed " + counter + " login attempts");
 		return false;
 	}
 	

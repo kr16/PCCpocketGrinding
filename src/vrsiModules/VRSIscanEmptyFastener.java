@@ -15,6 +15,9 @@ public class VRSIscanEmptyFastener implements Runnable{
 	
 	public void scanFastener() {
 		commPorthandle.login(3);
+		if (!commPorthandle.login(3)) {
+			return;
+		}
 		ThreadUtil.milliSleep(100);
 	    commPorthandle.write(vrsiCommands.scanFastenerREQ(holeID, pinDia, pinType));
 	    if (vrsiCommands.getScanFastenerResponse(commPorthandle.getServerCommandResponseString(), EVRSIscanFastener.ScanEmptyFastenerCmd)) {
