@@ -61,7 +61,8 @@ public class VRSIiiwaCommLib {
 	private StreamDataCommLib commPort;	//instance of communication library independent from custom VRSI stuff
 	private String vrsiServerIP;		//IP address of VRSI server
 	private int vrsiServerPort;			//Post address of VRSI server 
-
+	private boolean bErrorKill;			//Last resort to kill endless scan loop with no timeout
+	
 	private VRSIemptyFastener emptyFastenerData; 	//Successful scan will initialize empty fastener data for processing (evaluation, bot reposition) 
 	private VRSIfillFastener fillFastenerData;		//Successful scan will initialize fill fastener data for processing (PLC?)
 
@@ -102,6 +103,7 @@ public class VRSIiiwaCommLib {
 		fillFastenerData = null;
 		emptyFastenerData = new VRSIemptyFastener();
 		emptyFastenerData = null;
+		bErrorKill = false;
 	}
 
 	/**
@@ -183,6 +185,7 @@ public class VRSIiiwaCommLib {
 				}
 			} else {
 				System.err.println("Wrong data format received: " + stringsList);
+				bErrorKill = true;
 			}
 
 		}catch(Exception e) {
@@ -248,6 +251,10 @@ public class VRSIiiwaCommLib {
 			if (timeout >= 0) {
 				if (timer >= timeout) {
 					System.err.println("Timeout!  requested: " + timeout + " actual: " + timer);
+					break;
+				}
+				if (bErrorKill) {
+					bErrorKill = false;
 					break;
 				}
 			}
