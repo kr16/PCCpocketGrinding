@@ -600,11 +600,18 @@ public class VRSIiiwaCommLib {
 	public void setCommPort(StreamDataCommLib commPort) {
 		this.commPort = commPort;
 	}
-
+	
+	/**
+	 * @return
+	 * If we did get correct data from VRSI this should return reference to object that holds all diagnostic data
+	 */
 	public VRSIfillFastener getFillFastenerData() {
 		return fillFastenerData;
 	}
-
+	/**
+	 * @return
+	 * If we did get correct data from VRSI this should return reference to object that holds all normalization/position data
+	 */
 	public VRSIemptyFastener getEmptyFastenerData() {
 		return emptyFastenerData;
 	}
