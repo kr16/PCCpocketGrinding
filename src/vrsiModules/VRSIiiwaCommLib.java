@@ -293,6 +293,10 @@ public class VRSIiiwaCommLib {
 					System.err.println("Timeout!  requested: " + timeout + " actual: " + timer);
 					break;															//timeout, no success
 				}
+				if (bErrorKill) {
+					bErrorKill = false;
+					break;
+				}
 			}
 			ThreadUtil.milliSleep(hertz);	//loop delay 
 			timer +=hertz;					//timer runs up
