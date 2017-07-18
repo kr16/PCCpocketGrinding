@@ -21,7 +21,7 @@ public class VRSIfillFastener implements Cloneable{
 	private int outPinDiameterBubbleDefectCount;	//VRSI Number of bubble defects outside the pin diameter
 
 	public VRSIfillFastener() {
-		
+	
 	}
 	
 	public VRSIfillFastener(VRSIfillFastener origObject) {

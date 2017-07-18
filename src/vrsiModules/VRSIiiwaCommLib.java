@@ -98,9 +98,10 @@ public class VRSIiiwaCommLib {
 		this.setVrsiServerIP("172.31.1.230");
 		this.setVrsiServerPort(30001);
 		commPort = new StreamDataCommLib(getVrsiServerIP(), getVrsiServerPort());
-		fillFastenerData = new VRSIfillFastener(null);
-		emptyFastenerData = new VRSIemptyFastener(null);
-		
+		fillFastenerData = new VRSIfillFastener();
+		fillFastenerData = null;
+		emptyFastenerData = new VRSIemptyFastener();
+		emptyFastenerData = null;
 	}
 
 	/**
