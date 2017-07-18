@@ -221,6 +221,7 @@ public class VRSIiiwaCommLib {
 	 * @param pinDia	- double fastener diameter
 	 * @param pinType	- int fastener type 1 = Flat Head, 2 = Star Head, 3 = Blind
 	 * @param timeout	- milliseconds, time period for VRSI to successfully execute command
+	 * 						-1 (all values smaller than 0) disables timeout
 	 * @return			- true if VRSI completed scan successfully and data passed evaluation
 	 * 					- false otherwise
 	 */
@@ -256,6 +257,7 @@ public class VRSIiiwaCommLib {
 	 * @param pinDia	- double fastener diameter
 	 * @param pinType	- int fastener type 1 = Flat Head, 2 = Star Head, 3 = Blind
 	 * @param timeout	- milliseconds, time period for VRSI to successfully execute command
+	 * 						-1 (all values smaller than 0) disables timeout
 	 * @return			- true if VRSI completed scan successfully and data passed evaluation
 	 * 					- false otherwise
 	 */
