@@ -123,7 +123,7 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 	private externalForcesAtTCP extForcesAtTcp;
 	private Thread extForcesThread;
 	private PrintWriter logfile;
-	
+
 	@Override
 	public void initialize() {
 		kuka_Sunrise_Cabinet_1 = getController("KUKA_Sunrise_Cabinet_1");
@@ -131,7 +131,7 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 				"LBR_iiwa_14_R820_1");
 		//HotDotTool = getApplicationData().createFromTemplate("HotDotEE");
 		HotDotTool = getApplicationData().createFromTemplate("HotDotEEnoVRSI");
-		
+
 		nullBase = getApplicationData().getFrame("/nullBase");
 		//currentTCP = HotDotTest.getFrame("IronVer01");
 		currentTCP = HotDotTool.getFrame("Iron");
@@ -147,11 +147,11 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		skiveCleanUpApp = getApplicationData().getFrame("/HotDotCoupon/AppSkiveCleanUp");
 		skiveCleanRefPos = getApplicationData().getFrame("/HotDotCoupon/ReferencePosSkiveCleanUp");
 		heatGunCleanUpPos = getApplicationData().getFrame("/HotDotDispencer/HeatGunCleanUp");
-		
+
 		hotDotHeatUpTimer = new TimerKCT();
 		dispenser2 = new DispenserIOver02(kuka_Sunrise_Cabinet_1);
 		ek1100IO = new EK1100IOGroup(kuka_Sunrise_Cabinet_1);
-		
+
 		globalsFilePath = "d:/Transfer/UserXMLs/";
 		globalsFileNamePLC = "GlobalVarsHotDotPLC.xml";
 		globalsFileNameKRC = "GlobalVarsHotDotKRC.xml";
@@ -159,29 +159,29 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		globalVarFromKRC = new XmlParserGlobalVarsRD(globalsFilePath, globalsFileNameKRC);
 		smudgeCounter = 1;
 		heatGunCleanUp = true;
-		
+
 		currentCoupon = new CouponProperties(ECouponSectionName.Coupon14);
 		refPos = refPos01;
 	}
-	
+
 	@Override
 	public void run() {
-		
+
 		setNewHomePosition();
 		HotDotTool.attachTo(bot.getFlange());
-		
+
 		//bot home
 		System.out.println("Moving to Home/Start position");
 		bot.move(ptpHome().setJointVelocityRel(0.3));
-		
+
 		extForcesAtTcp = new externalForcesAtTCP(bot, currentTCP);
 		extForcesThread = new Thread(extForcesAtTcp);
 		extForcesThread.setDaemon(true);
 		extForcesThread.start();
-		
+
 		//Reset coupon? if yes we set everything as not processed
 		setResetCouponStatus();
-		
+
 		while (true) {
 			boolean quit = false;
 			int nUserPressedButton = getApplicationUI().displayModalDialog(
@@ -192,29 +192,29 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 			case 0:				//*************** SMUDGE 	***************
 				smudgeCycle();
 				break;
-				
+
 			case 1:				//*************** SKIVE 	***************
 				skiveCycle();
 				break;
-				
+
 			case 2:				//*************** SCAN 		***************
 				scanCycle();
 				break;
-			
+
 			case 3:
 				quit = true;
-			
+
 			default:
 				break;
 			}
 			if (quit) break;
 		}
-		
+
 		//bot home
 		bot.move(ptpHome().setJointVelocityRel(0.1));
 	}
 	public void scanCycle() {
-		
+
 		for (int row = 1; row <= coupon.getRowCount(); row++) {
 			for (int column = 1; column <= coupon.getColumnCount(); column++) {
 				if ((coupon.getRowColumnValue(row, column) != EHotDotCouponStates.Skip) 
@@ -224,7 +224,7 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 			}
 		}
 	}
-	
+
 	public void smudgeCycle() {
 		Map<String, Integer> position;
 		while ((coupon.getFirstNotProcessed(EHotDotCouponStates.Empty) != null)) {
@@ -267,25 +267,25 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 			int column = position.get("column");
 			skiveHotDotMotion(row, column);
 			coupon.setRowColumnValue(row, column, EHotDotCouponStates.Skived);
-			
+
 			int nUserPressedButton = getApplicationUI().displayModalDialog(
 					ApplicationDialogType.QUESTION, "Continue or VRSI Scan?",
 					"Continue", "VRSI Scan");
 			switch (nUserPressedButton) {
 			case 0:
 				break;
-				
+
 			case 1:
 				emptyScanCycle(row, column);
 				break;
-					
+
 			default:
 				break;
 			}
 		}
 		System.out.println("No slots to skive");
 	}
-	
+
 	//Calculate where to go move to approach and execute smudgeProcess routine
 	public void applyHotDot(int row, int column) {
 		CouponCalc coupon = new CouponCalc();
@@ -296,10 +296,10 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		//approach coupon  
 		currentTCP.move(ptp(appCoupon).setJointVelocityRel(0.3).setBlendingCart(20));
 		//testing only remove, move to load Hot Dot
-			currentTCP.move(ptp(Math.toRadians(55.15), Math.toRadians(23.59), 0, Math.toRadians(-84.0), Math.toRadians(-23.72), Math.toRadians(-97.61), Math.toRadians(-83.21))
+		currentTCP.move(ptp(Math.toRadians(55.15), Math.toRadians(23.59), 0, Math.toRadians(-84.0), Math.toRadians(-23.72), Math.toRadians(-97.61), Math.toRadians(-83.21))
 				.setJointVelocityRel(0.3));
-			getApplicationControl().halt();
-			currentTCP.move(ptp(appCoupon).setJointVelocityRel(0.3).setBlendingCart(20));
+		getApplicationControl().halt();
+		currentTCP.move(ptp(appCoupon).setJointVelocityRel(0.3).setBlendingCart(20));
 		//-------------------
 		applyHotDot = coupon.calculateXYpos(row, column, refPos.copy(), rowOffset, columnOffset, ECalcDirection.XisRow);
 		appHotDot = applyHotDot.copy();
@@ -307,7 +307,7 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		System.out.println("Approaching position row: " + row + " column: " + column);
 		currentTCP.moveAsync(ptp(appHotDot).setJointVelocityRel(0.3).setBlendingCart(10));
 		smudgeProcess(applyHotDot);
-		
+
 		//Logging external forces
 		SimpleDateFormat prefixDateFormat;
 		prefixDateFormat = new SimpleDateFormat("yyyy.MM.dd_HH.mm.ss");
@@ -328,14 +328,14 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		}
 		logfile.flush();
 		//-----------------------------------------------------
-		
+
 		currentTCP.moveAsync(lin(appHotDot).setCartVelocity(40).setBlendingCart(30));
 		currentTCP.move(ptp(appCoupon).setJointVelocityRel(0.3).setBlendingCart(20));
-		
+
 	}
-	
+
 	private void smudgeProcess(Frame FIsmudgeStartPos) {
-		
+
 		double approachDistance = globalVarFromPLC.getVarDouble("smudgeCouponAppDist");	// mm
 		double velocity = globalVarFromPLC.getVarDouble("smudgeVelocityPass1");			// mm/s
 		double smudgeAngle = globalVarFromPLC.getVarDouble("smudgeAnglePass1");		 	// degrees
@@ -347,7 +347,7 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		double smudgeOffsetDD = globalVarFromPLC.getVarDouble("smudgeOffsetDD");
 		double xPushHard = globalVarFromPLC.getVarDouble("xPushHard");
 		double betaTCProtation;
-		
+
 		//X positive is row !!!
 		Frame smudgeBeginPos1; 
 		Frame smudgeBeginPos2 = null;
@@ -355,25 +355,25 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		//smudgeBeginPos1.setBetaRad(smudgeBeginPos1.getBetaRad() + Math.toRadians(smudgeAngle));
 		smudgeBeginPos1.setX(smudgeBeginPos1.getX() - startOffset);
 		smudgeBeginPos1.setZ(smudgeBeginPos1.getZ() + approachDistance);
-		
-			if (smudgeCounter > 1 ) {
-				smudgeBeginPos1.setY(smudgeBeginPos1.getY() + smudgeOffsetDD);	
-			}		
+
+		if (smudgeCounter > 1 ) {
+			smudgeBeginPos1.setY(smudgeBeginPos1.getY() + smudgeOffsetDD);	
+		}		
 		//Calculations for angle rotation
 		betaTCProtation = currentTCP.getBetaRad();
 		betaTCProtation = betaTCProtation + Math.toRadians(smudgeAngle);
 		dynamicTCPoffset = Transformation.ofRad(	
-				 currentTCP.getX()
+				currentTCP.getX()
 				,currentTCP.getY()
 				,currentTCP.getZ()
 				,currentTCP.getAlphaRad()
 				,betaTCProtation
 				,currentTCP.getGammaRad());
 		HotDotTool.changeFramePosition(dynamicTCP, dynamicTCPoffset);
-		
-		
+
+
 		TouchForceRecord findSurface = new TouchForceRecord(); 
-		
+
 		CartesianImpedanceControlMode mode = new CartesianImpedanceControlMode();
 		CartesianImpedanceControlMode smudgeMode = new CartesianImpedanceControlMode();
 		mode.parametrize(CartDOF.TRANSL).setStiffness(3000);
@@ -381,16 +381,16 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		mode.parametrize(CartDOF.Z).setStiffness(smudgeStiffnessZ);
 		mode.parametrize(CartDOF.ROT).setStiffness(300);
 		mode.parametrize(CartDOF.ALL).setDamping(.7);
-		
+
 		//smuge first pass
 		extForcesAtTcp.setTcp(dynamicTCP);
 		extForcesAtTcp.setExtForces();
 		extForcesAtTcp.setCommand(1);
 
 		dynamicTCP.move(lin(smudgeBeginPos1).setOrientationVelocity(Math.toRadians(5)));
-		
+
 		toolPosCorrection(dynamicTCP);
-		
+
 		//Heatup timer logic 
 		/*
 		if (hotDotHeatUpTimer.getTimerValue() < globalVarFromPLC.getVarLong("hotDotHeatUpTime")) {
@@ -398,9 +398,9 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 			while (hotDotHeatUpTimer.getTimerValue() < globalVarFromPLC.getVarLong("hotDotHeatUpTime")) {}
 		}
 		hotDotHeatUpTimer.timerStopAndKill();
-		*/
+		 */
 		//------------------
-		
+
 		findSurface.recordPosition(searchDir.PosX, 5, 10, 5, 0, dynamicTCP, hotDotCoupon, bot);
 		if (findSurface.getResult()) {
 			smudgeBeginPos2 = findSurface.getPosition();
@@ -414,8 +414,8 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		dynamicTCP.move(linRel(0,0,-length).setCartVelocity(velocity));
 		dynamicTCP.move(linRel(-approachDistance,0,0).setCartVelocity(velocity*4));
 
-		
-		
+
+
 		//smuge second pass
 		if(!globalVarFromPLC.getVarBoolean("secondSmudgePass")) {
 			System.err.println("Second smudge pass disabled!");
@@ -428,55 +428,57 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		smudgeXforce = globalVarFromPLC.getVarDouble("smudgeXForcePass2");			// mm
 		smudgeStiffnessX = globalVarFromPLC.getVarDouble("smudgeStiffnessXPass2");
 		smudgeStiffnessZ = globalVarFromPLC.getVarDouble("smudgeStiffnessZPass2");
-		
+
 		mode.parametrize(CartDOF.TRANSL).setStiffness(3000);
 		mode.parametrize(CartDOF.X).setStiffness(smudgeStiffnessX);
 		mode.parametrize(CartDOF.Z).setStiffness(smudgeStiffnessZ);
 		mode.parametrize(CartDOF.ROT).setStiffness(300);
-		
+
 		smudgeBeginPos1 = FIsmudgeStartPos.copy();
 		smudgeBeginPos1.setX(smudgeBeginPos1.getX() - startOffset);
 		smudgeBeginPos1.setZ(smudgeBeginPos1.getZ() + approachDistance);
-		
+
 		betaTCProtation = currentTCP.getBetaRad();
 		betaTCProtation = betaTCProtation + Math.toRadians(smudgeAngle);
 		dynamicTCPoffset = Transformation.ofRad(	
-				 currentTCP.getX()
+				currentTCP.getX()
 				,currentTCP.getY()
 				,currentTCP.getZ()
 				,currentTCP.getAlphaRad()
 				,betaTCProtation
 				,currentTCP.getGammaRad());
 		HotDotTool.changeFramePosition(dynamicTCP, dynamicTCPoffset);
-		
+
 		dynamicTCP.move(lin(smudgeBeginPos1).setCartVelocity(velocity*4));
 		findSurface.recordPosition(searchDir.PosX, 5, 10, 5, 0, dynamicTCP, hotDotCoupon, bot);
 		if (!findSurface.getResult()) {
 			System.err.println("Surface not found");
 			getApplicationControl().halt();
 		}
-		
+
 		smudgeMode = CartesianSineImpedanceControlMode.createDesiredForce(CartDOF.X, smudgeXforce, 5000);
 		dynamicTCP.move(linRel(0,0,-length).setCartVelocity(velocity).setMode(smudgeMode));
 		extForcesAtTcp.setCommand(0);
-		
+
 	}
-	
+
 	private Frame toolPosCorrection(ObjectFrame currentTCPpos) {
 		Frame newTCPpos = new Frame();
-		VRSIiiwaCommLib vrsiComm = new VRSIiiwaCommLib("172.31.1.231", 30001, true);
-		vrsiComm.setSlideHome(-1);
-		if (vrsiComm.scanEmptyFastener("FLU123", 5.6, 1, -1)) {
-			
-		} else {
-			
+		VRSIiiwaCommLib vrsiComm = new VRSIiiwaCommLib("172.31.1.230", 30001, true);
+		if (vrsiComm.setSlideHome(-1)) {
+			if (vrsiComm.scanEmptyFastener("FLU123", 5.6, 1, -1)) {
+				System.out.println(vrsiComm.getEmptyFastenerData());
+				
+			} else {
+
+			}
 		}
-		
+
 		return newTCPpos;
 	}
-	
+
 	private void skiveHotDotMotion(int row, int column) {
-		
+
 		// <Data recorder setup> 
 		recData = new DataRecorder();
 		Calendar myDate = Calendar.getInstance(); // date and time
@@ -487,14 +489,14 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		recData.setSampleInterval(globalVarFromPLC.getVarInteger("dataRecorderFrequency")); // record every  mills
 		//myData.addExternalJointTorque(bot); // record external joint torques
 		// <Data recorder setup/> 
-		
+
 		CouponCalc coupon = new CouponCalc();
 		Frame skiveHotDot, appSkiveHotDot;
 		double rowOffset = currentCoupon.getRowsOffset();				// mm
 		double columnOffset = currentCoupon.getColumnsOffset();			// mm
 		double approachDistance = globalVarFromPLC.getVarDouble("skiveCouponAppDist");	// mm
 		double startOffset = globalVarFromPLC.getVarDouble("skiveStartOffset");		// mm
-	    
+
 		currentTCP.moveAsync(ptp(appCoupon).setJointVelocityRel(0.3).setBlendingCart(20));
 		skiveHotDot = coupon.calculateXYpos(row, column, refPos.copy(), rowOffset, columnOffset, ECalcDirection.XisRow);
 		appSkiveHotDot = skiveHotDot.copy();
@@ -508,9 +510,9 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		currentTCP.moveAsync(ptp(appCoupon).setJointVelocityRel(0.3).setBlendingCart(20));
 		skiveCleanUp();
 	}
-	
+
 	private void skiveProcess(Frame FIskiveStartPos ) {
-		
+
 		double approachDistance = globalVarFromPLC.getVarDouble("skiveCouponAppDist");	//mm
 		double velocity = globalVarFromPLC.getVarDouble("skiveVelocity");			// mm/s
 		double skiveAngle = globalVarFromPLC.getVarDouble("skiveAngle");		 	// degrees
@@ -520,7 +522,7 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		double skiveZforce = globalVarFromPLC.getVarDouble("skiveZforce");	// N
 		double skiveStiffnessX = globalVarFromPLC.getVarDouble("skiveStiffnessX");
 		double skiveStiffnessZ = globalVarFromPLC.getVarDouble("skiveStiffnessZ");
-		
+
 		//Frame smudgeStartPos = bot.getCurrentCartesianPosition(currentTCP, hotDotCoupon);
 		Frame skiveUpPos, skiveBeginPos, skiveEndPos;
 		skiveBeginPos = FIskiveStartPos.copy();
@@ -530,14 +532,14 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		skiveEndPos.setX(skiveEndPos.getX() - length);
 		skiveUpPos = skiveEndPos.copy();
 		skiveUpPos.setZ(skiveUpPos.getZ() + approachDistance);
-		
+
 		CartesianImpedanceControlMode mode = new CartesianImpedanceControlMode();
 		CartesianImpedanceControlMode skiveMode = new CartesianImpedanceControlMode();
-		
+
 		mode.parametrize(CartDOF.TRANSL).setStiffness(3000);
 		mode.parametrize(CartDOF.X).setStiffness(skiveStiffnessX);
 		mode.parametrize(CartDOF.ROT).setStiffness(300);
-		
+
 		//calc of new tool
 		//point is to make tool square to base (coupon) based on current angle of skiving
 		//we want to keep it square so force applied in Z direction of tool is perpendicular
@@ -551,13 +553,13 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 				,TCPskiveBeta
 				,currentTCP.getGammaRad());
 		HotDotTool.changeFramePosition(dynamicTCP, dynamicTCPoffset);
-		
+
 		TouchForceRecord findSurface = new TouchForceRecord(); 
-		
+
 		recData.addCartesianForce(dynamicTCP, null); //record external
 		recData.addCurrentCartesianPositionXYZ(dynamicTCP, hotDotCoupon);
 		recData.enable(); // enable Data recorder
-		
+
 		//skive first pass
 		dynamicTCP.move(lin(skiveBeginPos).setCartVelocity(velocity*2).setMode(mode));
 		findSurface.recordPosition(searchDir.PosX, 20, 10, 5, 0, dynamicTCP, hotDotCoupon, bot);
@@ -567,7 +569,7 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		skiveMode.parametrize(CartDOF.Z).setStiffness(skiveStiffnessZ);
 		skiveMode.parametrize(CartDOF.ROT).setStiffness(300);
 		skiveMode.parametrize(CartDOF.A).setStiffness(300);
-		
+
 		recData.startRecording();
 		//Skive motion - this removes layer of extra goo
 		dynamicTCP.move(linRel(0,0,length).setCartVelocity(velocity).setMode(skiveMode));
@@ -575,7 +577,7 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		Frame skiveSmudgePos = bot.getCurrentCartesianPosition(dynamicTCP, hotDotCoupon);
 		dynamicTCP.move(linRel(-5,0,10,0, Math.toRadians(-10),0,nullBase).setCartVelocity(velocity*4));
 		recData.stopRecording(); 
-		
+
 		//if skive smudging if requested
 		if (globalVarFromPLC.getVarBoolean("reverseSkive")) {
 			//ThreadUtil.milliSleep(3000);
@@ -588,25 +590,25 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		}
 		dynamicTCP.move(linRel(-approachDistance,0,0).setCartVelocity(velocity*4));
 	}
-	
+
 	public void heatGunCleanUp() {
 		CartesianSineImpedanceControlMode mode;
 		double heatGunCleanUpPush = globalVarFromPLC.getVarDouble("heatGunCleanUpPush");
 		double heatGunCleanUpStartOffset = globalVarFromPLC.getVarDouble("heatGunCleanUpStartOffset");
-		
-	    Frame AppCleanUpPos = calculateCleanUpPos(heatGunCleanUpPos.copy());
-	    
-//		while (AppCleanUpPos == null) {
-//			System.out.println("ScotchBrite swapped?!");
-//			AppCleanUpPos = calculateCleanUpPos(heatGunCleanUpPos.copy());
-//		}
+
+		Frame AppCleanUpPos = calculateCleanUpPos(heatGunCleanUpPos.copy());
+
+		//		while (AppCleanUpPos == null) {
+		//			System.out.println("ScotchBrite swapped?!");
+		//			AppCleanUpPos = calculateCleanUpPos(heatGunCleanUpPos.copy());
+		//		}
 		//Frame AppCleanUpPos = heatGunCleanUpPos.copy();
 		Frame CleanUpPos = AppCleanUpPos.copy();
-		
+
 		AppCleanUpPos.setZ(AppCleanUpPos.getZ() + 50);
-		
+
 		CleanUpPos.setZ(CleanUpPos.getZ() + heatGunCleanUpStartOffset);
-		
+
 		currentTCP.moveAsync(ptp(AppCleanUpPos).setJointVelocityRel(0.3).setBlendingCart(10));
 		currentTCP.moveAsync(lin(CleanUpPos).setBlendingCart(10).setCartVelocity(50));
 		currentTCP.moveAsync(linRel(0,0,-heatGunCleanUpStartOffset + heatGunCleanUpPush, hotDotDispenser).setBlendingCart(10).setCartVelocity(40));
@@ -616,10 +618,10 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		currentTCP.moveAsync(linRel(-55, 0, 0, hotDotDispenser).setBlendingCart(10).setCartVelocity(75));
 		currentTCP.moveAsync(lin(CleanUpPos).setBlendingCart(10).setCartVelocity(40));
 		currentTCP.moveAsync(ptp(AppCleanUpPos).setJointVelocityRel(0.3).setBlendingCart(10));
-		
+
 		//mode = CartesianSineImpedanceControlMode.createSinePattern(CartDOF.Y, 5, 15, 100);
 		//mode.parametrize(CartDOF.X,CartDOF.Z).setStiffness(5000);
-		
+
 	}
 	public Frame calculateCleanUpPos(Frame initialPos) {
 		XMLParserCoupon scotchBrite = new XMLParserCoupon(1, "d:/Transfer/UserXMLs/CouponScotchBrite.xml");
@@ -628,7 +630,7 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		double yOffset = 10;
 		int xSquares = 3;
 		int ySquares = 12;
-		
+
 		for (int i = 1; i <= xSquares; i++) {
 			for (int j = 1; j <= ySquares; j++) {
 				if(scotchBrite.getRowColumnValue(i, j) == EHotDotCouponStates.Smudged) {
@@ -646,7 +648,7 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 				ApplicationDialogType.QUESTION, "Scotch Brite needs replacing",
 				"OK");
 		switch (nUserPressedButton) {
-			
+
 		default:
 			scotchBrite.resetCoupon();
 			break;
@@ -659,45 +661,45 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 	 */
 	public void pickHotDot(boolean pick) {
 		if (!pick) return;
-		
+
 		CartesianImpedanceControlMode mode = new CartesianImpedanceControlMode();
-		
+
 		TimerThread = new Thread(hotDotHeatUpTimer);
-		
+
 		double searchDistance = 20; // mm
 		double touchForce;		 	// N
 		double pickOffset;			// mm
 		long searchDelay = globalVarFromPLC.getVarLong("pickDelay"); 	// ms
-		
+
 		if (globalVarFromKRC.getVarBoolean("dispenserLowOnHotDots")) {
 			int nUserPressedButton = getApplicationUI().displayModalDialog(
 					ApplicationDialogType.QUESTION, "Load More Hot Dots !!!",
 					"OK");
 			switch (nUserPressedButton) {
-				
+
 			default:
 				break;
 			}
 		}
-		
+
 		//trigger dispenser and wait for feedback
 		if (dispenser2.getDispenserLowOnHotDots()) {
 			globalVarFromKRC.setVar("dispenserLowOnHotDots", "true");
 		} else {
 			globalVarFromKRC.setVar("dispenserLowOnHotDots", "false");
 		}
-			
+
 		System.out.println("Hot dot ready to pick");
 		touchForce = globalVarFromPLC.getVarDouble("pickForce");
 		pickOffset = globalVarFromPLC.getVarDouble("pickOffset");
-		
-		
+
+
 		Frame Start = appHotDot.copy();
 		Frame BeforePick02 = appHotDot.copy();
 		Frame Pick = appHotDot.copy();
 		Start.setZ(Start.getZ() + 70);
 		Start.setX(Start.getX() + 30);
-		
+
 		BeforePick02.setZ(BeforePick02.getZ() + pickOffset );
 		Pick.setZ(Pick.getZ() - pickOffset - searchDistance);
 		currentTCP.moveAsync(ptp(Start).setJointVelocityRel(0.3));
@@ -712,7 +714,7 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		mode.parametrize(CartDOF.X).setStiffness(5000);
 		mode.parametrize(CartDOF.ROT).setStiffness(300);
 		mode.parametrize(CartDOF.B).setStiffness(250);
-		
+
 		ForceCondition force2 = ForceCondition.createNormalForceCondition(currentTCP,CoordinateAxis.X, touchForce);
 		IMotionContainer mc = currentTCP.move(linRel((pickOffset + searchDistance),0,0).setMode(mode).breakWhen(force2).setCartVelocity(10));
 		if (mc.hasFired(force2)) {
@@ -727,14 +729,14 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		}
 		currentTCP.move(linRel(-0.5,0,0,0,Math.toRadians(3),0,currentTCP).setCartVelocity(50));
 		currentTCP.move(lin(Start).setCartVelocity(50).setBlendingCart(20));
-		
+
 		if (globalVarFromPLC.getVarBoolean("doublePick")) {
 			while (!dispenser2.getHotDotPresent()) {
 				// wait for hot dot
 			}
 			BeforePick02.setZ(BeforePick02.getZ() + 1);
 			currentTCP.move(ptp(BeforePick02).setJointVelocityRel(0.3));
-			
+
 			mc = currentTCP.move(linRel((pickOffset + searchDistance),0,0).setMode(mode).breakWhen(force2).setCartVelocity(10));
 			if (mc.hasFired(force2)) {
 				getLogger().info("Picking Hot Dot2...");
@@ -742,7 +744,7 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 			} else {
 				System.err.println("Hot Dot not found!!!");
 			}
-			
+
 			currentTCP.moveAsync(lin(Start).setCartVelocity(50).setBlendingCart(20));
 		}
 	}
@@ -750,19 +752,19 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		currentTCP.moveAsync(ptp(skiveCleanUpApp).setJointVelocityRel(0.3).setBlendingCart(30));
 		Frame skiveCleanUpStartPos = calculateSkiveCleanUpPos(skiveCleanRefPos);
 		currentTCP.move(lin(skiveCleanUpStartPos).setCartVelocity(50));
-		
+
 		double skiveCleanUpForce 	= globalVarFromPLC.getVarDouble("skiveCleanUpForce");
 		double skiveCleanUpVel 		= globalVarFromPLC.getVarDouble("skiveCleanUpVel");
 		double skiveCleanUpDistance = globalVarFromPLC.getVarDouble("skiveCleanUpDistance");
-		
+
 		CartesianImpedanceControlMode mode = new CartesianImpedanceControlMode();
 		ForceCondition forceCond = ForceCondition.createNormalForceCondition(currentTCP, CoordinateAxis.Z, 5);
-		
+
 		mode.parametrize(CartDOF.TRANSL).setStiffness(5000);
 		mode.parametrize(CartDOF.ROT).setStiffness(300);
 		IMotionContainer mc = currentTCP.move(linRel(0, 0, 50, nullBase)
 				.setMode(mode).setCartVelocity(30).breakWhen(forceCond));
-		
+
 		if (mc.hasFired(forceCond)) {
 			System.out.println("Reference position found");
 			mode.parametrize(CartDOF.Z).setStiffness(3500).setAdditionalControlForce(skiveCleanUpForce);
@@ -777,35 +779,35 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		}
 		currentTCP.moveAsync(ptp(skiveCleanUpApp).setJointVelocityRel(0.3).setBlendingCart(30));
 	}
-	
+
 	private Frame calculateSkiveCleanUpPos(ObjectFrame skiveCleanRefPos) {
-			Frame skiveCleanUpStartPos = skiveCleanRefPos.copy();
-			XMLParserCoupon scotchBrite = new XMLParserCoupon(2, "d:/Transfer/UserXMLs/CouponScotchBrite.xml");
-			int ySquares = 12;
-			double yDistance = 15;
-			for (int column = 1; column < ySquares; column++) {
-				if (scotchBrite.getRowColumnValue(1, column) == EHotDotCouponStates.Smudged) {
-					continue;
-				} else {
-					if (scotchBrite.getRowColumnValue(1, column) == EHotDotCouponStates.Empty) {
-						scotchBrite.setRowColumnValue(1, column, EHotDotCouponStates.Smudged);
-						skiveCleanUpStartPos.setY(skiveCleanUpStartPos.getY() + (column-1)*yDistance);
-						return skiveCleanUpStartPos;
-					}
+		Frame skiveCleanUpStartPos = skiveCleanRefPos.copy();
+		XMLParserCoupon scotchBrite = new XMLParserCoupon(2, "d:/Transfer/UserXMLs/CouponScotchBrite.xml");
+		int ySquares = 12;
+		double yDistance = 15;
+		for (int column = 1; column < ySquares; column++) {
+			if (scotchBrite.getRowColumnValue(1, column) == EHotDotCouponStates.Smudged) {
+				continue;
+			} else {
+				if (scotchBrite.getRowColumnValue(1, column) == EHotDotCouponStates.Empty) {
+					scotchBrite.setRowColumnValue(1, column, EHotDotCouponStates.Smudged);
+					skiveCleanUpStartPos.setY(skiveCleanUpStartPos.getY() + (column-1)*yDistance);
+					return skiveCleanUpStartPos;
 				}
 			}
-			int nUserPressedButton = getApplicationUI().displayModalDialog(
-					ApplicationDialogType.QUESTION, "Move Scotch Brite!!!",
-					"OK");
-			switch (nUserPressedButton) {
-				
-			default:
-				scotchBrite.resetCoupon();
-				break;
-			}
-			return skiveCleanUpStartPos;
+		}
+		int nUserPressedButton = getApplicationUI().displayModalDialog(
+				ApplicationDialogType.QUESTION, "Move Scotch Brite!!!",
+				"OK");
+		switch (nUserPressedButton) {
+
+		default:
+			scotchBrite.resetCoupon();
+			break;
+		}
+		return skiveCleanUpStartPos;
 	}
-	
+
 	/**
 	 * @param row
 	 * @param column
@@ -818,7 +820,7 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		double columnOffset = currentCoupon.getColumnsOffset();				// mm
 		double fastener01offset = currentCoupon.getFastenerOffset();	 	// mm
 		int nUserPressedButton;
-		
+
 		//approach coupon  
 		//vrsiTCP.moveAsync(ptp(appCoupon).setJointVelocityRel(0.3).setBlendingCart(20));
 		vrsiScanPos = coupon.calculateXYpos(row, column, refPos.copy(), rowOffset, columnOffset, ECalcDirection.XisRow);
@@ -839,7 +841,7 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 			break;
 		}
 		//vrsiTCP.moveAsync(lin(vrsiScanAppPos).setCartVelocity(40).setBlendingCart(30));
-		
+
 	}
 	private void xmlServerTest() throws IOException {
 		//		*********  XML server test  *******		
@@ -877,25 +879,25 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 
 	}
 
-    public void handGuideRecord() {
-    	CartesianImpedanceControlMode mode = new CartesianImpedanceControlMode();
+	public void handGuideRecord() {
+		CartesianImpedanceControlMode mode = new CartesianImpedanceControlMode();
 		TouchForceRecord scaleTouch = new TouchForceRecord();
 		EK1100IOGroup UserIO = new EK1100IOGroup(kuka_Sunrise_Cabinet_1);
 		IMotionContainer positionHoldContainer = null;
 		List<Frame> positions = new ArrayList<Frame>();
-		
+
 		HotDotTool.attachTo(bot.getFlange());
 		Frame Start = appHotDot.copy();
 		Start.setZ(Start.getZ() + 100);
 		currentTCP.move(ptp(Start).setJointVelocityRel(0.05));
 		currentTCP.move(ptp(appHotDot).setJointVelocityRel(0.05));
 		//scaleTouch.recordPosition(searchDir.PosZ, 5, 30, 5, 0, currentTCP, currentBase, bot);
-		
+
 		mode.parametrize(CartDOF.TRANSL).setStiffness(5).setDamping(0.1);
 		mode.parametrize(CartDOF.ROT).setStiffness(5);
 		positionHoldContainer = currentTCP.moveAsync(new PositionHold(mode, -10, TimeUnit.SECONDS));
 		System.out.println("Recording");
-		
+
 		while (!UserIO.getEK1100_DI01()) {
 			positions.add(bot.getCurrentCartesianPosition(currentTCP));
 			ThreadUtil.milliSleep(250);
@@ -905,23 +907,23 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		mode.parametrize(CartDOF.TRANSL).setStiffness(5000).setDamping(0.7);
 		mode.parametrize(CartDOF.ROT).setStiffness(250);
 		currentTCP.move(ptp(bot.getCurrentCartesianPosition(currentTCP)));
-		
+
 		System.out.println(positions.size());
 		System.out.println("Ready for playback?");
 		while (!UserIO.getEK1100_DI02()) {
 			//just looping
 		}
 		currentTCP.move(ptp(appHotDot).setJointVelocityRel(0.05));
-		
+
 		for ( Frame point : positions) {
-				currentTCP.moveAsync(lin(point).setCartVelocity(10).setOrientationVelocity(Math.toRadians(7)).setBlendingCart(5));	
-				
+			currentTCP.moveAsync(lin(point).setCartVelocity(10).setOrientationVelocity(Math.toRadians(7)).setBlendingCart(5));	
+
 		}
-		
+
 		currentTCP.move(ptp(Start).setJointVelocityRel(0.05));
-    }
-    
-    private void setNewHomePosition() {
+	}
+
+	private void setNewHomePosition() {
 		// Currently needed every run for this program
 		// Otherwise robot goes to candle home
 		JointPosition newHome = new JointPosition(
@@ -934,13 +936,13 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 				Math.toRadians(-63));	//A7
 		bot.setHomePosition(newHome);
 	}
-    
-    public void setResetCouponStatus() {
-    	int nUserPressedButton;
-    	nUserPressedButton = getApplicationUI().displayModalDialog(
+
+	public void setResetCouponStatus() {
+		int nUserPressedButton;
+		nUserPressedButton = getApplicationUI().displayModalDialog(
 				ApplicationDialogType.QUESTION, "Which Coupon: Regular or Torx???",
 				"Regular", "Torq");
-    	switch (nUserPressedButton) {
+		switch (nUserPressedButton) {
 		case 0:
 			coupon = new XMLParserCoupon(2, "d:/Transfer/UserXMLs/CouponHotDot02torx.xml");
 			break;
@@ -950,49 +952,49 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 
 		default:
 			break;
-    	}	
-    	
-//		nUserPressedButton = getApplicationUI().displayModalDialog(
-//				ApplicationDialogType.QUESTION, "Reset Coupon Status???",
-//				"Yes", "No");
-//		
-//		switch (nUserPressedButton) {
-//		case 0:
-//			coupon.resetCoupon();
-//			break;
-//
-//		default:
-//			break;
-//		}
-		
+		}	
+
+		//		nUserPressedButton = getApplicationUI().displayModalDialog(
+		//				ApplicationDialogType.QUESTION, "Reset Coupon Status???",
+		//				"Yes", "No");
+		//		
+		//		switch (nUserPressedButton) {
+		//		case 0:
+		//			coupon.resetCoupon();
+		//			break;
+		//
+		//		default:
+		//			break;
+		//		}
+
 	}
-    
-//    @Override
-//	public void dispose() {
-//
-//		try {
-//			// Add your "clean up" code here e.g.
-//			ssock.close();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
-    @Override
-    public void dispose()
-    {
-        try {
-        	// Add your "clean up" code here e.g.
-        	// ssock.close();
-            hotDotHeatUpTimer.timerStopAndKill(); 
-            dispenser2.killThread();
-        } catch (NullPointerException e ) {
-        	System.err.println("One or more threads were not initialized");
-        }
-        finally
-        {
-            super.dispose();
-        }
-    }
+
+	//    @Override
+	//	public void dispose() {
+	//
+	//		try {
+	//			// Add your "clean up" code here e.g.
+	//			ssock.close();
+	//		} catch (IOException e) {
+	//			e.printStackTrace();
+	//		}
+	//	}
+	@Override
+	public void dispose()
+	{
+		try {
+			// Add your "clean up" code here e.g.
+			// ssock.close();
+			hotDotHeatUpTimer.timerStopAndKill(); 
+			dispenser2.killThread();
+		} catch (NullPointerException e ) {
+			System.err.println("One or more threads were not initialized");
+		}
+		finally
+		{
+			super.dispose();
+		}
+	}
 
 	/**
 	 * Auto-generated method stub. Do not modify the contents of this method.
