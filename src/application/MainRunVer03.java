@@ -17,6 +17,8 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
+import vrsiModules.VRSIiiwaCommLib;
+
 import modules.Common;
 import modules.Common.ECalcDirection;
 import modules.Common.ECouponSectionName;
@@ -347,6 +349,8 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 		//smuge first pass
 		dynamicTCP.move(ptp(smudgeBeginPos1).setJointVelocityRel(0.3));
 		
+		
+		
 		//Heatup timer logic 
 		/*
 		if (hotDotHeatUpTimer.getTimerValue() < globalVarFromPLC.getVarLong("hotDotHeatUpTime")) {
@@ -412,8 +416,6 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 		dynamicTCP.move(linRel(0,0,-length).setCartVelocity(velocity).setMode(smudgeMode));
 		
 	}
-	
-	
 	
 	private void skiveHotDotMotion(int row, int column) {
 		

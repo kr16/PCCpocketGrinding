@@ -93,12 +93,25 @@ public class VRSIiiwaCommLib {
 		this.debug = debug;
 		init();
 	}
+	
+	public VRSIiiwaCommLib(String vrsiIPaddress, int vrsiPort, boolean debug) {
+		setVrsiServerIP(vrsiIPaddress);
+		setVrsiServerPort(vrsiPort);
+		this.debug = debug;
+		init();
+	}
 
 	public void init() {
-
-		this.setVrsiServerIP("172.31.1.230");
-		this.setVrsiServerPort(30001);
+		
+		try {
 		commPort = new StreamDataCommLib(getVrsiServerIP(), getVrsiServerPort());
+		
+		} catch ( Exception e) {
+			//PC default
+			this.setVrsiServerIP("172.31.1.230");
+			this.setVrsiServerPort(30001);
+			commPort = new StreamDataCommLib(getVrsiServerIP(), getVrsiServerPort());
+		}
 		fillFastenerData = new VRSIfillFastener();
 		fillFastenerData = null;
 		emptyFastenerData = new VRSIemptyFastener();
@@ -221,6 +234,10 @@ public class VRSIiiwaCommLib {
 					break;
 				}
 			}
+			if (bErrorKill) {
+				bErrorKill = false;
+				break;
+			}
 			ThreadUtil.milliSleep(hertz);
 			timer +=hertz;
 		}
@@ -323,11 +340,13 @@ public class VRSIiiwaCommLib {
 		switch (cmd) {
 		case SlideHomeCmdReceived:
 			//VRSI received KRC command and response with VRSI;100;0;0Dh
-			if (response.equals("VRSI;100;0;0Dh")) bResult = true; 
+			if (response.equals("VRSI;100;0;0Dh")) bResult = true;
+			else bErrorKill = true;
 			break;
 		case SlideAtHome:
 			//VRSI slide at home position; response VRSI;100;1;0Dh
 			if (response.equals("VRSI;100;1;0Dh")) bResult = true;
+			else bErrorKill = true;
 			break;
 		default:
 			System.err.println("Unknown command: " + cmd + " <VRSIiiwaCommLib>");

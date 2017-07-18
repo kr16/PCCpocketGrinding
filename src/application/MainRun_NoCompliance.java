@@ -20,6 +20,8 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
+import vrsiModules.VRSIiiwaCommLib;
+
 import modules.Common;
 import modules.Common.ECalcDirection;
 import modules.Common.ECouponSectionName;
@@ -387,6 +389,8 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 
 		dynamicTCP.move(lin(smudgeBeginPos1).setOrientationVelocity(Math.toRadians(5)));
 		
+		toolPosCorrection(dynamicTCP);
+		
 		//Heatup timer logic 
 		/*
 		if (hotDotHeatUpTimer.getTimerValue() < globalVarFromPLC.getVarLong("hotDotHeatUpTime")) {
@@ -458,7 +462,18 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 		
 	}
 	
-	
+	private Frame toolPosCorrection(ObjectFrame currentTCPpos) {
+		Frame newTCPpos = new Frame();
+		VRSIiiwaCommLib vrsiComm = new VRSIiiwaCommLib("172.31.1.231", 30001, true);
+		vrsiComm.setSlideHome(-1);
+		if (vrsiComm.scanEmptyFastener("FLU123", 5.6, 1, -1)) {
+			
+		} else {
+			
+		}
+		
+		return newTCPpos;
+	}
 	
 	private void skiveHotDotMotion(int row, int column) {
 		
