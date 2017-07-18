@@ -336,13 +336,13 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 		
 		TouchForceRecord findSurface = new TouchForceRecord(); 
 		
-		CartesianImpedanceControlMode mode = new CartesianImpedanceControlMode();
+//		CartesianImpedanceControlMode mode = new CartesianImpedanceControlMode();
 		CartesianImpedanceControlMode smudgeMode = new CartesianImpedanceControlMode();
-		mode.parametrize(CartDOF.TRANSL).setStiffness(3000);
-		mode.parametrize(CartDOF.X).setStiffness(smudgeStiffnessX);
-		mode.parametrize(CartDOF.Z).setStiffness(smudgeStiffnessZ);
-		mode.parametrize(CartDOF.ROT).setStiffness(300);
-		mode.parametrize(CartDOF.ALL).setDamping(.7);
+//		mode.parametrize(CartDOF.TRANSL).setStiffness(3000);
+//		mode.parametrize(CartDOF.X).setStiffness(smudgeStiffnessX);
+//		mode.parametrize(CartDOF.Z).setStiffness(smudgeStiffnessZ);
+//		mode.parametrize(CartDOF.ROT).setStiffness(300);
+//		mode.parametrize(CartDOF.ALL).setDamping(.7);
 		
 		//smuge first pass
 		dynamicTCP.move(ptp(smudgeBeginPos1).setJointVelocityRel(0.3));
@@ -381,10 +381,10 @@ public class MainRunVer03 extends RoboticsAPIApplication {
 		smudgeStiffnessX = globalVarFromPLC.getVarDouble("smudgeStiffnessXPass2");
 		smudgeStiffnessZ = globalVarFromPLC.getVarDouble("smudgeStiffnessZPass2");
 		
-		mode.parametrize(CartDOF.TRANSL).setStiffness(3000);
-		mode.parametrize(CartDOF.X).setStiffness(smudgeStiffnessX);
-		mode.parametrize(CartDOF.Z).setStiffness(smudgeStiffnessZ);
-		mode.parametrize(CartDOF.ROT).setStiffness(300);
+//		mode.parametrize(CartDOF.TRANSL).setStiffness(3000);
+//		mode.parametrize(CartDOF.X).setStiffness(smudgeStiffnessX);
+//		mode.parametrize(CartDOF.Z).setStiffness(smudgeStiffnessZ);
+//		mode.parametrize(CartDOF.ROT).setStiffness(300);
 		
 		smudgeBeginPos1 = FIsmudgeStartPos.copy();
 		smudgeBeginPos1.setX(smudgeBeginPos1.getX() - startOffset);

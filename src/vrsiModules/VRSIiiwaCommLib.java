@@ -178,7 +178,8 @@ public class VRSIiiwaCommLib {
 					}
 
 				} else {
-
+					System.err.println("VRSI error code: " + Integer.parseInt(stringsList.get(Integer.parseInt(CMDSTATUS))));
+					System.err.println("Refere to VRSI manual or implement error codes library (TODO list)");
 					// TO DO
 					// catch error codes here
 
@@ -629,14 +630,16 @@ public class VRSIiiwaCommLib {
 
 	/**
 	 * @return
-	 * If we did get correct data from VRSI this should return reference to object that holds all diagnostic data
+	 * If we did get correct data from VRSI this should return reference to object that holds all diagnostic data; 
+	 *   Incorrect data or erroneous data returns null (no success scanning)
 	 */
 	public VRSIfillFastener getFillFastenerData() {
 		return fillFastenerData;
 	}
 	/**
 	 * @return
-	 * If we did get correct data from VRSI this should return reference to object that holds all normalization/position data
+	 * If we did get correct data from VRSI this should return reference to object that holds all normalization/position data; 
+	 *    Incorrect data or erroneous data returns null (no success scanning)
 	 */
 	public VRSIemptyFastener getEmptyFastenerData() {
 		return emptyFastenerData;
