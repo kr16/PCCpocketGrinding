@@ -184,12 +184,12 @@ public class VRSIiiwaCommLib {
 
 				}
 			} else {
-				System.err.println("Wrong data format received: " + stringsList);
+				System.err.println("Wrong data format received: " + response);
 				bErrorKill = true;
 			}
 
 		}catch(Exception e) {
-			System.err.println("Wrong data format received or other uncommon error: " + stringsList + "\n" + e);
+			System.err.println("Wrong data format received or other uncommon error: " + response + "\n" + e);
 		} 
 		
 		return bResult;
