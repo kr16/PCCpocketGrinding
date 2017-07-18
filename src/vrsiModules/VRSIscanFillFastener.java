@@ -18,7 +18,7 @@ public class VRSIscanFillFastener implements Runnable{
 	
 	
 	public void scanFastener() {				//this is executed under by run method in this Thread
-		commPorthandle.login();					//login to VRSI
+		commPorthandle.login(3);					//login to VRSI
 		ThreadUtil.milliSleep(100);				//needed delay before scan command (at least for my test) 
 	    
 		//Send request to scan to VRSI. 

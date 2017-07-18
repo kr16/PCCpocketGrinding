@@ -91,7 +91,7 @@ public class StreamDataCommLib {
 	 * 	true if connection successful 
 	 *  false if not 
 	 */
-	public boolean login() {
+	private boolean login() {
 		if (telnet.isConnected()) return true;
 		
 		System.out.printf("Sunrise --> Opening connection to SimpleDataServer at: " + getServerAddress() + " port: " + getServerPort() + "...");
@@ -117,7 +117,25 @@ public class StreamDataCommLib {
 		}
 	}
 
-
+	/**
+	 * Attempt to open socket connection  
+	 * @param numberOfAttempts - at least 1 is required for correct login attempt
+	 * @return 
+	 *  true if connection successful 
+	 *  false otherwise 
+	 */
+	public boolean login(int numberOfAttempts) {
+		int counter = 0;
+		while (counter < numberOfAttempts) {
+			if (!login()) {
+				counter++;
+			} else {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public void disconnect() {
 		if (telnet.isConnected()) {
 			try {
