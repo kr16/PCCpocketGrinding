@@ -6,6 +6,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import com.kuka.roboticsAPI.geometricModel.Frame;
+import com.sun.org.omg.CORBA.ExceptionDescription;
 
 //import modules.Common.ECognexCommand;
 //import modules.Common.ECognexTrigger;
@@ -24,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import javax.activation.MimeTypeParameterList;
+import javax.security.auth.login.LoginException;
 import javax.swing.plaf.SliderUI;
 import javax.xml.*;
 import javax.xml.parsers.DocumentBuilder;
@@ -133,7 +135,14 @@ public class StreamDataCommLib {
 				return true;
 			}
 		}
-		System.out.println("Failed " + counter + " login attempts");
+		System.out.println();
+		System.out.println("");
+		try {
+			throw new LoginException("Failed " + counter + " login attempts <StreamDataCommLib.login()>" );
+		} catch (LoginException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return false;
 	}
 	
