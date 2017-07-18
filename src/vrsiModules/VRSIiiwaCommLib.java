@@ -253,11 +253,12 @@ public class VRSIiiwaCommLib {
 					System.err.println("Timeout!  requested: " + timeout + " actual: " + timer);
 					break;
 				}
-				if (bErrorKill) {
-					bErrorKill = false;
-					break;
-				}
 			}
+			if (bErrorKill) {
+				bErrorKill = false;
+				break;
+			}
+			
 			ThreadUtil.milliSleep(hertz);
 			timer +=hertz;
 		}
@@ -293,10 +294,10 @@ public class VRSIiiwaCommLib {
 					System.err.println("Timeout!  requested: " + timeout + " actual: " + timer);
 					break;															//timeout, no success
 				}
-				if (bErrorKill) {
-					bErrorKill = false;
-					break;
-				}
+			}
+			if (bErrorKill) {							//if we are setup to no timeout and we do receive wrong data
+				bErrorKill = false;						//we need to kill the thread loop
+				break;
 			}
 			ThreadUtil.milliSleep(hertz);	//loop delay 
 			timer +=hertz;					//timer runs up
