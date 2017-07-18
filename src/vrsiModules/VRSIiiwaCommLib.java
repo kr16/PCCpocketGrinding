@@ -113,72 +113,82 @@ public class VRSIiiwaCommLib {
 	public boolean getScanFastenerResponse(String response, EVRSIscanFastener cmd) {
 		boolean bResult = false;
 		List<String> stringsList = new ArrayList<String>(Arrays.asList(response.split(";")));
-		//check if our command is within the range 
-		//0=idle,  1=processing, 2=Command Completed Sucessfully, 3+…=error codes
-		if (Integer.parseInt(stringsList.get(Integer.parseInt(CMDSTATUS))) <= 2) {
-			switch (cmd) {
-			case ScanEmptyFastenerCmd:
-				//VRSI received KRC command and response with VRSI;1;1;FLU123;0.000;0.000;0.000;0.000;0.000;0.000;0.000;0.000;0.000;0.000;0.000;0Dh
-				//Expect 1 for pocket type (ScanPin) 
-				//Expect 1 for command status (Processing)
-				//Expect hole ID to match what KRC send in request
-				POCKETTYPE_TARGET = "1";
-				CMDSTATUS_TARGET = "1";
-				break;
+		try {
+			if (stringsList.get(0).equals("VRSI") && stringsList.get(stringsList.size()-1).equals("0Dh") && stringsList.size() > 2) {
+				//check if our command is within the range 
+				//0=idle,  1=processing, 2=Command Completed Sucessfully, 3+…=error codes
+				if (Integer.parseInt(stringsList.get(Integer.parseInt(CMDSTATUS))) <= 2) {
+					switch (cmd) {
+					case ScanEmptyFastenerCmd:
+						//VRSI received KRC command and response with VRSI;1;1;FLU123;0.000;0.000;0.000;0.000;0.000;0.000;0.000;0.000;0.000;0.000;0.000;0Dh
+						//Expect 1 for pocket type (ScanPin) 
+						//Expect 1 for command status (Processing)
+						//Expect hole ID to match what KRC send in request
+						POCKETTYPE_TARGET = "1";
+						CMDSTATUS_TARGET = "1";
+						break;
 
-			case ScanEmptyFastenerComplete:
-				//VRSI received KRC command and response with VRSI;1;1;FLU123;0.000;0.000;0.000;0.000;0.000;0.000;0.000;0.000;0.000;0.000;0.000;0Dh
-				//Expect 1 for pocket type (ScanPin) 
-				//Expect 2 for command status (Completed Successfully)
-				//Expect hole ID to match what KRC send in request
-				POCKETTYPE_TARGET = "1";
-				CMDSTATUS_TARGET = "2";
-				break;
+					case ScanEmptyFastenerComplete:
+						//VRSI received KRC command and response with VRSI;1;1;FLU123;0.000;0.000;0.000;0.000;0.000;0.000;0.000;0.000;0.000;0.000;0.000;0Dh
+						//Expect 1 for pocket type (ScanPin) 
+						//Expect 2 for command status (Completed Successfully)
+						//Expect hole ID to match what KRC send in request
+						POCKETTYPE_TARGET = "1";
+						CMDSTATUS_TARGET = "2";
+						break;
 
-			case ScanFillFastenerCmd:
-				//VRSI received KRC command and response with VRSI;2;1;FLU123;0.000;0.000;0.000;0;0;0;0;0;0;0;0;0Dh
-				//Expect 2 for pocket type (ScanFill) 
-				//Expect 1 for command status (Processing)
-				//Expect hole ID to match what KRC send in request
-				POCKETTYPE_TARGET = "2";
-				CMDSTATUS_TARGET = "1";
-				break;
+					case ScanFillFastenerCmd:
+						//VRSI received KRC command and response with VRSI;2;1;FLU123;0.000;0.000;0.000;0;0;0;0;0;0;0;0;0Dh
+						//Expect 2 for pocket type (ScanFill) 
+						//Expect 1 for command status (Processing)
+						//Expect hole ID to match what KRC send in request
+						POCKETTYPE_TARGET = "2";
+						CMDSTATUS_TARGET = "1";
+						break;
 
-			case ScanFillFastenerComplete:
-				//VRSI received KRC command and response with VRSI;1;1;FLU123;0.000;0.000;0.000;0.000;0.000;0.000;0.000;0.000;0.000;0.000;0.000;0Dh
-				//Expect 2 for pocket type (ScanFill) 
-				//Expect 2 for command status (Completed Successfully)
-				//Expect hole ID to match what KRC send in request
-				POCKETTYPE_TARGET = "2";
-				CMDSTATUS_TARGET = "2";
-				break;
+					case ScanFillFastenerComplete:
+						//VRSI received KRC command and response with VRSI;1;1;FLU123;0.000;0.000;0.000;0.000;0.000;0.000;0.000;0.000;0.000;0.000;0.000;0Dh
+						//Expect 2 for pocket type (ScanFill) 
+						//Expect 2 for command status (Completed Successfully)
+						//Expect hole ID to match what KRC send in request
+						POCKETTYPE_TARGET = "2";
+						CMDSTATUS_TARGET = "2";
+						break;
 
-			default:
-				System.err.println("Unknown command: " + cmd + " <VRSIiiwaCommLib>");
-				break;
-			}
+					default:
+						System.err.println("Unknown command: " + cmd + " <VRSIiiwaCommLib>");
+						break;
+					}
 
-			if (	(stringsList.get(Integer.parseInt(POCKETTYPE)).equals(POCKETTYPE_TARGET)) && 
-					(stringsList.get(Integer.parseInt(CMDSTATUS)).equals(CMDSTATUS_TARGET)) && 
-					(stringsList.get(Integer.parseInt(HOLEID)).equals(getHoleID()))) {
-				//Everything seems to match , evaluate data 
-				List<String> dataString = stringsList.subList(Integer.parseInt(DATASTART), stringsList.size()-1);
-				if (processScanData(cmd, dataString)) bResult = true;
+					if (	(stringsList.get(Integer.parseInt(POCKETTYPE)).equals(POCKETTYPE_TARGET)) && 
+							(stringsList.get(Integer.parseInt(CMDSTATUS)).equals(CMDSTATUS_TARGET)) && 
+							(stringsList.get(Integer.parseInt(HOLEID)).equals(getHoleID()))) {
+						//Everything seems to match , evaluate data 
+						List<String> dataString = stringsList.subList(Integer.parseInt(DATASTART), stringsList.size()-1);
+						if (processScanData(cmd, dataString)) bResult = true;
 
+					} else {
+						//Echo from VRSI did no match what we expect
+						System.err.println("Command: " + cmd + " unexpected response");
+						System.err.println("Command echo from VRSI: " + stringsList.get(Integer.parseInt(POCKETTYPE)) + " Expected: " + POCKETTYPE_TARGET);
+						System.err.println("Command Status echo from VRSI: " + stringsList.get(Integer.parseInt(CMDSTATUS)) + " Expected: " + CMDSTATUS_TARGET);
+						System.err.println("HoleID echo from VRSI: " + stringsList.get(Integer.parseInt(HOLEID)) + " Expected: " + getHoleID());
+					}
+
+				} else {
+
+					// TO DO
+					// catch error codes here
+
+				}
 			} else {
-				//Echo from VRSI did no match what we expect
-				System.err.println("Command: " + cmd + " unexpected response");
-				System.err.println("Command echo from VRSI: " + stringsList.get(Integer.parseInt(POCKETTYPE)) + " Expected: " + POCKETTYPE_TARGET);
-				System.err.println("Command Status echo from VRSI: " + stringsList.get(Integer.parseInt(CMDSTATUS)) + " Expected: " + CMDSTATUS_TARGET);
-				System.err.println("HoleID echo from VRSI: " + stringsList.get(Integer.parseInt(HOLEID)) + " Expected: " + getHoleID());
+				System.err.println("Wrong data format received: " + stringsList);
 			}
 
-		} else {
-
-			// TO DO
-			// catch error codes here
-
-		}
+		}catch(Exception e) {
+			System.err.println("Wrong data format received or other uncommon error: " + stringsList + "\n" + e);
+		} 
+		
 		return bResult;
 	}
 
@@ -602,7 +612,7 @@ public class VRSIiiwaCommLib {
 	public void setCommPort(StreamDataCommLib commPort) {
 		this.commPort = commPort;
 	}
-	
+
 	/**
 	 * @return
 	 * If we did get correct data from VRSI this should return reference to object that holds all diagnostic data
