@@ -464,7 +464,7 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 
 	private Frame toolPosCorrection(ObjectFrame currentTCPpos) {
 		Frame newTCPpos = new Frame();
-		VRSIiiwaCommLib vrsiComm = new VRSIiiwaCommLib("172.31.1.231", 30001, true);
+		VRSIiiwaCommLib vrsiComm = new VRSIiiwaCommLib("172.31.1.230", 30001, true);
 		if (vrsiComm.setSlideHome(-1)) {
 			if (vrsiComm.scanEmptyFastener("FLU123", 5.6, 1, -1)) {
 				System.out.println(vrsiComm.getEmptyFastenerData());
