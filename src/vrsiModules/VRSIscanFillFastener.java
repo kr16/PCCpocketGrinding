@@ -8,27 +8,39 @@ import vrsiModules.VRSIcommon.EVRSIscanFastener;
 
 public class VRSIscanFillFastener implements Runnable{
 
-	private VRSIiiwaCommLib vrsiCommands;
-	private boolean bSuccess;
-	private boolean bRunnableDone;
-	private StreamDataCommLib commPorthandle; 
-	private String holeID;
-	private double pinDia;
-	private int pinType;
+	private VRSIiiwaCommLib vrsiCommands;		//use this to call helper methods from main library
+	private boolean bSuccess;					//monitor outcome result of this Thread
+	private StreamDataCommLib commPorthandle; 	//handle to use for communication (TCP/IP socket to write to)
+	private String holeID;						//current holeID
+	private double pinDia;						//Expected pin diameter 
+	private double pinDiaAct;					//VRSI measured diameter
+	private int pinType;						//pin type to scan
 	
 	
-	public void scanFastener() {
-		commPorthandle.login();
-		ThreadUtil.milliSleep(100);
-	    commPorthandle.write(vrsiCommands.scanFillREQ(holeID, pinDia, pinType));
+	public void scanFastener() {				//this is executed under by run method in this Thread
+		commPorthandle.login();					//login to VRSI
+		ThreadUtil.milliSleep(100);				//needed delay before scan command (at least for my test) 
+	    
+		//Send request to scan to VRSI. 
+		//vrsiCommands.scanFillREQ generates actual String to be send based on user data
+		//commPorthandle .write sends generated String to the socket
+		commPorthandle.write(vrsiCommands.scanFillREQ(holeID, pinDia, pinType));
+		
+		//we expect correct responds from VRSI before we send ACK signal
+		//two responses are expected (ACK request , and process complete)
+		//vrsiCommands.getScanFastenerResponse analyze the String from VRSI against:
+		//VRSI ACK that command was received response
 	    if (vrsiCommands.getScanFastenerResponse(commPorthandle.getServerCommandResponseString(), EVRSIscanFastener.ScanFillFastenerCmd)) {
+	    	//VRSI process complete response
 	    	if (vrsiCommands.getScanFastenerResponse(commPorthandle.getServerCommandResponseString(), EVRSIscanFastener.ScanFillFastenerComplete)) {
+	    		//Once we got both responses we send ACK signal and set success bit
 	    		commPorthandle.write(vrsiCommands.scanFillACK());
 	    		setbSuccess(true);
 	    	}
 	    }
 	}
 	
+	//called by higher method to set all needed params BEFORE we start this Thread
 	public void setScanFastener(String holeID, double pinDia, int pinType, VRSIiiwaCommLib dataHandle) {
 		this.holeID = holeID;
 		this.pinDia = pinDia;
@@ -38,9 +50,9 @@ public class VRSIscanFillFastener implements Runnable{
 	
 	public void init() {
 		setbSuccess(false);
-		setbRunnableDone(false);
 	}
 	
+	//Main method called by Thread.start
 	public void run() {
 		init();
 		scanFastener();
@@ -63,13 +75,7 @@ public class VRSIscanFillFastener implements Runnable{
 		this.commPorthandle = commPorthandle;
 	}
 
-	public boolean isbRunnableDone() {
-		return bRunnableDone;
-	}
-
-	public void setbRunnableDone(boolean bRunnableDone) {
-		this.bRunnableDone = bRunnableDone;
-	}
+	
 
 	
 

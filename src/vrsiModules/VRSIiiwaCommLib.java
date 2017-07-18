@@ -16,6 +16,34 @@ import com.kuka.common.ThreadUtil;
 import vrsiModules.VRSIcommon.EVRSIhomeSlide;
 import vrsiModules.VRSIcommon.EVRSIscanFastener;
 
+/**
+ * @author MPiotrowski AIT Corp. July 2017
+ * 
+ * Library providing methods to interface with VRSI scanner (specifically for Lockheed Hot Dot project)
+ * Brief overview on how this works and how to use it (mostly for myself)
+ * Class VRSIIiiwaCommLib is a main class that should be used in a robot program (only this one)
+ * All other classes are helper classes. 
+ * VRSIemptyFastener and VRSIfillFastener holds information provided by VRSI after scan. 
+ * Data for normalization and reposition (VRSIemptyFastener) 
+ * Data for diagnostics/results (VRSIfillFastener)
+ * These should be modified if more detail information is needed/provided in the future.
+ * VRSIscanSmptyFastener, VRSIscanFillFastener, VRSIsetSlideHome are all implementing Runnable as they are executed as Threads from this class.
+ * Main reason for that is to have a Thread under timeout control. As we send a command to VRSI we expect result in a given time frame.
+ * If results are not provided we time out (Thread gets canceled)
+ * StreamDataCommLib is responsible for socket TCP/IP communication (login, send String, read VRSI response, disconnect)
+ * User should only call 3 methods from this library to execute VRSI command.
+ * public boolean setSlideHome(long timeout) - commands VRSI to move to home position (before each scan we need to make sure we are there)
+ * public boolean scanEmptyFastener(String holeID, double pinDia, int pinType, long timeout) - commands VRSI to scan Empty Fastener (reposition data)
+ * public boolean scanFillFastener(String holeID, double pinDia, int pinType, long timeout) - commands VRSI to scan Fill Fastener (diagnostics data)
+ * 
+ * Example chain of commands for scanFillFastener 
+ * program calls  scanFillFastener("ABC001", 5.6, 1, 10000) //Scan Fastener with id ABC001, expected diameter, 5.6mm, pin type 1 (flat head) and timeout of 10000mm
+ * Runnable thread (VRSIscanFillFastener) is executed. It is expected to run under 10 seconds and provide TRUE as a result (scan successful)
+ * At this point user will call get methods (to be implemented yet) to pull the results which will be provide as VRSIemptyFastener or VRSIfillFastener class objects. 
+ *
+ * More description on detail Thread execution in VRSIscanFillFastener.java class and scanFillFastener method in this class
+ *
+ */
 public class VRSIiiwaCommLib {
 	//IIWA to VRSI
 	private int modeStatus;			//mode status
@@ -229,30 +257,29 @@ public class VRSIiiwaCommLib {
 	 * 					- false otherwise
 	 */
 	public boolean scanFillFastener(String holeID, double pinDia, int pinType, long timeout) {
-		long timer = 0;
-		long hertz = 100;
-		VRSIscanFillFastener scanFillFastenerRunnable = new VRSIscanFillFastener();
-		scanFillFastenerRunnable.setCommPorthandle(commPort);
-		scanFillFastenerRunnable.setScanFastener(holeID, pinDia, pinType, this);
-		Thread scanFillFastenerThread = new Thread(scanFillFastenerRunnable);
+		long timer = 0;			//timer will run from 0 up to timeout values 
+		long hertz = 100;		//timer delay and update, every so many miliseconds we check if Thread was successful 
+		VRSIscanFillFastener scanFillFastenerRunnable = new VRSIscanFillFastener();	//instance the runnable class 
+		scanFillFastenerRunnable.setCommPorthandle(commPort);						//give it communication handle
+		scanFillFastenerRunnable.setScanFastener(holeID, pinDia, pinType, this);	//sets its parameters
+		Thread scanFillFastenerThread = new Thread(scanFillFastenerRunnable);		//assigns class object to the thread
 		//scanFillFastenerThread.setDaemon(true);
-		scanFillFastenerThread.start();
-		while (!scanFillFastenerRunnable.isbSuccess()) {
-			if (timeout >= 0) {
-				if (timer >= timeout) {
+		scanFillFastenerThread.start();												// START the thread
+		while (!scanFillFastenerRunnable.isbSuccess()) {							//keep looping and checking if we were successful 
+			if (timeout >= 0) {														//timer value below 0 disables timeout(yeah it will run forever)
+				if (timer >= timeout) {												//timeout condition
 					System.err.println("Timeout!  requested: " + timeout + " actual: " + timer);
-					break;
+					break;															//timeout, no success
 				}
 			}
-			ThreadUtil.milliSleep(hertz);
-			timer +=hertz;
+			ThreadUtil.milliSleep(hertz);	//loop delay 
+			timer +=hertz;					//timer runs up
 		}
-		scanFillFastenerRunnable.setbRunnableDone(true);
-		if (this.debug) {
+		if (this.debug) {													//debug message if enabled
 			System.out.println("DEBUG: Process timer value: " + timer);
 		}
-		commPort.disconnect();
-		return scanFillFastenerRunnable.isbSuccess();
+		commPort.disconnect();												//disconnect from VRSI
+		return scanFillFastenerRunnable.isbSuccess();						//return status
 	}
 
 	/**
