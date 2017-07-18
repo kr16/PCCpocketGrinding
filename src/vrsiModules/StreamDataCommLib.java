@@ -99,6 +99,7 @@ public class StreamDataCommLib {
 		System.out.printf("Sunrise --> Opening connection to SimpleDataServer at: " + getServerAddress() + " port: " + getServerPort() + "...");
 		try {
 			// Connect to the server
+			telnet.setConnectTimeout(2000);
 			telnet.connect(getServerAddress(), getServerPort());
 			//telnet.connect(server, 10023);
 
