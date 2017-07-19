@@ -20,6 +20,8 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
+import vrsiModules.VRSIemptyFastener;
+import vrsiModules.VRSIfillFastener;
 import vrsiModules.VRSIiiwaCommLib;
 
 import modules.Common;
@@ -389,7 +391,10 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 
 		dynamicTCP.move(lin(smudgeBeginPos1).setOrientationVelocity(Math.toRadians(5)));
 
-		toolPosCorrection(dynamicTCP);
+		Frame corrFrame = new Frame (toolPosCorrection(dynamicTCP));
+		dynamicTCP.move(linRel(	corrFrame.getX(), corrFrame.getY(), corrFrame.getZ(), 
+								corrFrame.getAlphaRad(), corrFrame.getBetaRad(), corrFrame.getGammaRad()).setCartVelocity(5));
+		
 
 		//Heatup timer logic 
 		/*
@@ -463,21 +468,52 @@ public class MainRun_NoCompliance extends RoboticsAPIApplication {
 	}
 
 	private Frame toolPosCorrection(ObjectFrame currentTCPpos) {
-		Frame newTCPpos = new Frame();
+		
 		VRSIiiwaCommLib vrsiComm = new VRSIiiwaCommLib("172.31.1.230", 30001, true);
 		if (vrsiComm.setSlideHome(-1)) {
 			ThreadUtil.milliSleep(3000);
 			if (vrsiComm.scanEmptyFastener("FLU123", 5.6, 1, -1)) {
-				System.out.println(vrsiComm.getEmptyFastenerData());
+				VRSIemptyFastener vrsiData = new VRSIemptyFastener(vrsiComm.getEmptyFastenerData());
+				Frame corrLimits = new Frame(5, 5, 5, 5, 5, 5);
+				checkDataPlausibility(currentTCP.copy(), corrLimits, vrsiData);
+				double x = vrsiData.getPosX();
+				double y = vrsiData.getPosY();
+				double z = vrsiData.getPosZ();
+				double alpha = vrsiData.getRotA();
+				double beta = vrsiData.getRotB();
+				double gamma = vrsiData.getRotC();
+				
+				Transformation tcpShift = Transformation.ofDeg(x, y, z, alpha, beta, gamma);
+				Frame vrsiCorrection = currentTCP.copy();
+				return vrsiCorrection.transform(tcpShift);
 				
 			} else {
-
+				return null; //no data from vrsi
 			}
+		} else {
+			return null; //slide not at home
 		}
-
-		return newTCPpos;
 	}
 
+	private boolean checkDataPlausibility(Frame currentPos, Frame correctionLimits, VRSIemptyFastener vrsiCorrection){
+		if (	Math.abs(vrsiCorrection.getPosX()) > correctionLimits.getX() ||
+				Math.abs(vrsiCorrection.getPosY()) > correctionLimits.getY() ||
+				Math.abs(vrsiCorrection.getPosZ()) > correctionLimits.getZ() ||
+				Math.abs(vrsiCorrection.getRotA()) > Math.toDegrees(correctionLimits.getAlphaRad()) ||
+				Math.abs(vrsiCorrection.getRotB()) > Math.toDegrees(correctionLimits.getBetaRad())	||
+				Math.abs(vrsiCorrection.getRotC()) > Math.toDegrees(correctionLimits.getGammaRad()) 	) {
+			System.err.println("Data Plausability Error! VRSI positional data: " + vrsiCorrection.toString() + 
+								"/nLimits: " + correctionLimits.toString());
+			return false;
+		}
+		return true;
+	}
+	
+private boolean checkDataPlausibility(VRSIfillFastener vrsiCorrection){
+		
+		return false;
+	}
+	
 	private void skiveHotDotMotion(int row, int column) {
 
 		// <Data recorder setup> 
