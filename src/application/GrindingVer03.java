@@ -1140,6 +1140,8 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 				
 				System.err.println("Done recording positions. Total recorded: " + recPositions.size());
 				recPositionDone = true;
+				positionHoldContainer.cancel();
+				currentTCP.move(ptp(handPos));
 				iiwaDataStream.login();
 				iiwaDataStream.write("EOT");
 			}
