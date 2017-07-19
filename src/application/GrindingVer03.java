@@ -134,8 +134,8 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 	ArrayList<Frame> recPositions;
 	private IMotionContainer positionHoldContainer;
 	private StreamDataCommLib iiwaDataStream;
-	
-	
+
+
 	@Override
 	public void initialize() {
 		kuka_Sunrise_Cabinet_1 = getController("KUKA_Sunrise_Cabinet_1");
@@ -159,7 +159,7 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		pbUserKeysHGteachPos = beckhoffIO.getOutput("EK1100_DO03"); //push button on grinding guard
 		pressCounter = 0;
 		loopExitCondition = false;
-		
+
 		// TimerThread = new Thread(forceTimer);
 		logFile = null;
 
@@ -175,7 +175,7 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		airTest = false;
 		recPositions = new ArrayList<Frame>();
 		iiwaDataStream = new StreamDataCommLib("172.31.1.230", 30008);
-		
+
 	}
 
 	@Override
@@ -211,7 +211,7 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+
 		try {
 			test1dumpFile = new PrintWriter(filePathRoot + currentDateTime + "_" + "collectionDumpFile.txt", "UTF-8");
 		} catch (FileNotFoundException e) {
@@ -222,7 +222,7 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 			e.printStackTrace();
 		}
 		// /////////////////////////////////////////////////
-		
+
 		// set home position, attach tool , move home
 		setNewHomePosition();
 		PCC_EE.attachTo(bot.getFlange());
@@ -236,7 +236,7 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		bot.move(ptpHome().setJointVelocityRel(0.2));
 
 		eeTool.setTool(PCC_EE);
-		
+
 		// ///////////////DEMO purposes only HOW TO USE Geometric Operator from
 		// KRC4//////////////////
 		// First example is explicit recalculation of values
@@ -272,8 +272,8 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		// Transformation newTcpOffset = Transformation.ofTranslation(-5,0,0);
 		// myTool.changeFramePosition(newToolFr ,newTcpOffset);
 		// ///////////////////////////////////////////////////////////////////////////////////////////
-		
-		
+
+
 
 		//Set tool per PLC selection screen
 		eeTool.setCurrentTCP(EToolName.valueOf(globalVarFromPLC.getVarString("currentCutter")));
@@ -286,15 +286,15 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		//currentTCP.moveAsync(ptp(posAppRightCoupon).setJointVelocityRel(0.2)
 		//		.setBlendingCart(10));
 		currentTCP.move(ptp(posAppRightCoupon).setJointVelocityRel(0.2));
-		
+
 		Frame testFrame = bot.getCurrentCartesianPosition(currentTCP);
 		System.out.println(testFrame.toString());
-		
-		
+
+
 		IRedundancyCollection myCollection = testFrame.getRedundancyInformationForDevice(bot).copy();
 		System.out.println(myCollection.getAllParameters());
 		System.out.println(myCollection.toString());
-		
+
 		///////////////////////////////////////////////////////////////////
 		/////             HRC                   ///////////////////////////
 		///// handGuide function test /experimental use ///////////////////
@@ -302,7 +302,7 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		//handGuideMe(true); 
 		handGuideMe(globalVarFromPLC.getVarBoolean("bChckbxHcrModeEnable")); 
 		///////////////////////////////////////////////////////////////////
-		
+
 		String noteString = "Air run";
 
 		if (airTest) {
@@ -319,7 +319,7 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		BooleanIOCondition HandIO = new BooleanIOCondition(pbFlangeTeach, true);  //declare condition for that input
 		boolean bHandGuide = globalVarFromPLC.getVarBoolean("bHandGuide");
 		boolean bHandGuideManualGrinding = globalVarFromPLC.getVarBoolean("bHandGuideManualGrinding");
-		
+
 		if (bHandGuide && bHandGuideManualGrinding) {			//hand guiding for manual grinding with IIWA 
 			handGuideRecord(posAppRightCoupon.copy(), true);
 		}
@@ -338,8 +338,8 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 				//getObserverManager().waitFor(new BooleanIOCondition(beckhoffIO.getInpu0t("EK1100_DI03"), true));
 				for (Frame position: recordedPositions) {
 					currentTCP.move(ptp(posAppRightCoupon).setJointVelocityRel(0.2));
-					
-					
+
+
 					startOffsetted = position;
 					double touch_position_offset = 1;
 					Transformation tcpShift = Transformation.ofTranslation(0.0, 0.0, touch_position_offset);
@@ -406,23 +406,23 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 
 		switch (EOscillationModes.valueOf(globalVarFromPLC
 				.getVarString("oscillationMode"))) {
-		case spiralMode:
-			spiralModeExec(atPart);
-			break;
-		case sineMode:
-			sinusModeExec(atPart);
-			break;
-		case simpleMode:
-			simpleModeExec(atPart);
-			break;
-		default:
-			throw new ArithmeticException(
-					"Not possible switch/case situation, <GrindingVer01>");
+				case spiralMode:
+					spiralModeExec(atPart);
+					break;
+				case sineMode:
+					sinusModeExec(atPart);
+					break;
+				case simpleMode:
+					simpleModeExec(atPart);
+					break;
+				default:
+					throw new ArithmeticException(
+							"Not possible switch/case situation, <GrindingVer01>");
 		}
 	}
 
 	public void simpleModeExec(Frame atPart) {
-		
+
 		CartDOF oscillationAxis;
 		switch (CartDOF.valueOf(globalVarFromPLC.getVarString("simpleWorkingDirection"))) {
 		case X:
@@ -443,16 +443,16 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		long totalTime = globalVarFromPLC.getVarLong("simpleTotalTime");
 		double expectedDepth = globalVarFromPLC.getVarDouble("simpleExpectedDepth");
 		double zStiffness = globalVarFromPLC.getVarDouble("simpleWorkingDirStiffness");
-		
+
 		shape = new SimpleMode(	additionalZForce, zProgress, travelDistance,
-								travelVelocity, totalTime, oscillationAxis, 
-								expectedDepth, zStiffness);
+				travelVelocity, totalTime, oscillationAxis, 
+				expectedDepth, zStiffness);
 		offsetedPos = shape.executeMode(eeTool, atPart, bot, grindingProcessTimer, logFile);
-		
+
 	}
-	
+
 	public void sinusModeExec(Frame atPart) {
-		
+
 		CartDOF oscillationAxis;
 		switch (CartDOF.valueOf(globalVarFromPLC.getVarString("sineWorkingDirection"))) {
 		case X:
@@ -486,32 +486,32 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 
 		shape = new SimpleMode(	additionalZForce, zProgress, travelDistance,
 				travelVelocity, totalTime, oscillationAxis, 
-								expectedDepth, zStiffness);
+				expectedDepth, zStiffness);
 		offsetedPos = shape.executeMode(eeTool, atPart, bot, grindingProcessTimer, logFile);
-		
+
 	}
 	///////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////// HCR attempt /////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////
 	public void handGuideMe(boolean isEnabled) {
 		if(!isEnabled) return;		//if we got false we don't execute
-		
+
 		ObjectFrame currentWorkingTCP = eeTool.setCurrentTCP(EToolName.valueOf(currentTCP.getName()));
 		currentTCP = eeTool.setCurrentTCP(EToolName.HCR);
-		
+
 		//Enable ability to guide the robot with HCR button
 		//This is done in BackgroundTaskHCR
 		StaticGlobals.hcrEnable = true;
-		
-		
+
+
 		//Max torque at which we should quit
 		double maxTorque = 4;
-		
+
 		HandGuidingMotion hgMotion;
-		
+
 		JointTorqueCondition axis7twist = new JointTorqueCondition(bot, JointEnum.J7, -maxTorque, maxTorque);
-		
-		
+
+
 		//settings for axis limits in HCR mode
 		double a1N = Math.toRadians(-160);
 		double a2N = Math.toRadians(0);
@@ -520,7 +520,7 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		double a5N = Math.toRadians(-160);
 		double a6N = Math.toRadians(-90);
 		double a7N = Math.toRadians(-160);
-		
+
 		double a1P = Math.toRadians(160);
 		double a2P = Math.toRadians(115);
 		double a3P = Math.toRadians(10);
@@ -528,7 +528,7 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		double a5P = Math.toRadians(160);
 		double a6P = Math.toRadians(90);
 		double a7P = Math.toRadians(160);
-		
+
 		boolean a1Act = false;
 		boolean a2Act = true;
 		boolean a3Act = true;
@@ -536,15 +536,15 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		boolean a5Act = false;
 		boolean a6Act = false;
 		boolean a7Act = false;
-		
+
 		//condition for user press button that enables DO 03 on beckhoff
 		//push button for teaching position is setup in UserKeys as digital output 3 true/false (momentary push button)
 		BooleanIOCondition hgTeachButton = new BooleanIOCondition(beckhoffIO.getOutput("EK1100_DO03"), true);
-		
+
 		//this works like interrupt type solution 
 		//create listener and its code to execute on rising edge
 		IRisingEdgeListener listener_hgTeachButton = new IRisingEdgeListener() {
-			
+
 			@Override
 			public void onRisingEdge(ConditionObserver conditionObserver, Date time,
 					int missedEvents) {
@@ -558,7 +558,7 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		ConditionObserver hgTeachButtonObserver = getObserverManager().createConditionObserver(hgTeachButton, NotificationType.MissedEvents, listener_hgTeachButton);
 		//enabled observer (interupt)
 		hgTeachButtonObserver.enable();
-		
+
 		//create hand guiding object with  and set its axis limits based on previous data
 		//additional parameters (axis limit violation on start)
 		hgMotion = handGuiding().
@@ -568,77 +568,77 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 				setAxisLimitViolationFreezesAll(false).
 				setPermanentPullOnViolationAtStart(true).
 				setAxisSpeedLimit(0.5);
-		
+
 		//loop that puts robot into HRC mode 
 		//condition is smartPad push button from UserKeys (sets/resets EK1100 DO 4, hold button)
 		while (!beckhoffIO.getEK1100_DO04()) {
 			System.out.println("Goint into Free motion...");
 			positionHoldContainer = currentTCP.move(hgMotion);
 		}
-		
+
 		System.out.println("... and done");
 		positionHoldContainer.cancel();		//cancel HCR
 		hgTeachButtonObserver.disable();	//observer canceled (no points recording)	
 		beckhoffIO.setEK1100_DO04(false); 	//reset smart pad button
 		currentTCP = currentWorkingTCP;		//restore original TCP used
-		
+
 		System.out.println("Hand Guide Canceled");
 		StaticGlobals.hcrEnable = false;
-		
+
 		String newPosName = null; 
 		int frameCounter = 0;
-		
+
 		//Attempt to remove all P1, P2, P3... from RoboticsAPI.data.xml
 		// Get the object to manipulate the RoboticsAPI.data.xml file where all the application data is stored
 		final IPersistenceEngine engine = this.getContext().getEngine(IPersistenceEngine.class);
 		final XmlApplicationDataSource defaultDataSource = (XmlApplicationDataSource) engine.getDefaultDataSource();
 		System.out.println(defaultDataSource.getName());
 		System.out.println(defaultDataSource.getDataFile());
-		
+
 		System.out.println(defaultDataSource.loadAllFrames());
-		
+
 		Collection<? extends ObjectFrame> test1Collection = defaultDataSource.loadAllFrames();
 		Iterator<? extends ObjectFrame> test1Iterator  = test1Collection.iterator();
 		Map<String, Object> asMap = new HashMap<String, Object>();
 		Object[] asArray = test1Collection.toArray();
 		for (int i = 0; i < asArray.length-1; i+=2) {
-			  //String key = (String) asArray[i];
-			  //Object value = asArray[i+1];
-			  //asMap.put(key, value);
-				System.out.println(asArray[i]);
-				System.out.println(asArray[i+1]);
-			}
+			//String key = (String) asArray[i];
+			//Object value = asArray[i+1];
+			//asMap.put(key, value);
+			System.out.println(asArray[i]);
+			System.out.println(asArray[i+1]);
+		}
 		System.out.println(asMap.toString());
-		
+
 		System.out.println("HOLA ! i pozamiatane misiek");
-		
+
 		System.out.println(test1Collection.size());
 		System.out.println(test1Collection.toArray().length);
 		System.out.println(test1Collection.toString());
 		System.out.println(test1Collection.contains("testBase"));
-		
+
 		test1dumpFile.println(test1Collection.toString());
 		test1dumpFile.flush();
 		test1dumpFile.close();
-		
-		
+
+
 		for(Frame aFrame : recPositions) {
 			newPosName = "PCC_ManualPos_" + (frameCounter++);
 			System.out.println(aFrame.toString());
 			//System.out.println(aFrame.getRedundancyInformation().toString());
-			
+
 			Map<String, IRedundancyCollection> meMap = aFrame.getRedundancyInformation();
 			System.out.println("Map size: " + meMap.size() + "\nValues: " + meMap.values());
 			System.out.println("Map keys:" + meMap.keySet());
-			
+
 			try {
-				
+
 				ObjectFrame fNewFrame = defaultDataSource.addFrame(nullBase);
-				
+
 				defaultDataSource.removeFrame(getApplicationData().getFrame("/nullBase/P4"));
 				defaultDataSource.removeFrame(getApplicationData().getFrame("/nullBase/P9"));
 				defaultDataSource.renameFrame(getApplicationData().getFrame("/nullBase/P5"), "Diablo5");
-				
+
 				defaultDataSource.changeFrameTransformation(fNewFrame, aFrame.transformationTo(fNewFrame));
 				defaultDataSource.saveFile(false);
 				getLogger().info("Stored a new point!");
@@ -647,18 +647,18 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 				getLogger().info("Exception: " + ex.toString());
 			}	
 		}
-		
+
 		getApplicationControl().halt();
-		
+
 	}
-	
+
 	public void setESMState(String esmNumber, LBR roBot) {
 		System.out.println("ESM: " + esmNumber + " enabled");
 		roBot.setESMState(esmNumber);
 	}
-	
+
 	public void sineModeExec(Frame atPart) {
-		
+
 		CartDOF oscillationAxis;
 		switch (CartDOF.valueOf(globalVarFromPLC.getVarString("sineWorkingDirection"))) {
 		case X:
@@ -672,18 +672,18 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 			oscillationAxis = null;
 			break;
 		}
-		
+
 		double frequency = globalVarFromPLC.getVarDouble("sineFrequency"); 
 		double amplitude = globalVarFromPLC.getVarDouble("sineAmplitude"); 
 		double planeStiffness = globalVarFromPLC.getVarDouble("sinePlaneStiffness");
-		
+
 		double workingDirStiffness = globalVarFromPLC.getVarDouble("sineWorkingDirStiffness");
 		double workingDiradditionalForce = globalVarFromPLC.getVarDouble("sineWorkingDirAdditionalForce");
 		double travelDistance = globalVarFromPLC.getVarDouble("sineTravelDistance");		
 		double travelVelocity = globalVarFromPLC.getVarDouble("sineTravelVelocity");
 
 		long totalTimeSecs = (long) (travelDistance/travelVelocity); 
-		
+
 		CartesianSineImpedanceControlMode sineMode;
 		//set Spiral oscillation parameters
 		sineMode = CartesianSineImpedanceControlMode.createSinePattern(oscillationAxis, frequency, amplitude, planeStiffness);
@@ -697,7 +697,7 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		ForceComponentCondition TCPforce;
 		double maxForce = 60;
 		TCPforce = new ForceComponentCondition(currentTCP,CoordinateAxis.Z, -maxForce, maxForce);
-		
+
 		////////////////// logging ///////////////////
 		logFile.println(currentDateTime);
 		System.out.println("Process number: " + processCounter);
@@ -717,10 +717,10 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 				+ "mm, TCP Velocity: " + travelVelocity + " mm/s");
 		logFile.println("Theoretical TCP travel time: " + travelDistance/travelVelocity + " seconds");
 		logFile.println("Max force for stopping grinding: " + maxForce);
-		
+
 		///////////////////////////////////////////////
-		
-		
+
+
 		//Move to part running
 		/////////////////////////////////////////////////////////////////////////////////////////
 		CartesianImpedanceControlMode mode = new CartesianImpedanceControlMode();
@@ -736,10 +736,10 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 
 		grindingProcessTimer.setTimerValue(0);	//timer set to 0
 		grindingProcessTimer.timerStart();		//timer start
-		
+
 		//////////////////////Grinding happens here////////////////////
-		
-		
+
+
 		///////////////////////////Simple attempt drive forward with force and spring/////////////////////
 		logFile.println();
 		logFile.println("SIMPLE ATTEMPT TO DRIVE FORWARD, IGNORE ALL DATA ABOVE !!!");
@@ -760,7 +760,7 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		logFile.println("Z travel increment: " + zPos);
 		logFile.println("Theoretical Total time: " + totalTimeSecs + "s");
 		logFile.println("Theoretical depth: " + totalTimeSecs*travelVelocity/travelDistance*zPos + "mm");
-		
+
 		CartesianImpedanceControlMode modeLine = new CartesianImpedanceControlMode();
 		modeLine.parametrize(CartDOF.TRANSL).setStiffness(5000).setDamping(1);
 		modeLine.parametrize(CartDOF.ROT).setStiffness(300);
@@ -774,27 +774,27 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		forceTimer.setTimerValue(0);
 		forceTimer.timerStart();
 		while (!bConditionResult) {
-			
+
 			currentTCP.move(linRel(travelDistance, 0, -zPos,currentTCP).setCartVelocity(travelVelocity).setMode(modeLine));
-			
-		    currentTCP.move(linRel(-travelDistance, 0, -zPos,currentTCP).setCartVelocity(travelVelocity).setMode(modeLine));
-		    
-		    zOffset = zOffset + 2*zPos;
-		    if(forceTimer.getTimerValue()/1000 > forceTimePeriod) {
-		    	forceTimer.setTimerValue(0);
-		    	additionalForce = additionalForce + addForceOverTime;
-		    	//modeLine.parametrize(CartDOF.Z).setAdditionalControlForce((-1) * additionalForce);
+
+			currentTCP.move(linRel(-travelDistance, 0, -zPos,currentTCP).setCartVelocity(travelVelocity).setMode(modeLine));
+
+			zOffset = zOffset + 2*zPos;
+			if(forceTimer.getTimerValue()/1000 > forceTimePeriod) {
+				forceTimer.setTimerValue(0);
+				additionalForce = additionalForce + addForceOverTime;
+				//modeLine.parametrize(CartDOF.Z).setAdditionalControlForce((-1) * additionalForce);
 				System.out.println(		"Theoretical Z position offset = " + zOffset
-											//String.format("%.2f", Double.valueOf(sineTravelDistance.getText())
-									+	" Current Pos Z: " + String.format("%.2f", bot.getCurrentCartesianPosition(currentTCP, nullBase).getX())
-									+	" Real timer: " + grindingProcessTimer.getTimerValue()/1000
-									+	" Force: " + additionalForce);
-		    }
-		    if((grindingProcessTimer.getTimerValue()/1000 > totalTimeSecs)) {
+						//String.format("%.2f", Double.valueOf(sineTravelDistance.getText())
+						+	" Current Pos Z: " + String.format("%.2f", bot.getCurrentCartesianPosition(currentTCP, nullBase).getX())
+						+	" Real timer: " + grindingProcessTimer.getTimerValue()/1000
+						+	" Force: " + additionalForce);
+			}
+			if((grindingProcessTimer.getTimerValue()/1000 > totalTimeSecs)) {
 				bConditionResult = true;
 				forceTimer.timerStop();
 				System.out.println("Sine osciallation finished");
-		    }
+			}
 		}
 
 		//record position before we do anything
@@ -802,26 +802,26 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		Frame grindEndPosOffset = bot.getCurrentCartesianPosition(currentTCP, offsetedPos);
 		System.out.println("Offseted Pos: " + grindEndPosOffset);
 		logFile.println("Offseted Pos: " + grindEndPosOffset);
-		
+
 		//get offsets
 		double xOffsetAfterCut = grindEndPosOffset.getX();
 		double yOffsetAfterCut = grindEndPosOffset.getY();
 		double zOffsetAfterCut = grindEndPosOffset.getZ();
-		
+
 		System.out.println("Robot measured cut depth: " + String.format("%.2f",Math.abs(zOffsetAfterCut)) + "mm");
 		logFile.println("Robot measured cut depth: " + Math.abs(zOffsetAfterCut) + "mm");
-		
+
 		//condition which way we offset depending on cut direction (X or Y)
 		//Transformation tcpShift = Transformation.ofTranslation(xOffsetAfterCut, 0.0, 0.0);
 		Transformation tcpShift = Transformation.ofTranslation(0.0, yOffsetAfterCut, 0.0);
 		offsetedPos.transform(tcpShift);
 
 		//////////////////////////////////////////////////////////////////////////////////
-		
-		
+
+
 		///////Dual sine mode - unknown position :( ///////////////
 		/*boolean bTimerFlag = false;
-		
+
 		while (!bConditionResult) {
 			if((grindingProcessTimer.getTimerValue())/1000 > (totalTimeSecs/2)  && !bTimerFlag) {
 				bTimerFlag = true;
@@ -837,7 +837,7 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 			}
 		}*/
 		//////////////////////////////////////////////////////////////
-		
+
 		//////Condition monitoring (time/force)
 		/*IMotionContainer positionHoldContainer;
 		positionHoldContainer = currentTCP.moveAsync(linRel(0, 0, -travelDistance,currentTCP).setCartVelocity(travelVelocity).setMode(sineMode));
@@ -850,7 +850,7 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		}
 		positionHoldContainer.cancel();*/
 		///////////////////////////////////////////////////////////////
-		
+
 	}
 
 	public void edgeFinish(Frame atPart, double cutLength, double cutterRadius) {
@@ -897,11 +897,11 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 
 		// move to center
 		currentTCP.move(lin(atPart).setCartVelocity(finishVelocity));
-		
+
 		//getApplicationControl().halt();
 		eeTool.grindingStart();
 
-		
+
 		// leftLower
 		currentTCP.move(linRel(cutLength / 2, -cutterRadius, (zDir * zOffset))
 				.setCartVelocity(finishVelocity));
@@ -974,7 +974,7 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 				cartPlane, frequency, amplitude, planeStiffness, totalTimeSecs);
 		// set work direction force parameters
 		spiralMode.parametrize(CartDOF.Z).setBias(-workingDiradditionalForce)
-				.setStiffness(workingDirStiffness);
+		.setStiffness(workingDirStiffness);
 		spiralMode.setRiseTime(riseTime);
 		spiralMode.setFallTime(fallTime);
 		spiralMode.setHoldTime(holdTime);
@@ -1042,13 +1042,13 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		}
 		positionHoldContainer.cancel();
 	}
-	
+
 	///////////////////////////////////////////////////////////////////////////////////////
-	//							HAND GUIDING FUNCTION
+	//							HAND GUIDING FUNCTION - NOT HCR !
 	///////////////////////////////////////////////////////////////////////////////////////
-								
+
 	public ArrayList<Frame> handGuideRecord(Frame zoneSafePos, boolean manualGrinding) {
-		
+
 		CartesianImpedanceControlMode handModeStiff = new CartesianImpedanceControlMode();
 		CartesianImpedanceControlMode handModeLoose = new CartesianImpedanceControlMode();
 		IMotionContainer positionHoldContainer = null;
@@ -1056,7 +1056,7 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		double maxForce = 5;
 		ArrayList<Frame> recPositions = new ArrayList<Frame>();
 		boolean recPositionDone = false;
-		
+
 		//declare condition to grab handle and move robot from handModeStiff mode
 		ForceComponentCondition standStillConditionX, standStillConditionY, standStillConditionZ;
 		standStillConditionX = new ForceComponentCondition(currentTCP, CoordinateAxis.X,
@@ -1067,67 +1067,81 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 				-maxForce, maxForce);
 		ICondition standStillCondition;
 		standStillCondition = standStillConditionX.or(standStillConditionY).or(standStillConditionZ);
-		
+
 		//standStill mode
 		handModeStiff.parametrize(CartDOF.TRANSL).setStiffness(3000).setDamping(1);
 		handModeStiff.parametrize(CartDOF.A).setStiffness(300);
 		handModeStiff.parametrize(CartDOF.B).setStiffness(300);
 		handModeStiff.parametrize(CartDOF.C).setStiffness(300);
-		
+
 		//free hand guiding mode
-		handModeLoose.parametrize(CartDOF.TRANSL).setStiffness(50).setDamping(0.1);
+		handModeLoose.parametrize(CartDOF.TRANSL).setStiffness(40).setDamping(0.1);
 		handModeLoose.parametrize(CartDOF.A).setStiffness(5);
-		handModeLoose.parametrize(CartDOF.B).setStiffness(40);
-		handModeLoose.parametrize(CartDOF.C).setStiffness(40);
-		
+		handModeLoose.parametrize(CartDOF.B).setStiffness(30);
+		handModeLoose.parametrize(CartDOF.C).setStiffness(30);
+
 		//loop recoring positions
 		while (!recPositionDone) {
-			
+
 			//set at standstill and wait for moving force
 			positionHoldContainer = currentTCP.moveAsync(new PositionHold(handModeStiff, -10, TimeUnit.SECONDS));
 			System.out.println("Grab the handle and start");
-			getObserverManager().waitFor(standStillCondition);
-			
+			getObserverManager().waitFor(standStillCondition);	//Grab the handle and move to break standStillCOndition
+
 			//set at hand guiding mode
-			positionHoldContainer.cancel();
+			positionHoldContainer.cancel();						
 			System.out.println("Switching to hand motion...");
-			
+
+			//bot moves freely, well kind of, its in free hand guiding mode not gravity compensation 
 			positionHoldContainer = currentTCP.moveAsync(new PositionHold(handModeLoose, -10, TimeUnit.SECONDS));
 
-			//PB press / release will record first position
+			//PB press/release will record first position
 			getObserverManager().waitFor(new BooleanIOCondition(pbFlangeTeach, true));
-			getObserverManager().waitFor(new BooleanIOCondition(pbFlangeTeach, false));
+			long delayTime = 2;
+			boolean bConditionResult = getObserverManager().waitFor(new BooleanIOCondition(pbFlangeTeach, false), delayTime, TimeUnit.SECONDS);
+			//getObserverManager().waitFor(new BooleanIOCondition(pbFlangeTeach, false));
 
-			//record current position and cancel motions, move to recorded position 
-			handPos = bot.getCurrentCartesianPosition(currentTCP, nullBase).copyWithRedundancy();
-			positionHoldContainer.cancel();
-			currentTCP.move(ptp(handPos));
-			
-			if (!manualGrinding) {				//no manual grinding with robot
-				recPositions.add(handPos);		//add position to array
-				System.out.println("Position " + recPositions.size() + " recorded");
-				iiwaDataStream.login();
-				iiwaDataStream.sendPosition(handPos, recPositions.size());
-				
-				//wait - delayTime value - for press on pushbutton to finish recording
-				//motions are blocked for that time
-				long delayTime = 2;
-				boolean bConditionResult = getObserverManager().waitFor(new BooleanIOCondition(pbFlangeTeach, true), delayTime, TimeUnit.SECONDS);
-				getObserverManager().waitFor(new BooleanIOCondition(pbFlangeTeach, false));
+			if (bConditionResult) {					//user release button (false) record point		
 
-				if (bConditionResult) {		//got push button - done recording
-					System.err.println("Done recording positions. Total recorded: " + recPositions.size());
-					recPositionDone = true;
+				//record current position and cancel motions, move to recorded position 
+				handPos = bot.getCurrentCartesianPosition(currentTCP, nullBase).copyWithRedundancy();
+				positionHoldContainer.cancel();
+				currentTCP.move(ptp(handPos));
+
+				if (!manualGrinding) {				//no manual grinding with robot
+					recPositions.add(handPos);		//add position to array
+					System.out.println("Position " + recPositions.size() + " recorded");
 					iiwaDataStream.login();
-					iiwaDataStream.write("EOT");
+					iiwaDataStream.sendPosition(handPos, recPositions.size());
+
+					//wait - delayTime value - for press on pushbutton to finish recording
+					//motions are blocked for that time
+					//long delayTime = 2;
+					//boolean bConditionResult = getObserverManager().waitFor(new BooleanIOCondition(pbFlangeTeach, true), delayTime, TimeUnit.SECONDS);
+					//getObserverManager().waitFor(new BooleanIOCondition(pbFlangeTeach, false));
+
+					//if (bConditionResult) {		//got push button - done recording
+					//	System.err.println("Done recording positions. Total recorded: " + recPositions.size());
+					//	recPositionDone = true;
+					//	iiwaDataStream.login();
+					//	iiwaDataStream.write("EOT");
+					//}
+
+				} else {		
+					
+					System.out.println("Manual Grinding Done");
+					StaticGlobals.grindManualReqKey = false;
+					beckhoffIO.setEK1100_DO01_GrindingToolReq(false);
+					getApplicationControl().halt();
+					return null;
 				}
 
-			} else {
-				System.out.println("Manual Grinding Done");
-				StaticGlobals.grindManualReqKey = false;
-				beckhoffIO.setEK1100_DO01_GrindingToolReq(false);
-				getApplicationControl().halt();
-				return null;
+			} else {								//push button was hold for duration of delayTime -> done recording
+				
+				System.err.println("Done recording positions. Total recorded: " + recPositions.size());
+				recPositionDone = true;
+				iiwaDataStream.login();
+				iiwaDataStream.write("EOT");
 			}
 		}
 		return recPositions;
@@ -1185,7 +1199,7 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 			return true;
 		}
 	}
-	
+
 	@Override
 	public void dispose() {
 		try {
@@ -1199,13 +1213,13 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		} catch (NullPointerException e1) {
 			System.err.println("Grinding Timer Failure" + e1);
 		}
-		
-//		try {
-//			forceTimer.timerStopAndKill();
-//		} catch (ThreadInterruptedException e) {
-//			System.err.println("Force Timer Failure");
-//			e.printStackTrace();
-//		}
+
+		//		try {
+		//			forceTimer.timerStopAndKill();
+		//		} catch (ThreadInterruptedException e) {
+		//			System.err.println("Force Timer Failure");
+		//			e.printStackTrace();
+		//		}
 		try {
 			System.out.println("Closing files");
 			logFile.flush();
@@ -1226,13 +1240,13 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 	public void setMaxForceExceeded(boolean maxForceExceeded) {
 		this.maxForceExceeded = maxForceExceeded;
 	}
-	
+
 	public void collectionStruggles() {
 		final IPersistenceEngine engine = this.getContext().getEngine(IPersistenceEngine.class);
 		final XmlApplicationDataSource defaultDataSource = (XmlApplicationDataSource) engine.getDefaultDataSource();
 		System.out.println(defaultDataSource.getName());
 		System.out.println(defaultDataSource.getDataFile());
-		
+
 		//Load all frames from default source as collection
 		Collection<? extends ObjectFrame> test1Collection = defaultDataSource.loadAllFrames();
 		//get iterator for given collection
@@ -1281,13 +1295,13 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 				System.out.println("Map after: " + redundancyMap2.toString());
 			}	
 		}
-		
+
 		System.out.println("HOLA !");
-//				Yet another way to iterate over collection	
-//				 for(ObjectFrame item : test1Collection) {
-//				 System.out.println(item.getName());  //nullFrame
-//				 System.out.println(item.copy());	  //[X=0.00 Y=0.00 Z=0.00 A=0.00 B=0.00 C=0.00]
-//			  }
+		//				Yet another way to iterate over collection	
+		//				 for(ObjectFrame item : test1Collection) {
+		//				 System.out.println(item.getName());  //nullFrame
+		//				 System.out.println(item.copy());	  //[X=0.00 Y=0.00 Z=0.00 A=0.00 B=0.00 C=0.00]
+		//			  }
 	}
 	public class MeRedundancy implements IRedundancyCollection {
 
@@ -1302,6 +1316,6 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 			// TODO Auto-generated method stub
 			return null;
 		}
-		
+
 	}
 }
