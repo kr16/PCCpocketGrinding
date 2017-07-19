@@ -1101,13 +1101,14 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 			boolean bConditionResult = getObserverManager().waitFor(new BooleanIOCondition(pbFlangeTeach, false), delayTime, TimeUnit.SECONDS);
 			//getObserverManager().waitFor(new BooleanIOCondition(pbFlangeTeach, false));
 
-			if (bConditionResult) {					//user release button (false) record point		
 
-				//record current position and cancel motions, move to recorded position 
-				handPos = bot.getCurrentCartesianPosition(currentTCP, nullBase).copyWithRedundancy();
-				positionHoldContainer.cancel();
-				currentTCP.move(ptp(handPos));
 
+			//record current position and cancel motions, move to recorded position 
+			handPos = bot.getCurrentCartesianPosition(currentTCP, nullBase).copyWithRedundancy();
+			positionHoldContainer.cancel();
+			currentTCP.move(ptp(handPos));
+
+			if (bConditionResult) {					//user release button (false) record point	
 				if (!manualGrinding) {				//no manual grinding with robot
 					recPositions.add(handPos);		//add position to array
 					System.out.println("Position " + recPositions.size() + " recorded");
@@ -1128,7 +1129,7 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 					//}
 
 				} else {		
-					
+
 					System.out.println("Manual Grinding Done");
 					StaticGlobals.grindManualReqKey = false;
 					beckhoffIO.setEK1100_DO01_GrindingToolReq(false);
@@ -1137,11 +1138,9 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 				}
 
 			} else {								//push button was hold for duration of delayTime -> done recording
-				
+
 				System.err.println("Done recording positions. Total recorded: " + recPositions.size());
 				recPositionDone = true;
-				positionHoldContainer.cancel();
-				currentTCP.move(ptp(handPos));
 				iiwaDataStream.login();
 				iiwaDataStream.write("EOT");
 			}
