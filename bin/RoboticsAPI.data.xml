@@ -2,265 +2,190 @@
 <RoboticsAPIData version="3">
     <world>
         <gravitation x="0.0" y="0.0" z="9.81"/>
-        <frame id="_b095cc2c-7242-45aa-be76-24bd694841dd" name="HotDotDispencer">
+        <frame id="_e92c1d70-e5dd-43ed-9565-e7da17fc8e58" name="nullBase">
             <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
             <additionalInformation>
-                <info key="LastModificationTime" type="java.lang.Long" value="1478009430607"/>
+                <info key="LastModificationTime" type="java.lang.Long" value="1487192180852"/>
                 <info key="UseAsBaseForJogging" type="java.lang.Boolean" value="true"/>
             </additionalInformation>
-            <redundancyData>
-                <redundancy transformationProviderName="legacy" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy"/>
-            </redundancyData>
-            <frame id="_293b614a-5f12-4c82-8ab8-d09303e664af" name="AppHotDot">
-                <transformation a="1.2617261628016008" b="1.513704108454437" c="-2.1635416178022715" x="-589.386146447885" y="300.7498252464559" z="21.56148162586976"/>
+            <frame id="_2ae9bff0-f0da-4d43-b43b-1770d5bae086" name="StartProcess">
+                <transformation a="1.148149270755393" b="1.5631395120735534" c="-1.9655521105634641" x="778.1642222989958" y="89.63542545467332" z="699.3782982709411"/>
                 <additionalInformation>
-                    <info key="LastModificationTime" type="java.lang.Long" value="1481112557767"/>
-                    <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="HotDotEE/IronVer01" tool="HotDotEE" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
-                        <tcpTransformation a="0.0" b="-0.3490658503988659" c="0.0" x="6.172" y="0.0" z="304.5"/>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1492697626035"/>
+                    <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="PccGrinderVer01/BallWorkingSD3" tool="PccGrinderVer01" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
+                        <tcpTransformation a="0.0" b="0.0" c="3.141592653589793" x="-116.18" y="-0.473834593235397" z="138.95"/>
                     </info>
+                    <info key="Comment" type="java.lang.String" value="Default positions for starting grind process."/>
                 </additionalInformation>
                 <redundancyData>
                     <redundancy transformationProviderName="KUKA_Sunrise_Cabinet_1/LBR_iiwa_14_R820_1" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy">
                         <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="6" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="56" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="2.097238895846719E-4" valueType="java.lang.Double"/>
+                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="104" valueType="java.lang.Integer"/>
+                        <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="0.0014080265935046707" valueType="java.lang.Double"/>
                     </redundancy>
                 </redundancyData>
             </frame>
-            <frame id="_78892da6-03a7-46d9-8a4e-cf57f4893a23" name="HeatGunCleanUp">
-                <transformation a="2.5114329848118127" b="1.5314085756839035" c="-2.200573907040481" x="-463.5521153616214" y="56.434062910509226" z="7.606423879663197"/>
+            <frame id="_b7e88d4d-d51a-4ce8-8ae0-7ed884ad4c86" name="appRightCoupon">
+                <transformation a="1.0531831209349276" b="1.550009177792604" c="-2.1197861408813217" x="703.4883372597761" y="181.63590890212853" z="649.3876654830672"/>
                 <additionalInformation>
-                    <info key="LastModificationTime" type="java.lang.Long" value="1480718298731"/>
-                    <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="HotDotEE/IronVer01" tool="HotDotEE" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
-                        <tcpTransformation a="0.0" b="-0.3490658503988659" c="0.0" x="6.172" y="0.0" z="304.5"/>
-                    </info>
-                </additionalInformation>
-                <redundancyData>
-                    <redundancy transformationProviderName="KUKA_Sunrise_Cabinet_1/LBR_iiwa_14_R820_1" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy">
-                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="6" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="56" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="7.514111478485938E-5" valueType="java.lang.Double"/>
-                    </redundancy>
-                </redundancyData>
-            </frame>
-        </frame>
-        <frame id="_7a4823b3-5109-4411-8195-8247e5783b6a" name="HotDotCoupon">
-            <transformation a="1.0915541117640364" b="1.5654281689786098" c="-2.002787221563807" x="741.917846493513" y="602.9878786328569" z="909.2536930717577"/>
-            <additionalInformation>
-                <info key="LastModificationTime" type="java.lang.Long" value="1499363232638"/>
-                <info key="UseAsBaseForJogging" type="java.lang.Boolean" value="true"/>
-                <info measurementMethod="Base3Point" timestamp="1499363232638" type="com.kuka.roboticsAPI.deviceModel.MeasurementInformation"/>
-            </additionalInformation>
-            <redundancyData>
-                <redundancy transformationProviderName="legacy" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy"/>
-            </redundancyData>
-            <frame id="_ae9a34c3-3698-4a0e-ba1e-3bb905256f37" name="AppCoupon">
-                <transformation a="-0.8681690052782813" b="1.5175154098507617" c="2.285661809997314" x="39.54024971057777" y="161.05388254471012" z="120.52560634784516"/>
-                <additionalInformation>
-                    <info key="LastModificationTime" type="java.lang.Long" value="1499365157638"/>
-                    <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="HotDotEEnoVRSI/Iron" tool="HotDotEEnoVRSI" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
-                        <tcpTransformation a="3.141592653589793" b="-1.2217304763960306" c="3.141592653589793" x="-338.73393052719825" y="3.5723055452235446" z="61.597354957850165"/>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1490108470961"/>
+                    <info key="Comment" type="java.lang.String" value="Orange stand right coupon approach position"/>
+                    <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="PccGrinderVer01/BallWorkingSD3" tool="PccGrinderVer01" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
+                        <tcpTransformation a="0.0" b="0.17453292519943295" c="3.141592653589793" x="-116.18" y="-0.473834593235397" z="138.95"/>
                     </info>
                 </additionalInformation>
                 <redundancyData>
                     <redundancy transformationProviderName="KUKA_Sunrise_Cabinet_1/LBR_iiwa_14_R820_1" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy">
                         <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="6" valueType="java.lang.Integer"/>
                         <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="104" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="1.9893808229622617E-5" valueType="java.lang.Double"/>
+                        <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="8.317050209452053E-5" valueType="java.lang.Double"/>
                     </redundancy>
                 </redundancyData>
             </frame>
-            <frame id="_398a9260-109c-451f-96b0-41559c8c22d2" name="RefPosLaserVer01">
-                <transformation a="-0.17064413579394264" b="-1.3806840038156099" c="-2.9794418531308344" x="321.4823505233181" y="39.910927263617026" z="187.29924216200902"/>
+            <frame id="_11023622-8ca8-43ce-8085-a50bb75393eb" name="P1">
+                <transformation a="0.5522124329809406" b="1.548901617974326" c="-2.2881155684993364" x="641.7304936062308" y="44.55730362242221" z="797.4939129228131"/>
                 <additionalInformation>
-                    <info key="LastModificationTime" type="java.lang.Long" value="1480360434856"/>
-                    <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="HotDotEE/VRSIfocalPoint" tool="HotDotEE" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
-                        <tcpTransformation a="0.0" b="0.7853981633974483" c="0.0" x="181.0" y="51.5" z="247.32"/>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1492712132367"/>
+                </additionalInformation>
+            </frame>
+            <frame id="_729dd281-ad30-4e20-8193-31974efe73ce" name="P2">
+                <transformation a="-2.0992193474457213" b="1.5593895757015122" c="0.9125095311858984" x="589.9335364540157" y="287.4125274695165" z="776.4688929212437"/>
+                <additionalInformation>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1492712132374"/>
+                </additionalInformation>
+            </frame>
+            <frame id="_e7e0006f-6a49-4f8b-890b-162a53a3cb37" name="P3">
+                <transformation a="-0.295290855487684" b="1.563728395179973" c="3.044094609895658" x="662.6937034527213" y="81.4521051429166" z="787.2625567520457"/>
+                <additionalInformation>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1492778705042"/>
+                </additionalInformation>
+            </frame>
+            <frame id="_a109cd92-efc7-4a5d-b6dc-77f6297363b8" name="P4">
+                <transformation a="-0.29528736026370056" b="1.5637284681804444" c="3.0440979105287913" x="662.6937237358776" y="81.45221134925488" z="787.2625185846094"/>
+                <additionalInformation>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1492778705047"/>
+                </additionalInformation>
+            </frame>
+            <frame id="_b752ad10-40ed-49a7-a853-faf920618876" name="P5">
+                <transformation a="-0.29528736026370056" b="1.5637284681804444" c="3.0440979105287913" x="662.6937237358776" y="81.45221134925488" z="787.2625185846094"/>
+                <additionalInformation>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1492778705053"/>
+                </additionalInformation>
+            </frame>
+            <frame id="_4b5d8521-a7dc-4f92-95ea-8fb0694068b3" name="P6">
+                <transformation a="-0.29528944952148656" b="1.5637285808758625" c="3.0440958594475163" x="662.6937450719863" y="81.45217992976765" z="787.2624370653106"/>
+                <additionalInformation>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1492778705063"/>
+                </additionalInformation>
+            </frame>
+            <frame id="_f4c7bc5b-12c6-4472-bd73-efb9de44b437" name="P8">
+                <transformation a="2.5885962327382344" b="1.5500744553775434" c="-0.3828310030755415" x="653.732725394005" y="98.71864294883238" z="772.9850469514414"/>
+                <additionalInformation>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1492779052655"/>
+                </additionalInformation>
+            </frame>
+            <frame id="_0cbe55cc-7528-42ff-b991-f491acd1fff6" name="Diablo7">
+                <transformation a="-0.29528671005761303" b="1.5637284328536785" c="3.0440986669244143" x="662.6937097834889" y="81.45213628467573" z="787.2625442590966"/>
+                <additionalInformation>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1492778705071"/>
+                </additionalInformation>
+            </frame>
+        </frame>
+        <frame id="_8196b7ba-3114-46a9-8844-0ac91e89a4cc" name="testBase">
+            <transformation a="-1.5983260102230943" b="0.0064165118549289095" c="1.5745726407872382" x="787.193660565692" y="324.3087163253445" z="564.7214954744654"/>
+            <additionalInformation>
+                <info key="LastModificationTime" type="java.lang.Long" value="1490194524383"/>
+                <info key="Comment" type="java.lang.String" value="Spiral testing"/>
+                <info key="UseAsBaseForJogging" type="java.lang.Boolean" value="true"/>
+                <info measurementMethod="Base3Point" timestamp="1490194524383" type="com.kuka.roboticsAPI.deviceModel.MeasurementInformation"/>
+            </additionalInformation>
+            <frame id="_2c090e8a-a281-4d72-b3cb-22d082341e7a" name="testPos">
+                <transformation a="-1.5282758873086701" b="-0.0015369838216202456" c="3.092623439599998" x="-304.239709962097" y="15.054179314091812" z="57.906769954538504"/>
+                <additionalInformation>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1488899630748"/>
+                    <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="PccGrinderVer01/Ball" tool="PccGrinderVer01" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
+                        <tcpTransformation a="0.0" b="-0.9599310885968813" c="0.0" x="-124.59594320019991" y="0.6794688580790565" z="147.08987618057188"/>
                     </info>
                 </additionalInformation>
                 <redundancyData>
                     <redundancy transformationProviderName="KUKA_Sunrise_Cabinet_1/LBR_iiwa_14_R820_1" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy">
                         <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="2" valueType="java.lang.Integer"/>
                         <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="24" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="2.4058327422007815E-4" valueType="java.lang.Double"/>
+                        <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="9.491504079734687E-5" valueType="java.lang.Double"/>
                     </redundancy>
                 </redundancyData>
             </frame>
-            <frame id="_e73363e7-b89d-4522-a827-be0737ecca03" name="TCPcalibrationVRSI">
-                <transformation a="0.535000727577133" b="1.5576293600871427" c="-2.6110559742996133" x="56.63342964743481" y="163.3997625719114" z="0.07656325979303347"/>
+            <frame id="_ad6772a4-72be-4588-ae36-67f8eca536af" name="testApproach">
+                <transformation a="-1.4740703859280895" b="0.001514660527432852" c="3.092485437155295" x="-251.8066198804315" y="46.20317514205385" z="143.9597737494197"/>
                 <additionalInformation>
-                    <info key="LastModificationTime" type="java.lang.Long" value="1480436963290"/>
-                    <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="HotDotEE/IronVer01" tool="HotDotEE" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
-                        <tcpTransformation a="0.0" b="-0.33682644370888654" c="0.0" x="5.754444287470302" y="0.527400909297516" z="304.02260339304854"/>
+                    <info key="LastModificationTime" type="java.lang.Long" value="1488834216915"/>
+                    <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="PccGrinderVer01/Ball" tool="PccGrinderVer01" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
+                        <tcpTransformation a="0.0" b="-0.9599310885968813" c="0.0" x="-124.59594320019991" y="0.6794688580790565" z="147.08987618057188"/>
                     </info>
                 </additionalInformation>
                 <redundancyData>
                     <redundancy transformationProviderName="KUKA_Sunrise_Cabinet_1/LBR_iiwa_14_R820_1" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy">
-                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="6" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="104" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="1.8605504329310938E-4" valueType="java.lang.Double"/>
-                    </redundancy>
-                </redundancyData>
-            </frame>
-            <frame id="_0aefbeab-14f0-4cdb-89a6-4df1e0ebef6b" name="TCPcalibrationKR">
-                <transformation a="0.5305024667635981" b="1.5576288427027178" c="-2.6154887353077143" x="83.06970304899232" y="132.85657277537663" z="3.0223527452731105"/>
-                <additionalInformation>
-                    <info key="LastModificationTime" type="java.lang.Long" value="1480437702693"/>
-                    <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="HotDotEE/IronVer01" tool="HotDotEE" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
-                        <tcpTransformation a="0.0" b="-0.33682644370888654" c="0.0" x="5.754444287470302" y="0.527400909297516" z="304.02260339304854"/>
-                    </info>
-                </additionalInformation>
-                <redundancyData>
-                    <redundancy transformationProviderName="KUKA_Sunrise_Cabinet_1/LBR_iiwa_14_R820_1" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy">
-                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="6" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="104" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="1.8653446342146876E-4" valueType="java.lang.Double"/>
-                    </redundancy>
-                </redundancyData>
-            </frame>
-            <frame id="_986cb374-33f1-47cb-90ed-dc0ef7194540" name="ReferencePos01">
-                <transformation a="-0.8664930908747174" b="1.5175077922810447" c="2.287351477189337" x="2.690923313739745" y="36.18183513254087" z="0.7234339628604403"/>
-                <additionalInformation>
-                    <info key="LastModificationTime" type="java.lang.Long" value="1499365131275"/>
-                    <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="HotDotEEnoVRSI/Iron" tool="HotDotEEnoVRSI" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
-                        <tcpTransformation a="3.141592653589793" b="-1.2217304763960306" c="3.141592653589793" x="-338.73393052719825" y="3.5723055452235446" z="61.597354957850165"/>
-                    </info>
-                </additionalInformation>
-                <redundancyData>
-                    <redundancy transformationProviderName="KUKA_Sunrise_Cabinet_1/LBR_iiwa_14_R820_1" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy">
-                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="6" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="104" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="2.330930849269727E-5" valueType="java.lang.Double"/>
-                    </redundancy>
-                </redundancyData>
-            </frame>
-            <frame id="_a644f7e7-db9b-49ed-a0a9-349c2ad04f97" name="ReferencePos02">
-                <transformation a="0.25588110254276825" b="1.5295835816872279" c="-2.9001998760479744" x="132.29011710605482" y="12.270374907336048" z="0.5588384499986887"/>
-                <additionalInformation>
-                    <info key="LastModificationTime" type="java.lang.Long" value="1481134343017"/>
-                    <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="HotDotEE/IronVer01" tool="HotDotEE" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
-                        <tcpTransformation a="0.0" b="-0.3490658503988659" c="0.0" x="6.172" y="0.0" z="304.5"/>
-                    </info>
-                </additionalInformation>
-                <redundancyData>
-                    <redundancy transformationProviderName="KUKA_Sunrise_Cabinet_1/LBR_iiwa_14_R820_1" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy">
-                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="6" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="104" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="2.0145484684740627E-4" valueType="java.lang.Double"/>
-                    </redundancy>
-                </redundancyData>
-            </frame>
-            <frame id="_5d816592-a332-4045-89d6-3a4cae2fa0f1" name="AppSkiveCleanUp">
-                <transformation a="2.990164954633046" b="1.451045466526181" c="-0.176886357276016" x="70.68014564080727" y="-100.81762560932853" z="41.26527150384595"/>
-                <additionalInformation>
-                    <info key="LastModificationTime" type="java.lang.Long" value="1480939577613"/>
-                    <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="HotDotEE/IronVer01" tool="HotDotEE" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
-                        <tcpTransformation a="0.0" b="-0.3490658503988659" c="0.0" x="6.172" y="0.0" z="304.5"/>
-                    </info>
-                </additionalInformation>
-                <redundancyData>
-                    <redundancy transformationProviderName="KUKA_Sunrise_Cabinet_1/LBR_iiwa_14_R820_1" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy">
-                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="6" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="104" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="2.1583592353509377E-4" valueType="java.lang.Double"/>
-                    </redundancy>
-                </redundancyData>
-            </frame>
-            <frame id="_a4407a43-2954-4ac5-9f20-58922d6b4947" name="ReferencePosSkiveCleanUp">
-                <transformation a="0.05087461490152078" b="1.3299841790913343" c="-3.0941082948325613" x="39.758192642654876" y="-208.65785848221813" z="-39.383030559659915"/>
-                <additionalInformation>
-                    <info key="LastModificationTime" type="java.lang.Long" value="1480940286949"/>
-                    <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="HotDotEE/IronVer01" tool="HotDotEE" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
-                        <tcpTransformation a="0.0" b="-0.3490658503988659" c="0.0" x="6.172" y="0.0" z="304.5"/>
-                    </info>
-                </additionalInformation>
-                <redundancyData>
-                    <redundancy transformationProviderName="KUKA_Sunrise_Cabinet_1/LBR_iiwa_14_R820_1" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy">
-                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="6" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="104" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="2.2434473087807813E-4" valueType="java.lang.Double"/>
-                    </redundancy>
-                </redundancyData>
-            </frame>
-            <frame id="_1159d461-57b8-4ba9-95b9-279262a15916" name="ReferencePos03">
-                <transformation a="1.3996400623514944" b="1.5267214770109439" c="-1.7454284024654227" x="192.51836279691247" y="31.438238054801758" z="-4.712552006370856"/>
-                <additionalInformation>
-                    <info key="LastModificationTime" type="java.lang.Long" value="1480969858453"/>
-                    <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="HotDotEE/IronVer01" tool="HotDotEE" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
-                        <tcpTransformation a="0.0" b="-0.3490658503988659" c="0.0" x="6.172" y="0.0" z="304.5"/>
-                    </info>
-                </additionalInformation>
-                <redundancyData>
-                    <redundancy transformationProviderName="KUKA_Sunrise_Cabinet_1/LBR_iiwa_14_R820_1" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy">
-                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="6" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="104" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="1.1948273154420314E-4" valueType="java.lang.Double"/>
-                    </redundancy>
-                </redundancyData>
-            </frame>
-        </frame>
-        <frame id="_5818b846-bea2-4f53-9041-9bbd1b5fc169" name="nullBase">
-            <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
-            <additionalInformation>
-                <info key="LastModificationTime" type="java.lang.Long" value="1480941177468"/>
-                <info key="UseAsBaseForJogging" type="java.lang.Boolean" value="true"/>
-            </additionalInformation>
-            <redundancyData>
-                <redundancy transformationProviderName="legacy" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy"/>
-            </redundancyData>
-        </frame>
-        <frame id="_e5db4bde-4b07-4070-a8ab-7db769758c41" name="SpiralTest">
-            <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
-            <additionalInformation>
-                <info key="LastModificationTime" type="java.lang.Long" value="1481648156201"/>
-                <info key="UseAsBaseForJogging" type="java.lang.Boolean" value="true"/>
-            </additionalInformation>
-            <frame id="_43de695e-0fe0-418f-affd-b83255dda971" name="SpiralTestStart">
-                <transformation a="2.230920027384449" b="1.5621962432990921" c="-2.484096160005356" x="5.588155657838356" y="-909.4019742681844" z="-88.09975265028089"/>
-                <additionalInformation>
-                    <info key="LastModificationTime" type="java.lang.Long" value="1481731274100"/>
-                    <info base="LBR_iiwa_14_R820_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_14_R820_1" tcpName="HotDotEE/IronVer01" tool="HotDotEE" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
-                        <tcpTransformation a="0.0" b="-0.3490658503988659" c="0.0" x="6.172" y="0.0" z="304.5"/>
-                    </info>
-                </additionalInformation>
-                <redundancyData>
-                    <redundancy transformationProviderName="KUKA_Sunrise_Cabinet_1/LBR_iiwa_14_R820_1" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy">
-                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="6" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="105" valueType="java.lang.Integer"/>
-                        <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="5.5786613379964256E-5" valueType="java.lang.Double"/>
+                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="2" valueType="java.lang.Integer"/>
+                        <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="24" valueType="java.lang.Integer"/>
+                        <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="1.1636677355053095E-4" valueType="java.lang.Double"/>
                     </redundancy>
                 </redundancyData>
             </frame>
         </frame>
     </world>
     <objectTemplates>
-        <toolTemplate class="" name="HotDotEE">
+        <toolTemplate class="" defaultMotionFrameRef="" name="PccGrinderVer01">
             <frames>
-                <frame id="_fd0c71d9-c934-4c64-ad69-b386759489a8" name="IronVer01">
-                    <transformation a="0.0" b="-0.3490658503988659" c="0.0" x="6.172" y="0.0" z="304.5"/>
+                <frame id="_1d8d6ae5-594d-414d-9b9e-1bbb409ec222" name="BallSD6">
+                    <transformation a="0.0" b="-0.9599310885968813" c="0.0" x="-124.59594320019991" y="0.6794688580790565" z="147.08987618057188"/>
                 </frame>
-                <frame id="_2187036f-97ff-4f09-9d5d-fb9ad845d0d3" name="dynamicTCP">
-                    <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
+                <frame id="_198ebf7e-5b7f-423d-8372-59cf3485140f" name="BallSD3">
+                    <transformation a="0.0" b="-0.9599310885968813" c="0.0" x="-120.11672121920664" y="-0.473834593235397" z="141.70056173560005"/>
                 </frame>
-                <frame id="_6f029a6b-f934-4abd-92f7-d9ba14180de6" name="NullTool">
-                    <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
+                <frame id="_86f5c515-9a0b-4eb2-8a03-5554919b278f" name="BallWorkingSD6">
+                    <transformation a="0.0" b="0.08726646259971647" c="3.141592653589793" x="-118.128" y="0.7" z="142.568"/>
+                    <additionalInformation>
+                        <info key="Comment" type="java.lang.String" value="15.8mm 5/8 inch&#13;&#10;SD-6&#13;&#10;"/>
+                    </additionalInformation>
                 </frame>
-                <frame id="_bd0903ab-42a9-4b5e-bf4e-307eed5c4179" name="VRSIfocalPoint">
-                    <transformation a="0.0" b="-0.3490658503988659" c="0.0" x="8.0" y="-29.5" z="321.0"/>
+                <frame id="_9cc15670-439c-4543-9a1e-85c0ff055d20" name="BallWorkingSD3">
+                    <transformation a="0.0" b="0.0" c="3.141592653589793" x="-116.18" y="-0.473834593235397" z="138.95"/>
+                    <additionalInformation>
+                        <info key="Comment" type="java.lang.String" value="9.6mm 3/16 inch&#13;&#10;SD-3 "/>
+                    </additionalInformation>
+                </frame>
+                <frame id="_25ce770b-5f51-4333-ba3e-6e8900c2968d" name="BallSD51SC">
+                    <transformation a="0.0" b="-0.9599310885968813" c="0.0" x="-119.67541841115813" y="-0.1403891942213764" z="141.9058394707677"/>
+                    <additionalInformation>
+                        <info key="Comment" type="java.lang.String" value="6.35mm 1/4 inch &#13;&#10;SD-51-SC"/>
+                    </additionalInformation>
+                </frame>
+                <frame id="_71659b04-c224-4c94-8d95-36ea2bda40f1" name="BallWorkingSD51SC">
+                    <transformation a="0.0" b="0.08726646259971647" c="3.141592653589793" x="-117.07" y="-0.14" z="140.08"/>
+                    <additionalInformation>
+                        <info key="Comment" type="java.lang.String" value="6.35mm 1/4 inch &#13;&#10;SD-51-SC"/>
+                    </additionalInformation>
+                </frame>
+                <frame id="_131c8f56-d2b0-4efe-aedb-e05fc226d899" name="BallSD5SC">
+                    <transformation a="0.0" b="-0.9599310885968813" c="0.0" x="-123.22941384375878" y="-1.9584968695246312" z="146.19507658255696"/>
+                </frame>
+                <frame id="_1790aa16-0c29-46db-abc2-9aadd135f038" name="BallWorkingSD5SC">
+                    <transformation a="0.0" b="0.0" c="3.141592653589793" x="-118.03" y="-1.96" z="142.55"/>
+                    <additionalInformation>
+                        <info key="Comment" type="java.lang.String" value="12.7mm 1/2 inch&#13;&#10;SD-5 S/C"/>
+                    </additionalInformation>
+                </frame>
+                <frame id="_b005163a-ed51-43f9-9616-d28d1971ba0c" name="HCR">
+                    <transformation a="0.0" b="-0.9599310885968813" c="0.0" x="-91.0" y="0.0" z="30.0"/>
+                    <additionalInformation>
+                        <info key="Comment" type="java.lang.String" value="Use this only for HCR mode&#13;&#10;TCP sets at center of gravity"/>
+                    </additionalInformation>
                 </frame>
             </frames>
-            <loadData cogA="0.0" cogB="0.0" cogC="0.0" cogX="-22.06164403369066" cogY="10.610565034529268" cogZ="111.14037990396687" inertiaX="0.0" inertiaY="0.0" inertiaZ="0.0" mass="3.9566813325139805"/>
-        </toolTemplate>
-        <toolTemplate class="" name="HotDotEEnoVRSI">
-            <frames>
-                <frame id="_3dcbab47-f7ed-4dca-9618-7d750905639a" name="Iron">
-                    <transformation a="0.0" b="-1.9198621771937625" c="0.0" x="-338.73393052719825" y="3.5723055452235446" z="61.597354957850165"/>
-                </frame>
-                <frame id="_36f65d3c-8b20-4f46-8a66-a44b1cc92748" name="dynamicTCP">
-                    <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
-                </frame>
-            </frames>
-            <loadData cogA="0.0" cogB="0.0" cogC="0.0" cogX="-116.10746787206617" cogY="-3.030927386334712" cogZ="41.1594766614413" inertiaX="0.0" inertiaY="0.0" inertiaZ="0.0" mass="2.4"/>
+            <loadData cogA="0.0" cogB="0.0" cogC="0.0" cogX="-91.99438895000425" cogY="0.11462472434756946" cogZ="33.97724536385368" inertiaX="0.0" inertiaY="0.0" inertiaZ="0.0" mass="2.9381845120796246"/>
         </toolTemplate>
     </objectTemplates>
+    <processDataContainer>
+        <processData dataType="java.lang.Integer" defaultValue="0" displayName="Process Counter" id="processCounter" max="1000.0" min="0.0" value="2"/>
+    </processDataContainer>
 </RoboticsAPIData>

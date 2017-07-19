@@ -24,7 +24,7 @@ import com.kuka.roboticsAPI.motionModel.PTP;
 public class PositionAndGMSReferencing extends RoboticsAPIApplication {
     private Controller kukaController;
     private LBR lbr_iiwa;
-    private Tool HotDotIronNoVRSI;
+    private Tool PCC_EE;
     
     private final static double sideOffset = Math.toRadians(5);       // offset in radians for side motion
     private static double joggingVelocity = 0.2;                      // relative velocity
@@ -37,12 +37,12 @@ public class PositionAndGMSReferencing extends RoboticsAPIApplication {
     {
         kukaController = (Controller) getContext().getControllers().toArray()[0];
         lbr_iiwa = (LBR) kukaController.getDevices().toArray()[0];
-        HotDotIronNoVRSI = getApplicationData().createFromTemplate("HotDotEEnoVRSI");
+        PCC_EE = getApplicationData().createFromTemplate("PccGrinderVer01");
     }
 
     public void run()
     {
-    	HotDotIronNoVRSI.attachTo(lbr_iiwa.getFlange());
+    	PCC_EE.attachTo(lbr_iiwa.getFlange());
         PositionMastering mastering = new PositionMastering(lbr_iiwa);
 
         boolean allAxesMastered = true;
@@ -81,7 +81,7 @@ public class PositionAndGMSReferencing extends RoboticsAPIApplication {
                                             Math.toRadians(23.04),
                                             Math.toRadians(37.35),
                                             Math.toRadians(-67.93),
-                                            Math.toRadians(38.14),
+                                            Math.toRadians(40.14),
                                             Math.toRadians(-2.13)));
             
             performMotion(new JointPosition(Math.toRadians(18.51),
@@ -89,7 +89,7 @@ public class PositionAndGMSReferencing extends RoboticsAPIApplication {
                                             Math.toRadians(-1.90),
                                             Math.toRadians(49.58),
                                             Math.toRadians(-2.92),
-                                            Math.toRadians(18.60),
+                                            Math.toRadians(20.60),
                                             Math.toRadians(-31.18)));
 
             performMotion(new JointPosition(Math.toRadians(-18.53),
@@ -97,7 +97,7 @@ public class PositionAndGMSReferencing extends RoboticsAPIApplication {
                                             Math.toRadians(-47.03),
                                             Math.toRadians(-49.55),
                                             Math.toRadians(30.76),
-                                            Math.toRadians(-30.73),
+                                            Math.toRadians(-32.73),
                                             Math.toRadians(20.11)));
 
             performMotion(new JointPosition(Math.toRadians(-48.66),
@@ -105,7 +105,7 @@ public class PositionAndGMSReferencing extends RoboticsAPIApplication {
                                             Math.toRadians(-11.52),
                                             Math.toRadians(10.48),
                                             Math.toRadians(-11.38),
-                                            Math.toRadians(-20.70),
+                                            Math.toRadians(-22.70),
                                             Math.toRadians(20.87)));
 
             performMotion(new JointPosition(Math.toRadians(9.01),
@@ -113,7 +113,7 @@ public class PositionAndGMSReferencing extends RoboticsAPIApplication {
                                             Math.toRadians(24.72),
                                             Math.toRadians(-82.04),
                                             Math.toRadians(14.65),
-                                            Math.toRadians(-29.95),
+                                            Math.toRadians(-31.95),
                                             Math.toRadians(1.57)));
             
             // Move to home position at the end
@@ -140,7 +140,7 @@ public class PositionAndGMSReferencing extends RoboticsAPIApplication {
         lbr_iiwa.move(mainMotion);
 
         // Wait a little to reduce robot vibration after stop.
-        ThreadUtil.milliSleep(4500);
+        ThreadUtil.milliSleep(2500);
         
         // Send the command to safety to trigger the measurement
         sendSafetyCommand();
@@ -156,7 +156,7 @@ public class PositionAndGMSReferencing extends RoboticsAPIApplication {
         lbr_iiwa.move(mainMotion);
 
         // Wait a little to reduce robot vibration after stop
-        ThreadUtil.milliSleep(4500);
+        ThreadUtil.milliSleep(2500);
         
         // Send the command to safety to trigger the measurement
         sendSafetyCommand();

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <ConfigurationProject>
     <TopologyItem itemPath="com.kuka/Project" name="Project" selectedVersion="1" uniqueID="">
-        <TopologyItem itemPath="com.kuka/ControllerLBR5" name="KUKA_Sunrise_Cabinet_1" selectedVersion="1" uniqueID="67a85b3c-e476-457b-8e25-9540c1b3e78a">
-            <TopologyItem itemPath="com.kuka/LBR5_14kg" name="LBR_iiwa_14_R820_1" selectedVersion="2" uniqueID="be24b741-e6fa-45c2-b8d2-12efad3d2265">
+        <TopologyItem itemPath="com.kuka/ControllerLBR5" name="KUKA_Sunrise_Cabinet_1" selectedVersion="1" uniqueID="1ebf575b-521b-451c-958b-a2ba06469b5c">
+            <TopologyItem itemPath="com.kuka/LBR5_14kg" name="LBR_iiwa_14_R820_1" selectedVersion="2" uniqueID="eedc2aae-a68c-4cd1-a7e7-7587e72f5e0c">
                 <Property displayName="userName" key="userName" type="String">
                     <Value>LBR_iiwa_14_R820_1</Value>
                 </Property>

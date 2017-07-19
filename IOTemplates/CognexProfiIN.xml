@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SunriseIOGroupDescription xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.0.0">
+  <IOGroup DisplayName="CognexProfiNet" IconName="CognexProfiNet" SignalTypes="InOut" TemplateName="CognexProfiNet">
+    <IOs>
+      <DigitalIOItem Name="AcquisutionCtrlReg0" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="AcquisutionCtrlReg1" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="AcquisutionCtrlReg7" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="AcquisutionStatusReg0" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="AcquisutionStatusReg1" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="AcquisutionStatusReg2" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="AcquisutionStatusReg3" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="AcquisutionStatusReg4" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="AcquisutionStatusReg5" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="AcquisutionStatusReg6" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="AcquisutionStatusReg7" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult0" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionCtrlReg0" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionCtrlReg1" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionStatusReg0" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionStatusReg1" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionStatusReg2" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionStatusReg3" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionStatusReg4" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionStatusReg5" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionStatusReg6" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="CurrentJobID" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="SetCurrentJobID" DataType="BYTE" IOType="Output" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="SoftEventCtrlModule0" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="SoftEventCtrlModule1" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="SoftEventCtrlModule2" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="SoftEventCtrlModule3" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="SoftEventCtrlModule4" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="SoftEventCtrlModule5" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="SoftEventCtrlModule6" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="SoftEventCtrlModule7" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="UserData0" DataType="BYTE" IOType="Output" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="UserData1" DataType="BYTE" IOType="Output" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="UserData2" DataType="BYTE" IOType="Output" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="UserData3" DataType="BYTE" IOType="Output" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="UserData4" DataType="BYTE" IOType="Output" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="UserData5" DataType="BYTE" IOType="Output" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="UserData6" DataType="BYTE" IOType="Output" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="UserData7" DataType="BYTE" IOType="Output" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="UserData8" DataType="BYTE" IOType="Output" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionCount" DataType="UINT" IOType="Input" UsedBitWidth="16" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="ResultCode" DataType="INT" IOType="Input" UsedBitWidth="16" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult1" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult2" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult3" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult4" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult5" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult6" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult7" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult8" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult9" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult10" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult11" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult12" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult13" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult14" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult15" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult16" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult17" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult18" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult19" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult20" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult21" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult22" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult23" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult24" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult25" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult26" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult27" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult28" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult29" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult30" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult31" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult32" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult33" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult34" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult35" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult36" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult37" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult38" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult39" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult40" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult41" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult42" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult43" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult44" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult45" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult46" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult47" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult48" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult49" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult50" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult51" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult52" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult53" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult54" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult55" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult56" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult57" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult58" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult59" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult60" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult61" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult62" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="InspectionResult63" DataType="BYTE" IOType="Input" UsedBitWidth="8" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+    </IOs>
+    <Description>Cognex describe how the In-Sight sensors ProfiNET capabilities are configured</Description>
+  </IOGroup>
+</SunriseIOGroupDescription>

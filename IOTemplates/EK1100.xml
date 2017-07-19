@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SunriseIOGroupDescription xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.0.0">
+  <IOGroup DisplayName="EK1100" IconName="EK1100" SignalTypes="InOut" TemplateName="EK1100">
+    <IOs>
+      <DigitalIOItem Name="EK1100_DI01" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="EK1100_DI02" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="EK1100_DI04" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="EK1100_DI05" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="EK1100_DI06" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="EK1100_DI08" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="EK1100_DI03" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="EK1100_DI07" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="EK1100_DI09" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="EK1100_DI10" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="EK1100_DI11" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="EK1100_DI12" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="EK1100_DI13" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="EK1100_DI14" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="EK1100_DI15" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="EK1100_DI16" DataType="BOOL" IOType="Input" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="EK1100_DO01" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="EK1100_DO02" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="EK1100_DO03" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="EK1100_DO04" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="EK1100_DO05" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="EK1100_DO06" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="EK1100_DO07" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="EK1100_DO08" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="EK1100_DO09" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="EK1100_DO10" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="EK1100_DO11" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="EK1100_DO12" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="EK1100_DO13" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="EK1100_DO14" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="EK1100_DO15" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+      <DigitalIOItem Name="EK1100_DO16" DataType="BOOL" IOType="Output" UsedBitWidth="1" IsConnected="false">
+        <Description />
+      </DigitalIOItem>
+    </IOs>
+    <Description>16 Ins and Outs</Description>
+  </IOGroup>
+</SunriseIOGroupDescription>
