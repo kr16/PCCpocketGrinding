@@ -362,7 +362,7 @@ public class vrsiRepositionTest extends RoboticsAPIApplication {
 					currentTCP.move(ptp(startOffsetted).setJointVelocityRel(0.2));
 					if (!airTest) {
 						Frame corrFrame = new Frame (toolPosCorrection(currentTCP));
-						System.out.println("correction move...");
+						System.out.println("correction move..." + corrFrame.toString());
 						currentTCP.move(linRel(	corrFrame.getX(), corrFrame.getY(), corrFrame.getZ(), 
 												corrFrame.getAlphaRad(), corrFrame.getBetaRad(), corrFrame.getGammaRad()).setCartVelocity(5));
 						
