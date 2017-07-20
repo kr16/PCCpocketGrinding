@@ -174,8 +174,11 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		this.setMaxForceExceeded(false);
 		airTest = false;
 		recPositions = new ArrayList<Frame>();
-		iiwaDataStream = new StreamDataCommLib("172.31.1.230", 30008);
-
+		
+		////////////////////Laptop IP & port running control app /////////////////
+		iiwaDataStream = new StreamDataCommLib("172.31.1.230", 30008); 
+		//////////////////////////////////////////////////////////////////////////
+		
 	}
 
 	@Override
