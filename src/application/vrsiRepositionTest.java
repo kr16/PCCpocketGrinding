@@ -1107,7 +1107,7 @@ public class vrsiRepositionTest extends RoboticsAPIApplication {
 			if (vrsiComm.scanEmptyFastener(holeID, holeDiameter, fastenerType, timeout)) {
 				VRSIemptyFastener vrsiData = new VRSIemptyFastener(vrsiComm.getEmptyFastenerData());
 				Frame corrLimits = new Frame(10, 10, 10, 10, 10, 10);
-				checkDataPlausibility(corrLimits, vrsiData);
+				checkVRSIdataPlausibility(corrLimits, vrsiData);
 				double x = vrsiData.getPosX();
 				double y = vrsiData.getPosY();
 				double z = vrsiData.getPosZ();
@@ -1127,13 +1127,23 @@ public class vrsiRepositionTest extends RoboticsAPIApplication {
 		}
 	}
 
-	private boolean checkDataPlausibility(Frame correctionLimits, VRSIemptyFastener vrsiCorrection){
+	/**
+	 * Verify VRSI position/normalization data against given limits
+	 * Only Cartesian data is verified 
+	 * Negative values are made absolute and compare if greater than limit
+	 * 
+	 * @param correctionLimits	- Frame,  user set limits in mm and degrees X Y Z A B C 
+	 * @param vrsiCorrection	- VRSIemptyFastener class, pulls X Y Z A B C data from VRSI object to compare against limits
+	 * @return					- true  if data is within limits
+	 * 							- false otherwise (error message)
+	 */
+	private boolean checkVRSIdataPlausibility(Frame correctionLimits, VRSIemptyFastener vrsiCorrection){
 		if (	Math.abs(vrsiCorrection.getPosX()) > correctionLimits.getX() ||
 				Math.abs(vrsiCorrection.getPosY()) > correctionLimits.getY() ||
 				Math.abs(vrsiCorrection.getPosZ()) > correctionLimits.getZ() ||
-				Math.abs(vrsiCorrection.getRotA()) > Math.toDegrees(correctionLimits.getAlphaRad()) ||
-				Math.abs(vrsiCorrection.getRotB()) > Math.toDegrees(correctionLimits.getBetaRad())	||
-				Math.abs(vrsiCorrection.getRotC()) > Math.toDegrees(correctionLimits.getGammaRad()) 	) {
+				Math.abs(vrsiCorrection.getRotA()) > correctionLimits.getAlphaRad() ||
+				Math.abs(vrsiCorrection.getRotB()) > correctionLimits.getBetaRad()	||
+				Math.abs(vrsiCorrection.getRotC()) > correctionLimits.getGammaRad()) {
 			System.err.println("Data Plausability Error! VRSI positional data: " + vrsiCorrection.toString() + 
 					"\n\nLimits: " + correctionLimits.toString());
 			return false;
