@@ -361,47 +361,15 @@ public class vrsiRepositionTest extends RoboticsAPIApplication {
 					System.out.println("Moving to defect position");
 					currentTCP.move(ptp(startOffsetted).setJointVelocityRel(0.2));
 					if (!airTest) {
-						Frame corrFrame = new Frame ();
-						corrFrame = toolPosCorrection(bot.getCurrentCartesianPosition(currentTCP).copy());
+						Frame corrFrame = toolPosCorrection(bot.getCurrentCartesianPosition(currentTCP).copy());
+						//corrFrame = toolPosCorrection(bot.getCurrentCartesianPosition(currentTCP).copy());
 						System.out.println("correction move..." + corrFrame.toString());
-						currentTCP.move(lin(corrFrame).setCartVelocity(5));
+						currentTCP.move(lin(corrFrame).setCartVelocity(1));
 						
 						getApplicationControl().halt();
-						
-						searchPart.recordPosition(ESearchDirection.NegZ, 5, 10, 1, 0,
-								currentTCP, nullBase, bot);
-						if (searchPart.getResult()) {
-							atPart = searchPart.getPosition();
-						} else {
-							throw new ArithmeticException(
-									"No part detected, adjust start position , restart program");
-						}
 
 					} else {
 						atPart = startOffsetted;
-					}
-
-					currentTCP.move(lin(startOffsetted).setCartVelocity(10));
-					if (!airTest) {
-						eeTool.grindingStart();
-					}
-					logFile.println("Process number: " + processCounter);
-					logFile.println("Cutter info:\n " + currentTCP.getName() + "\n" + currentTCP.getAdditionalParameter("Comment") + "\n");
-					System.out.println("Process number: " + processCounter);
-					grindingProcess(atPart);				//grinding subroutine
-					grindingProcessTimer.timerStopAndKill();		//timer stop
-					String processTimer = "Process timer: "
-							+ (grindingProcessTimer.getTimerValue() / 1000) + "s";
-					System.out.println(processTimer);
-					logFile.println(processTimer);
-
-					StaticGlobals.grindManualReqKey = false;
-					ThreadUtil.milliSleep(500);
-					eeTool.grindingStop();
-
-					//Edge finish if no timeout 
-					if (!shape.isTimeOut()) {
-						edgeFinish(offsetedPos, shape.getTravelDistance(), eeTool.getCutterRadius());
 					}
 
 					//ESM 2 activate
@@ -1137,9 +1105,6 @@ private Frame toolPosCorrection(Frame currentTCPpos) {
 				
 				Transformation tcpShift = Transformation.ofDeg(x, y, z, alpha, beta, gamma);
 				Frame vrsiCorrection = currentTCPpos.copy();
-				System.out.println(vrsiCorrection.toString());
-				System.out.println(tcpShift.toString());
-				System.out.println(vrsiCorrection.transform(tcpShift).toString());
 				return vrsiCorrection.transform(tcpShift);
 				
 			} else {
