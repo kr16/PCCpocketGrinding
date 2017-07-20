@@ -362,6 +362,7 @@ public class vrsiRepositionTest extends RoboticsAPIApplication {
 					currentTCP.move(ptp(startOffsetted).setJointVelocityRel(0.2));
 					if (!airTest) {
 						Frame corrFrame = new Frame (toolPosCorrection(currentTCP));
+						System.out.println("correction move...");
 						currentTCP.move(linRel(	corrFrame.getX(), corrFrame.getY(), corrFrame.getZ(), 
 												corrFrame.getAlphaRad(), corrFrame.getBetaRad(), corrFrame.getGammaRad()).setCartVelocity(5));
 						
@@ -471,42 +472,6 @@ public class vrsiRepositionTest extends RoboticsAPIApplication {
 	}
 
 	public void sinusModeExec(Frame atPart) {
-
-		CartDOF oscillationAxis;
-		switch (CartDOF.valueOf(globalVarFromPLC.getVarString("sineWorkingDirection"))) {
-		case X:
-			oscillationAxis = CartDOF.X;
-			break;
-		case Y:
-			oscillationAxis = CartDOF.Y;
-			break;
-
-		default:
-			oscillationAxis = null;
-			break;
-		}
-
-		double frequency = globalVarFromPLC.getVarDouble("sineFrequency"); 
-		double amplitude = globalVarFromPLC.getVarDouble("sineAmplitude"); 
-		double planeStiffness = globalVarFromPLC.getVarDouble("sinePlaneStiffness");
-
-		double workingDirStiffness = globalVarFromPLC.getVarDouble("sineWorkingDirStiffness");
-		double workingDiradditionalForce = globalVarFromPLC.getVarDouble("sineWorkingDirAdditionalForce");
-		double travelDistance = globalVarFromPLC.getVarDouble("sineTravelDistance");		
-		double travelVelocity = globalVarFromPLC.getVarDouble("sineTravelVelocity");
-
-		long totalTimeSecs = (long) (travelDistance/travelVelocity); 
-
-		double additionalZForce = globalVarFromPLC.getVarDouble("simpleWorkingDirAdditionalForce");
-		double zProgress = globalVarFromPLC.getVarDouble("simpleZProgress");
-		long totalTime = globalVarFromPLC.getVarLong("simpleTotalTime");
-		double expectedDepth = globalVarFromPLC.getVarDouble("simpleExpectedDepth");
-		double zStiffness = globalVarFromPLC.getVarDouble("simpleWorkingDirStiffness");
-
-		shape = new SimpleMode(	additionalZForce, zProgress, travelDistance,
-				travelVelocity, totalTime, oscillationAxis, 
-				expectedDepth, zStiffness);
-		offsetedPos = shape.executeMode(eeTool, atPart, bot, grindingProcessTimer, logFile);
 
 	}
 	///////////////////////////////////////////////////////////////////////////////////
