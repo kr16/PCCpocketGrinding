@@ -46,13 +46,13 @@ public class StreamDataCommLib {
 	private int iiwaBufferDataSizeMax; 
 	private int iiwaBufferDataSize;
 	private String className;
-	
+
 	//Object properties
 	private String username;
 	private String password;
 	private String serverAddress;
 	private int serverPort;
-	
+
 	private final int defaultMsgNumber = 9999;
 	private final String defaultDelimiter = ";";  
 
@@ -61,7 +61,7 @@ public class StreamDataCommLib {
 		this.setServerAddress(serverAddress);
 		this.setServerPort(serverPort);		
 	}
-	
+
 	public StreamDataCommLib(String serverAddress, String user, String password) {
 		this.initialize();
 		this.setUsername(user);
@@ -95,7 +95,7 @@ public class StreamDataCommLib {
 	 */
 	private boolean login() {
 		if (telnet.isConnected()) return true;
-		
+
 		System.out.printf("Sunrise --> Opening connection to SimpleDataServer at: " + getServerAddress() + " port: " + getServerPort() + "...");
 		try {
 			// Connect to the server
@@ -106,7 +106,7 @@ public class StreamDataCommLib {
 			// Get input and output stream 
 			in = telnet.getInputStream();
 			out = new PrintStream(telnet.getOutputStream());
-			
+
 			System.out.printf("Sunrise --> ...established \n");
 			return true;
 		}
@@ -142,15 +142,11 @@ public class StreamDataCommLib {
 		}
 		System.out.println();
 		System.out.println("");
-		try {
-			throw new LoginException("Failed " + counter + " login attempts <StreamDataCommLib.login()>" );
-		} catch (LoginException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		System.err.println("Failed " + counter + " login attempts <StreamDataCommLib.login()>" );
+
 		return false;
 	}
-	
+
 	public void disconnect() {
 		if (telnet.isConnected()) {
 			try {
@@ -189,14 +185,14 @@ public class StreamDataCommLib {
 			} else {
 				System.err.println("Server response Byte buffer value: " + getLucanaBufferDataSize());
 			}
-				
+
 		} catch (IOException e) {
 			//e.printStackTrace();
 			return null;
 		}
 		return getLucanaBufferData();
 	}
-	
+
 	/**
 	 * Read device response after command was send.
 	 * Method returns array of bytes decoded to ASCII String. 
@@ -208,19 +204,19 @@ public class StreamDataCommLib {
 		this.getServerCommandResponseByte();
 		return displayServerDataAscii();
 	}
-	
+
 	@Override
 	public String toString() {
 		return displayBufferAscii(getLucanaBufferData());
 	}
-	
+
 	public String lucanaDatatoString() {
 		if (getLucanaBufferDataSize() > 0) {
 			String lucanaDataString = displayBufferAscii(getLucanaBufferData());
 			return lucanaDataString;
 		} else {
 			System.err.println("Data Buffer is empty!"
-								+ className);
+					+ className);
 			return null;
 		}
 	}
@@ -231,13 +227,13 @@ public class StreamDataCommLib {
 	public void sendPosition(Frame pos, int posNum) {
 		if(posNum < 0) {
 			System.err.println("Negative numbers for position number NOT ALLOWED!" 
-								+ className
-								+ " Default message number set to: " + this.defaultMsgNumber);
+					+ className
+					+ " Default message number set to: " + this.defaultMsgNumber);
 			posNum = this.defaultMsgNumber;
 		}
 		sendPos(pos, posNum);
 	}
-	
+
 	private void sendPos(Frame pos, int posNum) {
 		String prefix = "POS";
 		String postfix = "ETX";
@@ -245,7 +241,7 @@ public class StreamDataCommLib {
 		String posMsg = prefix + defaultDelimiter + posNum + defaultDelimiter + pos + defaultDelimiter + postfix;
 		this.write(posMsg);
 	}
-	
+
 	public String displayServerDataAscii() {
 		if (getLucanaBufferDataSize() > 0) {
 			String lucanaDataString = displayBufferAscii(getLucanaBufferData());
@@ -253,11 +249,11 @@ public class StreamDataCommLib {
 			return lucanaDataString;
 		} else {
 			System.err.println("Data Buffer is empty!"
-								+ className);
+					+ className);
 			return null;
 		}
 	}
-	
+
 	public void displayLucanaDataAscii(byte[] inputBufferData) {
 		if (inputBufferData.length > 0) {
 			System.out.println("Sunrise --> Ascii values:\n " + displayBufferAscii(inputBufferData,inputBufferData.length));
@@ -266,7 +262,7 @@ public class StreamDataCommLib {
 					+ className);
 		}
 	}
-	
+
 	public void displayLucanaDataRaw() {
 		if (getLucanaBufferDataSize() > 0) {
 			System.out.println("Sunrise --> Raw bytes values:\n " + displayBuffer(getLucanaBufferData()));
@@ -275,7 +271,7 @@ public class StreamDataCommLib {
 					+ className);
 		}
 	}
-	
+
 	public boolean writeLucanaDataToFile(String fileLocation) {
 		boolean success = false;
 
@@ -285,14 +281,14 @@ public class StreamDataCommLib {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+
 		try {
-				out.write(getLucanaBufferData(), 0, getLucanaBufferDataSize());
-				out.close();
-				in.close();
-				System.out.println("Sunrise --> data dumped to file:" + fileLocation );
-				success = true;
-			
+			out.write(getLucanaBufferData(), 0, getLucanaBufferDataSize());
+			out.close();
+			in.close();
+			System.out.println("Sunrise --> data dumped to file:" + fileLocation );
+			success = true;
+
 		} catch (IOException e) {
 			e.printStackTrace();
 			return false;
@@ -300,7 +296,7 @@ public class StreamDataCommLib {
 		return success;
 	}
 
-	
+
 	public void write(String value) {
 		try {
 			System.out.println("Sunrise --> " + value);
@@ -312,6 +308,12 @@ public class StreamDataCommLib {
 		}
 	}
 
+	/**
+	 * Method will attempt to send String only if execute is true
+	 * This is done to avoid sending messages to server if it is not online
+	 * @param execute
+	 * @param value
+	 */
 	public void write(boolean execute, String value) {
 		if (!execute) return;
 		try {
@@ -323,7 +325,7 @@ public class StreamDataCommLib {
 			e.printStackTrace();
 		}
 	}
-	
+
 
 	public String readUntil(String pattern) {
 		int asciiValue; 
@@ -423,7 +425,7 @@ public class StreamDataCommLib {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private String displayBuffer (byte[] buffer) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < buffer.length; i++) {
@@ -472,23 +474,23 @@ public class StreamDataCommLib {
 			buffer[i] = 0;
 		}
 	}
-	
+
 	public static void stringToDom(String xmlSource) 
-	        throws IOException, ParserConfigurationException, SAXException, TransformerException {
-	    // Parse the given input
-	    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-	    DocumentBuilder builder = factory.newDocumentBuilder();
-	    Document doc = builder.parse(new InputSource(new StringReader(xmlSource)));
+			throws IOException, ParserConfigurationException, SAXException, TransformerException {
+		// Parse the given input
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		Document doc = builder.parse(new InputSource(new StringReader(xmlSource)));
 
-	    // Write the parsed document to an xml file
-	    TransformerFactory transformerFactory = TransformerFactory.newInstance();
-	    Transformer transformer = transformerFactory.newTransformer();
-	    DOMSource source = new DOMSource(doc);
+		// Write the parsed document to an xml file
+		TransformerFactory transformerFactory = TransformerFactory.newInstance();
+		Transformer transformer = transformerFactory.newTransformer();
+		DOMSource source = new DOMSource(doc);
 
-	    StreamResult result =  new StreamResult(new File("D:/my-file.xml"));
-	    transformer.transform(source, result);
+		StreamResult result =  new StreamResult(new File("D:/my-file.xml"));
+		transformer.transform(source, result);
 	}
-	
+
 	public String getUsername() {
 		return username;
 	}
