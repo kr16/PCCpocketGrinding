@@ -361,10 +361,10 @@ public class vrsiRepositionTest extends RoboticsAPIApplication {
 					System.out.println("Moving to defect position");
 					currentTCP.move(ptp(startOffsetted).setJointVelocityRel(0.2));
 					if (!airTest) {
-						Frame corrFrame = new Frame (toolPosCorrection(currentTCP));
+						Frame corrFrame = new Frame ();
+						corrFrame = toolPosCorrection(bot.getCurrentCartesianPosition(currentTCP).copy());
 						System.out.println("correction move..." + corrFrame.toString());
-						currentTCP.move(linRel(	corrFrame.getX(), corrFrame.getY(), corrFrame.getZ(), 
-												corrFrame.getAlphaRad(), corrFrame.getBetaRad(), corrFrame.getGammaRad()).setCartVelocity(5));
+						currentTCP.move(lin(corrFrame).setCartVelocity(5));
 						
 						getApplicationControl().halt();
 						
@@ -1119,7 +1119,7 @@ public class vrsiRepositionTest extends RoboticsAPIApplication {
 		return recPositions;
 	}
 
-private Frame toolPosCorrection(ObjectFrame currentTCPpos) {
+private Frame toolPosCorrection(Frame currentTCPpos) {
 		
 		VRSIiiwaCommLib vrsiComm = new VRSIiiwaCommLib("172.31.1.230", 30001, true);
 		if (vrsiComm.setSlideHome(-1)) {
@@ -1136,7 +1136,7 @@ private Frame toolPosCorrection(ObjectFrame currentTCPpos) {
 				double gamma = vrsiData.getRotC();
 				
 				Transformation tcpShift = Transformation.ofDeg(x, y, z, alpha, beta, gamma);
-				Frame vrsiCorrection = currentTCP.copy();
+				Frame vrsiCorrection = currentTCPpos.copy();
 				System.out.println(vrsiCorrection.toString());
 				System.out.println(tcpShift.toString());
 				System.out.println(vrsiCorrection.transform(tcpShift).toString());
