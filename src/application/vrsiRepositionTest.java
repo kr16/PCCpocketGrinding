@@ -1123,7 +1123,7 @@ private Frame toolPosCorrection(ObjectFrame currentTCPpos) {
 		
 		VRSIiiwaCommLib vrsiComm = new VRSIiiwaCommLib("172.31.1.230", 30001, true);
 		if (vrsiComm.setSlideHome(-1)) {
-			ThreadUtil.milliSleep(3000);
+			ThreadUtil.milliSleep(100);
 			if (vrsiComm.scanEmptyFastener("FLU123", 5.6, 1, -1)) {
 				VRSIemptyFastener vrsiData = new VRSIemptyFastener(vrsiComm.getEmptyFastenerData());
 				Frame corrLimits = new Frame(10, 10, 10, 10, 10, 10);
@@ -1136,6 +1136,7 @@ private Frame toolPosCorrection(ObjectFrame currentTCPpos) {
 				double gamma = vrsiData.getRotC();
 				
 				Transformation tcpShift = Transformation.ofDeg(x, y, z, alpha, beta, gamma);
+				System.out.println(tcpShift.toString());
 				Frame vrsiCorrection = currentTCP.copy();
 				return vrsiCorrection.transform(tcpShift);
 				
