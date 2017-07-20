@@ -1161,7 +1161,7 @@ private Frame toolPosCorrection(ObjectFrame currentTCPpos) {
 			ThreadUtil.milliSleep(3000);
 			if (vrsiComm.scanEmptyFastener("FLU123", 5.6, 1, -1)) {
 				VRSIemptyFastener vrsiData = new VRSIemptyFastener(vrsiComm.getEmptyFastenerData());
-				Frame corrLimits = new Frame(10, 5, 5, 5, 5, 5);
+				Frame corrLimits = new Frame(10, 10, 10, 10, 10, 10);
 				checkDataPlausibility(corrLimits, vrsiData);
 				double x = vrsiData.getPosX();
 				double y = vrsiData.getPosY();
