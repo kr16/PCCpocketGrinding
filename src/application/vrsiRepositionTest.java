@@ -1136,8 +1136,10 @@ private Frame toolPosCorrection(ObjectFrame currentTCPpos) {
 				double gamma = vrsiData.getRotC();
 				
 				Transformation tcpShift = Transformation.ofDeg(x, y, z, alpha, beta, gamma);
-				System.out.println(tcpShift.toString());
 				Frame vrsiCorrection = currentTCP.copy();
+				System.out.println(vrsiCorrection.toString());
+				System.out.println(tcpShift.toString());
+				System.out.println(vrsiCorrection.transform(tcpShift).toString());
 				return vrsiCorrection.transform(tcpShift);
 				
 			} else {
