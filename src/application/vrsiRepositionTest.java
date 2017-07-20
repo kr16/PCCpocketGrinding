@@ -164,7 +164,7 @@ public class vrsiRepositionTest extends RoboticsAPIApplication {
 		pressCounter = 0;
 		loopExitCondition = false;
 		serverOnline = false;
-		
+
 		// TimerThread = new Thread(forceTimer);
 		logFile = null;
 
@@ -179,11 +179,11 @@ public class vrsiRepositionTest extends RoboticsAPIApplication {
 		this.setMaxForceExceeded(false);
 		airTest = false;
 		recPositions = new ArrayList<Frame>();
-		
+
 		////////////////////Laptop IP & port running control app /////////////////
 		iiwaDataStream = new StreamDataCommLib("172.31.1.230", 30008); 
 		//////////////////////////////////////////////////////////////////////////
-		
+
 	}
 
 	@Override
@@ -341,14 +341,14 @@ public class vrsiRepositionTest extends RoboticsAPIApplication {
 				getObserverManager().waitFor(HandIO.invert());		//wait for NOT HandIO condition
 				System.out.println("Press button to start");
 				getObserverManager().waitFor(HandIO);				//wait for HandIO  Press...
-				
+
 				//below is all in one solution (no AbstarctIO declaration or BooleanIOCOndition
 				//KRL version of WAITFOR($IN[3]) 
 				//getObserverManager().waitFor(new BooleanIOCondition(beckhoffIO.getInpu0t("EK1100_DI03"), true));
-				
+
 				getObserverManager().waitFor(HandIO.invert());		//... and release to start going
 				ThreadUtil.milliSleep(1000);						// after one second delay
-				
+
 				for (Frame position: recordedPositions) {
 					currentTCP.move(ptp(posAppRightCoupon).setJointVelocityRel(0.2));
 
@@ -361,11 +361,11 @@ public class vrsiRepositionTest extends RoboticsAPIApplication {
 					System.out.println("Moving to defect position");
 					currentTCP.move(ptp(startOffsetted).setJointVelocityRel(0.2));
 					if (!airTest) {
-						Frame corrFrame = toolPosCorrection(bot.getCurrentCartesianPosition(currentTCP).copy());
+						Frame corrFrame = toolPosCorrection(bot.getCurrentCartesianPosition(currentTCP).copy(), "FLU123", 5.6, 1, -1);
 						//corrFrame = toolPosCorrection(bot.getCurrentCartesianPosition(currentTCP).copy());
 						System.out.println("correction move..." + corrFrame.toString());
 						currentTCP.move(lin(corrFrame).setCartVelocity(1));
-						
+
 						getApplicationControl().halt();
 
 					} else {
@@ -1066,7 +1066,7 @@ public class vrsiRepositionTest extends RoboticsAPIApplication {
 					System.out.println("Position " + recPositions.size() + " recorded");
 					serverOnline = iiwaDataStream.login(1);
 					iiwaDataStream.write(serverOnline, "POS;" + recPositions.size() + ";" + handPos + ";ETX");
-	
+
 				} else {		
 
 					System.out.println("Manual Grinding Done");
@@ -1087,12 +1087,24 @@ public class vrsiRepositionTest extends RoboticsAPIApplication {
 		return recPositions;
 	}
 
-private Frame toolPosCorrection(Frame currentTCPpos) {
-		
+	
+	/**
+	 * Method attempts VRSI connection , set slide home, pull reposition/normalization data for empty Fastener and generate offset 
+	 * 
+	 * @param currentTCPpos - Frame current bot position to which offset will be applied
+	 * @param holeID		- String hole ID 
+	 * @param holeDiameter	- double expected hole diameter
+	 * @param fastenerType  - fastener type 1 = Flat Head, 2 = Star Head, 3 = Blind
+	 * @param timeout		- timeout for scanning operation in milliseconds
+	 * @return				- Frame bot position with offset applied
+	 * 						- null no data from VRSI
+	 */
+	private Frame toolPosCorrection(Frame currentTCPpos, String holeID, double holeDiameter, int fastenerType, long timeout) {
+
 		VRSIiiwaCommLib vrsiComm = new VRSIiiwaCommLib("172.31.1.230", 30001, true);
 		if (vrsiComm.setSlideHome(-1)) {
 			ThreadUtil.milliSleep(100);
-			if (vrsiComm.scanEmptyFastener("FLU123", 5.6, 1, -1)) {
+			if (vrsiComm.scanEmptyFastener(holeID, holeDiameter, fastenerType, timeout)) {
 				VRSIemptyFastener vrsiData = new VRSIemptyFastener(vrsiComm.getEmptyFastenerData());
 				Frame corrLimits = new Frame(10, 10, 10, 10, 10, 10);
 				checkDataPlausibility(corrLimits, vrsiData);
@@ -1102,11 +1114,11 @@ private Frame toolPosCorrection(Frame currentTCPpos) {
 				double alpha = vrsiData.getRotA();
 				double beta = vrsiData.getRotB();
 				double gamma = vrsiData.getRotC();
-				
+
 				Transformation tcpShift = Transformation.ofDeg(x, y, z, alpha, beta, gamma);
 				Frame vrsiCorrection = currentTCPpos.copy();
 				return vrsiCorrection.transform(tcpShift);
-				
+
 			} else {
 				return null; //no data from vrsi
 			}
@@ -1123,17 +1135,17 @@ private Frame toolPosCorrection(Frame currentTCPpos) {
 				Math.abs(vrsiCorrection.getRotB()) > Math.toDegrees(correctionLimits.getBetaRad())	||
 				Math.abs(vrsiCorrection.getRotC()) > Math.toDegrees(correctionLimits.getGammaRad()) 	) {
 			System.err.println("Data Plausability Error! VRSI positional data: " + vrsiCorrection.toString() + 
-								"\n\nLimits: " + correctionLimits.toString());
+					"\n\nLimits: " + correctionLimits.toString());
 			return false;
 		}
 		return true;
 	}
-	
-private boolean checkDataPlausibility(VRSIfillFastener vrsiCorrection){
-		
+
+	private boolean checkDataPlausibility(VRSIfillFastener vrsiCorrection){
+
 		return false;
 	}
-	
+
 	public void depthMeasure(Frame atPart) {
 		// this is not really working as robot display TCP position using
 		// robroot as reference
