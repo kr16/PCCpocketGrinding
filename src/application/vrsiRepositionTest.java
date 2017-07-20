@@ -1161,8 +1161,8 @@ private Frame toolPosCorrection(ObjectFrame currentTCPpos) {
 			ThreadUtil.milliSleep(3000);
 			if (vrsiComm.scanEmptyFastener("FLU123", 5.6, 1, -1)) {
 				VRSIemptyFastener vrsiData = new VRSIemptyFastener(vrsiComm.getEmptyFastenerData());
-				Frame corrLimits = new Frame(5, 5, 5, 5, 5, 5);
-				checkDataPlausibility(currentTCP.copy(), corrLimits, vrsiData);
+				Frame corrLimits = new Frame(10, 5, 5, 5, 5, 5);
+				checkDataPlausibility(corrLimits, vrsiData);
 				double x = vrsiData.getPosX();
 				double y = vrsiData.getPosY();
 				double z = vrsiData.getPosZ();
@@ -1182,7 +1182,7 @@ private Frame toolPosCorrection(ObjectFrame currentTCPpos) {
 		}
 	}
 
-	private boolean checkDataPlausibility(Frame currentPos, Frame correctionLimits, VRSIemptyFastener vrsiCorrection){
+	private boolean checkDataPlausibility(Frame correctionLimits, VRSIemptyFastener vrsiCorrection){
 		if (	Math.abs(vrsiCorrection.getPosX()) > correctionLimits.getX() ||
 				Math.abs(vrsiCorrection.getPosY()) > correctionLimits.getY() ||
 				Math.abs(vrsiCorrection.getPosZ()) > correctionLimits.getZ() ||
