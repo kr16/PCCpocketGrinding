@@ -130,6 +130,7 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 	private AbstractIO pbUserKeysHGteachPos;
 	private boolean maxForceExceeded;
 	private boolean loopExitCondition;
+	private boolean serverOnline;
 	private SimpleMode shape;
 	ArrayList<Frame> recPositions;
 	private IMotionContainer positionHoldContainer;
@@ -159,7 +160,8 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 		pbUserKeysHGteachPos = beckhoffIO.getOutput("EK1100_DO03"); //push button on grinding guard
 		pressCounter = 0;
 		loopExitCondition = false;
-
+		serverOnline = false;
+		
 		// TimerThread = new Thread(forceTimer);
 		logFile = null;
 
@@ -1115,8 +1117,9 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 				if (!manualGrinding) {				//no manual grinding with robot
 					recPositions.add(handPos);		//add position to array
 					System.out.println("Position " + recPositions.size() + " recorded");
-					iiwaDataStream.login();
-					iiwaDataStream.sendPosition(handPos, recPositions.size());
+					serverOnline = iiwaDataStream.login(1);
+					iiwaDataStream.write(serverOnline, "POS;" + recPositions.size() + ";" + handPos + ";ETX");
+					//iiwaDataStream.sendPosition(handPos, recPositions.size());
 
 					//wait - delayTime value - for press on pushbutton to finish recording
 					//motions are blocked for that time
@@ -1144,8 +1147,8 @@ public class GrindingVer03 extends RoboticsAPIApplication {
 
 				System.err.println("Done recording positions. Total recorded: " + recPositions.size());
 				recPositionDone = true;
-				iiwaDataStream.login();
-				iiwaDataStream.write("EOT");
+				iiwaDataStream.login(1);
+				iiwaDataStream.write(serverOnline, "EOT");
 			}
 		}
 		return recPositions;

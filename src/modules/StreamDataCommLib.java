@@ -6,6 +6,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import com.kuka.roboticsAPI.geometricModel.Frame;
+import com.sun.org.omg.CORBA.ExceptionDescription;
 
 //import modules.Common.ECognexCommand;
 //import modules.Common.ECognexTrigger;
@@ -24,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import javax.activation.MimeTypeParameterList;
+import javax.security.auth.login.LoginException;
 import javax.swing.plaf.SliderUI;
 import javax.xml.*;
 import javax.xml.parsers.DocumentBuilder;
@@ -91,20 +93,21 @@ public class StreamDataCommLib {
 	 * 	true if connection successful 
 	 *  false if not 
 	 */
-	public boolean login() {
+	private boolean login() {
+		if (telnet.isConnected()) return true;
+		
 		System.out.printf("Sunrise --> Opening connection to SimpleDataServer at: " + getServerAddress() + " port: " + getServerPort() + "...");
 		try {
 			// Connect to the server
+			telnet.setConnectTimeout(3000);
 			telnet.connect(getServerAddress(), getServerPort());
 			//telnet.connect(server, 10023);
 
 			// Get input and output stream 
 			in = telnet.getInputStream();
 			out = new PrintStream(telnet.getOutputStream());
-
-			//LUCANA does not respond with anything 
 			
-			System.out.printf("Sunrise --> ...established");
+			System.out.printf("Sunrise --> ...established \n");
 			return true;
 		}
 		catch (Exception e) {
@@ -117,47 +120,93 @@ public class StreamDataCommLib {
 		}
 	}
 
-
+	/**
+	 * Attempt to open socket connection  
+	 * @param numberOfAttempts - at least 1 is required for correct login attempt
+	 * @return 
+	 *  true if connection successful 
+	 *  false otherwise 
+	 */
+	public boolean login(int numberOfAttempts) {
+		if (numberOfAttempts <= 0) {
+			System.err.println("At least one login attempt required, current value: "  + numberOfAttempts);
+			return false;
+		}
+		int counter = 0;
+		while (counter < numberOfAttempts) {
+			if (!login()) {
+				counter++;
+			} else {
+				return true;
+			}
+		}
+		System.out.println();
+		System.out.println("");
+		try {
+			throw new LoginException("Failed " + counter + " login attempts <StreamDataCommLib.login()>" );
+		} catch (LoginException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 	public void disconnect() {
 		if (telnet.isConnected()) {
 			try {
 				telnet.disconnect();
-				System.out.println("Sunrise --> Lucana disconnected");
+				System.out.println("Sunrise --> Server disconnected");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else {
-			System.out.println("Sunrise --> No Lucana connection");
+			System.out.println("Sunrise --> No server connection");
 		}
 	}
 
 
 	/**
-	 * Read IIWA response after command was send.
-	 * Method return array of bytes with Lucana response.
+	 * Read device response after command was send.
+	 * Method returns array of bytes.
 	 * Use other methods to process this data. 
 	 * 
 	 * @return byte[] array
 	 * @return null if array is not populated (no data)
 	 */
-	public byte[] getCommandResponse() {
+	public byte[] getServerCommandResponseByte() {
 		byte[] localDataBuffer = new byte[16 * 1024];
-		
+
 		try {		
-				int BufferSize = in.read(localDataBuffer);
-				this.setLucanaBufferDataSize(BufferSize);
+			int BufferSize = in.read(localDataBuffer);
+			this.setLucanaBufferDataSize(BufferSize);
+			if (getLucanaBufferDataSize() >= 0) {
 				this.iiwaBufferData = new byte[getLucanaBufferDataSize()];
-				
+
 				for (int i = 0; i < getLucanaBufferDataSize(); i++) {
 					this.iiwaBufferData[i] = localDataBuffer[i];
 				}
+			} else {
+				System.err.println("Server response Byte buffer value: " + getLucanaBufferDataSize());
+			}
 				
 		} catch (IOException e) {
 			//e.printStackTrace();
 			return null;
 		}
 		return getLucanaBufferData();
+	}
+	
+	/**
+	 * Read device response after command was send.
+	 * Method returns array of bytes decoded to ASCII String. 
+	 * 
+	 * @return String 
+	 * @return null if array is not populated (no data)
+	 */
+	public String getServerCommandResponseString() {
+		this.getServerCommandResponseByte();
+		return displayServerDataAscii();
 	}
 	
 	@Override
@@ -197,10 +246,10 @@ public class StreamDataCommLib {
 		this.write(posMsg);
 	}
 	
-	public String displayLucanaDataAscii() {
+	public String displayServerDataAscii() {
 		if (getLucanaBufferDataSize() > 0) {
 			String lucanaDataString = displayBufferAscii(getLucanaBufferData());
-			System.out.println("Sunrise --> Ascii values response:\n " + lucanaDataString);
+			System.out.println("Sunrise --> Ascii values response: " + lucanaDataString);
 			return lucanaDataString;
 		} else {
 			System.err.println("Data Buffer is empty!"
@@ -254,7 +303,7 @@ public class StreamDataCommLib {
 	
 	public void write(String value) {
 		try {
-			//System.out.println("Sunrise --> " + value);
+			System.out.println("Sunrise --> " + value);
 			out.println(value);
 			out.flush();
 		}
@@ -263,6 +312,18 @@ public class StreamDataCommLib {
 		}
 	}
 
+	public void write(boolean execute, String value) {
+		if (!execute) return;
+		try {
+			System.out.println("Sunrise --> " + value);
+			out.println(value);
+			out.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 
 	public String readUntil(String pattern) {
 		int asciiValue; 

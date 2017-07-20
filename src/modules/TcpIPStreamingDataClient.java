@@ -45,16 +45,16 @@ public class TcpIPStreamingDataClient extends RoboticsAPIApplication {
 	@Override
 	public void run() {
 		
-		iiwaDataStream.login();
+		iiwaDataStream.login(1);
 		iiwaDataStream.sendPosition(bot.getCurrentCartesianPosition(bot.getFlange()), 1);
-		iiwaDataStream.login();
+		iiwaDataStream.login(1);
 		iiwaDataStream.sendPosition(bot.getCurrentCartesianPosition(bot.getFlange()), 2);
-		iiwaDataStream.login();
+		iiwaDataStream.login(1);
 		iiwaDataStream.sendPosition(bot.getCurrentCartesianPosition(bot.getFlange()), 3);
-		iiwaDataStream.login();
+		iiwaDataStream.login(1);
 		iiwaDataStream.sendPosition(bot.getCurrentCartesianPosition(bot.getFlange()), 4);
 		iiwaDataStream.disconnect();
-		iiwaDataStream.login();
+		iiwaDataStream.login(1);
 		iiwaDataStream.write("EOT");
 		iiwaDataStream.disconnect();
 		getApplicationControl().halt();
